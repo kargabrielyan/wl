@@ -1,26 +1,26 @@
-// Информация о компании PIDEH Armenia
+// Информация о компании Witleybel Online Shop
 export const companyInfo = {
-  name: 'PIDEH Armenia',
-  description: 'Армянские пиде - новый вкус. Традиционная форма с современными начинками.',
+  name: 'Witleybel Online Shop',
+  description: 'Современный интернет-магазин с широким ассортиментом товаров. Качество, надежность, быстрая доставка.',
   addresses: [
     {
-      name: 'Филиал 1',
-      address: 'ул. Зоравар Андраник 151/2',
+      name: 'Главный офис',
+      address: 'ул. Примерная 123',
       type: 'main'
     },
     {
-      name: 'Филиал 2', 
-      address: 'ул. Езник Кохбаци 83',
+      name: 'Склад', 
+      address: 'ул. Складская 456',
       type: 'secondary'
     }
   ],
-  phone: '+374 95-044-888',
-  email: 'info@pideh.am',
-  workingHours: 'Пн-Вс: 10:00 - 22:00',
+  phone: '+7 (999) 123-45-67',
+  email: 'info@witleybel.com',
+  workingHours: 'Пн-Вс: 09:00 - 21:00',
   socialMedia: {
-    facebook: 'https://www.facebook.com/PIDEH.Armenia/',
-    instagram: 'https://www.instagram.com/pideh.armenia/',
-    website: '' // Добавьте, если есть
+    facebook: 'https://www.facebook.com/witleybel/',
+    instagram: 'https://www.instagram.com/witleybel/',
+    website: 'https://witleybel.com'
   }
 }
 
