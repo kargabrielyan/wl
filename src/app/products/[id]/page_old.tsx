@@ -1,12 +1,11 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowLeft, Star, Clock, MapPin, Phone, Zap } from 'lucide-react'
+import { ArrowLeft, ShoppingCart, Plus, Minus, Star, Clock, MapPin, Phone, Zap } from 'lucide-react'
 import { Product } from '@/types'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import ProductCard from '@/components/ProductCard'
-import ProductQuantityControls from '@/components/ProductQuantityControls'
 import { prisma } from '@/lib/prisma'
 
 // Server Component - данные загружаются на сервере
@@ -77,9 +76,144 @@ export default async function ProductPage({
       })
     ])
 
-  if (!product) {
+    if (!product) {
       notFound()
     }
+
+  const handleAddToCart = useCallback(() => {
+    if (product) {
+      addItem(product, quantity)
+      setAddedToCart(true)
+      setTimeout(() => setAddedToCart(false), 2000)
+    }
+  }, [product, quantity, addItem])
+
+  // Мемоизируем похожие товары
+  const memoizedSimilarProducts = useMemo(() => {
+    return similarProducts
+  }, [similarProducts])
+
+  // Компонент скелетона для страницы товара
+  const ProductPageSkeleton = () => (
+    <div className="min-h-screen bg-gray-50" style={{ overflow: 'auto' }}>
+      <Header />
+      
+      {/* Breadcrumb Skeleton */}
+      <div className="bg-white pt-20 md:pt-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex items-center space-x-2">
+            <div className="h-4 bg-gray-200 rounded w-16 animate-pulse"></div>
+            <span className="text-gray-400">/</span>
+            <div className="h-4 bg-gray-200 rounded w-12 animate-pulse"></div>
+            <span className="text-gray-400">/</span>
+            <div className="h-4 bg-gray-200 rounded w-32 animate-pulse"></div>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Back Button Skeleton */}
+        <div className="h-6 bg-gray-200 rounded w-32 mb-8 animate-pulse"></div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+          {/* Product Image Skeleton */}
+          <div className="space-y-4">
+            <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+              <div className="h-96 bg-gray-200 animate-pulse"></div>
+            </div>
+          </div>
+
+          {/* Product Info Skeleton */}
+          <div className="space-y-8">
+            <div>
+              <div className="h-12 bg-gray-200 rounded mb-4 animate-pulse"></div>
+              <div className="h-6 bg-gray-200 rounded mb-6 animate-pulse"></div>
+              <div className="h-6 bg-gray-200 rounded w-32 mb-6 animate-pulse"></div>
+              <div className="h-10 bg-gray-200 rounded w-48 animate-pulse"></div>
+            </div>
+
+            <div>
+              <div className="h-6 bg-gray-200 rounded w-32 mb-4 animate-pulse"></div>
+              <div className="flex flex-wrap gap-3">
+                {[1,2,3,4,5].map(i => (
+                  <div key={i} className="h-8 bg-gray-200 rounded-full w-20 animate-pulse"></div>
+                ))}
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              <div className="h-12 bg-gray-200 rounded animate-pulse"></div>
+              <div className="h-14 bg-gray-200 rounded animate-pulse"></div>
+              <div className="h-14 bg-gray-200 rounded animate-pulse"></div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {[1,2,3].map(i => (
+                <div key={i} className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+                  <div className="h-16 bg-gray-200 rounded animate-pulse"></div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Similar Products Skeleton */}
+        <section className="mb-16">
+          <div className="h-8 bg-gray-200 rounded w-48 mb-8 animate-pulse"></div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[1,2,3,4].map(i => (
+              <div key={i} className="bg-white rounded-2xl shadow-lg overflow-hidden">
+                <div className="h-48 bg-gray-200 animate-pulse"></div>
+                <div className="p-4">
+                  <div className="h-6 bg-gray-200 rounded mb-2 animate-pulse"></div>
+                  <div className="h-4 bg-gray-200 rounded mb-3 animate-pulse"></div>
+                  <div className="flex justify-between items-center">
+                    <div className="h-6 bg-gray-200 rounded w-16 animate-pulse"></div>
+                    <div className="h-8 w-8 bg-gray-200 rounded-full animate-pulse"></div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
+
+      {/* Hide Footer on Mobile */}
+      <div className="hidden md:block">
+      <Footer />
+      </div>
+    </div>
+  )
+
+  if (loading) {
+    return <ProductPageSkeleton />
+  }
+
+  if (!product) {
+    return (
+      <div className="min-h-screen bg-gray-50" style={{ overflow: 'auto' }}>
+        <Header />
+        <div className="flex items-center justify-center py-20">
+          <div className="text-center">
+            <div className="text-6xl mb-4">😔</div>
+            <h1 className="text-3xl font-bold text-gray-900 mb-4">Товар не найден</h1>
+            <p className="text-gray-600 mb-6">Возможно, товар был удален или не существует</p>
+            <Link 
+              href="/products" 
+              className="inline-flex items-center bg-orange-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-orange-600 transition-colors"
+            >
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Вернуться к каталогу
+            </Link>
+          </div>
+        </div>
+        {/* Hide Footer on Mobile */}
+      <div className="hidden md:block">
+        <Footer />
+      </div>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-gray-50" style={{ overflow: 'auto' }}>
@@ -113,6 +247,8 @@ export default async function ProductPage({
           <div className="space-y-4">
             <div className="bg-white rounded-2xl shadow-lg overflow-visible group relative">
               <div className="relative h-96 overflow-visible">
+                {/* Transparent background - no gradient */}
+                
                 {/* 3D Product Container */}
                 {product.image && product.image !== 'no-image' ? (
                   <div className="relative w-full h-full">
@@ -126,21 +262,28 @@ export default async function ProductPage({
                         }}
                       />
                       
-                        {/* Main 3D Product Image - Оптимизированное изображение */}
-                        <Image
-                          src={product.image}
-                          alt={product.name}
-                          fill
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          priority
-                          className="relative w-full h-full object-contain group-hover:scale-125 group-hover:-translate-y-3 group-hover:rotate-2 transition-all duration-700 ease-out"
-                          style={{
-                            filter: 'none',
-                            transform: 'perspective(1000px) rotateX(5deg) rotateY(-2deg)',
-                            imageRendering: 'crisp-edges',
-                            imageRendering: '-webkit-optimize-contrast',
-                          }}
-                        />
+                      {/* Main 3D Product Image */}
+                      <Image
+                        src={product.image}
+                        alt={product.name}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        priority
+                        className="relative w-full h-full object-contain group-hover:scale-125 group-hover:-translate-y-3 group-hover:rotate-2 transition-all duration-700 ease-out"
+                        style={{
+                          filter: 'none',
+                          transform: 'perspective(1000px) rotateX(5deg) rotateY(-2deg)',
+                          imageRendering: 'crisp-edges',
+                          imageRendering: '-webkit-optimize-contrast',
+                        }}
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none';
+                          const nextElement = e.currentTarget.nextElementSibling as HTMLElement;
+                          if (nextElement) {
+                            nextElement.style.display = 'flex';
+                          }
+                        }}
+                      />
                     </div>
                   </div>
                 ) : (
@@ -304,9 +447,42 @@ export default async function ProductPage({
               </div>
             </div>
 
-              {/* Quantity and Add to Cart - Client Component */}
+            {/* Quantity and Add to Cart */}
             <div className="space-y-6">
-                <ProductQuantityControls product={product} />
+              <div className="flex items-center space-x-6">
+                <label className="text-lg font-medium text-gray-900">Количество:</label>
+                <div className="flex items-center border-2 border-gray-300 rounded-xl overflow-hidden bg-white shadow-sm">
+                  <button
+                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                    className="p-3 hover:bg-orange-100 transition-colors text-gray-700 hover:text-orange-600"
+                  >
+                    <Minus className="h-5 w-5" />
+                  </button>
+                  <span className="px-6 py-3 min-w-[4rem] text-center text-lg font-semibold bg-gray-50 text-gray-900">{quantity}</span>
+                  <button
+                    onClick={() => setQuantity(quantity + 1)}
+                    className="p-3 hover:bg-orange-100 transition-colors text-gray-700 hover:text-orange-600"
+                  >
+                    <Plus className="h-5 w-5" />
+                  </button>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <button
+                  onClick={handleAddToCart}
+                  className={`w-full px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 flex items-center justify-center space-x-3 ${
+                    addedToCart
+                      ? 'bg-green-500 text-white scale-105 shadow-lg'
+                      : 'bg-orange-500 text-white hover:bg-orange-600 hover:scale-105 shadow-lg hover:shadow-xl'
+                  }`}
+                >
+                  <ShoppingCart className="h-6 w-6" />
+                  <span>
+                    {addedToCart ? '✓ Добавлено в корзину!' : 'Добавить в корзину'}
+                  </span>
+                </button>
+              </div>
             </div>
 
             {/* Product Info Cards */}
@@ -344,8 +520,9 @@ export default async function ProductPage({
           </div>
         </div>
 
+
         {/* Similar Products */}
-          {similarProducts.length > 0 && (
+        {memoizedSimilarProducts.length > 0 && (
           <section className="mb-16">
             <div className="flex items-center space-x-4 mb-8">
               <h2 className="text-3xl font-bold text-gray-900">
@@ -362,10 +539,11 @@ export default async function ProductPage({
             </div>
             
             <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-                {similarProducts.map((similarProduct) => (
+              {memoizedSimilarProducts.map((similarProduct) => (
                 <ProductCard
                   key={similarProduct.id}
                   product={similarProduct}
+                  onAddToCart={addItem}
                   variant="compact"
                 />
               ))}
@@ -379,10 +557,5 @@ export default async function ProductPage({
       <Footer />
       </div>
     </div>
-    )
-  } catch (error) {
-    console.error('Error loading product page:', error)
-    notFound()
-  }
+  )
 }
-

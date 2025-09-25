@@ -55,9 +55,10 @@ export async function GET(request: NextRequest) {
       }
     })
 
-    // Добавляем кэширование на 5 минут
+    // Улучшенное кэширование на 1 час
     const response = NextResponse.json(products)
-    response.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=600')
+    response.headers.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=7200')
+    response.headers.set('CDN-Cache-Control', 'public, s-maxage=3600')
     
     return response
   } catch (error) {

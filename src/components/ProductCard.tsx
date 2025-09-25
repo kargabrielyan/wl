@@ -2,6 +2,7 @@
 
 import { memo } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { ShoppingCart, Star, Zap } from 'lucide-react'
 import { Product } from '@/types'
 
@@ -60,10 +61,12 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
                 }}
               /> */}
               
-              {/* Main 3D Product Image - Enhanced mobile app style */}
-              <img 
+              {/* Main 3D Product Image - Enhanced mobile app style with Next.js Image */}
+              <Image 
                 src={product.image} 
                 alt={product.name}
+                fill
+                sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 20vw"
                 className="relative w-full h-full object-contain group-hover:scale-110 group-hover:-translate-y-2 group-hover:rotate-1 transition-all duration-500 ease-out"
                 style={{
                   filter: 'none',
@@ -72,10 +75,14 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
                   imageRendering: '-webkit-optimize-contrast',
                 }}
                 loading="lazy"
+                quality={85}
                 onError={(e) => {
                   console.error('Ошибка загрузки изображения:', product.image);
                   e.currentTarget.style.display = 'none';
-                  e.currentTarget.nextElementSibling.style.display = 'flex';
+                  const nextElement = e.currentTarget.nextElementSibling as HTMLElement;
+                  if (nextElement) {
+                    nextElement.style.display = 'flex';
+                  }
                 }}
               />
               
