@@ -2,43 +2,12 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { Menu, X } from 'lucide-react'
-import { useState, useEffect } from 'react'
-import { usePathname } from 'next/navigation'
+import { Search } from 'lucide-react'
+import { useState } from 'react'
 
 export default function MobileHeader() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const pathname = usePathname()
-
-  // Блокировка скролла когда меню открыто
-  useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = ''
-    }
-    
-    // Очистка при размонтировании
-    return () => {
-      document.body.style.overflow = ''
-    }
-  }, [isMenuOpen])
-
-  // Функция для определения активной ссылки
-  const isActive = (path: string) => {
-    if (path === '/') {
-      return pathname === '/'
-    }
-    return pathname.startsWith(path)
-  }
-
-  // Навигационные ссылки
-  const navLinks = [
-    { href: '/', label: 'Главная' },
-    { href: '/products', label: 'Меню' },
-    { href: '/about', label: 'О нас' },
-    { href: '/contact', label: 'Контакты' },
-  ]
+  const [searchQuery, setSearchQuery] = useState('')
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
 
   return (
     <header className="bg-white/95 backdrop-blur-xl shadow-lg fixed top-0 left-0 right-0 z-[100] border-b border-gray-200" style={{ position: 'fixed' }}>
@@ -59,35 +28,47 @@ export default function MobileHeader() {
             </Link>
           </div>
 
-          {/* Mobile Menu Button - Simple and visible */}
+          {/* Mobile Search Button */}
           <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            onClick={() => setIsSearchOpen(!isSearchOpen)}
             className="p-3 text-gray-900 hover:text-orange-500 hover:bg-orange-50 rounded-xl transition-all duration-300 active:scale-95"
           >
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            <Search className="h-5 w-5" />
           </button>
         </div>
 
-        {/* Mobile Navigation Menu - App Style dropdown */}
-        {isMenuOpen && (
+        {/* Mobile Search Bar */}
+        {isSearchOpen && (
           <div className="absolute top-full left-0 right-0 bg-white/95 backdrop-blur-xl shadow-2xl border-t border-gray-200 z-[100]">
-            <nav className="py-3">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`
-                    block px-6 py-4 text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-all duration-300 font-medium
-                    ${isActive(link.href) ? 'bg-orange-50 text-orange-600 border-r-4 border-orange-500' : ''}
-                  `}
-                  onClick={() => setIsMenuOpen(false)}
+            <div className="p-4">
+              <div className="flex gap-3">
+                <div className="relative flex-1">
+                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-500" />
+                  <input
+                    type="text"
+                    placeholder="Поиск по меню..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-2xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-base text-gray-900 placeholder-gray-500 bg-gray-50 transition-all duration-300 shadow-sm hover:shadow-md focus:bg-white"
+                    autoFocus
+                  />
+                </div>
+                <button 
+                  onClick={() => {
+                    if (searchQuery.trim()) {
+                      // Перенаправляем на страницу продуктов с поисковым запросом
+                      window.location.href = `/products?search=${encodeURIComponent(searchQuery)}`
+                    }
+                  }}
+                  className="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl flex items-center justify-center hover:from-orange-600 hover:to-red-600 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
                 >
-                  {link.label}
-                </Link>
-              ))}
-            </nav>
+                  <Search className="w-6 h-6 text-white" />
+                </button>
+              </div>
+            </div>
           </div>
         )}
+
       </div>
     </header>
   )

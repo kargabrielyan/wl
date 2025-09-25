@@ -33,7 +33,7 @@ export default function CartPage() {
         <Header />
         
         {/* Отступ для fixed хедера */}
-        <div className="h-24 md:h-20"></div>
+        <div className="h-24 lg:h-20"></div>
         
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="text-center">
@@ -54,7 +54,10 @@ export default function CartPage() {
           </div>
         </div>
         
-        <Footer />
+        {/* Hide Footer on Mobile and Tablet */}
+        <div className="hidden lg:block">
+          <Footer />
+        </div>
       </div>
     )
   }
@@ -64,12 +67,12 @@ export default function CartPage() {
       <Header />
       
       {/* Отступ для fixed хедера */}
-      <div className="h-24 md:h-20"></div>
+      <div className="h-24 lg:h-20"></div>
       
       {/* Mobile App Style Container */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-8 pb-20 md:pb-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 lg:py-8 pb-20 lg:pb-8">
         {/* Mobile Header */}
-        <div className="md:hidden mb-6">
+        <div className="lg:hidden mb-6">
           <div className="flex items-center justify-between mb-4">
             <Link 
               href="/products"
@@ -90,7 +93,7 @@ export default function CartPage() {
         </div>
 
         {/* Desktop Header */}
-        <div className="hidden md:flex items-center justify-between mb-8">
+        <div className="hidden lg:flex items-center justify-between mb-8">
           <div className="flex items-center space-x-4">
             <Link 
               href="/products"
@@ -114,7 +117,7 @@ export default function CartPage() {
         </div>
 
         {/* Mobile Layout */}
-        <div className="md:hidden">
+        <div className="lg:hidden">
           {/* Mobile Cart Items */}
           <div className="mb-6">
             <h2 className="text-lg font-semibold text-gray-900 mb-4 px-2">
@@ -205,7 +208,7 @@ export default function CartPage() {
         </div>
 
         {/* Desktop Layout */}
-        <div className="hidden md:grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="hidden lg:grid grid-cols-1 xl:grid-cols-3 gap-8">
           {/* Cart Items */}
           <div className="lg:col-span-2">
             <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
@@ -338,7 +341,7 @@ export default function CartPage() {
         </div>
 
         {/* Mobile Order Summary */}
-        <div className="md:hidden">
+        <div className="lg:hidden">
           <div className="bg-white rounded-2xl shadow-lg p-6 mb-6">
             <h2 className="text-lg font-semibold text-gray-900 mb-4">Итого</h2>
             
@@ -378,8 +381,8 @@ export default function CartPage() {
         </div>
       </div>
       
-      {/* Hide Footer on Mobile */}
-      <div className="hidden md:block">
+      {/* Hide Footer on Mobile and Tablet */}
+      <div className="hidden lg:block">
         <Footer />
       </div>
     </div>

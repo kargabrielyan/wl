@@ -86,8 +86,8 @@ export default function AdminDashboard() {
       <Header />
       
       {/* Отступ для fixed хедера */}
-      <div className="md:hidden h-24"></div>
-      <div className="hidden md:block h-24"></div>
+      <div className="lg:hidden h-24"></div>
+      <div className="hidden lg:block h-24"></div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
@@ -222,7 +222,10 @@ export default function AdminDashboard() {
 
       </div>
       
-      <Footer />
+      {/* Hide Footer on Mobile and Tablet */}
+      <div className="hidden lg:block">
+        <Footer />
+      </div>
     </div>
   )
 }

@@ -384,8 +384,8 @@ export default async function OptimizedProductPage({
           )}
         </div>
 
-        {/* Hide Footer on Mobile */}
-        <div className="hidden md:block">
+        {/* Hide Footer on Mobile and Tablet */}
+        <div className="hidden lg:block">
           <Footer />
         </div>
       </div>

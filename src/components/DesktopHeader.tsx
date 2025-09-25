@@ -2,8 +2,9 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { ShoppingCart, User, LogOut } from 'lucide-react'
+import { ShoppingCart, User, LogOut, Search } from 'lucide-react'
 import { usePathname } from 'next/navigation'
+import { useState } from 'react'
 import { useCart } from '@/hooks/useCart'
 import { useHydration } from '@/hooks/useHydration'
 import { useSession, signOut } from 'next-auth/react'
@@ -13,6 +14,7 @@ export default function DesktopHeader() {
   const { getTotalItems } = useCart()
   const { data: session, status } = useSession()
   const pathname = usePathname()
+  const [searchQuery, setSearchQuery] = useState('')
 
   // Функция для определения активной ссылки
   const isActive = (path: string) => {
@@ -74,6 +76,25 @@ export default function DesktopHeader() {
               </Link>
             ))}
           </nav>
+
+          {/* Search Bar */}
+          <div className="flex-1 max-w-md mx-8">
+            <div className="relative">
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-500" />
+              <input
+                type="text"
+                placeholder="Поиск по меню..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter' && searchQuery.trim()) {
+                    window.location.href = `/products?search=${encodeURIComponent(searchQuery)}`
+                  }
+                }}
+                className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm text-gray-900 placeholder-gray-500 bg-gray-50 transition-all duration-300 shadow-sm hover:shadow-md focus:bg-white"
+              />
+            </div>
+          </div>
 
           {/* Right side */}
           <div className="flex items-center space-x-4">

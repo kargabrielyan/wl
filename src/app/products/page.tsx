@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useMemo, useCallback, useRef } from 'react'
+import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { Search, Filter, ShoppingCart } from 'lucide-react'
 import { useCart } from '@/hooks/useCart'
@@ -10,6 +11,7 @@ import Footer from '@/components/Footer'
 import ProductCard from '@/components/ProductCard'
 
 export default function ProductsPage() {
+  const searchParams = useSearchParams()
   const [products, setProducts] = useState<Product[]>([])
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([])
   const [categories, setCategories] = useState<Category[]>([])
@@ -79,6 +81,16 @@ export default function ProductsPage() {
     }
     loadData()
   }, [])
+
+  // Обработка URL параметров для поиска
+  useEffect(() => {
+    const searchParam = searchParams.get('search')
+    if (searchParam) {
+      setSearchQuery(searchParam)
+      setDebouncedSearchQuery(searchParam)
+      setSelectedCategory('Все') // Сбрасываем категорию при поиске
+    }
+  }, [searchParams])
 
   // Debounce search query
   useEffect(() => {
@@ -188,10 +200,10 @@ export default function ProductsPage() {
             ))}
           </div>
         </div>
-        <div className="hidden md:block">
+        <div className="hidden lg:block">
           <Footer />
         </div>
-        <div className="md:hidden h-24"></div>
+        <div className="lg:hidden h-24"></div>
       </div>
     )
   }
@@ -200,8 +212,8 @@ export default function ProductsPage() {
     <div className="min-h-screen bg-gray-50">
       <Header />
       {/* Отступ для fixed хедера */}
-      <div className="md:hidden h-24"></div>
-      <div className="hidden md:block h-24"></div>
+      <div className="lg:hidden h-24"></div>
+      <div className="hidden lg:block h-24"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
@@ -231,7 +243,7 @@ export default function ProductsPage() {
           {/* Category Filter - Mobile 2 rows, Desktop single row */}
           <div>
             {/* Mobile - 2 rows */}
-            <div className="md:hidden">
+            <div className="lg:hidden">
               <div className="space-y-3">
                 {/* First row - Все, Пиде, Комбо - 3 большие кнопки */}
                 <div className="grid grid-cols-3 gap-3">
@@ -278,7 +290,7 @@ export default function ProductsPage() {
             </div>
             
             {/* Desktop - single row */}
-            <div className="hidden md:flex flex-wrap gap-4">
+            <div className="hidden lg:flex flex-wrap gap-4">
               {/* Кнопка "Все" */}
               <button
                 onClick={() => setSelectedCategory('Все')}
@@ -395,13 +407,13 @@ export default function ProductsPage() {
         )}
       </div>
       
-      {/* Footer - Hidden on mobile */}
-      <div className="hidden md:block">
+      {/* Footer - Hidden on mobile and tablet */}
+      <div className="hidden lg:block">
         <Footer />
       </div>
       
-      {/* Add bottom padding for mobile nav */}
-      <div className="md:hidden h-20"></div>
+      {/* Add bottom padding for mobile and tablet nav */}
+      <div className="lg:hidden h-20"></div>
     </div>
   )
 }

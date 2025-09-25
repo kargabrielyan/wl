@@ -11,7 +11,7 @@ export default function OrderSuccessPage() {
       <Header />
       
       {/* Отступ для fixed хедера */}
-      <div className="h-24 md:h-20"></div>
+      <div className="h-24 lg:h-20"></div>
       
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center">
@@ -100,7 +100,10 @@ export default function OrderSuccessPage() {
         </div>
       </div>
       
-      <Footer />
+      {/* Hide Footer on Mobile and Tablet */}
+      <div className="hidden lg:block">
+        <Footer />
+      </div>
     </div>
   )
 }

@@ -17,7 +17,6 @@ export default function Home() {
   const [bannerProduct, setBannerProduct] = useState<Product | null>(null)
   const [loading, setLoading] = useState(true)
   const [activeCategory, setActiveCategory] = useState('Пиде')
-  const [searchQuery, setSearchQuery] = useState('')
   const [addedToCart, setAddedToCart] = useState<Set<string>>(new Set())
   const [addedToCartHits, setAddedToCartHits] = useState<Set<string>>(new Set())
   const { addItem } = useCart()
@@ -160,16 +159,6 @@ export default function Home() {
       return []
     }
     
-    // Если есть поисковый запрос, ищем по всем товарам
-    if (searchQuery.trim()) {
-      return products.filter(product => 
-        product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        product.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        product.ingredients.some(ingredient => 
-          ingredient.toLowerCase().includes(searchQuery.toLowerCase())
-        )
-      )
-    }
     
     // Если нет поискового запроса, показываем товары выбранной категории
     return products.filter(product => product.category?.name === activeCategory)
@@ -187,8 +176,8 @@ export default function Home() {
     <div className="min-h-screen bg-gray-50 overflow-x-hidden">
       <Header />
       {/* Отступ для fixed хедера */}
-      <div className="md:hidden h-20"></div>
-      <div className="hidden md:block h-24"></div>
+      <div className="lg:hidden h-20"></div>
+      <div className="hidden lg:block h-24"></div>
 
       {/* Hero Section - Compact for Mobile */}
       <section className="relative bg-orange-500 text-white overflow-hidden">
@@ -201,7 +190,7 @@ export default function Home() {
         </div>
         
         {/* Mobile Compact Version - App Style */}
-        <div className="md:hidden relative max-w-7xl mx-auto px-4 py-6">
+        <div className="lg:hidden relative max-w-7xl mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             {/* Left content - compact */}
             <div className="flex-1 pr-4">
@@ -288,7 +277,7 @@ export default function Home() {
         </div>
 
         {/* Desktop Full Version */}
-        <div className="hidden md:block relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+        <div className="hidden lg:block relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left content */}
             <div className="space-y-6">
@@ -488,41 +477,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Mobile Search Section - App Style */}
-      <div className="md:hidden bg-white py-6 px-4 border-b border-gray-100">
-        <div className="max-w-sm mx-auto">
-          <div className="flex gap-3">
-            <div className="relative flex-1">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-500" />
-              <input
-                type="text"
-                placeholder="Поиск по меню..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-2xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-base text-gray-900 placeholder-gray-500 bg-gray-50 transition-all duration-300 shadow-sm hover:shadow-md focus:bg-white"
-              />
-            </div>
-            <button 
-              onClick={() => {
-                // Если есть поисковый запрос, показываем результаты
-                if (searchQuery.trim()) {
-                  // Можно добавить дополнительную логику здесь
-                  console.log('Поиск:', searchQuery)
-                }
-              }}
-              className="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl flex items-center justify-center hover:from-orange-600 hover:to-red-600 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
-              style={{
-                boxShadow: '0 8px 25px rgba(255, 107, 53, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1)',
-              }}
-            >
-              <Search className="w-6 h-6 text-white" />
-            </button>
-          </div>
-        </div>
-      </div>
 
       {/* Products Showcase Section - Moved up */}
-      <section className="py-16 md:py-20 bg-white">
+      <section className="py-16 lg:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section header */}
           <div className="text-center mb-12">
@@ -530,7 +487,7 @@ export default function Home() {
             {/* Category tabs - Mobile 2 rows, Desktop single row */}
             <div className="mb-16">
               {/* Mobile - 2 rows with better design */}
-              <div className="md:hidden">
+              <div className="lg:hidden">
                 <div className="space-y-3">
                   {/* First row - Пиде и Комбо занимают весь ряд */}
                   <div className="grid grid-cols-2 gap-3">
@@ -575,7 +532,7 @@ export default function Home() {
               </div>
               
               {/* Desktop - single row */}
-              <div className="hidden md:flex flex-wrap justify-center gap-4">
+              <div className="hidden lg:flex flex-wrap justify-center gap-4">
                 {categories.map((category) => (
                   <button
                     key={category}
@@ -605,45 +562,18 @@ export default function Home() {
           ) : getFilteredProducts().length === 0 ? (
             <div className="text-center py-20">
               <div className="text-6xl mb-4">🍽️</div>
-              {searchQuery.trim() ? (
-                <>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                    По запросу "{searchQuery}" ничего не найдено
-                  </h3>
-                  <p className="text-gray-600 mb-6">
-                    Поиск выполнен по всему меню. Попробуйте изменить поисковый запрос или выбрать категорию
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                    <button
-                      onClick={() => setSearchQuery('')}
-                      className="bg-gray-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-gray-600 transition-colors"
-                    >
-                      Очистить поиск
-                    </button>
-                    <button
-                      onClick={() => setActiveCategory('Комбо')}
-                      className="bg-orange-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-orange-600 transition-colors"
-                    >
-                      Показать комбо
-                    </button>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                    Товары в категории "{activeCategory}" скоро появятся
-                  </h3>
-                  <p className="text-gray-600 mb-6">
-                    Пока что посмотрите другие категории
-                  </p>
-                  <button
-                    onClick={() => setActiveCategory('Комбо')}
-                    className="bg-orange-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-orange-600 transition-colors"
-                  >
-                    Показать комбо
-                  </button>
-                </>
-              )}
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                Товары в категории "{activeCategory}" скоро появятся
+              </h3>
+              <p className="text-gray-600 mb-6">
+                Пока что посмотрите другие категории
+              </p>
+              <button
+                onClick={() => setActiveCategory('Комбо')}
+                className="bg-orange-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-orange-600 transition-colors"
+              >
+                Показать комбо
+              </button>
             </div>
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-8 md:gap-15">
@@ -680,8 +610,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Additional Pide Showcase Section - Hidden on mobile */}
-      <section className="hidden md:block py-20 bg-orange-50">
+      {/* Additional Pide Showcase Section - Hidden on mobile and tablet */}
+      <section className="hidden lg:block py-20 bg-orange-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section header */}
           <div className="text-center mb-16">
@@ -732,8 +662,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features Section - Hidden on mobile */}
-      <section className="hidden md:block py-20 bg-gray-50">
+      {/* Features Section - Hidden on mobile and tablet */}
+      <section className="hidden lg:block py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section header */}
           <div className="text-center mb-16">
@@ -810,8 +740,8 @@ export default function Home() {
       </section>
 
 
-      {/* Testimonials Section - Hidden on mobile */}
-      <section className="hidden md:block py-20 bg-orange-50">
+      {/* Testimonials Section - Hidden on mobile and tablet */}
+      <section className="hidden lg:block py-20 bg-orange-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section header */}
           <div className="text-center mb-16">
@@ -923,8 +853,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Section - Hidden on mobile */}
-      <section className="hidden md:block py-20 bg-orange-500 text-white">
+      {/* CTA Section - Hidden on mobile and tablet */}
+      <section className="hidden lg:block py-20 bg-orange-500 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Готовы попробовать?
@@ -949,13 +879,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer - Hidden on mobile */}
-      <div className="hidden md:block">
+      {/* Footer - Hidden on mobile and tablet */}
+      <div className="hidden lg:block">
         <Footer />
       </div>
       
-      {/* Add bottom padding for mobile nav */}
-      <div className="md:hidden h-24"></div>
+      {/* Add bottom padding for mobile and tablet nav */}
+      <div className="lg:hidden h-24"></div>
     </div>
   );
 }

@@ -374,9 +374,9 @@ export default async function ProductPage({
         )}
       </div>
 
-      {/* Hide Footer on Mobile */}
-      <div className="hidden md:block">
-      <Footer />
+      {/* Hide Footer on Mobile and Tablet */}
+      <div className="hidden lg:block">
+        <Footer />
       </div>
     </div>
     )

@@ -197,12 +197,12 @@ export default function CheckoutPage() {
       <Header />
       
       {/* Отступ для fixed хедера */}
-      <div className="md:hidden h-24"></div>
+      <div className="lg:hidden h-24"></div>
       
       {/* Mobile App Style Container */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-8 pb-20 md:pb-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 lg:py-8 pb-20 lg:pb-8">
         {/* Mobile Header */}
-        <div className="md:hidden mb-6">
+        <div className="lg:hidden mb-6">
           <div className="flex items-center space-x-4 mb-4">
             <Link 
               href="/cart"
@@ -216,7 +216,7 @@ export default function CheckoutPage() {
         </div>
 
         {/* Desktop Header */}
-        <div className="hidden md:flex items-center space-x-4 mb-8">
+        <div className="hidden lg:flex items-center space-x-4 mb-8">
           <Link 
             href="/cart"
             className="flex items-center text-gray-600 hover:text-orange-500 transition-colors"
@@ -230,7 +230,7 @@ export default function CheckoutPage() {
 
         <form onSubmit={handleSubmit}>
           {/* Mobile Layout */}
-          <div className="md:hidden space-y-6">
+          <div className="lg:hidden space-y-6">
             {/* Mobile Order Form */}
             <div className="bg-white rounded-2xl shadow-lg p-6">
               <div className="flex items-center justify-between mb-4">
@@ -460,7 +460,7 @@ export default function CheckoutPage() {
           </div>
 
           {/* Desktop Layout */}
-          <div className="hidden md:grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="hidden lg:grid grid-cols-1 xl:grid-cols-3 gap-8">
             {/* Order Form */}
             <div className="lg:col-span-2">
               <div className="bg-white rounded-2xl shadow-lg p-8">
@@ -700,8 +700,8 @@ export default function CheckoutPage() {
         </form>
       </div>
       
-      {/* Hide Footer on Mobile */}
-      <div className="hidden md:block">
+      {/* Hide Footer on Mobile and Tablet */}
+      <div className="hidden lg:block">
         <Footer />
       </div>
     </div>

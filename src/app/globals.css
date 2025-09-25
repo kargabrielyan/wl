@@ -106,6 +106,37 @@ html {
   }
 }
 
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes menuSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes menuFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .animate-fade-in {
   animation: fade-in 0.8s ease-out;
 }
@@ -144,6 +175,18 @@ html {
 
 .animate-float-delay {
   animation: float-delay 3s ease-in-out infinite 1.5s;
+}
+
+.animate-menu-slide-in {
+  animation: menuSlideIn 0.3s ease-out;
+}
+
+.animate-menu-fade-in {
+  animation: menuFadeIn 0.3s ease-out;
+}
+
+.animate-slide-in-up {
+  animation: slideInUp 0.3s ease-out;
 }
 
 /* Input field styles */

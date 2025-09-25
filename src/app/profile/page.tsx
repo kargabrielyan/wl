@@ -210,11 +210,11 @@ export default function ProfilePage() {
       <Header />
       
       {/* Отступ для fixed хедера */}
-      <div className="md:hidden h-24"></div>
+      <div className="lg:hidden h-24"></div>
       
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-8 pb-20 md:pb-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 lg:py-8 pb-20 lg:pb-8">
         {/* Mobile Header */}
-        <div className="md:hidden mb-6">
+        <div className="lg:hidden mb-6">
           <div className="flex items-center justify-between mb-6">
             <Link 
               href="/"
@@ -268,7 +268,7 @@ export default function ProfilePage() {
         </div>
 
         {/* Desktop Header */}
-        <div className="hidden md:flex items-center space-x-4 mb-8">
+        <div className="hidden lg:flex items-center space-x-4 mb-8">
           <Link 
             href="/"
             className="flex items-center text-gray-600 hover:text-orange-500 transition-colors"
@@ -416,8 +416,8 @@ export default function ProfilePage() {
         </div>
       </div>
       
-      {/* Hide Footer on Mobile */}
-      <div className="hidden md:block">
+      {/* Hide Footer on Mobile and Tablet */}
+      <div className="hidden lg:block">
         <Footer />
       </div>
       
