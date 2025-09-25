@@ -1,22 +1,12 @@
 // Service Worker для кэширования и оптимизации производительности
 const CACHE_NAME = 'pideh-armenia-v1.0.0'
-const STATIC_CACHE = 'static-v1.0.0'
-const API_CACHE = 'api-v1.0.0'
 
-// Файлы для кэширования
+// Файлы для кэширования (только статические ресурсы)
 const STATIC_FILES = [
   '/',
-  '/products',
-  '/about',
-  '/contact',
   '/manifest.json',
-  '/favicon.ico'
-]
-
-// API endpoints для кэширования
-const API_ENDPOINTS = [
-  '/api/products',
-  '/api/products/'
+  '/favicon.ico',
+  '/logo.png'
 ]
 
 // Установка Service Worker
@@ -24,10 +14,14 @@ self.addEventListener('install', (event) => {
   console.log('Service Worker: Installing...')
   
   event.waitUntil(
-    caches.open(STATIC_CACHE)
+    caches.open(CACHE_NAME)
       .then((cache) => {
         console.log('Service Worker: Caching static files')
         return cache.addAll(STATIC_FILES)
+          .catch((error) => {
+            console.warn('Service Worker: Some files failed to cache:', error)
+            return Promise.resolve()
+          })
       })
       .then(() => {
         console.log('Service Worker: Installation complete')
@@ -45,7 +39,7 @@ self.addEventListener('activate', (event) => {
       .then((cacheNames) => {
         return Promise.all(
           cacheNames.map((cacheName) => {
-            if (cacheName !== STATIC_CACHE && cacheName !== API_CACHE) {
+            if (cacheName !== CACHE_NAME) {
               console.log('Service Worker: Deleting old cache:', cacheName)
               return caches.delete(cacheName)
             }
@@ -59,110 +53,45 @@ self.addEventListener('activate', (event) => {
   )
 })
 
-// Перехват запросов
+// Перехват запросов - простой подход без дублирования
 self.addEventListener('fetch', (event) => {
   const { request } = event
-  const url = new URL(request.url)
-
-  // Стратегия кэширования для статических файлов
-  if (request.method === 'GET' && isStaticFile(url.pathname)) {
-    event.respondWith(
-      caches.match(request)
-        .then((response) => {
-          if (response) {
-            console.log('Service Worker: Serving from cache:', url.pathname)
-            return response
-          }
-          
-          return fetch(request)
-            .then((response) => {
-              if (response.status === 200) {
-                const responseClone = response.clone()
-                caches.open(STATIC_CACHE)
-                  .then((cache) => {
-                    cache.put(request, responseClone)
-                  })
-              }
-              return response
-            })
-        })
-    )
+  
+  // Обрабатываем только GET запросы
+  if (request.method !== 'GET') {
+    return
   }
 
-  // Стратегия кэширования для API
-  if (request.method === 'GET' && isAPIEndpoint(url.pathname)) {
-    event.respondWith(
-      caches.match(request)
-        .then((response) => {
-          if (response) {
-            console.log('Service Worker: Serving API from cache:', url.pathname)
+  event.respondWith(
+    caches.match(request)
+      .then((response) => {
+        // Если есть в кэше, возвращаем
+        if (response) {
+          console.log('Service Worker: Serving from cache:', request.url)
+          return response
+        }
+        
+        // Иначе загружаем из сети
+        return fetch(request)
+          .then((response) => {
+            // Кэшируем только успешные ответы
+            if (response.status === 200) {
+              const responseClone = response.clone()
+              caches.open(CACHE_NAME)
+                .then((cache) => {
+                  cache.put(request, responseClone)
+                })
+            }
             return response
-          }
-          
-          return fetch(request)
-            .then((response) => {
-              if (response.status === 200) {
-                const responseClone = response.clone()
-                caches.open(API_CACHE)
-                  .then((cache) => {
-                    cache.put(request, responseClone)
-                  })
-              }
-              return response
-            })
-        })
-    )
-  }
-
-  // Стратегия кэширования для изображений
-  if (request.method === 'GET' && isImage(url.pathname)) {
-    event.respondWith(
-      caches.match(request)
-        .then((response) => {
-          if (response) {
-            console.log('Service Worker: Serving image from cache:', url.pathname)
-            return response
-          }
-          
-          return fetch(request)
-            .then((response) => {
-              if (response.status === 200) {
-                const responseClone = response.clone()
-                caches.open(STATIC_CACHE)
-                  .then((cache) => {
-                    cache.put(request, responseClone)
-                  })
-              }
-              return response
-            })
-        })
-    )
-  }
+          })
+      })
+      .catch(() => {
+        // Если ничего не работает, возвращаем offline страницу
+        return caches.match('/')
+      })
+  )
 })
 
-// Проверка статических файлов
-function isStaticFile(pathname) {
-  return STATIC_FILES.includes(pathname) || 
-         pathname.startsWith('/_next/static/') ||
-         pathname.startsWith('/images/') ||
-         pathname.endsWith('.js') ||
-         pathname.endsWith('.css') ||
-         pathname.endsWith('.png') ||
-         pathname.endsWith('.jpg') ||
-         pathname.endsWith('.jpeg') ||
-         pathname.endsWith('.webp') ||
-         pathname.endsWith('.svg')
-}
-
-// Проверка API endpoints
-function isAPIEndpoint(pathname) {
-  return API_ENDPOINTS.some(endpoint => pathname.startsWith(endpoint))
-}
-
-// Проверка изображений
-function isImage(pathname) {
-  return pathname.match(/\.(jpg|jpeg|png|gif|webp|svg|ico)$/i)
-}
 
 // Обработка push уведомлений (для будущего использования)
 self.addEventListener('push', (event) => {

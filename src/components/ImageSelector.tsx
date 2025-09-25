@@ -171,6 +171,7 @@ export default function ImageSelector({ value, onChange, className = '' }: Image
                 src={value}
                 alt="Предпросмотр"
                 fill
+                sizes="144px"
                 className="object-cover"
                 onError={(e) => {
                   // Если изображение не загружается, показываем placeholder
@@ -266,6 +267,7 @@ export default function ImageSelector({ value, onChange, className = '' }: Image
                       src={image.path}
                       alt={image.name}
                       fill
+                      sizes="80px"
                       className="object-cover"
                     />
                     {value === image.path && (

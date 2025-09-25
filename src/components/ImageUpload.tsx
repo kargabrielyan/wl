@@ -111,6 +111,7 @@ export default function ImageUpload({
               src={currentImage}
               alt="Current logo"
               fill
+              sizes="128px"
               className="object-contain"
             />
           </div>
