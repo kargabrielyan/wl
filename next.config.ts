@@ -17,6 +17,7 @@ const nextConfig: NextConfig = {
     minimumCacheTTL: 31536000, // 1 год
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    qualities: [75, 85, 100], // Добавляем поддержку quality=85
   },
   // Экспериментальные функции для производительности
   experimental: {
