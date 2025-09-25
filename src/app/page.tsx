@@ -190,7 +190,7 @@ export default function Home() {
         </div>
         
         {/* Mobile Compact Version - App Style */}
-        <div className="lg:hidden relative max-w-7xl mx-auto px-4 py-6">
+        <div className="md:hidden relative max-w-7xl mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             {/* Left content - compact */}
             <div className="flex-1 pr-4">
@@ -270,6 +270,93 @@ export default function Home() {
                   </div>
                   <h3 className="text-sm font-bold mb-1 text-white">Армянские пиде</h3>
                   <p className="text-xs text-orange-100">Вкусные и свежие</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Tablet Version - Medium Size */}
+        <div className="hidden md:block lg:hidden relative max-w-7xl mx-auto px-6 py-10">
+          <div className="flex items-center justify-between">
+            {/* Left content - tablet optimized */}
+            <div className="flex-1 pr-8">
+              <h1 className="text-4xl font-bold leading-tight mb-4">
+                <span className="block text-white">Армянские</span>
+                <span className="block text-yellow-200">пиде</span>
+              </h1>
+              <p className="text-lg text-orange-100 mb-6 font-medium">
+                15 уникальных вкусов
+              </p>
+              <div className="flex gap-8 text-base">
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-yellow-200">15+</div>
+                  <div className="text-orange-100 font-medium">Вкусов</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-yellow-200">20</div>
+                  <div className="text-orange-100 font-medium">Минут</div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Right content - product showcase for tablet */}
+            <div className="relative flex-shrink-0">
+              {bannerProduct ? (
+                <div className="relative bg-white/25 backdrop-blur-xl rounded-3xl p-4 text-center border border-white/30 shadow-2xl hover:shadow-3xl transition-all duration-300 group">
+                  {/* Product Image Container */}
+                  <div className="relative w-36 h-36 mx-auto mb-3 rounded-2xl flex items-center justify-center overflow-hidden">
+                    <img 
+                      src={bannerProduct.image} 
+                      alt={bannerProduct.name}
+                      className="relative w-full h-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-300"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                        const nextElement = e.currentTarget.nextElementSibling as HTMLElement;
+                        if (nextElement) {
+                          nextElement.style.display = 'flex';
+                        }
+                      }}
+                    />
+                    <div 
+                      className="w-full h-full flex items-center justify-center text-5xl"
+                      style={{ display: 'none' }}
+                    >
+                      🥟
+                    </div>
+                    
+                    {/* Price Badge - Bottom Right */}
+                    <div className="absolute bottom-2 right-2 bg-yellow-400 text-orange-800 px-3 py-1.5 rounded-xl text-sm font-bold shadow-lg">
+                      {bannerProduct.price} ֏
+                    </div>
+                  </div>
+                  
+                  {/* Text Content */}
+                  <h3 className="text-base font-bold mb-2 text-white line-clamp-1">{bannerProduct.name}</h3>
+                  <p className="text-sm text-orange-100/90 mb-3 line-clamp-1">{bannerProduct.description}</p>
+                  
+                  {/* Add Button */}
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      handleAddToCart(bannerProduct);
+                    }}
+                    className="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white py-2 px-3 rounded-xl text-sm font-bold hover:from-orange-600 hover:to-red-600 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
+                  >
+                    <span className="flex items-center justify-center gap-2">
+                      <ShoppingCart className="w-4 h-4" />
+                      Добавить
+                    </span>
+                  </button>
+                </div>
+              ) : (
+                <div className="relative bg-white/15 backdrop-blur-lg rounded-3xl p-4 text-center border border-white/20">
+                  <div className="relative w-32 h-32 mx-auto mb-3 bg-white/20 rounded-2xl flex items-center justify-center">
+                    <span className="text-4xl">🥟</span>
+                  </div>
+                  <h3 className="text-base font-bold mb-2 text-white">Армянские пиде</h3>
+                  <p className="text-sm text-orange-100">Вкусные и свежие</p>
                 </div>
               )}
             </div>
