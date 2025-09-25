@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useMemo, useCallback, useRef } from 'react'
+import { useState, useEffect, useMemo, useCallback, useRef, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { Search, Filter, ShoppingCart } from 'lucide-react'
@@ -10,7 +10,7 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import ProductCard from '@/components/ProductCard'
 
-export default function ProductsPage() {
+function ProductsPageContent() {
   const searchParams = useSearchParams()
   const [products, setProducts] = useState<Product[]>([])
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([])
@@ -221,7 +221,7 @@ export default function ProductsPage() {
         <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
 
           <div className="flex flex-col md:flex-row gap-4 mb-6">
-            <div className="flex-1 relative">
+            <div className="flex-1 lg:w-80 relative">
               <Search className={`absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 ${
                 searching ? 'text-orange-500 animate-pulse' : 'text-gray-500'
               }`} />
@@ -415,5 +415,42 @@ export default function ProductsPage() {
       {/* Add bottom padding for mobile and tablet nav */}
       <div className="lg:hidden h-20"></div>
     </div>
+  )
+}
+
+export default function ProductsPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="text-center mb-12">
+            <div className="h-12 bg-gray-200 rounded mx-auto mb-4 w-64 animate-pulse"></div>
+            <div className="h-6 bg-gray-200 rounded mx-auto w-96 animate-pulse"></div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {[1,2,3,4,5,6,7,8].map(i => (
+              <div key={i} className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 animate-pulse">
+                <div className="h-56 bg-gray-200"></div>
+                <div className="p-6">
+                  <div className="h-6 bg-gray-200 rounded mb-3"></div>
+                  <div className="h-4 bg-gray-200 rounded mb-4"></div>
+                  <div className="flex justify-between items-center">
+                    <div className="h-8 w-20 bg-gray-200 rounded"></div>
+                    <div className="h-12 w-24 bg-gray-200 rounded"></div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="hidden lg:block">
+          <Footer />
+        </div>
+        <div className="lg:hidden h-24"></div>
+      </div>
+    }>
+      <ProductsPageContent />
+    </Suspense>
   )
 }
