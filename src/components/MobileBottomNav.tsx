@@ -1,10 +1,11 @@
 'use client'
 
 import Link from 'next/link'
-import { Home, ShoppingCart, User, Menu } from 'lucide-react'
+import { Home, ShoppingCart, User, Menu, LogIn } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { useCart } from '@/hooks/useCart'
 import { useHydration } from '@/hooks/useHydration'
+import { useSession } from 'next-auth/react'
 import { useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 
@@ -12,6 +13,7 @@ export default function MobileBottomNav() {
   const pathname = usePathname()
   const isHydrated = useHydration()
   const { getTotalItems } = useCart()
+  const { data: session, status } = useSession()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   // Блокировка скролла когда меню открыто
@@ -42,11 +44,17 @@ export default function MobileBottomNav() {
     { href: '/contact', label: 'Контакты' },
   ]
 
-  const navItems = [
+  // Навигационные элементы в зависимости от состояния авторизации
+  const navItems = session ? [
     { href: '/', label: 'Главная', icon: Home },
     { href: '/products', label: 'Меню', icon: Menu, isMenu: true },
     { href: '/cart', label: 'Корзина', icon: ShoppingCart, showBadge: true },
     { href: '/profile', label: 'Профиль', icon: User },
+  ] : [
+    { href: '/', label: 'Главная', icon: Home },
+    { href: '/products', label: 'Меню', icon: Menu, isMenu: true },
+    { href: '/cart', label: 'Корзина', icon: ShoppingCart, showBadge: true },
+    { href: '/login', label: 'Войти', icon: LogIn },
   ]
 
   const menuOverlay = isMenuOpen && isHydrated && createPortal(
@@ -127,7 +135,16 @@ export default function MobileBottomNav() {
     <>
       <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-gray-200 z-40 shadow-2xl">
         <div className="flex justify-around items-center py-3">
-          {navItems.map((item) => {
+          {status === 'loading' ? (
+            // Показываем загрузку для всех кнопок
+            Array.from({ length: 4 }).map((_, index) => (
+              <div key={index} className="flex flex-col items-center justify-center py-3 px-4 rounded-2xl">
+                <div className="w-6 h-6 bg-gray-200 rounded-full animate-pulse"></div>
+                <div className="w-12 h-3 bg-gray-200 rounded mt-1 animate-pulse"></div>
+              </div>
+            ))
+          ) : (
+            navItems.map((item) => {
             const Icon = item.icon
             const active = isActive(item.href)
             
@@ -182,7 +199,8 @@ export default function MobileBottomNav() {
                 )}
               </Link>
             )
-          })}
+          })
+          )}
         </div>
       </nav>
       {menuOverlay}
