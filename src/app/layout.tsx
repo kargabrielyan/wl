@@ -4,6 +4,7 @@ import "./globals.css";
 import ClientProviders from "@/components/ClientProviders";
 import MobileBottomNav from "@/components/MobileBottomNav";
 import ServiceWorkerProvider from "@/components/ServiceWorkerProvider";
+import PullToRefresh from "@/components/PullToRefresh";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -31,8 +32,10 @@ export default function RootLayout({
       <body className={`${inter.variable} font-sans antialiased`}>
         <ServiceWorkerProvider />
         <ClientProviders>
-          {children}
-          <MobileBottomNav />
+          <PullToRefresh>
+            {children}
+            <MobileBottomNav />
+          </PullToRefresh>
         </ClientProviders>
       </body>
     </html>
