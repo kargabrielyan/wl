@@ -34,8 +34,8 @@ export default function RootLayout({
         <ClientProviders>
           <PullToRefresh>
             {children}
-            <MobileBottomNav />
           </PullToRefresh>
+          <MobileBottomNav />
         </ClientProviders>
       </body>
     </html>
