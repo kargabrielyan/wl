@@ -121,12 +121,20 @@ export default function MobileBottomNav() {
         {/* Bottom Info */}
         <div className="p-6 bg-gradient-to-r from-gray-50 to-orange-50 border-t border-gray-200">
           <div className="text-center text-gray-600">
-            <div className="flex items-center justify-center space-x-2 mb-2">
-              <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-              <p className="text-sm font-semibold">METAKS Food corner</p>
-              <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-            </div>
-            <p className="text-xs text-gray-500">Since 2023 • Армянские пиде</p>
+            <p className="text-xs text-gray-500 mb-2">
+              Copyright © 2025. All Rights Reserved.
+            </p>
+            <p className="text-xs text-gray-500">
+              Created by{' '}
+              <a 
+                href="https://neetrino.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-orange-500 hover:text-orange-600 font-semibold transition-colors duration-200"
+              >
+                Neetrino
+              </a>
+            </p>
           </div>
         </div>
       </div>
