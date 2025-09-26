@@ -136,7 +136,7 @@ export default function MobileBottomNav() {
 
   return (
     <>
-      <nav key={navKey} className="lg:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-gray-200 z-40 shadow-2xl">
+      <nav key={navKey} className="lg:hidden fixed bottom-0 left-0 right-0 w-full bg-white/95 backdrop-blur-xl border-t border-gray-200 z-40 shadow-2xl">
         <div className="flex justify-around items-center py-3">
           {status === 'loading' ? (
             // Показываем загрузку для всех кнопок

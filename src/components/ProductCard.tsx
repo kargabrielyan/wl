@@ -40,7 +40,7 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
         {product.image && product.image !== 'no-image' ? (
           <div className="relative w-full h-full">
             {/* 3D Product Image with floating effect - Mobile App Style */}
-            <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 w-[calc(100%+4rem)] h-[calc(100%+4rem)]">
+            <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 w-full max-w-[200px] h-[calc(100%+4rem)]">
               {/* Enhanced 3D Shadow Layer - Removed for cleaner look */}
               {/* <div 
                 className="absolute inset-0 bg-gradient-to-br from-gray-300/30 to-gray-400/20 rounded-3xl transform translate-y-6 translate-x-4 group-hover:translate-y-8 group-hover:translate-x-5 transition-all duration-700"
@@ -96,10 +96,10 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
             </div>
           </div>
         ) : (
-          <div 
-            className={`absolute -top-12 left-1/2 transform -translate-x-1/2 w-[calc(100%+4rem)] h-[calc(100%+4rem)] flex items-center justify-center ${
-              isCompact ? 'text-6xl' : 'text-8xl'
-            }`}
+            <div 
+              className={`absolute -top-12 left-1/2 transform -translate-x-1/2 w-full max-w-[200px] h-[calc(100%+4rem)] flex items-center justify-center ${
+                isCompact ? 'text-6xl' : 'text-8xl'
+              }`}
             style={{
               filter: 'none',
               transform: 'perspective(1000px) rotateX(8deg) rotateY(-3deg)',

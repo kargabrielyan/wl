@@ -209,7 +209,7 @@ function ProductsPageContent() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 overflow-x-hidden">
       <Header />
       {/* Отступ для fixed хедера */}
       <div className="lg:hidden h-24"></div>
@@ -413,7 +413,7 @@ function ProductsPageContent() {
       </div>
       
       {/* Add bottom padding for mobile and tablet nav */}
-      <div className="lg:hidden h-20"></div>
+      <div className="lg:hidden h-24"></div>
     </div>
   )
 }
@@ -421,7 +421,7 @@ function ProductsPageContent() {
 export default function ProductsPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 overflow-x-hidden">
         <Header />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="text-center mb-12">
