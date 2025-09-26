@@ -1,8 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { signIn, getSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
+import { useAuth } from '@/hooks/useAuth'
 import Link from 'next/link'
 import { Eye, EyeOff, Mail, Lock } from 'lucide-react'
 import Header from '@/components/Header'
@@ -14,7 +13,7 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
-  const router = useRouter()
+  const { login } = useAuth()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -22,28 +21,9 @@ export default function LoginPage() {
     setError('')
 
     try {
-      const result = await signIn('credentials', {
-        email,
-        password,
-        redirect: false,
-      })
-
-      if (result?.error) {
-        setError('Неверный email или пароль')
-      } else {
-        // Принудительно обновляем сессию и перенаправляем
-        await getSession()
-        // Небольшая задержка для обновления UI
-        setTimeout(() => {
-          router.push('/')
-          // Дополнительное обновление страницы для гарантии обновления Header
-          setTimeout(() => {
-            window.location.reload()
-          }, 500)
-        }, 100)
-      }
+      await login(email, password)
     } catch (error) {
-      setError('Произошла ошибка при входе')
+      setError(error instanceof Error ? error.message : 'Произошла ошибка при входе')
     } finally {
       setIsLoading(false)
     }

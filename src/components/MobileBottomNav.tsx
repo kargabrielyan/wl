@@ -5,7 +5,7 @@ import { Home, ShoppingCart, User, Menu, LogIn } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { useCart } from '@/hooks/useCart'
 import { useHydration } from '@/hooks/useHydration'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/hooks/useAuth'
 import { useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 
@@ -13,7 +13,7 @@ export default function MobileBottomNav() {
   const pathname = usePathname()
   const isHydrated = useHydration()
   const { getTotalItems } = useCart()
-  const { data: session, status } = useSession()
+  const { session, status } = useAuth()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   // Блокировка скролла когда меню открыто

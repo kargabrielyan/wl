@@ -7,12 +7,12 @@ import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import { useCart } from '@/hooks/useCart'
 import { useHydration } from '@/hooks/useHydration'
-import { useSession, signOut, getSession } from 'next-auth/react'
+import { useAuth } from '@/hooks/useAuth'
 
 export default function DesktopHeader() {
   const isHydrated = useHydration()
   const { getTotalItems } = useCart()
-  const { data: session, status } = useSession()
+  const { session, status, logout } = useAuth()
   const pathname = usePathname()
   const [searchQuery, setSearchQuery] = useState('')
 
@@ -170,15 +170,7 @@ export default function DesktopHeader() {
                 
                 {/* Logout */}
                 <button
-                  onClick={async () => {
-                    await signOut({ callbackUrl: '/' })
-                    // Принудительно обновляем сессию после выхода
-                    await getSession()
-                    // Дополнительное обновление страницы для гарантии обновления UI
-                    setTimeout(() => {
-                      window.location.reload()
-                    }, 200)
-                  }}
+                  onClick={logout}
                   className="p-2 text-gray-900 hover:text-orange-500 transition-colors"
                   title="Выйти"
                 >
