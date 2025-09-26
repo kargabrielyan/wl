@@ -67,12 +67,12 @@ export default function MobileBottomNav() {
       style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
     >
       {/* Backdrop with blur effect */}
-      <div className="absolute inset-0 bg-gradient-to-br from-orange-50 via-white to-red-50"></div>
+      <div className="absolute inset-0 bg-white"></div>
       
       {/* Menu Content Container */}
       <div className="relative z-10 h-full flex flex-col animate-menu-slide-in">
         {/* Menu Header */}
-        <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white p-6 flex items-center justify-between shadow-lg">
+        <div className="bg-orange-500 text-white p-6 flex items-center justify-between shadow-lg">
           <div className="flex items-center space-x-3">
             <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
               <Menu className="w-5 h-5" />
@@ -98,9 +98,9 @@ export default function MobileBottomNav() {
                 key={link.href}
                 href={link.href}
                 className={`
-                  group block px-8 py-6 rounded-2xl text-gray-700 hover:bg-gradient-to-r hover:from-orange-500 hover:to-red-500 hover:text-white transition-all duration-300 font-semibold text-xl text-center shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 animate-slide-in-up
+                  group block px-8 py-6 rounded-2xl text-gray-700 hover:bg-orange-500 hover:text-white transition-all duration-300 font-semibold text-xl text-center shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 animate-slide-in-up
                   ${isActive(link.href) 
-                    ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-xl scale-105' 
+                    ? 'bg-orange-500 text-white shadow-xl scale-105' 
                     : 'bg-white/80 backdrop-blur-sm border border-gray-200'
                   }
                 `}
@@ -119,7 +119,7 @@ export default function MobileBottomNav() {
         </div>
 
         {/* Bottom Info */}
-        <div className="p-6 bg-gradient-to-r from-gray-50 to-orange-50 border-t border-gray-200">
+        <div className="p-6 bg-gray-50 border-t border-gray-200">
           <div className="text-center text-gray-600">
             <p className="text-xs text-gray-500 mb-2">
               Copyright © 2025. All Rights Reserved.
