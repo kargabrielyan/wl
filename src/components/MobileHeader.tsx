@@ -12,9 +12,9 @@ export default function MobileHeader() {
   return (
     <header className="bg-white/95 backdrop-blur-xl shadow-lg fixed top-0 left-0 right-0 z-[100] border-b border-gray-200" style={{ position: 'fixed' }}>
       <div className="px-4 py-1.5">
-        <div className="flex justify-between items-center">
-          {/* Mobile Logo - Centered */}
-          <div className="flex-1 flex justify-center">
+        <div className="relative flex justify-between items-center">
+          {/* Mobile Logo - Absolutely Centered */}
+          <div className="absolute left-1/2 transform -translate-x-1/2">
             <Link href="/" className="hover:opacity-80 transition-all duration-300 hover:scale-105">
               <Image 
                 src="/logo.png" 
@@ -31,7 +31,7 @@ export default function MobileHeader() {
           {/* Mobile Search Button */}
           <button
             onClick={() => setIsSearchOpen(!isSearchOpen)}
-            className="p-3 text-gray-900 hover:text-orange-500 hover:bg-orange-50 rounded-xl transition-all duration-300 active:scale-95"
+            className="p-3 text-gray-900 hover:text-orange-500 hover:bg-orange-50 rounded-xl transition-all duration-300 active:scale-95 ml-auto"
           >
             <Search className="h-5 w-5" />
           </button>
