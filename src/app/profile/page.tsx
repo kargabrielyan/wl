@@ -159,13 +159,10 @@ export default function ProfilePage() {
         // Выходим из системы и перенаправляем на страницу подтверждения
         const { signOut } = await import('next-auth/react')
         
-        // Сначала выходим из системы
-        await signOut({ redirect: false })
+        // Выходим из системы с перенаправлением на страницу подтверждения
+        await signOut({ callbackUrl: '/account-deleted' })
         
         console.log('✅ Signed out successfully')
-        
-        // Затем принудительно перенаправляем на страницу подтверждения
-        window.location.href = '/account-deleted'
       } else {
         const errorData = await response.json()
         throw new Error(errorData.error || 'Failed to delete account')

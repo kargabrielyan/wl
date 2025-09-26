@@ -170,7 +170,7 @@ export default function DesktopHeader() {
                 
                 {/* Logout */}
                 <button
-                  onClick={() => signOut()}
+                  onClick={() => signOut({ callbackUrl: '/' })}
                   className="p-2 text-gray-900 hover:text-orange-500 transition-colors"
                   title="Выйти"
                 >

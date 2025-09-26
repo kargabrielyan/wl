@@ -10,6 +10,9 @@ export class CacheManager {
    */
   static clearAllCache(): void {
     try {
+      // Очищаем NextAuth кэш
+      this.clearNextAuthCache()
+      
       // Очищаем localStorage
       localStorage.clear()
       
@@ -62,6 +65,37 @@ export class CacheManager {
       console.log('✅ User data cleared, system settings preserved')
     } catch (error) {
       console.error('❌ Error clearing user data:', error)
+    }
+  }
+
+  /**
+   * Очистка NextAuth кэша
+   */
+  private static clearNextAuthCache(): void {
+    try {
+      // Очищаем NextAuth сообщения
+      localStorage.removeItem('nextauth.message')
+      sessionStorage.removeItem('nextauth.message')
+      
+      // Очищаем NextAuth токены
+      const keys = Object.keys(localStorage)
+      keys.forEach(key => {
+        if (key.startsWith('nextauth.') || key.startsWith('__nextauth')) {
+          localStorage.removeItem(key)
+        }
+      })
+      
+      // Очищаем NextAuth токены из sessionStorage
+      const sessionKeys = Object.keys(sessionStorage)
+      sessionKeys.forEach(key => {
+        if (key.startsWith('nextauth.') || key.startsWith('__nextauth')) {
+          sessionStorage.removeItem(key)
+        }
+      })
+      
+      console.log('✅ NextAuth cache cleared')
+    } catch (error) {
+      console.error('❌ Error clearing NextAuth cache:', error)
     }
   }
 
