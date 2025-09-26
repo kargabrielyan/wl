@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import { useCart } from '@/hooks/useCart'
 import { useHydration } from '@/hooks/useHydration'
-import { useSession, signOut } from 'next-auth/react'
+import { useSession, signOut, getSession } from 'next-auth/react'
 
 export default function DesktopHeader() {
   const isHydrated = useHydration()
@@ -170,7 +170,15 @@ export default function DesktopHeader() {
                 
                 {/* Logout */}
                 <button
-                  onClick={() => signOut({ callbackUrl: '/' })}
+                  onClick={async () => {
+                    await signOut({ callbackUrl: '/' })
+                    // Принудительно обновляем сессию после выхода
+                    await getSession()
+                    // Дополнительное обновление страницы для гарантии обновления UI
+                    setTimeout(() => {
+                      window.location.reload()
+                    }, 200)
+                  }}
                   className="p-2 text-gray-900 hover:text-orange-500 transition-colors"
                   title="Выйти"
                 >

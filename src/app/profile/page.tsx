@@ -1,6 +1,6 @@
 'use client'
 
-import { useSession } from 'next-auth/react'
+import { useSession, getSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
@@ -161,6 +161,9 @@ export default function ProfilePage() {
         
         // Выходим из системы с перенаправлением на страницу подтверждения
         await signOut({ callbackUrl: '/account-deleted' })
+        
+        // Принудительно обновляем сессию после выхода
+        await getSession()
         
         console.log('✅ Signed out successfully')
       } else {

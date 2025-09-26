@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { signIn } from 'next-auth/react'
+import { signIn, getSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Eye, EyeOff, Mail, Lock } from 'lucide-react'
@@ -31,8 +31,16 @@ export default function LoginPage() {
       if (result?.error) {
         setError('Неверный email или пароль')
       } else {
-        // Перенаправляем на главную страницу
-        router.push('/')
+        // Принудительно обновляем сессию и перенаправляем
+        await getSession()
+        // Небольшая задержка для обновления UI
+        setTimeout(() => {
+          router.push('/')
+          // Дополнительное обновление страницы для гарантии обновления Header
+          setTimeout(() => {
+            window.location.reload()
+          }, 500)
+        }, 100)
       }
     } catch (error) {
       setError('Произошла ошибка при входе')
