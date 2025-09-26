@@ -44,6 +44,7 @@ export default function ProfilePage() {
   const [isLoading, setIsLoading] = useState(true)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+  const [isDeletingAccount, setIsDeletingAccount] = useState(false)
   const [userProfile, setUserProfile] = useState({
     name: session?.user?.name || null,
     email: session?.user?.email || null,
@@ -132,7 +133,11 @@ export default function ProfilePage() {
   }
 
   const handleDeleteAccount = async () => {
+    setIsDeletingAccount(true)
+    
     try {
+      console.log('🔄 Starting account deletion...')
+      
       const response = await fetch('/api/user/delete', {
         method: 'DELETE',
         headers: {
@@ -141,15 +146,33 @@ export default function ProfilePage() {
       })
 
       if (response.ok) {
-        // Выходим из системы и перенаправляем на главную
+        console.log('✅ Account deleted successfully')
+        
+        // Импортируем CacheManager для очистки кэша
+        const { CacheManager } = await import('@/lib/cacheManager')
+        
+        // Очищаем весь кэш приложения
+        CacheManager.clearAllCache()
+        
+        console.log('✅ Cache cleared successfully')
+        
+        // Выходим из системы и перенаправляем на страницу подтверждения
         const { signOut } = await import('next-auth/react')
-        await signOut({ callbackUrl: '/' })
+        
+        // Сначала выходим из системы
+        await signOut({ redirect: false })
+        
+        console.log('✅ Signed out successfully')
+        
+        // Затем принудительно перенаправляем на страницу подтверждения
+        window.location.href = '/account-deleted'
       } else {
         const errorData = await response.json()
         throw new Error(errorData.error || 'Failed to delete account')
       }
     } catch (error) {
-      console.error('Error deleting account:', error)
+      console.error('❌ Error deleting account:', error)
+      setIsDeletingAccount(false)
       throw error
     }
   }
@@ -434,6 +457,7 @@ export default function ProfilePage() {
         isOpen={isDeleteModalOpen}
         onClose={() => setIsDeleteModalOpen(false)}
         onConfirm={handleDeleteAccount}
+        isLoading={isDeletingAccount}
       />
     </div>
   )

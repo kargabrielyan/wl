@@ -7,9 +7,10 @@ interface DeleteAccountModalProps {
   isOpen: boolean
   onClose: () => void
   onConfirm: () => Promise<void>
+  isLoading?: boolean
 }
 
-export default function DeleteAccountModal({ isOpen, onClose, onConfirm }: DeleteAccountModalProps) {
+export default function DeleteAccountModal({ isOpen, onClose, onConfirm, isLoading = false }: DeleteAccountModalProps) {
   const [isDeleting, setIsDeleting] = useState(false)
   const [confirmText, setConfirmText] = useState('')
   const [error, setError] = useState('')
@@ -20,17 +21,14 @@ export default function DeleteAccountModal({ isOpen, onClose, onConfirm }: Delet
       return
     }
 
-    setIsDeleting(true)
     setError('')
 
     try {
       await onConfirm()
-      onClose()
+      // Не закрываем модальное окно здесь, так как происходит перенаправление
     } catch (error) {
       setError('Произошла ошибка при удалении аккаунта. Попробуйте еще раз.')
       console.error('Delete account error:', error)
-    } finally {
-      setIsDeleting(false)
     }
   }
 
@@ -57,7 +55,7 @@ export default function DeleteAccountModal({ isOpen, onClose, onConfirm }: Delet
           </div>
           <button
             onClick={handleClose}
-            disabled={isDeleting}
+            disabled={isLoading}
             className="p-2 text-gray-400 hover:text-gray-600 transition-colors disabled:opacity-50"
           >
             <X className="h-5 w-5" />
@@ -92,7 +90,7 @@ export default function DeleteAccountModal({ isOpen, onClose, onConfirm }: Delet
                 value={confirmText}
                 onChange={(e) => setConfirmText(e.target.value)}
                 placeholder="Введите УДАЛИТЬ"
-                disabled={isDeleting}
+                disabled={isLoading}
                 className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 disabled:opacity-50 disabled:cursor-not-allowed"
               />
             </div>
@@ -109,17 +107,17 @@ export default function DeleteAccountModal({ isOpen, onClose, onConfirm }: Delet
         <div className="flex items-center justify-end space-x-3 p-6 border-t border-gray-200">
           <button
             onClick={handleClose}
-            disabled={isDeleting}
+            disabled={isLoading}
             className="px-6 py-3 text-gray-700 bg-gray-100 rounded-xl hover:bg-gray-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Отмена
           </button>
           <button
             onClick={handleConfirm}
-            disabled={isDeleting || confirmText !== 'УДАЛИТЬ'}
+            disabled={isLoading || confirmText !== 'УДАЛИТЬ'}
             className="px-6 py-3 bg-red-600 text-white rounded-xl hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
           >
-            {isDeleting ? (
+            {isLoading ? (
               <>
                 <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                 <span>Удаление...</span>
