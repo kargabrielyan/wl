@@ -22,17 +22,17 @@ export function useAuth() {
     // Принудительно обновляем сессию
     await update()
     
-    // Перенаправляем на главную
-    router.push('/')
-  }, [update, router])
+    // Принудительно обновляем страницу для гарантии обновления UI
+    window.location.href = '/'
+  }, [update])
 
   const logout = useCallback(async () => {
     await signOut({ redirect: false })
     // Принудительно обновляем сессию
     await update()
-    // Перенаправляем на главную
-    router.push('/')
-  }, [update, router])
+    // Принудительно обновляем страницу для гарантии обновления UI
+    window.location.href = '/'
+  }, [update])
 
   return {
     session,

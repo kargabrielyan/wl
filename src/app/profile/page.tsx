@@ -165,6 +165,9 @@ export default function ProfilePage() {
         // Принудительно обновляем сессию после выхода
         await getSession()
         
+        // Принудительно обновляем страницу для гарантии обновления UI
+        window.location.href = '/account-deleted'
+        
         console.log('✅ Signed out successfully')
       } else {
         const errorData = await response.json()

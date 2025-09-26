@@ -15,6 +15,9 @@ export default function MobileBottomNav() {
   const { getTotalItems } = useCart()
   const { session, status } = useAuth()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  
+  // Принудительное обновление при изменении сессии
+  const navKey = session ? `nav-authenticated-${session.user?.id}` : 'nav-unauthenticated'
 
   // Блокировка скролла когда меню открыто
   useEffect(() => {
@@ -133,7 +136,7 @@ export default function MobileBottomNav() {
 
   return (
     <>
-      <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-gray-200 z-40 shadow-2xl">
+      <nav key={navKey} className="lg:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-gray-200 z-40 shadow-2xl">
         <div className="flex justify-around items-center py-3">
           {status === 'loading' ? (
             // Показываем загрузку для всех кнопок
