@@ -4,7 +4,6 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { ArrowLeft, ShoppingCart, Minus, Trash2, ShoppingBag } from 'lucide-react'
 import { useCart } from '@/hooks/useCart'
-import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
 export default function CartPage() {
@@ -30,7 +29,6 @@ export default function CartPage() {
   if (items.length === 0) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <Header />
         
         {/* Отступ для fixed хедера */}
         <div className="h-24 lg:h-20"></div>
@@ -64,7 +62,6 @@ export default function CartPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
       
       {/* Отступ для fixed хедера */}
       <div className="h-24 lg:h-20"></div>

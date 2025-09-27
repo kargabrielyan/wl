@@ -35,7 +35,6 @@ import {
   Printer
 } from 'lucide-react'
 import Link from 'next/link'
-import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
 interface OrderWithDetails extends Order {
@@ -264,7 +263,6 @@ export default function AdminOrdersPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
       
       {/* Отступ для fixed хедера */}
       <div className="lg:hidden h-24"></div>

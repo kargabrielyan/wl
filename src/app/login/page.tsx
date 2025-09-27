@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 import { Eye, EyeOff, Mail, Lock } from 'lucide-react'
-import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
 export default function LoginPage() {
@@ -41,7 +40,6 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
       
       {/* Отступ для fixed хедера */}
       <div className="lg:hidden h-24"></div>

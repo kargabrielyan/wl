@@ -1,11 +1,9 @@
-import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { Clock, Users, Heart, Award, ChefHat, Truck, Star, CheckCircle } from 'lucide-react'
 
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
       
       {/* Отступ для fixed хедера */}
       <div className="h-48 md:h-32"></div>

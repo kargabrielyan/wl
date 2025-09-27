@@ -15,7 +15,6 @@ import {
   Settings,
   Tag
 } from 'lucide-react'
-import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
 interface Stats {
@@ -83,7 +82,6 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
       
       {/* Отступ для fixed хедера */}
       <div className="lg:hidden h-24"></div>

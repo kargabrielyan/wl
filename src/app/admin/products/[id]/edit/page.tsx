@@ -9,7 +9,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { ArrowLeft, Save, X, Trash2 } from 'lucide-react'
 import Link from 'next/link'
 import { Product, Category } from '@/types'
-import Header from '@/components/Header'
 import ImageSelector from '@/components/ImageSelector'
 
 const statuses = [
@@ -227,7 +226,6 @@ export default function EditProductPage({ params }: EditProductPageProps) {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
       
       {/* Отступ для fixed хедера */}
       <div className="lg:hidden h-24"></div>

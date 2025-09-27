@@ -6,7 +6,6 @@ import Image from 'next/image'
 import { useState, useCallback } from 'react'
 import { ArrowLeft, ShoppingCart, Plus, Minus, Star, Clock, MapPin, Phone, Zap } from 'lucide-react'
 import { Product } from '@/types'
-import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import ProductCard from '@/components/ProductCard'
 import { useCart } from '@/hooks/useCart'
@@ -86,7 +85,6 @@ export default async function OptimizedProductPage({
 
     return (
       <div className="min-h-screen bg-gray-50" style={{ overflow: 'auto' }}>
-        <Header />
         
         {/* Breadcrumb */}
         <div className="bg-white pt-20 md:pt-24">

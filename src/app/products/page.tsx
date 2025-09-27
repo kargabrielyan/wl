@@ -6,7 +6,6 @@ import Link from 'next/link'
 import { Search, Filter, ShoppingCart } from 'lucide-react'
 import { useCart } from '@/hooks/useCart'
 import { Product, Category } from '@/types'
-import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import ProductCard from '@/components/ProductCard'
 
@@ -178,7 +177,6 @@ function ProductsPageContent() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <Header />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="text-center mb-12">
             <div className="h-12 bg-gray-200 rounded mx-auto mb-4 w-64 animate-pulse"></div>
@@ -210,7 +208,6 @@ function ProductsPageContent() {
 
   return (
     <div className="min-h-screen bg-gray-50 overflow-x-hidden">
-      <Header />
       {/* Отступ для fixed хедера */}
       <div className="lg:hidden h-24"></div>
       <div className="hidden lg:block h-24"></div>
@@ -422,7 +419,6 @@ export default function ProductsPage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen bg-gray-50 overflow-x-hidden">
-        <Header />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="text-center mb-12">
             <div className="h-12 bg-gray-200 rounded mx-auto mb-4 w-64 animate-pulse"></div>

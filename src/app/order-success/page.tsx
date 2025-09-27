@@ -2,13 +2,11 @@
 
 import Link from 'next/link'
 import { CheckCircle, Clock, Phone, ArrowRight } from 'lucide-react'
-import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
 export default function OrderSuccessPage() {
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
       
       {/* Отступ для fixed хедера */}
       <div className="h-24 lg:h-20"></div>

@@ -13,7 +13,6 @@ import {
   Eye,
   EyeOff
 } from 'lucide-react'
-import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
 interface Category {
@@ -167,7 +166,6 @@ export default function CategoriesPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
       
       {/* Отступ для fixed хедера */}
       <div className="lg:hidden h-24"></div>

@@ -6,7 +6,6 @@ import { Phone, MapPin, Clock, ShoppingCart, Search } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useCart } from "@/hooks/useCart";
 import { Product } from "@/types";
-import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
 
@@ -174,7 +173,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-50 overflow-x-hidden">
-      <Header />
       {/* Отступ для fixed хедера */}
       <div className="lg:hidden h-24"></div>
       <div className="hidden lg:block h-24"></div>

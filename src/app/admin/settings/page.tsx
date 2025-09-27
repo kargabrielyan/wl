@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react'
 import { Settings, Save, ArrowLeft, Image as ImageIcon } from 'lucide-react'
 import Link from 'next/link'
 import ImageUpload from '@/components/ImageUpload'
-import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
 interface SiteSettings {
@@ -107,7 +106,6 @@ export default function AdminSettings() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
       
       {/* Отступ для fixed хедера */}
       <div className="lg:hidden h-24"></div>

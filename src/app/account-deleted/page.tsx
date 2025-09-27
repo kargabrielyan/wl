@@ -3,7 +3,6 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { CheckCircle, Home, ArrowLeft } from 'lucide-react'
-import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
 export default function AccountDeletedPage() {
@@ -28,7 +27,6 @@ export default function AccountDeletedPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
       
       <div className="min-h-screen bg-gradient-to-br from-red-50 to-orange-50 flex items-center justify-center p-4">
         <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 text-center">

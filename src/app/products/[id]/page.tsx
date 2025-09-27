@@ -3,7 +3,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowLeft, Star, Clock, MapPin, Phone, Zap } from 'lucide-react'
 import { Product } from '@/types'
-import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import ProductCard from '@/components/ProductCard'
 import ProductQuantityControls from '@/components/ProductQuantityControls'
@@ -83,7 +82,6 @@ export default async function ProductPage({
 
   return (
     <div className="min-h-screen bg-gray-50" style={{ overflow: 'auto' }}>
-      <Header />
       
       {/* Breadcrumb */}
       <div className="bg-white pt-20 md:pt-24">

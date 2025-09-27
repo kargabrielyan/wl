@@ -6,7 +6,6 @@ import Link from 'next/link'
 import { ArrowLeft, MapPin, Clock, CreditCard, Phone, User } from 'lucide-react'
 import { useCart } from '@/hooks/useCart'
 import { useSession } from 'next-auth/react'
-import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
 interface UserProfile {
@@ -194,7 +193,6 @@ export default function CheckoutPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
       
       {/* Отступ для fixed хедера */}
       <div className="lg:hidden h-24"></div>

@@ -13,7 +13,6 @@ import {
   Search,
   Filter
 } from 'lucide-react'
-import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { Product, ProductStatus } from '@/types'
 
@@ -139,7 +138,6 @@ export default function AdminProducts() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
       
       {/* Отступ для fixed хедера */}
       <div className="lg:hidden h-24"></div>
