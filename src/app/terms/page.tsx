@@ -7,7 +7,7 @@ export default function TermsPage() {
       <div className="h-16"></div>
       
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16">
-        <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-8">
+        <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-8 mb-20 lg:mb-16">
           <div className="text-center mb-8">
             <h1 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-4">Условия использования</h1>
             <p className="text-gray-600">Последнее обновление: {new Date().toLocaleDateString('ru-RU')}</p>
