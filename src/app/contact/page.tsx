@@ -6,7 +6,8 @@ export default function ContactPage() {
     <div className="min-h-screen bg-gray-50">
       
       {/* Отступ для fixed хедера */}
-      <div className="h-48 md:h-32"></div>
+      <div className="lg:hidden h-16"></div>
+      <div className="hidden lg:block h-24"></div>
       
       {/* Hero Section */}
       <section className="bg-orange-500 text-white py-20 pt-8">
