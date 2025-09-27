@@ -149,14 +149,6 @@ export default function ProfilePage() {
       if (response.ok) {
         console.log('✅ Account deleted successfully')
         
-        // Импортируем CacheManager для очистки кэша
-        const { CacheManager } = await import('@/lib/cacheManager')
-        
-        // Очищаем весь кэш приложения
-        CacheManager.clearAllCache()
-        
-        console.log('✅ Cache cleared successfully')
-        
         // Выходим из системы и перенаправляем на страницу подтверждения
         const { signOut } = await import('next-auth/react')
         
@@ -166,7 +158,7 @@ export default function ProfilePage() {
         // Принудительно обновляем сессию после выхода
         await getSession()
         
-        // Принудительно обновляем страницу для гарантии обновления UI
+        // Перенаправляем на страницу подтверждения
         window.location.href = '/account-deleted'
         
         console.log('✅ Signed out successfully')
