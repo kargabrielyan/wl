@@ -77,21 +77,40 @@ export class CacheManager {
       localStorage.removeItem('nextauth.message')
       sessionStorage.removeItem('nextauth.message')
       
-      // Очищаем NextAuth токены
+      // Очищаем все NextAuth ключи из localStorage
       const keys = Object.keys(localStorage)
       keys.forEach(key => {
-        if (key.startsWith('nextauth.') || key.startsWith('__nextauth')) {
+        if (key.startsWith('nextauth.') || 
+            key.startsWith('__nextauth') || 
+            key.startsWith('next-auth') ||
+            key.includes('nextauth') ||
+            key.includes('next-auth')) {
           localStorage.removeItem(key)
         }
       })
       
-      // Очищаем NextAuth токены из sessionStorage
+      // Очищаем все NextAuth ключи из sessionStorage
       const sessionKeys = Object.keys(sessionStorage)
       sessionKeys.forEach(key => {
-        if (key.startsWith('nextauth.') || key.startsWith('__nextauth')) {
+        if (key.startsWith('nextauth.') || 
+            key.startsWith('__nextauth') || 
+            key.startsWith('next-auth') ||
+            key.includes('nextauth') ||
+            key.includes('next-auth')) {
           sessionStorage.removeItem(key)
         }
       })
+      
+      // Очищаем cookies (если доступны)
+      if (typeof document !== 'undefined') {
+        document.cookie.split(";").forEach(cookie => {
+          const eqPos = cookie.indexOf("=")
+          const name = eqPos > -1 ? cookie.substr(0, eqPos).trim() : cookie.trim()
+          if (name.includes('nextauth') || name.includes('next-auth')) {
+            document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`
+          }
+        })
+      }
       
       console.log('✅ NextAuth cache cleared')
     } catch (error) {

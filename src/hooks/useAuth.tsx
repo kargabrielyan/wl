@@ -27,7 +27,20 @@ export function useAuth() {
   }, [update])
 
   const logout = useCallback(async () => {
-    await signOut({ redirect: false })
+    // Очищаем кэш перед выходом
+    if (typeof window !== 'undefined' && 'caches' in window) {
+      try {
+        const cacheNames = await caches.keys()
+        await Promise.all(
+          cacheNames.map(cacheName => caches.delete(cacheName))
+        )
+        console.log('✅ Service Worker cache cleared')
+      } catch (error) {
+        console.warn('⚠️ Could not clear Service Worker cache:', error)
+      }
+    }
+    
+    await signOut({ callbackUrl: '/' })
     // Принудительно обновляем сессию
     await update()
     // Принудительно обновляем страницу для гарантии обновления UI

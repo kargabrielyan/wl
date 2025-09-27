@@ -1,5 +1,5 @@
 // Service Worker для кэширования и оптимизации производительности
-const CACHE_NAME = 'pideh-armenia-v1.0.0'
+const CACHE_NAME = 'pideh-armenia-v1.0.1'
 
 // Файлы для кэширования (только статические ресурсы)
 const STATIC_FILES = [
@@ -62,6 +62,19 @@ self.addEventListener('fetch', (event) => {
     return
   }
 
+  // НЕ кэшируем API запросы аутентификации и динамические данные
+  if (request.url.includes('/api/auth/') || 
+      request.url.includes('/api/user/') ||
+      request.url.includes('/api/admin/') ||
+      request.url.includes('/api/orders') ||
+      request.url.includes('/api/products') && request.url.includes('?') ||
+      request.url.includes('_next/static/chunks/') ||
+      request.url.includes('_next/static/css/')) {
+    // Для API запросов - всегда идем в сеть, не кэшируем
+    event.respondWith(fetch(request))
+    return
+  }
+
   event.respondWith(
     caches.match(request)
       .then((response) => {
@@ -74,8 +87,11 @@ self.addEventListener('fetch', (event) => {
         // Иначе загружаем из сети
         return fetch(request)
           .then((response) => {
-            // Кэшируем только успешные ответы
-            if (response.status === 200) {
+            // Кэшируем только успешные ответы и только статические ресурсы
+            if (response.status === 200 && 
+                !request.url.includes('/api/') &&
+                !request.url.includes('_next/static/chunks/') &&
+                !request.url.includes('_next/static/css/')) {
               const responseClone = response.clone()
               caches.open(CACHE_NAME)
                 .then((cache) => {

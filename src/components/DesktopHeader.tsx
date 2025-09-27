@@ -170,7 +170,11 @@ export default function DesktopHeader() {
                 
                 {/* Logout */}
                 <button
-                  onClick={logout}
+                  onClick={async () => {
+                    await logout()
+                    // Принудительно обновляем страницу для гарантии обновления UI
+                    window.location.reload()
+                  }}
                   className="p-2 text-gray-900 hover:text-orange-500 transition-colors"
                   title="Выйти"
                 >
