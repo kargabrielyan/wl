@@ -5,14 +5,14 @@ import Image from 'next/image'
 import { ShoppingCart, User, LogOut, Search } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
+import { useSession, signOut } from 'next-auth/react'
 import { useCart } from '@/hooks/useCart'
 import { useHydration } from '@/hooks/useHydration'
-import { useAuth } from '@/hooks/useAuth'
 
 export default function DesktopHeader() {
   const isHydrated = useHydration()
   const { getTotalItems } = useCart()
-  const { session, status, logout } = useAuth()
+  const { data: session, status } = useSession()
   const pathname = usePathname()
   const [searchQuery, setSearchQuery] = useState('')
 
@@ -170,11 +170,7 @@ export default function DesktopHeader() {
                 
                 {/* Logout */}
                 <button
-                  onClick={async () => {
-                    await logout()
-                    // Принудительно обновляем страницу для гарантии обновления UI
-                    window.location.reload()
-                  }}
+                  onClick={() => signOut({ callbackUrl: '/' })}
                   className="p-2 text-gray-900 hover:text-orange-500 transition-colors"
                   title="Выйти"
                 >

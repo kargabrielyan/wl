@@ -3,9 +3,9 @@
 import Link from 'next/link'
 import { Home, ShoppingCart, User, Menu, LogIn } from 'lucide-react'
 import { usePathname } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 import { useCart } from '@/hooks/useCart'
 import { useHydration } from '@/hooks/useHydration'
-import { useAuth } from '@/hooks/useAuth'
 import { useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 
@@ -13,7 +13,7 @@ export default function MobileBottomNav() {
   const pathname = usePathname()
   const isHydrated = useHydration()
   const { getTotalItems } = useCart()
-  const { session, status } = useAuth()
+  const { data: session, status } = useSession()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   
   // Принудительное обновление при изменении сессии
