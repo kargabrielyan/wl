@@ -120,6 +120,25 @@ export default function MobileBottomNav() {
 
         {/* Bottom Info */}
         <div className="p-6 bg-gray-50 border-t border-gray-200">
+          {/* Legal Links */}
+          <div className="flex justify-center space-x-4 mb-4">
+            <Link 
+              href="/privacy" 
+              className="text-xs text-gray-400 hover:text-orange-500 transition-colors duration-200 underline decoration-dotted underline-offset-2"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Политика конфиденциальности
+            </Link>
+            <span className="text-xs text-gray-300">•</span>
+            <Link 
+              href="/terms" 
+              className="text-xs text-gray-400 hover:text-orange-500 transition-colors duration-200 underline decoration-dotted underline-offset-2"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Условия использования
+            </Link>
+          </div>
+          
           <div className="text-center text-gray-600">
             <p className="text-xs text-gray-500 mb-2">
               Copyright © 2025. All Rights Reserved.
