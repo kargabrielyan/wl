@@ -1,6 +1,6 @@
 'use client'
 
-import { useSession, getSession } from 'next-auth/react'
+import { useSession, getSession, signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
@@ -15,7 +15,8 @@ import {
   Package,
   ArrowLeft,
   Edit,
-  Trash2
+  Trash2,
+  LogOut
 } from 'lucide-react'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
@@ -282,6 +283,15 @@ export default function ProfilePage() {
               </div>
             </div>
             
+            {/* Mobile Logout Button */}
+            <button
+              onClick={() => signOut({ callbackUrl: '/' })}
+              className="w-full text-gray-600 text-sm py-2 rounded-lg font-normal hover:text-orange-500 hover:bg-orange-50 transition-all duration-200 flex items-center justify-center space-x-1 border border-gray-200 hover:border-orange-200 mb-2"
+            >
+              <LogOut className="h-3 w-3" />
+              <span>Выйти из аккаунта</span>
+            </button>
+            
             {/* Mobile Delete Account Button */}
             <button
               onClick={() => setIsDeleteModalOpen(true)}
@@ -353,6 +363,14 @@ export default function ProfilePage() {
                 >
                   <Edit className="h-5 w-5 mr-2" />
                   Редактировать профиль
+                </button>
+                
+                <button
+                  onClick={() => signOut({ callbackUrl: '/' })}
+                  className="w-full text-gray-600 text-sm py-2 rounded-lg font-normal hover:text-orange-500 hover:bg-orange-50 transition-all duration-200 flex items-center justify-center space-x-1 border border-gray-200 hover:border-orange-200 mb-2"
+                >
+                  <LogOut className="h-3 w-3" />
+                  <span>Выйти из аккаунта</span>
                 </button>
                 
                 <button

@@ -1,5 +1,5 @@
 // Service Worker для кэширования и оптимизации производительности
-const CACHE_NAME = 'pideh-armenia-v1.0.1'
+const CACHE_NAME = 'pideh-armenia-v1.0.2'
 
 // Файлы для кэширования (только статические ресурсы)
 const STATIC_FILES = [
@@ -69,8 +69,10 @@ self.addEventListener('fetch', (event) => {
       request.url.includes('/api/orders') ||
       request.url.includes('/api/products') && request.url.includes('?') ||
       request.url.includes('_next/static/chunks/') ||
-      request.url.includes('_next/static/css/')) {
-    // Для API запросов - всегда идем в сеть, не кэшируем
+      request.url.includes('_next/static/css/') ||
+      request.url.includes('_next/static/chunks/app/') ||
+      request.url.includes('_next/static/chunks/pages/')) {
+    // Для API запросов и динамических чанков - всегда идем в сеть, не кэшируем
     event.respondWith(fetch(request))
     return
   }
