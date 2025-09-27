@@ -13,7 +13,8 @@ export default function RegisterPage() {
     email: '',
     phone: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    acceptTerms: false
   })
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
@@ -22,10 +23,10 @@ export default function RegisterPage() {
   const router = useRouter()
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
+    const { name, value, type, checked } = e.target
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: type === 'checkbox' ? checked : value
     }))
   }
 
@@ -43,6 +44,12 @@ export default function RegisterPage() {
 
     if (formData.password.length < 6) {
       setError('Пароль должен содержать минимум 6 символов')
+      setIsLoading(false)
+      return
+    }
+
+    if (!formData.acceptTerms) {
+      setError('Необходимо принять условия использования и политику конфиденциальности')
       setIsLoading(false)
       return
     }
@@ -201,6 +208,23 @@ export default function RegisterPage() {
                   {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                 </button>
               </div>
+            </div>
+
+            <div className="flex items-start space-x-3">
+              <input
+                type="checkbox"
+                name="acceptTerms"
+                checked={formData.acceptTerms}
+                onChange={handleInputChange}
+                className="mt-1 h-4 w-4 text-orange-500 border-gray-300 rounded focus:ring-orange-500"
+                required
+              />
+              <label className="text-sm text-gray-700">
+                Я принимаю{' '}
+                <Link href="/privacy" className="text-orange-500 hover:text-orange-600 underline">
+                  условия использования и политику конфиденциальности
+                </Link>
+              </label>
             </div>
 
             <button

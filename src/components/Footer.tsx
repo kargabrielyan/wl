@@ -112,18 +112,28 @@ export default function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-          <p className="text-sm font-light tracking-wide">
-            Copyright © 2025. All Rights Reserved. Created by{' '}
-            <a 
-              href="https://neetrino.com" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-orange-500 hover:text-orange-400 transition-colors font-normal"
-            >
-              Neetrino IT Company
-            </a>
-          </p>
+        <div className="border-t border-gray-700 mt-8 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+            <div className="flex flex-wrap justify-center md:justify-start space-x-6 text-sm">
+              <Link href="/privacy" className="text-gray-400 hover:text-orange-500 transition-colors">
+                Политика конфиденциальности
+              </Link>
+              <Link href="/terms" className="text-gray-400 hover:text-orange-500 transition-colors">
+                Условия использования
+              </Link>
+            </div>
+            <p className="text-sm font-light tracking-wide text-gray-400">
+              Copyright © 2025. All Rights Reserved. Created by{' '}
+              <a 
+                href="https://neetrino.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-orange-500 hover:text-orange-400 transition-colors font-normal"
+              >
+                Neetrino IT Company
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </footer>
