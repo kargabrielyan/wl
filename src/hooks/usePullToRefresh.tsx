@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect, useCallback, useRef } from 'react'
-import { useRouter } from 'next/navigation'
 
 interface PullToRefreshOptions {
   threshold?: number // Минимальное расстояние для срабатывания (px)
@@ -37,7 +36,6 @@ export function usePullToRefresh(options: PullToRefreshOptions = {}) {
   const startY = useRef<number>(0)
   const currentY = useRef<number>(0)
   const isAtTop = useRef<boolean>(true)
-  const router = useRouter()
 
   // Проверяем, находимся ли мы в верхней части страницы
   const checkIfAtTop = useCallback(() => {

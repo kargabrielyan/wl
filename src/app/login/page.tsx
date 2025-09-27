@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useAuth } from '@/hooks/useAuth'
+import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 import { Eye, EyeOff, Mail, Lock } from 'lucide-react'
 import Header from '@/components/Header'
@@ -13,7 +13,6 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
-  const { login } = useAuth()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -21,9 +20,20 @@ export default function LoginPage() {
     setError('')
 
     try {
-      await login(email, password)
+      const result = await signIn('credentials', {
+        email,
+        password,
+        redirect: false,
+      })
+
+      if (result?.error) {
+        setError('Неверный email или пароль')
+      } else {
+        // Перенаправляем на главную страницу
+        window.location.href = '/'
+      }
     } catch (error) {
-      setError(error instanceof Error ? error.message : 'Произошла ошибка при входе')
+      setError('Произошла ошибка при входе')
     } finally {
       setIsLoading(false)
     }

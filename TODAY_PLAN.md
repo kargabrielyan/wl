@@ -65,7 +65,6 @@ DELETE /api/user/delete
 
 ### Компоненты
 - [x] `DeleteAccountModal` - модальное окно подтверждения
-- [x] `CacheManager` - утилита для управления кэшем
 - [x] `AccountDeletedPage` - страница подтверждения удаления
 - [ ] `PullToRefresh` - глобальный компонент для pull-to-refresh
 - [ ] `PullToRefreshProvider` - контекст для управления состоянием
@@ -133,11 +132,6 @@ DELETE /api/user/delete
   - Добавить кнопку профиля для авторизованных пользователей
   - Синхронизировать состояние с DesktopHeader
 
-- [ ] **Обновить CacheManager для NextAuth**
-  - Добавить очистку NextAuth кэша в `clearAllCache()`
-  - Очистить `localStorage.removeItem('nextauth.message')`
-  - Очистить `sessionStorage.removeItem('nextauth.message')`
-  - Очистить JWT токены NextAuth
 
 - [ ] **Протестировать исправления**
   - Проверить обновление Header после выхода из аккаунта
