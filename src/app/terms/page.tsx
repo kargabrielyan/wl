@@ -6,16 +6,16 @@ export default function TermsPage() {
       {/* Отступ для fixed хедера */}
       <div className="h-16"></div>
       
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="bg-white rounded-2xl shadow-lg p-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16">
+        <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-8">
           <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">Условия использования</h1>
+            <h1 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-4">Условия использования</h1>
             <p className="text-gray-600">Последнее обновление: {new Date().toLocaleDateString('ru-RU')}</p>
           </div>
 
           <div className="prose prose-lg max-w-none">
             <section className="mb-8">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">1. Общие положения</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4">1. Общие положения</h2>
               <p className="text-gray-700 mb-4">
                 Настоящие Условия использования регулируют отношения между администрацией данного сайта 
                 (далее — «Компания») и пользователями сайта (далее — «Пользователь»).
@@ -27,7 +27,7 @@ export default function TermsPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">2. Описание услуг</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4">2. Описание услуг</h2>
               <p className="text-gray-700 mb-4">
                 Данный сайт предоставляет следующие услуги:
               </p>
@@ -40,7 +40,7 @@ export default function TermsPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">3. Регистрация и аккаунт</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4">3. Регистрация и аккаунт</h2>
               <p className="text-gray-700 mb-4">
                 Для оформления заказов необходимо создать аккаунт. При регистрации вы обязуетесь:
               </p>
@@ -53,7 +53,7 @@ export default function TermsPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">4. Заказы и оплата</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4">4. Заказы и оплата</h2>
               <p className="text-gray-700 mb-4">
                 При оформлении заказа вы соглашаетесь:
               </p>
@@ -69,7 +69,7 @@ export default function TermsPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">5. Доставка</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4">5. Доставка</h2>
               <p className="text-gray-700 mb-4">
                 Условия доставки:
               </p>
@@ -83,7 +83,7 @@ export default function TermsPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">6. Возврат и обмен</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4">6. Возврат и обмен</h2>
               <p className="text-gray-700 mb-4">
                 Возврат товара возможен в следующих случаях:
               </p>
@@ -98,7 +98,7 @@ export default function TermsPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">7. Ответственность</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4">7. Ответственность</h2>
               <p className="text-gray-700 mb-4">
                 Компания не несет ответственности за:
               </p>
@@ -111,7 +111,7 @@ export default function TermsPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">8. Интеллектуальная собственность</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4">8. Интеллектуальная собственность</h2>
               <p className="text-gray-700 mb-4">
                 Все материалы сайта (тексты, изображения, дизайн) являются интеллектуальной 
                 собственностью компании и защищены авторским правом.
@@ -123,7 +123,7 @@ export default function TermsPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">9. Изменения условий</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4">9. Изменения условий</h2>
               <p className="text-gray-700 mb-4">
                 Компания оставляет за собой право изменять данные условия в любое время. 
                 О существенных изменениях пользователи будут уведомлены через сайт или 
@@ -132,7 +132,7 @@ export default function TermsPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">10. Контактная информация</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4">10. Контактная информация</h2>
               <p className="text-gray-700 mb-4">
                 По вопросам, связанным с условиями использования, обращайтесь:
               </p>

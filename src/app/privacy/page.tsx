@@ -6,16 +6,16 @@ export default function PrivacyPage() {
       {/* Отступ для fixed хедера */}
       <div className="h-16"></div>
       
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="bg-white rounded-2xl shadow-lg p-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16">
+        <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-8">
           <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">Политика конфиденциальности</h1>
+            <h1 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-4">Политика конфиденциальности</h1>
             <p className="text-gray-600">Последнее обновление: {new Date().toLocaleDateString('ru-RU')}</p>
           </div>
 
           <div className="prose prose-lg max-w-none">
             <section className="mb-8">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">1. Общие положения</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4">1. Общие положения</h2>
               <p className="text-gray-700 mb-4">
                 Настоящая Политика конфиденциальности определяет порядок обработки персональных данных 
                 пользователей данного сайта (далее — «Сайт»).
@@ -26,7 +26,7 @@ export default function PrivacyPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">2. Сбор персональных данных</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4">2. Сбор персональных данных</h2>
               <p className="text-gray-700 mb-4">
                 Мы собираем следующие персональные данные:
               </p>
@@ -40,7 +40,7 @@ export default function PrivacyPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">3. Цели обработки данных</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4">3. Цели обработки данных</h2>
               <p className="text-gray-700 mb-4">
                 Персональные данные используются для:
               </p>
@@ -54,7 +54,7 @@ export default function PrivacyPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">4. Защита данных</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4">4. Защита данных</h2>
               <p className="text-gray-700 mb-4">
                 Мы принимаем все необходимые меры для защиты ваших персональных данных от 
                 несанкционированного доступа, изменения, раскрытия или уничтожения.
@@ -66,7 +66,7 @@ export default function PrivacyPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">5. Передача данных третьим лицам</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4">5. Передача данных третьим лицам</h2>
               <p className="text-gray-700 mb-4">
                 Мы не передаем ваши персональные данные третьим лицам, за исключением случаев:
               </p>
@@ -78,7 +78,7 @@ export default function PrivacyPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">6. Ваши права</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4">6. Ваши права</h2>
               <p className="text-gray-700 mb-4">
                 Вы имеете право:
               </p>
@@ -92,7 +92,7 @@ export default function PrivacyPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">7. Cookies</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4">7. Cookies</h2>
               <p className="text-gray-700 mb-4">
                 Наш Сайт использует файлы cookie для улучшения пользовательского опыта. 
                 Вы можете отключить cookies в настройках вашего браузера.
@@ -100,7 +100,7 @@ export default function PrivacyPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">8. Изменения в политике</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4">8. Изменения в политике</h2>
               <p className="text-gray-700 mb-4">
                 Мы можем обновлять данную Политику конфиденциальности. О любых изменениях 
                 мы уведомим вас через Сайт или по электронной почте.
@@ -108,7 +108,7 @@ export default function PrivacyPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">9. Контактная информация</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4">9. Контактная информация</h2>
               <p className="text-gray-700 mb-4">
                 Если у вас есть вопросы по данной Политике конфиденциальности, 
                 обращайтесь к нам:
