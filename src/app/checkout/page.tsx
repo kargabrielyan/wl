@@ -195,7 +195,7 @@ export default function CheckoutPage() {
     <div className="min-h-screen bg-gray-50">
       
       {/* Отступ для fixed хедера */}
-      <div className="lg:hidden h-24"></div>
+      <div className="lg:hidden h-16"></div>
       
       {/* Mobile App Style Container */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 lg:py-8 pb-20 lg:pb-8">

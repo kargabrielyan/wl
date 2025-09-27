@@ -174,7 +174,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50 overflow-x-hidden">
       {/* Отступ для fixed хедера */}
-      <div className="lg:hidden h-24"></div>
+      <div className="lg:hidden h-16"></div>
       <div className="hidden lg:block h-24"></div>
 
       {/* Hero Section - Compact for Mobile */}
@@ -970,7 +970,7 @@ export default function Home() {
       </div>
       
       {/* Add bottom padding for mobile and tablet nav */}
-      <div className="lg:hidden h-24"></div>
+      <div className="lg:hidden h-16"></div>
     </div>
   );
 }

@@ -201,7 +201,7 @@ function ProductsPageContent() {
         <div className="hidden lg:block">
           <Footer />
         </div>
-        <div className="lg:hidden h-24"></div>
+        <div className="lg:hidden h-16"></div>
       </div>
     )
   }
@@ -209,7 +209,7 @@ function ProductsPageContent() {
   return (
     <div className="min-h-screen bg-gray-50 overflow-x-hidden">
       {/* Отступ для fixed хедера */}
-      <div className="lg:hidden h-24"></div>
+      <div className="lg:hidden h-16"></div>
       <div className="hidden lg:block h-24"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -410,7 +410,7 @@ function ProductsPageContent() {
       </div>
       
       {/* Add bottom padding for mobile and tablet nav */}
-      <div className="lg:hidden h-24"></div>
+      <div className="lg:hidden h-16"></div>
     </div>
   )
 }
@@ -443,7 +443,7 @@ export default function ProductsPage() {
         <div className="hidden lg:block">
           <Footer />
         </div>
-        <div className="lg:hidden h-24"></div>
+        <div className="lg:hidden h-16"></div>
       </div>
     }>
       <ProductsPageContent />
