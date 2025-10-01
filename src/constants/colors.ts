@@ -1,4 +1,4 @@
-// Цветовая палитра Pideh Armenia
+// Цветовая палитра Online Shop
 export const colors = {
   // Основные цвета
   primary: {

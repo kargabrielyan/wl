@@ -1,4 +1,4 @@
-# Witleybel Online Shop - Современный интернет-магазин
+# Online Shop - Современный интернет-магазин
 
 Полнофункциональный интернет-магазин с широким ассортиментом товаров. Современный дизайн, быстрая загрузка, удобная навигация.
 
@@ -12,7 +12,7 @@ npm install
 brew services start postgresql@15
 
 # Создание базы данных
-psql postgres -c "CREATE DATABASE witleybel_shop;"
+psql postgres -c "CREATE DATABASE online_shop;"
 
 # Применение миграций
 npx prisma migrate dev

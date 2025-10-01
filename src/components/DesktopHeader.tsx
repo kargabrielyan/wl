@@ -40,7 +40,7 @@ export default function DesktopHeader() {
           <Link href="/" className="hover:opacity-80 transition-opacity">
             <Image 
               src="/logo.png" 
-              alt="Pideh Armenia Logo" 
+              alt="Online Shop Logo" 
               width={180} 
               height={60}
               className="h-16 w-auto"

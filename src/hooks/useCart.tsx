@@ -5,7 +5,7 @@ import { Product, CartItem, CartContextType } from '@/types'
 import { useHydration } from './useHydration'
 
 // Ключ для localStorage
-const CART_STORAGE_KEY = 'pideh-cart'
+const CART_STORAGE_KEY = 'onlineshop-cart'
 
 // Функции для работы с localStorage
 const saveCartToStorage = (cart: CartItem[]) => {

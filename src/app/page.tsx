@@ -193,20 +193,20 @@ export default function Home() {
             {/* Left content - compact */}
             <div className="flex-1 pr-4">
               <h1 className="text-3xl font-bold leading-tight mb-3">
-                <span className="block text-white">Армянские</span>
-                <span className="block text-yellow-200">пиде</span>
+                <span className="block text-white">Онлайн</span>
+                <span className="block text-yellow-200">магазин</span>
               </h1>
               <p className="text-base text-orange-100 mb-4 font-medium">
-                15 уникальных вкусов
+                Широкий ассортимент товаров
               </p>
               <div className="flex gap-6 text-sm">
                 <div className="text-center">
-                  <div className="text-xl font-bold text-yellow-200">15+</div>
-                  <div className="text-orange-100 font-medium">Вкусов</div>
+                  <div className="text-xl font-bold text-yellow-200">100+</div>
+                  <div className="text-orange-100 font-medium">Товаров</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-xl font-bold text-yellow-200">20</div>
-                  <div className="text-orange-100 font-medium">Минут</div>
+                  <div className="text-xl font-bold text-yellow-200">24/7</div>
+                  <div className="text-orange-100 font-medium">Доставка</div>
                 </div>
               </div>
             </div>
@@ -266,8 +266,8 @@ export default function Home() {
                   <div className="relative w-24 h-24 mx-auto mb-2 bg-white/20 rounded-lg flex items-center justify-center">
                     <span className="text-2xl">🥟</span>
                   </div>
-                  <h3 className="text-sm font-bold mb-1 text-white">Армянские пиде</h3>
-                  <p className="text-xs text-orange-100">Вкусные и свежие</p>
+                  <h3 className="text-sm font-bold mb-1 text-white">Онлайн магазин</h3>
+                  <p className="text-xs text-orange-100">Качественные товары</p>
                 </div>
               )}
             </div>
@@ -280,20 +280,20 @@ export default function Home() {
             {/* Left content - tablet optimized */}
             <div className="flex-1 pr-8">
               <h1 className="text-4xl font-bold leading-tight mb-4">
-                <span className="block text-white">Армянские</span>
-                <span className="block text-yellow-200">пиде</span>
+                <span className="block text-white">Онлайн</span>
+                <span className="block text-yellow-200">магазин</span>
               </h1>
               <p className="text-lg text-orange-100 mb-6 font-medium">
-                15 уникальных вкусов
+                Широкий ассортимент товаров
               </p>
               <div className="flex gap-8 text-base">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-yellow-200">15+</div>
-                  <div className="text-orange-100 font-medium">Вкусов</div>
+                  <div className="text-2xl font-bold text-yellow-200">100+</div>
+                  <div className="text-orange-100 font-medium">Товаров</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-yellow-200">20</div>
-                  <div className="text-orange-100 font-medium">Минут</div>
+                  <div className="text-2xl font-bold text-yellow-200">24/7</div>
+                  <div className="text-orange-100 font-medium">Доставка</div>
                 </div>
               </div>
             </div>
@@ -353,8 +353,8 @@ export default function Home() {
                   <div className="relative w-32 h-32 mx-auto mb-3 bg-white/20 rounded-2xl flex items-center justify-center">
                     <span className="text-4xl">🥟</span>
                   </div>
-                  <h3 className="text-base font-bold mb-2 text-white">Армянские пиде</h3>
-                  <p className="text-sm text-orange-100">Вкусные и свежие</p>
+                  <h3 className="text-base font-bold mb-2 text-white">Онлайн магазин</h3>
+                  <p className="text-sm text-orange-100">Качественные товары</p>
                 </div>
               )}
             </div>
@@ -369,37 +369,37 @@ export default function Home() {
               {/* Badge */}
               <div className="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium animate-fade-in">
                 <span className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
-                Свежие пиде каждый день
+                Качественные товары каждый день
               </div>
               
               {/* Main heading */}
               <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-                <span className="block text-white animate-slide-up">Армянские</span>
-                <span className="block text-yellow-200 animate-slide-up-delay">пиде</span>
+                <span className="block text-white animate-slide-up">Онлайн</span>
+                <span className="block text-yellow-200 animate-slide-up-delay">магазин</span>
                 <span className="block text-2xl md:text-3xl font-normal text-orange-100 mt-3 animate-fade-in-delay">
-                  новый вкус
+                  качественные товары
                 </span>
               </h1>
               
               {/* Description */}
               <p className="text-lg md:text-xl text-orange-100 leading-relaxed max-w-lg animate-fade-in-delay-2">
-                Традиционная форма с современными начинками. 
-                <span className="font-semibold text-yellow-200"> 15 уникальных вкусов</span> для настоящих гурманов!
+                Современный интернет-магазин с широким ассортиментом. 
+                <span className="font-semibold text-yellow-200"> 100+ качественных товаров</span> для ваших потребностей!
               </p>
               
               {/* Stats */}
               <div className="flex flex-wrap gap-6 animate-fade-in-delay-3">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-yellow-200">15+</div>
-                  <div className="text-sm text-orange-100">Вкусов</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-yellow-200">20</div>
-                  <div className="text-sm text-orange-100">Минут</div>
+                  <div className="text-2xl font-bold text-yellow-200">100+</div>
+                  <div className="text-sm text-orange-100">Товаров</div>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-yellow-200">24/7</div>
                   <div className="text-sm text-orange-100">Доставка</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-yellow-200">100%</div>
+                  <div className="text-sm text-orange-100">Качество</div>
                 </div>
               </div>
               
@@ -529,8 +529,8 @@ export default function Home() {
                   </>
                 ) : (
                   <>
-                    <h3 className="text-2xl font-bold mb-2">Армянские пиде</h3>
-                    <p className="text-orange-100 mb-4 opacity-80 group-hover:opacity-100 transition-opacity duration-300">Вкусные и свежие</p>
+                    <h3 className="text-2xl font-bold mb-2">Онлайн магазин</h3>
+                    <p className="text-orange-100 mb-4 opacity-80 group-hover:opacity-100 transition-opacity duration-300">Качественные товары</p>
                     
                     <Link 
                       href="/products"
@@ -548,7 +548,7 @@ export default function Home() {
                 <div className="w-12 h-12 bg-white/30 rounded-lg flex items-center justify-center mb-2">
                   <span className="text-2xl">🍕</span>
                 </div>
-                <div className="text-xs font-semibold">15+ вкусов</div>
+                <div className="text-xs font-semibold">100+ товаров</div>
               </div>
               
               <div className="absolute -bottom-4 -right-4 bg-white/20 backdrop-blur-sm rounded-xl p-3 text-center border border-white/30 animate-float-delay">

@@ -18,7 +18,7 @@ export default function MobileHeader() {
             <Link href="/" className="hover:opacity-80 transition-all duration-300 hover:scale-105">
               <Image 
                 src="/logo.png" 
-                alt="Pideh Armenia Logo" 
+                alt="Online Shop Logo" 
                 width={60} 
                 height={18}
                 className="h-4 w-auto"

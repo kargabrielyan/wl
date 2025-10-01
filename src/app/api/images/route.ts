@@ -39,7 +39,7 @@ export async function GET() {
 function getImageCategory(filename: string): string {
   const name = filename.toLowerCase()
   
-  if (name.includes('pide') || name.includes('пиде')) return 'Пиде'
+  if (name.includes('pide') || name.includes('пиде')) return 'Товары'
   if (name.includes('kombo') || name.includes('комбо')) return 'Комбо'
   if (name.includes('sauce') || name.includes('соус')) return 'Соусы'
   if (name.includes('drink') || name.includes('напиток') || name.includes('cola') || name.includes('juice')) return 'Напитки'

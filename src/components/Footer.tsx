@@ -12,7 +12,7 @@ export default function Footer() {
             <div className="flex items-center mb-4">
               <Image 
                 src="/logo.png" 
-                alt="Pideh Armenia Logo" 
+                alt="Online Shop Logo" 
                 width={120} 
                 height={40}
                 className="h-10 w-auto"
@@ -20,14 +20,14 @@ export default function Footer() {
               />
             </div>
             <p className="text-gray-300 mb-4">
-              Армянские пиде - новый вкус. Свежие, вкусные, быстрые!
-              Традиционная форма с современными начинками. 15 уникальных вкусов для настоящих гурманов.
+              Online Shop - современный интернет-магазин с широким ассортиментом товаров.
+              Качество, надежность, быстрая доставка. 100+ качественных товаров для ваших потребностей.
             </p>
             <div className="flex space-x-4">
               <a href="tel:+37495044888" className="text-gray-300 hover:text-orange-500 transition-colors">
                 <Phone className="h-5 w-5" />
               </a>
-              <a href="mailto:info@pideh.am" className="text-gray-300 hover:text-orange-500 transition-colors">
+              <a href="mailto:info@onlineshop.com" className="text-gray-300 hover:text-orange-500 transition-colors">
                 <Mail className="h-5 w-5" />
               </a>
             </div>
@@ -72,8 +72,8 @@ export default function Footer() {
               </div>
               <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4 text-orange-500" />
-                <a href="mailto:info@pideh.am" className="text-gray-300 hover:text-orange-500 transition-colors">
-                  info@pideh.am
+                <a href="mailto:info@onlineshop.com" className="text-gray-300 hover:text-orange-500 transition-colors">
+                  info@onlineshop.com
                 </a>
               </div>
               <div className="space-y-2">

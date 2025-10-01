@@ -44,10 +44,10 @@ export default function ContactPage() {
               <Mail className="h-8 w-8 text-orange-500" />
             </div>
             <h3 className="text-xl font-bold text-gray-900 mb-3">Email</h3>
-            <p className="text-gray-600 mb-2">info@pideh-armenia.am</p>
+            <p className="text-gray-600 mb-2">info@onlineshop.com</p>
             <p className="text-sm text-gray-500">Ответим в течение 2 часов</p>
             <a 
-              href="mailto:info@pideh-armenia.am"
+              href="mailto:info@onlineshop.com"
               className="inline-block mt-4 bg-orange-500 text-white px-6 py-2 rounded-lg hover:bg-orange-600 transition-colors"
             >
               Написать
@@ -79,7 +79,7 @@ export default function ContactPage() {
               <span>Позвонить +374 95-044-888</span>
             </a>
             <a 
-              href="https://www.facebook.com/PIDEH.Armenia/"
+              href="https://www.facebook.com/onlineshop/"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center space-x-2"
@@ -90,7 +90,7 @@ export default function ContactPage() {
               <span>Facebook</span>
             </a>
             <a 
-              href="https://www.instagram.com/pideh.armenia/"
+              href="https://www.instagram.com/onlineshop/"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-pink-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-pink-700 transition-colors flex items-center justify-center space-x-2"

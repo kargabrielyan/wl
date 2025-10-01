@@ -721,7 +721,7 @@ pm2 restart ПРАВИЛЬНЫЙ_ПРОЕКТ
 **Что произошло:** Файл `.env.local` переопределял настройки из `.env`
 ```bash
 # .env.local содержал:
-DATABASE_URL="postgresql://user:@localhost:5432/witleybel_dev"
+DATABASE_URL="postgresql://user:@localhost:5432/online_shop_dev"
 
 # .env содержал:
 DATABASE_URL="postgresql://wl_user:Neetrino2024!@localhost:5432/wl_neetrino_com?schema=public"

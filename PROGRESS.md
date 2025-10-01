@@ -1,4 +1,4 @@
-# PROGRESS.md - Witleybel Online Shop
+# PROGRESS.md - Online Shop
 
 ## 🎉 РЕЛИЗ v1.3.0 - ОБНОВЛЕНИЕ ДИЗАЙНА И ИЗОБРАЖЕНИЙ! 
 
