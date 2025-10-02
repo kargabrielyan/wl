@@ -45,6 +45,7 @@ export default function DesktopHeader() {
               height={60}
               className="h-16 w-auto"
               priority
+              unoptimized
             />
           </Link>
 

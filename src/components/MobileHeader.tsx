@@ -24,6 +24,7 @@ export default function MobileHeader() {
                 className="h-4 w-auto"
                 style={{ width: "auto", height: "auto" }}
                 priority
+                unoptimized
               />
             </Link>
           </div>
