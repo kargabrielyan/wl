@@ -20,8 +20,10 @@ function ProductsPageContent() {
   const [loading, setLoading] = useState(true)
   const [searching, setSearching] = useState(false)
   const [addedToCart, setAddedToCart] = useState<Set<string>>(new Set())
+  const [selectedProductId, setSelectedProductId] = useState<string | null>(null)
   const { addItem } = useCart()
   const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const selectedProductRef = useRef<HTMLDivElement>(null)
 
   // Порядок категорий для сортировки (приоритетные категории)
   const categoryOrder = ['Игрушки', 'Одежда', 'Книги', 'Спорт', 'Творчество']
@@ -84,12 +86,30 @@ function ProductsPageContent() {
   // Обработка URL параметров для поиска
   useEffect(() => {
     const searchParam = searchParams.get('search')
+    const selectedParam = searchParams.get('selected')
+    
     if (searchParam) {
       setSearchQuery(searchParam)
       setDebouncedSearchQuery(searchParam)
       setSelectedCategory('Все') // Сбрасываем категорию при поиске
     }
+    
+    if (selectedParam) {
+      setSelectedProductId(selectedParam)
+    }
   }, [searchParams])
+
+  // Прокрутка к выбранному товару
+  useEffect(() => {
+    if (selectedProductId && selectedProductRef.current) {
+      setTimeout(() => {
+        selectedProductRef.current?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        })
+      }, 100)
+    }
+  }, [selectedProductId, filteredProducts])
 
   // Debounce search query
   useEffect(() => {
@@ -347,13 +367,18 @@ function ProductsPageContent() {
                 {/* Продукты категории */}
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-8 md:gap-15">
                   {categoryProducts.map((product) => (
-                    <ProductCard
+                    <div
                       key={product.id}
-                      product={product}
-                      onAddToCart={handleAddToCart}
-                      variant="compact"
-                      addedToCart={addedToCart}
-                    />
+                      ref={selectedProductId === product.id ? selectedProductRef : null}
+                    >
+                      <ProductCard
+                        product={product}
+                        onAddToCart={handleAddToCart}
+                        variant="compact"
+                        addedToCart={addedToCart}
+                        isSelected={selectedProductId === product.id}
+                      />
+                    </div>
                   ))}
                 </div>
               </div>
@@ -363,13 +388,18 @@ function ProductsPageContent() {
           // Показываем продукты в обычной сетке (для конкретной категории или поиска)
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-8 md:gap-15">
             {filteredProducts.map((product) => (
-              <ProductCard
+              <div
                 key={product.id}
-                product={product}
-                onAddToCart={handleAddToCart}
-                variant="compact"
-                addedToCart={addedToCart}
-              />
+                ref={selectedProductId === product.id ? selectedProductRef : null}
+              >
+                <ProductCard
+                  product={product}
+                  onAddToCart={handleAddToCart}
+                  variant="compact"
+                  addedToCart={addedToCart}
+                  isSelected={selectedProductId === product.id}
+                />
+              </div>
             ))}
           </div>
         )}

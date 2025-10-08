@@ -24,9 +24,9 @@ export default function MobileHeader() {
     handleKeyDown,
     clearSearch
   } = useInstantSearch({
-    debounceMs: 300,
+    debounceMs: 200,
     minQueryLength: 2,
-    maxResults: 6 // Меньше результатов для мобильного
+    maxResults: 4 // Меньше результатов для мобильного
   })
 
   const searchRef = useRef<HTMLDivElement>(null)
@@ -47,7 +47,7 @@ export default function MobileHeader() {
 
   // Обработка клика по результату поиска
   const handleResultClick = (result: any) => {
-    window.location.href = `/products?search=${encodeURIComponent(result.name)}`
+    window.location.href = `/products/${result.id}`
     setIsOpen(false)
     setIsSearchOpen(false)
     clearSearch()
@@ -85,8 +85,8 @@ export default function MobileHeader() {
         {isSearchOpen && (
           <div className="absolute top-full left-0 right-0 bg-white/95 backdrop-blur-xl shadow-2xl border-t border-gray-200 z-[100]">
             <div className="p-4">
-              <div className="flex gap-3" ref={searchRef}>
-                <div className="relative flex-1">
+               <div className="flex gap-3 relative" ref={searchRef}>
+                 <div className="relative flex-1">
                   <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-500" />
                   <input
                     type="text"
@@ -101,6 +101,9 @@ export default function MobileHeader() {
                     }}
                     className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-2xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-base text-gray-900 placeholder-gray-500 bg-gray-50 transition-all duration-300 shadow-sm hover:shadow-md focus:bg-white"
                     autoFocus
+                    aria-controls="search-results-mobile"
+                    aria-expanded={isOpen}
+                    aria-autocomplete="list"
                   />
                   
                   {/* Clear button */}
@@ -131,18 +134,18 @@ export default function MobileHeader() {
               </div>
 
               {/* Mobile Search Dropdown */}
-              <div className="mt-2">
-                <SearchDropdown
-                  results={results}
-                  loading={loading}
-                  error={error}
-                  isOpen={isOpen}
-                  selectedIndex={selectedIndex}
-                  onResultClick={handleResultClick}
-                  onClose={() => setIsOpen(false)}
-                  className="relative shadow-none border-0 rounded-xl"
-                />
-              </div>
+               <div className="mt-2">
+                 <SearchDropdown
+                   results={results}
+                   loading={loading}
+                   error={error}
+                   isOpen={isOpen}
+                   selectedIndex={selectedIndex}
+                   onResultClick={handleResultClick}
+                   onClose={() => setIsOpen(false)}
+                   className="relative shadow-none border-0 rounded-xl w-full max-w-none"
+                 />
+               </div>
             </div>
           </div>
         )}

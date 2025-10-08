@@ -11,9 +11,10 @@ interface ProductCardProps {
   onAddToCart: (product: Product) => void
   variant?: 'default' | 'compact'
   addedToCart?: Set<string>
+  isSelected?: boolean
 }
 
-const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCart }: ProductCardProps) => {
+const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCart, isSelected = false }: ProductCardProps) => {
   const isCompact = variant === 'compact'
   const isAdded = addedToCart?.has(product.id) || false
 
@@ -22,6 +23,8 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
       href={`/products/${product.id}`}
       className={`relative block bg-white rounded-3xl shadow-2xl overflow-visible hover:shadow-3xl hover:scale-110 transition-all duration-700 cursor-pointer group border-0 transform hover:-translate-y-3 ${
         isCompact ? 'rounded-2xl shadow-xl hover:shadow-2xl' : ''
+      } ${
+        isSelected ? 'ring-4 ring-orange-400 ring-opacity-60 scale-105' : ''
       }`}
       style={{
         background: 'linear-gradient(145deg, #ffffff 0%, #f8fafc 50%, #f1f5f9 100%)',

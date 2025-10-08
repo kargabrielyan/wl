@@ -31,9 +31,9 @@ export default function DesktopHeader() {
     handleKeyDown,
     clearSearch
   } = useInstantSearch({
-    debounceMs: 300,
+    debounceMs: 200,
     minQueryLength: 2,
-    maxResults: 8
+    maxResults: 5
   })
 
   const searchRef = useRef<HTMLDivElement>(null)
@@ -54,7 +54,7 @@ export default function DesktopHeader() {
 
   // Обработка клика по результату поиска
   const handleResultClick = (result: any) => {
-    window.location.href = `/products?search=${encodeURIComponent(result.name)}`
+    window.location.href = `/products/${result.id}`
     setIsOpen(false)
     clearSearch()
   }
@@ -121,7 +121,7 @@ export default function DesktopHeader() {
           </nav>
 
           {/* Search Bar - Compact with Instant Search */}
-          <div className="max-w-xs" ref={searchRef}>
+          <div className="max-w-xs relative" ref={searchRef}>
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500" />
               <input
@@ -136,6 +136,9 @@ export default function DesktopHeader() {
                   }
                 }}
                 className="w-full pl-10 pr-3 py-2 border border-gray-200 rounded-lg focus:ring-1 focus:ring-orange-500 focus:border-orange-500 text-sm text-gray-900 placeholder-gray-500 bg-gray-50 transition-all duration-300 hover:bg-white focus:bg-white"
+                aria-controls="search-results"
+                aria-expanded={isOpen}
+                aria-autocomplete="list"
               />
               
               {/* Clear button */}
@@ -160,6 +163,7 @@ export default function DesktopHeader() {
               selectedIndex={selectedIndex}
               onResultClick={handleResultClick}
               onClose={() => setIsOpen(false)}
+              className="w-[480px] max-w-[520px] sm:w-[min(90vw,520px)]"
             />
           </div>
 

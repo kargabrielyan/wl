@@ -10,6 +10,7 @@ import Footer from '@/components/Footer'
 import ProductCard from '@/components/ProductCard'
 import { useCart } from '@/hooks/useCart'
 import { prisma } from '@/lib/prisma'
+import { parseIngredients, hasIngredients } from '@/utils/ingredients'
 
 // Server Component - данные загружаются на сервере
 export default async function OptimizedProductPage({
@@ -301,14 +302,16 @@ export default async function OptimizedProductPage({
               <div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-4">Ингредиенты:</h3>
                 <div className="flex flex-wrap gap-3">
-                  {product.ingredients.map((ingredient, index) => (
+                  {hasIngredients(product.ingredients) ? parseIngredients(product.ingredients).map((ingredient, index) => (
                     <span
                       key={index}
                       className="px-4 py-2 bg-orange-100 text-orange-800 text-sm rounded-full font-medium hover:bg-orange-200 transition-colors"
                     >
                       {ingredient}
                     </span>
-                  ))}
+                  )) : (
+                    <p className="text-gray-500 text-sm">Ингредиенты не указаны</p>
+                  )}
                 </div>
               </div>
 

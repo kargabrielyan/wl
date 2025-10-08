@@ -32,7 +32,7 @@ interface UseInstantSearchReturn {
 }
 
 export function useInstantSearch({
-  debounceMs = 300,
+  debounceMs = 200,
   minQueryLength = 2,
   maxResults = 8
 }: UseInstantSearchOptions = {}): UseInstantSearchReturn {
@@ -45,11 +45,22 @@ export function useInstantSearch({
   
   const debounceTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const abortControllerRef = useRef<AbortController | null>(null)
+  const cacheRef = useRef<Map<string, SearchResult[]>>(new Map())
 
   // Функция поиска
   const performSearch = useCallback(async (searchQuery: string) => {
     if (searchQuery.length < minQueryLength) {
       setResults([])
+      setLoading(false)
+      return
+    }
+
+    // Проверяем кэш
+    const cacheKey = `${searchQuery.toLowerCase()}-${maxResults}`
+    const cachedResults = cacheRef.current.get(cacheKey)
+    if (cachedResults) {
+      setResults(cachedResults)
+      setSelectedIndex(-1)
       setLoading(false)
       return
     }
@@ -78,7 +89,18 @@ export function useInstantSearch({
       }
 
       const data = await response.json()
-      setResults(data.results || [])
+      const searchResults = data.results || []
+      
+      // Сохраняем в кэш
+      cacheRef.current.set(cacheKey, searchResults)
+      
+      // Ограничиваем размер кэша (максимум 50 запросов)
+      if (cacheRef.current.size > 50) {
+        const firstKey = cacheRef.current.keys().next().value
+        cacheRef.current.delete(firstKey)
+      }
+      
+      setResults(searchResults)
       setSelectedIndex(-1)
     } catch (err) {
       if (err instanceof Error && err.name === 'AbortError') {
@@ -150,8 +172,8 @@ export function useInstantSearch({
         e.preventDefault()
         if (selectedIndex >= 0 && selectedIndex < results.length) {
           const selectedResult = results[selectedIndex]
-          // Переходим на страницу товара
-          window.location.href = `/products?search=${encodeURIComponent(selectedResult.name)}`
+          // Переходим на страницу конкретного товара
+          window.location.href = `/products/${selectedResult.id}`
           setIsOpen(false)
         }
         break
