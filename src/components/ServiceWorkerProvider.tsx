@@ -4,8 +4,14 @@ import { useEffect } from 'react'
 
 export default function ServiceWorkerProvider() {
   useEffect(() => {
+    // Отключаем Service Worker в режиме разработки
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Service Worker disabled in development mode')
+      return
+    }
+    
     if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
-      // Регистрируем Service Worker
+      // Регистрируем Service Worker только в production
       navigator.serviceWorker.register('/sw.js')
         .then((registration) => {
           console.log('Service Worker registered successfully:', registration.scope)

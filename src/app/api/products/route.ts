@@ -27,7 +27,8 @@ export async function GET(request: NextRequest) {
     if (search) {
       whereClause.OR = [
         { name: { contains: search, mode: 'insensitive' } },
-        { description: { contains: search, mode: 'insensitive' } }
+        { description: { contains: search, mode: 'insensitive' } },
+        { ingredients: { contains: search, mode: 'insensitive' } }
       ]
     }
 
@@ -55,7 +56,7 @@ export async function GET(request: NextRequest) {
       }
     })
 
-    // Улучшенное кэширование на 1 час
+    // Возвращаем массив продуктов напрямую
     const response = NextResponse.json(products)
     response.headers.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=7200')
     response.headers.set('CDN-Cache-Control', 'public, s-maxage=3600')
@@ -86,8 +87,7 @@ export async function POST(request: NextRequest) {
     const product = await prisma.product.create({
       data: {
         ...productData,
-        categoryId,
-        ingredients: productData.ingredients || []
+        categoryId
       },
       include: {
         category: {

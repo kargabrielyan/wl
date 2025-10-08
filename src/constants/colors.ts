@@ -1,31 +1,31 @@
-// Цветовая палитра Pideh Armenia
+// Цветовая палитра Детский Мир - Голубой и белый
 export const colors = {
-  // Основные цвета
+  // Основные цвета - голубой
   primary: {
-    50: '#fff7ed',
-    100: '#ffedd5',
-    200: '#fed7aa',
-    300: '#fdba74',
-    400: '#fb923c',
-    500: '#FF6B35', // Основной оранжевый (хачапури)
-    600: '#ea580c',
-    700: '#c2410c',
-    800: '#9a3412',
-    900: '#7c2d12',
+    50: '#f0f9ff',
+    100: '#e0f2fe',
+    200: '#bae6fd',
+    300: '#7dd3fc',
+    400: '#38bdf8',
+    500: '#0ea5e9', // Основной голубой
+    600: '#0284c7',
+    700: '#0369a1',
+    800: '#075985',
+    900: '#0c4a6e',
   },
   
-  // Акцентный красный (томаты)
+  // Акцентный белый/светло-голубой
   accent: {
-    50: '#fef2f2',
-    100: '#fee2e2',
-    200: '#fecaca',
-    300: '#fca5a5',
-    400: '#f87171',
-    500: '#E63946', // Красный акцент
-    600: '#dc2626',
-    700: '#b91c1c',
-    800: '#991b1b',
-    900: '#7f1d1d',
+    50: '#ffffff',
+    100: '#f8fafc',
+    200: '#f1f5f9',
+    300: '#e2e8f0',
+    400: '#cbd5e1',
+    500: '#94a3b8', // Светло-серый акцент
+    600: '#64748b',
+    700: '#475569',
+    800: '#334155',
+    900: '#1e293b',
   },
   
   // Нейтральные цвета
@@ -55,19 +55,19 @@ export const colors = {
 // Tailwind CSS классы для быстрого использования
 export const colorClasses = {
   primary: {
-    bg: 'bg-orange-500',
-    text: 'text-orange-500',
-    border: 'border-orange-500',
-    hover: 'hover:bg-orange-600',
+    bg: 'bg-sky-500',
+    text: 'text-sky-500',
+    border: 'border-sky-500',
+    hover: 'hover:bg-sky-600',
   },
   accent: {
-    bg: 'bg-red-500',
-    text: 'text-red-500',
-    border: 'border-red-500',
-    hover: 'hover:bg-red-600',
+    bg: 'bg-slate-200',
+    text: 'text-slate-600',
+    border: 'border-slate-300',
+    hover: 'hover:bg-slate-300',
   },
   neutral: {
-    bg: 'bg-gray-50',
+    bg: 'bg-white',
     text: 'text-gray-900',
     border: 'border-gray-300',
   },

@@ -24,15 +24,17 @@ function ProductsPageContent() {
   const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   // Порядок категорий для сортировки (приоритетные категории)
-  const categoryOrder = ['Комбо', 'Пиде', 'Снэк', 'Соусы', 'Напитки']
+  const categoryOrder = ['Игрушки', 'Одежда', 'Книги', 'Спорт', 'Творчество']
 
   const fetchProducts = async () => {
     try {
       const response = await fetch('/api/products')
       const data = await response.json()
-      setProducts(data)
+      // API теперь возвращает массив напрямую
+      setProducts(Array.isArray(data) ? data : [])
     } catch (error) {
       console.error('Error fetching products:', error)
+      setProducts([]) // Устанавливаем пустой массив в случае ошибки
     } finally {
       setLoading(false)
     }
@@ -42,23 +44,22 @@ function ProductsPageContent() {
     try {
       const response = await fetch('/api/categories')
       const data = await response.json()
-      setCategories(data)
+      // API возвращает массив напрямую, добавляем защиту
+      setCategories(Array.isArray(data) ? data : [])
     } catch (error) {
       console.error('Error fetching categories:', error)
+      setCategories([]) // Устанавливаем пустой массив в случае ошибки
     }
   }
 
   const filterProducts = useCallback(() => {
     let filtered = products
-
     // Если есть поисковый запрос, ищем по всем товарам
     if (debouncedSearchQuery) {
       filtered = filtered.filter(product =>
         product.name.toLowerCase().includes(debouncedSearchQuery.toLowerCase()) ||
-        product.description.toLowerCase().includes(debouncedSearchQuery.toLowerCase()) ||
-        product.ingredients.some(ingredient => 
-          ingredient.toLowerCase().includes(debouncedSearchQuery.toLowerCase())
-        )
+        (product.description && product.description.toLowerCase().includes(debouncedSearchQuery.toLowerCase())) ||
+        (product.ingredients && product.ingredients.toLowerCase().includes(debouncedSearchQuery.toLowerCase()))
       )
     } else {
       // Если нет поискового запроса, показываем товары выбранной категории
@@ -67,7 +68,6 @@ function ProductsPageContent() {
       }
       // Если выбрано "Все", показываем все товары без фильтрации
     }
-
     setFilteredProducts(filtered)
   }, [products, selectedCategory, debouncedSearchQuery])
 
@@ -119,6 +119,12 @@ function ProductsPageContent() {
 
   // Группировка товаров по категориям
   const groupProductsByCategory = useCallback((products: Product[]) => {
+    // Защита от невалидных данных
+    if (!Array.isArray(products)) {
+      console.warn('groupProductsByCategory: products is not an array', products)
+      return []
+    }
+    
     const grouped: Record<string, Product[]> = {}
     
     products.forEach(product => {
@@ -242,9 +248,9 @@ function ProductsPageContent() {
             {/* Mobile - 2 rows */}
             <div className="lg:hidden">
               <div className="space-y-3">
-                {/* First row - Все, Пиде, Комбо - 3 большие кнопки */}
+                {/* First row - Все, Игрушки, Одежда - 3 большие кнопки */}
                 <div className="grid grid-cols-3 gap-3">
-                  {['Все', 'Пиде', 'Комбо'].map((category) => (
+                  {['Все', 'Игрушки', 'Одежда'].map((category) => (
                     <button
                       key={category}
                       onClick={() => setSelectedCategory(category)}
@@ -264,8 +270,8 @@ function ProductsPageContent() {
                 
                 {/* Second row - остальные категории */}
                 <div className="flex flex-wrap gap-2 justify-center">
-                  {categories
-                    .filter(cat => !['Пиде', 'Комбо'].includes(cat.name))
+                  {Array.isArray(categories) && categories
+                    .filter(cat => !['Игрушки', 'Одежда'].includes(cat.name))
                     .map((category) => (
                     <button
                       key={`mobile-${category.id}`}
@@ -304,7 +310,7 @@ function ProductsPageContent() {
               </button>
               
               {/* Динамические категории */}
-              {categories.map((category) => (
+              {Array.isArray(categories) && categories.map((category) => (
                 <button
                   key={`desktop-${category.id}`}
                   onClick={() => setSelectedCategory(category.name)}

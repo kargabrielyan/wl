@@ -4,14 +4,13 @@ import { prisma } from '@/lib/prisma'
 // GET /api/products/banner - получить товар для баннера
 export async function GET(request: NextRequest) {
   try {
-    const product = await prisma.product.findFirst({
+    const products = await prisma.product.findMany({
       where: {
         isAvailable: true,
         status: 'BANNER'
       },
-      orderBy: {
-        createdAt: 'desc' // Берем самый новый товар с статусом BANNER
-      },
+      orderBy: { createdAt: 'desc' },
+      take: 1,
       select: {
         id: true,
         name: true,
@@ -26,19 +25,13 @@ export async function GET(request: NextRequest) {
           }
         },
         image: true,
-        ingredients: true,
         isAvailable: true,
         status: true,
         createdAt: true
       }
     })
 
-    // Улучшенное кэширование на 1 час
-    const response = NextResponse.json(product)
-    response.headers.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=7200')
-    response.headers.set('CDN-Cache-Control', 'public, s-maxage=3600')
-    
-    return response
+    return NextResponse.json({ products })
   } catch (error) {
     console.error('Error fetching banner product:', error)
     return NextResponse.json(

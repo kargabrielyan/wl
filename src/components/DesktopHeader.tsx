@@ -4,17 +4,60 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { ShoppingCart, User, LogOut, Search } from 'lucide-react'
 import { usePathname } from 'next/navigation'
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useSession, signOut } from 'next-auth/react'
 import { useCart } from '@/hooks/useCart'
 import { useHydration } from '@/hooks/useHydration'
+import { useInstantSearch } from '@/hooks/useInstantSearch'
+import { SearchDropdown } from '@/components/SearchDropdown'
 
 export default function DesktopHeader() {
   const isHydrated = useHydration()
   const { getTotalItems } = useCart()
   const { data: session, status } = useSession()
   const pathname = usePathname()
-  const [searchQuery, setSearchQuery] = useState('')
+  
+  // Instant search hook
+  const {
+    query,
+    setQuery,
+    results,
+    loading,
+    error,
+    isOpen,
+    setIsOpen,
+    selectedIndex,
+    setSelectedIndex,
+    handleKeyDown,
+    clearSearch
+  } = useInstantSearch({
+    debounceMs: 300,
+    minQueryLength: 2,
+    maxResults: 8
+  })
+
+  const searchRef = useRef<HTMLDivElement>(null)
+
+  // Закрытие dropdown при клике вне его
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+        setIsOpen(false)
+      }
+    }
+
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+      return () => document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [isOpen, setIsOpen])
+
+  // Обработка клика по результату поиска
+  const handleResultClick = (result: any) => {
+    window.location.href = `/products?search=${encodeURIComponent(result.name)}`
+    setIsOpen(false)
+    clearSearch()
+  }
 
   // Функция для определения активной ссылки
   const isActive = (path: string) => {
@@ -77,23 +120,47 @@ export default function DesktopHeader() {
             ))}
           </nav>
 
-          {/* Search Bar - Compact */}
-          <div className="max-w-xs">
+          {/* Search Bar - Compact with Instant Search */}
+          <div className="max-w-xs" ref={searchRef}>
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500" />
               <input
                 type="text"
                 placeholder="Поиск..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onKeyPress={(e) => {
-                  if (e.key === 'Enter' && searchQuery.trim()) {
-                    window.location.href = `/products?search=${encodeURIComponent(searchQuery)}`
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                onKeyDown={handleKeyDown}
+                onFocus={() => {
+                  if (query.length >= 2 && results.length > 0) {
+                    setIsOpen(true)
                   }
                 }}
                 className="w-full pl-10 pr-3 py-2 border border-gray-200 rounded-lg focus:ring-1 focus:ring-orange-500 focus:border-orange-500 text-sm text-gray-900 placeholder-gray-500 bg-gray-50 transition-all duration-300 hover:bg-white focus:bg-white"
               />
+              
+              {/* Clear button */}
+              {query && (
+                <button
+                  onClick={clearSearch}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1 hover:bg-gray-100 rounded transition-colors"
+                >
+                  <svg className="h-3 w-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              )}
             </div>
+
+            {/* Search Dropdown */}
+            <SearchDropdown
+              results={results}
+              loading={loading}
+              error={error}
+              isOpen={isOpen}
+              selectedIndex={selectedIndex}
+              onResultClick={handleResultClick}
+              onClose={() => setIsOpen(false)}
+            />
           </div>
 
           {/* Right side */}

@@ -1,26 +1,26 @@
-// Информация о компании Witleybel Online Shop
+// Информация о компании Детский Мир
 export const companyInfo = {
-  name: 'Witleybel Online Shop',
-  description: 'Современный интернет-магазин с широким ассортиментом товаров. Качество, надежность, быстрая доставка.',
+  name: 'Детский Мир',
+  description: 'Лучший детский магазин с игрушками, одеждой, книгами и всем необходимым для ваших малышей. Качество, безопасность, радость!',
   addresses: [
     {
-      name: 'Главный офис',
-      address: 'ул. Примерная 123',
+      name: 'Главный магазин',
+      address: 'ул. Детская 123',
       type: 'main'
     },
     {
-      name: 'Склад', 
-      address: 'ул. Складская 456',
+      name: 'Склад игрушек', 
+      address: 'ул. Игрушечная 456',
       type: 'secondary'
     }
   ],
   phone: '+7 (999) 123-45-67',
-  email: 'info@witleybel.com',
+  email: 'info@detskiy-mir.com',
   workingHours: 'Пн-Вс: 09:00 - 21:00',
   socialMedia: {
-    facebook: 'https://www.facebook.com/witleybel/',
-    instagram: 'https://www.instagram.com/witleybel/',
-    website: 'https://witleybel.com'
+    facebook: 'https://www.facebook.com/detskiy-mir/',
+    instagram: 'https://www.instagram.com/detskiy_mir/',
+    website: 'https://detskiy-mir.com'
   }
 }
 

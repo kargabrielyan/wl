@@ -78,35 +78,46 @@ self.addEventListener('fetch', (event) => {
   }
 
   event.respondWith(
-    caches.match(request)
-      .then((response) => {
-        // Если есть в кэше, возвращаем
-        if (response) {
+    (async () => {
+      try {
+        // Сначала проверяем кэш
+        const cachedResponse = await caches.match(request)
+        if (cachedResponse) {
           console.log('Service Worker: Serving from cache:', request.url)
-          return response
+          return cachedResponse
         }
         
-        // Иначе загружаем из сети
-        return fetch(request)
-          .then((response) => {
-            // Кэшируем только успешные ответы и только статические ресурсы
-            if (response.status === 200 && 
-                !request.url.includes('/api/') &&
-                !request.url.includes('_next/static/chunks/') &&
-                !request.url.includes('_next/static/css/')) {
-              const responseClone = response.clone()
-              caches.open(CACHE_NAME)
-                .then((cache) => {
-                  cache.put(request, responseClone)
-                })
-            }
-            return response
-          })
-      })
-      .catch(() => {
-        // Если ничего не работает, возвращаем offline страницу
-        return caches.match('/')
-      })
+        // Загружаем из сети с обработкой ошибок
+        const networkResponse = await fetch(request)
+        
+        // Кэшируем только успешные ответы и только статические ресурсы
+        if (networkResponse.status === 200 && 
+            !request.url.includes('/api/') &&
+            !request.url.includes('_next/static/chunks/') &&
+            !request.url.includes('_next/static/css/')) {
+          const responseClone = networkResponse.clone()
+          const cache = await caches.open(CACHE_NAME)
+          await cache.put(request, responseClone)
+        }
+        
+        return networkResponse
+      } catch (error) {
+        console.warn('Service Worker: Fetch failed for', request.url, error)
+        
+        // Для статических файлов Next.js - не пытаемся кэшировать
+        if (request.url.includes('_next/static/')) {
+          // Возвращаем ошибку сети, чтобы браузер мог обработать её
+          throw error
+        }
+        
+        // Для других файлов - пробуем вернуть из кэша
+        const fallbackResponse = await caches.match('/')
+        return fallbackResponse || new Response('Offline', { 
+          status: 503, 
+          statusText: 'Service Unavailable' 
+        })
+      }
+    })()
   )
 })
 
