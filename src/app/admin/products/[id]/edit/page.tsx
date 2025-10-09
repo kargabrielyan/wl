@@ -97,7 +97,7 @@ export default function EditProductPage({ params }: EditProductPageProps) {
           price: productData.price?.toString() || '',
           categoryId: productData.categoryId || productData.category?.id || '',
           image: productData.image || '',
-          ingredients: productData.ingredients?.join(', ') || '',
+          ingredients: productData.ingredients || '',
           isAvailable: productData.isAvailable ?? true,
           status: productData.status === 'REGULAR' ? '' : (productData.status || '')
         })
@@ -146,7 +146,7 @@ export default function EditProductPage({ params }: EditProductPageProps) {
       const productData = {
         ...formData,
         price: parseFloat(formData.price),
-        ingredients: formData.ingredients ? formData.ingredients.split(',').map(i => i.trim()) : []
+        ingredients: formData.ingredients || ''
       }
 
       const response = await fetch(`/api/admin/products/${productId}`, {

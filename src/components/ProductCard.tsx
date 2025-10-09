@@ -21,8 +21,8 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
   return (
     <Link 
       href={`/products/${product.id}`}
-      className={`relative block bg-white rounded-3xl shadow-2xl overflow-visible hover:shadow-3xl hover:scale-110 transition-all duration-700 cursor-pointer group border-0 transform hover:-translate-y-3 ${
-        isCompact ? 'rounded-2xl shadow-xl hover:shadow-2xl' : ''
+      className={`relative block bg-white rounded-3xl shadow-2xl overflow-visible cursor-pointer group border-0 ${
+        isCompact ? 'rounded-2xl shadow-xl' : ''
       } ${
         isSelected ? 'ring-4 ring-orange-400 ring-opacity-60 scale-105' : ''
       }`}
@@ -70,7 +70,7 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
                 alt={product.name}
                 fill
                 sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 20vw"
-                className="relative w-full h-full object-contain group-hover:scale-110 group-hover:-translate-y-2 group-hover:rotate-1 transition-all duration-500 ease-out"
+                className="relative w-full h-full object-contain"
                 style={{
                   filter: 'none',
                   transform: 'perspective(1000px) rotateX(8deg) rotateY(-3deg)',
@@ -117,7 +117,7 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
           {/* 3D Category Badge */}
           {!isCompact && (
             <div 
-              className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-2xl text-xs font-bold shadow-2xl transform group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-500"
+              className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-2xl text-xs font-bold shadow-2xl"
               style={{
                 boxShadow: '0 10px 25px rgba(255, 107, 53, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1)',
                 backdropFilter: 'blur(10px)',
@@ -130,7 +130,7 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
           {/* 3D Special Badge */}
           {product.status === 'HIT' && (
             <div 
-              className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-3 py-1 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-1 transform group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-500"
+              className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-3 py-1 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-1"
               style={{
                 boxShadow: '0 10px 25px rgba(255, 193, 7, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1)',
                 backdropFilter: 'blur(10px)',
@@ -143,7 +143,7 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
           
           {product.status === 'NEW' && (
             <div 
-              className="bg-gradient-to-r from-green-400 to-emerald-500 text-white px-3 py-1 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-1 transform group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-500"
+              className="bg-gradient-to-r from-green-400 to-emerald-500 text-white px-3 py-1 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-1"
               style={{
                 boxShadow: '0 10px 25px rgba(34, 197, 94, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1)',
                 backdropFilter: 'blur(10px)',
@@ -156,7 +156,7 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
           
           {product.status === 'CLASSIC' && (
             <div 
-              className="bg-gradient-to-r from-blue-400 to-indigo-500 text-white px-3 py-1 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-1 transform group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-500"
+              className="bg-gradient-to-r from-blue-400 to-indigo-500 text-white px-3 py-1 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-1"
               style={{
                 boxShadow: '0 10px 25px rgba(59, 130, 246, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1)',
                 backdropFilter: 'blur(10px)',
@@ -170,7 +170,7 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
 
         {/* 3D Floating Price Badge - Moved to bottom right */}
         <div 
-          className="absolute bottom-2 right-2 bg-white/95 backdrop-blur-md text-orange-600 px-3 py-1 rounded-2xl text-sm font-bold shadow-2xl transform group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-500 z-20"
+          className="absolute bottom-2 right-2 bg-white/95 backdrop-blur-md text-orange-600 px-3 py-1 rounded-2xl text-sm font-bold shadow-2xl z-20"
           style={{
             boxShadow: '0 15px 35px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.1)',
             backdropFilter: 'blur(15px)',
@@ -186,7 +186,7 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
       {/* 3D Content Section - Adjusted for 3D product */}
       <div className={`relative ${isCompact ? 'p-4 -mt-3' : 'p-6 -mt-5'}`}>
         {/* Product Name */}
-        <h3 className={`font-bold text-gray-900 line-clamp-2 group-hover:text-orange-600 transition-colors duration-300 ${
+        <h3 className={`font-bold text-gray-900 line-clamp-2 ${
           isCompact ? 'text-sm mb-3' : 'text-xl mb-4'
         }`}>
           {product.name}
@@ -194,7 +194,7 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
         
         {/* Description for non-compact */}
         {!isCompact && (
-          <p className="text-gray-600 text-sm mb-4 line-clamp-2 opacity-80 group-hover:opacity-100 transition-opacity duration-300">
+          <p className="text-gray-600 text-sm mb-4 line-clamp-2 opacity-80">
             {product.description}
           </p>
         )}
@@ -210,7 +210,7 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
                   e.stopPropagation()
                   onAddToCart(product)
                 }}
-                className={`w-full h-10 rounded-2xl font-bold text-sm transition-all duration-300 shadow-2xl flex items-center justify-center overflow-hidden hover:scale-105 hover:shadow-3xl relative active:scale-95 ${
+                className={`w-full h-10 rounded-2xl font-bold text-sm shadow-2xl flex items-center justify-center overflow-hidden relative ${
                   isAdded
                     ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white'
                     : 'bg-gradient-to-r from-orange-500 to-red-500 text-white hover:from-orange-600 hover:to-red-600'
@@ -260,7 +260,7 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
                   e.stopPropagation()
                   onAddToCart(product)
                 }}
-                className={`px-6 h-10 rounded-2xl font-bold text-sm transition-all duration-500 shadow-2xl flex items-center justify-center overflow-hidden hover:scale-105 hover:shadow-3xl relative min-w-[140px] ${
+                className={`px-6 h-10 rounded-2xl font-bold text-sm shadow-2xl flex items-center justify-center overflow-hidden relative min-w-[140px] ${
                   isAdded
                     ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white'
                     : 'bg-gradient-to-r from-orange-500 to-red-500 text-white hover:from-orange-600 hover:to-red-600'
@@ -297,14 +297,14 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
 
       {/* 3D Floating Decorative Elements */}
       <div 
-        className="absolute -bottom-2 -left-2 w-6 h-6 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full opacity-30 group-hover:opacity-60 transition-all duration-500 group-hover:scale-110"
+        className="absolute -bottom-2 -left-2 w-6 h-6 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full opacity-30"
         style={{
           boxShadow: '0 10px 25px rgba(255, 193, 7, 0.3)',
           filter: 'blur(1px)',
         }}
       />
       <div 
-        className="absolute top-1/2 -left-4 w-3 h-3 bg-gradient-to-br from-pink-400 to-purple-500 rounded-full opacity-20 group-hover:opacity-40 transition-all duration-500 group-hover:scale-125"
+        className="absolute top-1/2 -left-4 w-3 h-3 bg-gradient-to-br from-pink-400 to-purple-500 rounded-full opacity-20"
         style={{
           boxShadow: '0 5px 15px rgba(236, 72, 153, 0.2)',
           filter: 'blur(0.5px)',
