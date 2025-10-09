@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
       }
     })
 
-    return NextResponse.json({ products })
+    return NextResponse.json(products)
   } catch (error) {
     console.error('Error fetching featured products:', error)
     return NextResponse.json(

@@ -4,9 +4,9 @@ const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined
 }
 
-// Устанавливаем DATABASE_URL для SQLite
+// Устанавливаем DATABASE_URL для PostgreSQL
 if (!process.env.DATABASE_URL) {
-  process.env.DATABASE_URL = 'file:./prisma/dev.db'
+  process.env.DATABASE_URL = 'postgresql://postgres:postgres@localhost:5432/detskiy_mir'
 }
 
 export const prisma = globalForPrisma.prisma ?? new PrismaClient()

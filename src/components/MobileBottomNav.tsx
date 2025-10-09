@@ -98,16 +98,13 @@ export default function MobileBottomNav() {
                 key={link.href}
                 href={link.href}
                 className={`
-                  group block px-8 py-6 rounded-2xl text-gray-700 hover:bg-orange-500 hover:text-white transition-all duration-300 font-semibold text-xl text-center shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 animate-slide-in-up
+                  group block px-8 py-6 rounded-2xl text-gray-700 hover:bg-orange-500 hover:text-white transition-all duration-300 font-semibold text-xl text-center shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95
                   ${isActive(link.href) 
                     ? 'bg-orange-500 text-white shadow-xl scale-105' 
                     : 'bg-white/80 backdrop-blur-sm border border-gray-200'
                   }
                 `}
                 onClick={() => setIsMenuOpen(false)}
-                style={{
-                  animationDelay: `${index * 100}ms`
-                }}
               >
                 <span className="block">{link.label}</span>
                 {isActive(link.href) && (

@@ -347,28 +347,28 @@ export default function Home() {
             {/* Left content */}
             <div className="space-y-6">
               {/* Badge */}
-              <div className="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium animate-fade-in">
+              <div className="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium">
                 <span className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
                 Безопасные игрушки каждый день
               </div>
               
               {/* Main heading */}
               <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-                <span className="block text-white animate-slide-up">Детский</span>
-                <span className="block text-yellow-200 animate-slide-up-delay">Мир</span>
-                <span className="block text-2xl md:text-3xl font-normal text-sky-100 mt-3 animate-fade-in-delay">
+                <span className="block text-white">Детский</span>
+                <span className="block text-yellow-200">Мир</span>
+                <span className="block text-2xl md:text-3xl font-normal text-sky-100 mt-3">
                   радость и веселье
                 </span>
               </h1>
               
               {/* Description */}
-              <p className="text-lg md:text-xl text-sky-100 leading-relaxed max-w-lg animate-fade-in-delay-2">
+              <p className="text-lg md:text-xl text-sky-100 leading-relaxed max-w-lg">
                 Лучшие игрушки, одежда и книги для ваших детей. 
                 <span className="font-semibold text-white"> 1000+ товаров</span> для развития и радости!
               </p>
               
               {/* Stats */}
-              <div className="flex flex-wrap gap-6 animate-fade-in-delay-3">
+              <div className="flex flex-wrap gap-6">
                 <div className="text-center">
                   <div className="text-2xl font-bold text-white">1000+</div>
                   <div className="text-sm text-sky-100">Товаров</div>
@@ -384,7 +384,7 @@ export default function Home() {
               </div>
               
               {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3 animate-fade-in-delay-4">
+              <div className="flex flex-col sm:flex-row gap-3">
                 <Link 
                   href="/products"
                   className="group bg-white text-sky-500 px-6 py-3 rounded-xl font-bold text-base hover:bg-sky-50 hover:scale-105 transition-all duration-300 text-center shadow-lg hover:shadow-xl"
@@ -409,7 +409,7 @@ export default function Home() {
             </div>
             
             {/* Right content - Product showcase */}
-            <div className="relative animate-fade-in-delay-5">
+            <div className="relative">
               {/* Price Badge - Above the image */}
               {bannerProduct && (
                 <div 
@@ -524,14 +524,14 @@ export default function Home() {
               </div>
               
               {/* Floating mini cards */}
-              <div className="absolute -top-4 -left-4 bg-white/20 backdrop-blur-sm rounded-xl p-3 text-center border border-white/30 animate-float">
+              <div className="absolute -top-4 -left-4 bg-white/20 backdrop-blur-sm rounded-xl p-3 text-center border border-white/30">
                 <div className="w-12 h-12 bg-white/30 rounded-lg flex items-center justify-center mb-2">
                   <span className="text-2xl">🧸</span>
                 </div>
                 <div className="text-xs font-semibold">1000+ игрушек</div>
               </div>
               
-              <div className="absolute -bottom-4 -right-4 bg-white/20 backdrop-blur-sm rounded-xl p-3 text-center border border-white/30 animate-float-delay">
+              <div className="absolute -bottom-4 -right-4 bg-white/20 backdrop-blur-sm rounded-xl p-3 text-center border border-white/30">
                 <div className="w-12 h-12 bg-white/30 rounded-lg flex items-center justify-center mb-2">
                   <span className="text-2xl">🚚</span>
                 </div>
@@ -642,10 +642,9 @@ export default function Home() {
             </div>
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-8 md:gap-15">
-              {getFilteredProducts().map((product, index) => (
+              {getFilteredProducts().map((product) => (
                 <div 
                   key={product.id}
-                  style={{ animationDelay: `${index * 0.1}s` }}
                   className="transform hover:scale-105 transition-transform duration-300"
                 >
                   <ProductCard
@@ -691,10 +690,9 @@ export default function Home() {
           {/* Featured products grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {featuredProducts.length > 0 ? (
-              featuredProducts.map((product, index) => (
+              featuredProducts.map((product) => (
                 <div 
                   key={product.id}
-                  style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <ProductCard
                     product={product}

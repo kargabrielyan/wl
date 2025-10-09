@@ -31,7 +31,7 @@ export async function GET(request: NextRequest) {
       }
     })
 
-    return NextResponse.json({ products })
+    return NextResponse.json(products)
   } catch (error) {
     console.error('Error fetching banner product:', error)
     return NextResponse.json(
