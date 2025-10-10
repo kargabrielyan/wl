@@ -29,25 +29,16 @@ export default function Home() {
       // Загружаем данные из API (которые теперь работают с базой данных)
       const [productsResponse, featuredResponse, bannerResponse] = await Promise.all([
         fetch('/api/products', { 
-          cache: 'no-store',
-          headers: {
-            'Cache-Control': 'no-cache',
-            'Pragma': 'no-cache'
-          }
+          cache: 'force-cache',
+          next: { revalidate: 300 } // кэш на 5 минут
         }),
         fetch('/api/products?featured=true', { 
-          cache: 'no-store',
-          headers: {
-            'Cache-Control': 'no-cache',
-            'Pragma': 'no-cache'
-          }
+          cache: 'force-cache',
+          next: { revalidate: 300 }
         }),
-        fetch('/api/products?banner=true', { 
-          cache: 'no-store',
-          headers: {
-            'Cache-Control': 'no-cache',
-            'Pragma': 'no-cache'
-          }
+        fetch('/api/products?status=BANNER', { 
+          cache: 'force-cache',
+          next: { revalidate: 300 }
         })
       ])
       
@@ -65,14 +56,14 @@ export default function Home() {
       const featuredData = await featuredResponse.json()
       const bannerData = await bannerResponse.json()
       
-      setProducts(productsData.products || [])
+      setProducts(productsData || [])
       
       // Фильтруем товары для творчества для секции хитов
-      const creative = (productsData.products || []).filter((product: Product) => product.category?.name === 'Творчество')
+      const creative = (productsData || []).filter((product: Product) => product.category?.name === 'Творчество')
       setComboProducts(creative.slice(0, 4))
       
-      setFeaturedProducts(featuredData.products || [])
-      setBannerProduct(bannerData.products?.[0] || null)
+      setFeaturedProducts(featuredData || [])
+      setBannerProduct(bannerData?.[0] || null)
       
     } catch (error) {
       console.error('Error fetching data from database:', error)
@@ -155,17 +146,6 @@ export default function Home() {
 
       {/* Hero Section - Compact for Mobile */}
       <section className="relative bg-gradient-to-br from-sky-500 to-white text-white overflow-hidden">
-        {/* Animated background elements */}
-        <div className="absolute inset-0">
-          <div className="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full animate-pulse"></div>
-          <div className="absolute top-32 right-20 w-16 h-16 bg-yellow-200/20 rounded-full animate-bounce"></div>
-          <div className="absolute bottom-20 left-1/4 w-12 h-12 bg-white/15 rounded-full animate-ping"></div>
-          <div className="absolute bottom-32 right-1/3 w-8 h-8 bg-yellow-300/30 rounded-full animate-pulse"></div>
-          {/* Детские элементы */}
-          <div className="absolute top-20 right-1/4 text-4xl animate-bounce">🌟</div>
-          <div className="absolute bottom-40 left-1/3 text-3xl animate-pulse">🎈</div>
-          <div className="absolute top-1/2 right-10 text-2xl animate-ping">🎁</div>
-        </div>
         
         {/* Mobile Compact Version - App Style */}
         <div className="md:hidden relative max-w-7xl mx-auto px-4 py-6">
@@ -214,11 +194,6 @@ export default function Home() {
                       style={{ display: 'none' }}
                     >
                       🥟
-                    </div>
-                    
-                    {/* Price Badge - Bottom Right */}
-                    <div className="absolute bottom-1 right-1 bg-yellow-400 text-orange-800 px-2 py-1 rounded-lg text-xs font-bold shadow-lg">
-                      {bannerProduct.price} ֏
                     </div>
                   </div>
                   
@@ -301,11 +276,6 @@ export default function Home() {
                       style={{ display: 'none' }}
                     >
                       🥟
-                    </div>
-                    
-                    {/* Price Badge - Bottom Right */}
-                    <div className="absolute bottom-2 right-2 bg-yellow-400 text-orange-800 px-3 py-1.5 rounded-xl text-sm font-bold shadow-lg">
-                      {bannerProduct.price} ֏
                     </div>
                   </div>
                   
@@ -410,48 +380,17 @@ export default function Home() {
             
             {/* Right content - Product showcase */}
             <div className="relative">
-              {/* Price Badge - Above the image */}
-              {bannerProduct && (
-                <div 
-                  className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-white text-orange-600 px-4 py-2 rounded-2xl text-lg font-bold shadow-2xl z-[100]"
-                  style={{
-                    boxShadow: '0 15px 35px rgba(0, 0, 0, 0.3)',
-                  }}
-                >
-                  {bannerProduct.price} ֏
-                </div>
-              )}
               
               {/* Enhanced 3D Product Image - Outside the card */}
               {bannerProduct ? (
                 <div className="relative w-80 h-80 mx-auto mb-4">
                   {/* 3D Product Image with floating effect */}
                   <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-[calc(100%+4rem)] h-[calc(100%+4rem)] group z-50">
-                    {/* Orange Shadow Layer - Like ProductCard */}
-                    <div 
-                      className="absolute inset-0 bg-orange-200/30 rounded-3xl transform translate-y-6 translate-x-3 group-hover:translate-y-8 group-hover:translate-x-4 transition-all duration-700"
-                      style={{
-                        filter: 'blur(6px)',
-                      }}
-                    />
-                    <div 
-                      className="absolute inset-0 bg-orange-300/25 rounded-3xl transform translate-y-4 translate-x-2 group-hover:translate-y-6 group-hover:translate-x-3 transition-all duration-700"
-                      style={{
-                        filter: 'blur(3px)',
-                      }}
-                    />
-                    <div 
-                      className="absolute inset-0 bg-orange-400/20 rounded-3xl transform translate-y-2 translate-x-1 group-hover:translate-y-4 group-hover:translate-x-2 transition-all duration-700"
-                      style={{
-                        filter: 'blur(1px)',
-                      }}
-                    />
-                    
                     {/* Enhanced Main 3D Product Image */}
                     <img 
                       src={bannerProduct.image} 
                       alt={bannerProduct.name}
-                      className="relative w-full h-full object-contain group-hover:scale-140 group-hover:translate-y-8 group-hover:rotate-3 transition-all duration-700 ease-out z-50"
+                      className="relative w-full h-full object-contain z-50"
                       style={{
                         filter: 'none',
                         transform: 'perspective(1000px) rotateX(8deg) rotateY(-3deg)',
@@ -466,16 +405,12 @@ export default function Home() {
                       }}
                     />
 
-
-                    {/* Floating Elements - Like ProductCard */}
-                    <div className="absolute -bottom-3 -left-3 w-6 h-6 bg-yellow-400 rounded-full opacity-50 group-hover:opacity-80 group-hover:scale-110 transition-all duration-500 shadow-lg"></div>
-                    <div className="absolute top-1/2 -left-4 w-4 h-4 bg-red-500 rounded-full opacity-40 group-hover:opacity-70 group-hover:scale-125 transition-all duration-500 shadow-lg"></div>
                   </div>
                 </div>
               ) : (
                 <div className="relative w-72 h-72 mx-auto mb-6">
                   <div 
-                    className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-[calc(100%+3rem)] h-[calc(100%+3rem)] flex items-center justify-center bg-gradient-to-br from-orange-200 to-red-200 opacity-70 group-hover:opacity-90 transition-opacity duration-500 rounded-3xl shadow-2xl text-8xl"
+                    className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-[calc(100%+3rem)] h-[calc(100%+3rem)] flex items-center justify-center text-8xl"
                     style={{
                       filter: 'none',
                       transform: 'perspective(1000px) rotateX(5deg) rotateY(-2deg)',
@@ -523,20 +458,6 @@ export default function Home() {
                 )}
               </div>
               
-              {/* Floating mini cards */}
-              <div className="absolute -top-4 -left-4 bg-white/20 backdrop-blur-sm rounded-xl p-3 text-center border border-white/30">
-                <div className="w-12 h-12 bg-white/30 rounded-lg flex items-center justify-center mb-2">
-                  <span className="text-2xl">🧸</span>
-                </div>
-                <div className="text-xs font-semibold">1000+ игрушек</div>
-              </div>
-              
-              <div className="absolute -bottom-4 -right-4 bg-white/20 backdrop-blur-sm rounded-xl p-3 text-center border border-white/30">
-                <div className="w-12 h-12 bg-white/30 rounded-lg flex items-center justify-center mb-2">
-                  <span className="text-2xl">🚚</span>
-                </div>
-                <div className="text-xs font-semibold">Быстрая доставка</div>
-              </div>
             </div>
           </div>
         </div>

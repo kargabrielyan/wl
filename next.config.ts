@@ -9,6 +9,9 @@ const nextConfig: NextConfig = {
     // Отключаем проверку типов во время сборки
     ignoreBuildErrors: true,
   },
+  // Оптимизация для разработки
+  swcMinify: true,
+  poweredByHeader: false,
   // Оптимизация изображений
   images: {
     formats: ['image/webp', 'image/avif'],
