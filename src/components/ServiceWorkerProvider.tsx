@@ -4,44 +4,30 @@ import { useEffect } from 'react'
 
 export default function ServiceWorkerProvider() {
   useEffect(() => {
+    // Простая проверка окружения
+    if (typeof window === 'undefined') return
+    
     // Отключаем Service Worker в режиме разработки
     if (process.env.NODE_ENV === 'development') {
-      console.log('Service Worker disabled in development mode')
       return
     }
     
-    if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
-      // Регистрируем Service Worker только в production
+    // Проверяем поддержку Service Worker
+    if (!('serviceWorker' in navigator)) {
+      return
+    }
+
+    // Простая регистрация без сложной логики
+    try {
       navigator.serviceWorker.register('/sw.js')
-        .then((registration) => {
-          console.log('Service Worker registered successfully:', registration.scope)
-          
-          // Проверяем обновления
-          registration.addEventListener('updatefound', () => {
-            const newWorker = registration.installing
-            if (newWorker) {
-              newWorker.addEventListener('statechange', () => {
-                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                  // Новый Service Worker установлен, можно обновить страницу
-                  console.log('New Service Worker available. Refresh to update.')
-                }
-              })
-            }
-          })
+        .then(() => {
+          console.log('Service Worker registered')
         })
         .catch((error) => {
           console.log('Service Worker registration failed:', error)
         })
-
-      // Обработка сообщений от Service Worker
-      navigator.serviceWorker.addEventListener('message', (event) => {
-        console.log('Message from Service Worker:', event.data)
-      })
-
-      // Проверяем статус Service Worker
-      navigator.serviceWorker.ready.then((registration) => {
-        console.log('Service Worker is ready:', registration)
-      })
+    } catch (error) {
+      console.log('Service Worker error:', error)
     }
   }, [])
 

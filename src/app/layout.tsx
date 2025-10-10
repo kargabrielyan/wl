@@ -31,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="ru" data-scroll-behavior="smooth" suppressHydrationWarning>
       <body className={`${inter.variable} font-sans antialiased overflow-x-hidden`}>
-        <ServiceWorkerProvider />
+        {/* <ServiceWorkerProvider /> */}
         <ClientProviders>
           <Header />
           <PullToRefresh>
