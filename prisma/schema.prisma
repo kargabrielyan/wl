@@ -45,6 +45,7 @@ model Product {
   categoryId  String
   ingredients String
   isAvailable Boolean       @default(true)
+  stock       Int           @default(0)  // Количество в наличии
   status      ProductStatus @default(REGULAR)
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt

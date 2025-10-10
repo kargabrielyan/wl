@@ -8,14 +8,17 @@ import { useCart } from "@/hooks/useCart";
 import { Product } from "@/types";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
+import ProductSection from "@/components/ProductSection";
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([])
   const [comboProducts, setComboProducts] = useState<Product[]>([])
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([])
+  const [newProducts, setNewProducts] = useState<Product[]>([])
+  const [saleProducts, setSaleProducts] = useState<Product[]>([])
+  const [newToys, setNewToys] = useState<Product[]>([])
   const [bannerProduct, setBannerProduct] = useState<Product | null>(null)
   const [loading, setLoading] = useState(true)
-  const [activeCategory, setActiveCategory] = useState('Книги')
   const [addedToCart, setAddedToCart] = useState<Set<string>>(new Set())
   const [addedToCartHits, setAddedToCartHits] = useState<Set<string>>(new Set())
   const { addItem } = useCart()
@@ -27,7 +30,7 @@ export default function Home() {
   const fetchProducts = async () => {
     try {
       // Загружаем данные из API (которые теперь работают с базой данных)
-      const [productsResponse, featuredResponse, bannerResponse] = await Promise.all([
+      const [productsResponse, featuredResponse, bannerResponse, newResponse, saleResponse, newToysResponse] = await Promise.all([
         fetch('/api/products', { 
           cache: 'force-cache',
           next: { revalidate: 300 } // кэш на 5 минут
@@ -37,6 +40,18 @@ export default function Home() {
           next: { revalidate: 300 }
         }),
         fetch('/api/products?status=BANNER', { 
+          cache: 'force-cache',
+          next: { revalidate: 300 }
+        }),
+        fetch('/api/products?new=true', { 
+          cache: 'force-cache',
+          next: { revalidate: 300 }
+        }),
+        fetch('/api/products?sale=true', { 
+          cache: 'force-cache',
+          next: { revalidate: 300 }
+        }),
+        fetch('/api/products?newToys=true', { 
           cache: 'force-cache',
           next: { revalidate: 300 }
         })
@@ -51,10 +66,22 @@ export default function Home() {
       if (!bannerResponse.ok) {
         throw new Error(`Banner API error: ${bannerResponse.status}`)
       }
+      if (!newResponse.ok) {
+        throw new Error(`New products API error: ${newResponse.status}`)
+      }
+      if (!saleResponse.ok) {
+        throw new Error(`Sale products API error: ${saleResponse.status}`)
+      }
+      if (!newToysResponse.ok) {
+        throw new Error(`New toys API error: ${newToysResponse.status}`)
+      }
       
       const productsData = await productsResponse.json()
       const featuredData = await featuredResponse.json()
       const bannerData = await bannerResponse.json()
+      const newData = await newResponse.json()
+      const saleData = await saleResponse.json()
+      const newToysData = await newToysResponse.json()
       
       setProducts(productsData || [])
       
@@ -63,6 +90,9 @@ export default function Home() {
       setComboProducts(creative.slice(0, 4))
       
       setFeaturedProducts(featuredData || [])
+      setNewProducts(newData || [])
+      setSaleProducts(saleData || [])
+      setNewToys(newToysData || [])
       setBannerProduct(bannerData?.[0] || null)
       
     } catch (error) {
@@ -70,6 +100,9 @@ export default function Home() {
       setProducts([])
       setComboProducts([])
       setFeaturedProducts([])
+      setNewProducts([])
+      setSaleProducts([])
+      setNewToys([])
       setBannerProduct(null)
     } finally {
       setLoading(false)
@@ -118,25 +151,6 @@ export default function Home() {
         return { text: 'ПОПУЛЯРНОЕ', color: 'bg-orange-500' }
     }
   }
-
-  const getFilteredProducts = () => {
-    // Проверяем, что products является массивом
-    if (!Array.isArray(products)) {
-      return []
-    }
-    
-    
-    // Если нет поискового запроса, показываем товары выбранной категории
-    return products.filter(product => product.category?.name === activeCategory)
-  }
-
-  const isPopularProduct = (product: Product) => {
-    // Определяем популярные товары по названию или другим критериям
-    const popularNames = ['Конструктор', 'Кукла', 'Мягкая игрушка', 'Машинка']
-    return popularNames.some(name => product.name.toLowerCase().includes(name.toLowerCase()))
-  }
-
-  const categories = ['Книги', 'Игрушки', 'Одежда', 'Спорт', 'Творчество']
 
   return (
     <div className="min-h-screen bg-gray-50 overflow-x-hidden">
@@ -464,187 +478,25 @@ export default function Home() {
       </section>
 
 
-      {/* Products Showcase Section - Moved up */}
-      <section className="py-16 lg:py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Section header */}
-          <div className="text-center mb-12">
-            
-            {/* Category tabs - Mobile 2 rows, Desktop single row */}
-            <div className="mb-16">
-              {/* Mobile - 2 rows with better design */}
-              <div className="lg:hidden">
-                <div className="space-y-3">
-                  {/* First row - Пиде и Комбо занимают весь ряд */}
-                  <div className="grid grid-cols-2 gap-3">
-                    {categories.slice(0, 2).map((category) => (
-                      <button
-                        key={category}
-                        onClick={() => setActiveCategory(category)}
-                        className={`px-6 py-4 rounded-2xl font-bold transition-all duration-300 text-base ${
-                          activeCategory === category
-                            ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-lg'
-                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200 active:scale-95'
-                        }`}
-                        style={activeCategory === category ? {
-                          boxShadow: '0 8px 25px rgba(255, 107, 53, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1)',
-                        } : {}}
-                      >
-                        {category}
-                      </button>
-                    ))}
-                  </div>
-                  
-                  {/* Second row - остальные категории */}
-                  <div className="flex flex-wrap gap-2 justify-center">
-                    {categories.slice(2).map((category) => (
-                      <button
-                        key={category}
-                        onClick={() => setActiveCategory(category)}
-                        className={`px-5 py-3 rounded-2xl font-semibold transition-all duration-300 text-sm ${
-                          activeCategory === category
-                            ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-lg'
-                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200 active:scale-95'
-                        }`}
-                        style={activeCategory === category ? {
-                          boxShadow: '0 8px 25px rgba(255, 107, 53, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1)',
-                        } : {}}
-                      >
-                        {category}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </div>
-              
-              {/* Desktop - single row */}
-              <div className="hidden lg:flex flex-wrap justify-center gap-4">
-                {categories.map((category) => (
-                  <button
-                    key={category}
-                    onClick={() => setActiveCategory(category)}
-                    className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 ${
-                      activeCategory === category
-                        ? 'bg-orange-500 text-white shadow-lg'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                    }`}
-                  >
-                    {category}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
+      {/* New Products Section */}
+      <ProductSection
+        title="Новые товары"
+        subtitle="Свежие поступления для ваших детей"
+        products={newProducts}
+        onAddToCart={handleAddToCart}
+        addedToCart={addedToCart}
+        variant="compact"
+      />
 
-          {/* Products grid */}
-          <div className="mt-24">
-          {loading ? (
-            <div className="flex justify-center py-20">
-              <div className="flex flex-col items-center space-y-4">
-                <div className="animate-spin rounded-full h-16 w-16 border-4 border-orange-500 border-t-transparent"></div>
-                <p className="text-gray-600">Загружаем меню...</p>
-              </div>
-            </div>
-          ) : getFilteredProducts().length === 0 ? (
-            <div className="text-center py-20">
-              <div className="text-6xl mb-4">🍽️</div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                Товары в категории "{activeCategory}" скоро появятся
-              </h3>
-              <p className="text-gray-600 mb-6">
-                Пока что посмотрите другие категории
-              </p>
-              <button
-                onClick={() => setActiveCategory('Творчество')}
-                className="bg-sky-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-sky-600 transition-colors"
-              >
-                Показать товары для творчества
-              </button>
-            </div>
-          ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-8 md:gap-15">
-              {getFilteredProducts().map((product) => (
-                <div 
-                  key={product.id}
-                  className="transform hover:scale-105 transition-transform duration-300"
-                >
-                  <ProductCard
-                    product={product}
-                    onAddToCart={handleAddToCart}
-                    variant="compact"
-                    addedToCart={addedToCart}
-                  />
-                </div>
-              ))}
-            </div>
-          )}
-          </div>
-
-          {/* CTA */}
-          <div className="text-center mt-16">
-            <Link 
-              href="/products"
-              className="group inline-flex items-center bg-sky-500 text-white px-8 py-4 rounded-2xl font-bold text-lg hover:bg-sky-600 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
-            >
-              <span>Посмотреть все товары</span>
-              <svg className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Additional Toys Showcase Section - Hidden on mobile and tablet */}
-      <section className="hidden lg:block py-20 bg-sky-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Section header */}
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Популярные игрушки
-            </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Самые любимые игрушки, которые выбирают наши маленькие клиенты
-            </p>
-          </div>
-
-          {/* Featured products grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {featuredProducts.length > 0 ? (
-              featuredProducts.map((product) => (
-                <div 
-                  key={product.id}
-                >
-                  <ProductCard
-                    product={product}
-                    onAddToCart={handleAddToCartHits}
-                    variant="compact"
-                    addedToCart={addedToCartHits}
-                  />
-                </div>
-              ))
-            ) : (
-              // Fallback if no featured products
-              <div className="col-span-full text-center py-12">
-                <p className="text-gray-500 text-lg">Популярные игрушки скоро появятся!</p>
-              </div>
-            )}
-          </div>
-
-          {/* CTA */}
-          <div className="text-center mt-16">
-            <Link 
-              href="/products"
-              className="group inline-flex items-center bg-sky-500 text-white px-8 py-4 rounded-2xl font-bold text-lg hover:bg-sky-600 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
-            >
-              <span>Посмотреть все игрушки</span>
-              <svg className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* Sale Products Section */}
+      <ProductSection
+        title="Товары со скидкой"
+        subtitle="Выгодные предложения на любимые товары"
+        products={saleProducts}
+        onAddToCart={handleAddToCart}
+        addedToCart={addedToCart}
+        variant="compact"
+      />
 
       {/* Features Section - Hidden on mobile and tablet */}
       <section className="hidden lg:block py-20 bg-gray-50">
@@ -725,6 +577,15 @@ export default function Home() {
         </div>
       </section>
 
+      {/* New Toys Section */}
+      <ProductSection
+        title="Новые игрушки"
+        subtitle="Свежие игрушки для веселых игр"
+        products={newToys}
+        onAddToCart={handleAddToCart}
+        addedToCart={addedToCart}
+        variant="compact"
+      />
 
       {/* Testimonials Section - Hidden on mobile and tablet */}
       <section className="hidden lg:block py-20 bg-slate-50">

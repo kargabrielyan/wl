@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { sampleProducts } from '@/constants/products'
 
 // GET /api/products - получить все товары
 export async function GET(request: NextRequest) {
@@ -9,6 +8,10 @@ export async function GET(request: NextRequest) {
     const category = searchParams.get('category')
     const search = searchParams.get('search')
     const status = searchParams.get('status')
+    const featured = searchParams.get('featured')
+    const newProducts = searchParams.get('new')
+    const saleProducts = searchParams.get('sale')
+    const newToys = searchParams.get('newToys')
 
     const whereClause: any = {
       isAvailable: true
@@ -22,6 +25,39 @@ export async function GET(request: NextRequest) {
 
     if (status) {
       whereClause.status = status
+    }
+
+    if (featured === 'true') {
+      whereClause.status = 'HIT'
+    }
+
+    if (newProducts === 'true') {
+      // Товары добавленные за последнюю неделю
+      const oneWeekAgo = new Date()
+      oneWeekAgo.setDate(oneWeekAgo.getDate() - 7)
+      
+      whereClause.createdAt = {
+        gte: oneWeekAgo
+      }
+    }
+
+    if (saleProducts === 'true') {
+      whereClause.salePrice = {
+        not: null
+      }
+    }
+
+    if (newToys === 'true') {
+      // Новые игрушки за последнюю неделю
+      const oneWeekAgo = new Date()
+      oneWeekAgo.setDate(oneWeekAgo.getDate() - 7)
+      
+      whereClause.createdAt = {
+        gte: oneWeekAgo
+      }
+      whereClause.category = {
+        name: 'Игрушки'
+      }
     }
 
     if (search) {
@@ -52,6 +88,7 @@ export async function GET(request: NextRequest) {
         image: true,
         ingredients: true,
         isAvailable: true,
+        stock: true,
         status: true,
         createdAt: true
       }
