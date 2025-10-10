@@ -10,7 +10,6 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   // Оптимизация для разработки
-  swcMinify: true,
   poweredByHeader: false,
   // Оптимизация изображений
   images: {
@@ -25,12 +24,13 @@ const nextConfig: NextConfig = {
   // Экспериментальные функции для производительности
   experimental: {
     optimizePackageImports: ['lucide-react'],
-    turbo: {
-      rules: {
-        '*.svg': {
-          loaders: ['@svgr/webpack'],
-          as: '*.js',
-        },
+  },
+  // Turbopack конфигурация (новая версия)
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
       },
     },
   },
