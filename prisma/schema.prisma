@@ -40,6 +40,7 @@ model Product {
   name        String
   description String
   price       Float
+  salePrice   Float?        // Цена со скидкой (опционально)
   image       String
   categoryId  String
   ingredients String

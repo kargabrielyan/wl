@@ -15,7 +15,7 @@ export default function Home() {
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([])
   const [bannerProduct, setBannerProduct] = useState<Product | null>(null)
   const [loading, setLoading] = useState(true)
-  const [activeCategory, setActiveCategory] = useState('Игрушки')
+  const [activeCategory, setActiveCategory] = useState('Книги')
   const [addedToCart, setAddedToCart] = useState<Set<string>>(new Set())
   const [addedToCartHits, setAddedToCartHits] = useState<Set<string>>(new Set())
   const { addItem } = useCart()
@@ -136,7 +136,7 @@ export default function Home() {
     return popularNames.some(name => product.name.toLowerCase().includes(name.toLowerCase()))
   }
 
-  const categories = ['Игрушки', 'Одежда', 'Книги', 'Спорт', 'Творчество']
+  const categories = ['Книги', 'Игрушки', 'Одежда', 'Спорт', 'Творчество']
 
   return (
     <div className="min-h-screen bg-gray-50 overflow-x-hidden">

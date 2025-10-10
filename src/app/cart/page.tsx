@@ -252,7 +252,19 @@ export default function CartPage() {
                           {item.product.category?.name || 'Без категории'}
                         </p>
                         <div className="text-xl font-bold text-orange-500">
-                          {item.product.price} ֏
+                          {item.product.salePrice ? (
+                            <div className="flex flex-col">
+                              <div className="flex items-center gap-2">
+                                <span className="text-red-600 font-bold">{item.product.salePrice} ֏</span>
+                                <span className="bg-red-500 text-white text-xs px-2 py-1 rounded-full font-bold">
+                                  СКИДКА
+                                </span>
+                              </div>
+                              <span className="text-sm text-gray-400 line-through">{item.product.price} ֏</span>
+                            </div>
+                          ) : (
+                            <span>{item.product.price} ֏</span>
+                          )}
                         </div>
                       </div>
                       
@@ -280,7 +292,10 @@ export default function CartPage() {
                       {/* Total Price */}
                       <div className="text-right">
                         <div className="text-xl font-bold text-gray-900">
-                          {item.product.price * item.quantity} ֏
+                          {(() => {
+                            const price = item.product.salePrice || item.product.price
+                            return price * item.quantity
+                          })()} ֏
                         </div>
                         <button
                           onClick={() => removeItem(item.product.id)}

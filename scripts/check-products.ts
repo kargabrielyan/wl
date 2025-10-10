@@ -1,8 +1,5 @@
 import { PrismaClient } from '@prisma/client'
 
-// Устанавливаем переменную окружения для SQLite
-process.env.DATABASE_URL = 'file:./prisma/dev.db'
-
 const prisma = new PrismaClient()
 
 async function main() {

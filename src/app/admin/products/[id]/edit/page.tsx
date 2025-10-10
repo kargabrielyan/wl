@@ -35,6 +35,7 @@ export default function EditProductPage({ params }: EditProductPageProps) {
     name: '',
     description: '',
     price: '',
+    salePrice: '',
     categoryId: '',
     image: '',
     ingredients: '',
@@ -95,6 +96,7 @@ export default function EditProductPage({ params }: EditProductPageProps) {
           name: productData.name || '',
           description: productData.description || '',
           price: productData.price?.toString() || '',
+          salePrice: productData.salePrice?.toString() || '',
           categoryId: productData.categoryId || productData.category?.id || '',
           image: productData.image || '',
           ingredients: productData.ingredients || '',
@@ -146,6 +148,7 @@ export default function EditProductPage({ params }: EditProductPageProps) {
       const productData = {
         ...formData,
         price: parseFloat(formData.price),
+        salePrice: formData.salePrice ? parseFloat(formData.salePrice) : null,
         ingredients: formData.ingredients || ''
       }
 
@@ -159,6 +162,7 @@ export default function EditProductPage({ params }: EditProductPageProps) {
 
       if (!response.ok) {
         const errorData = await response.json()
+        console.error('API Error:', errorData)
         throw new Error(errorData.error || 'Failed to update product')
       }
 
@@ -307,6 +311,24 @@ export default function EditProductPage({ params }: EditProductPageProps) {
                     placeholder="0.00"
                     required
                   />
+                </div>
+
+                {/* Скидочная цена */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Скидочная цена (֏)
+                  </label>
+                  <Input
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    value={formData.salePrice}
+                    onChange={(e) => handleInputChange('salePrice', e.target.value)}
+                    placeholder="0.00"
+                  />
+                  <p className="text-xs text-gray-500 mt-1">
+                    Оставьте пустым, если скидки нет
+                  </p>
                 </div>
 
                 {/* Категория */}

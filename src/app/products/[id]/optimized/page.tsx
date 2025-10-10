@@ -293,7 +293,19 @@ export default async function OptimizedProductPage({
 
                 {/* Price */}
                 <div className="flex items-center space-x-4 mb-8">
-                  <span className="text-4xl font-bold text-orange-500">{product.price} ֏</span>
+                  {product.salePrice ? (
+                    <div className="flex flex-col">
+                      <div className="flex items-center gap-3">
+                        <span className="text-4xl font-bold text-red-600">{product.salePrice} ֏</span>
+                        <span className="bg-red-500 text-white text-sm px-3 py-1 rounded-full font-bold">
+                          🔥 СКИДКА
+                        </span>
+                      </div>
+                      <span className="text-lg text-gray-400 line-through">{product.price} ֏</span>
+                    </div>
+                  ) : (
+                    <span className="text-4xl font-bold text-orange-500">{product.price} ֏</span>
+                  )}
                   <span className="text-lg text-gray-500">за порцию</span>
                 </div>
               </div>

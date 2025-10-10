@@ -27,6 +27,7 @@ export default function NewProductPage() {
     name: '',
     description: '',
     price: '',
+    salePrice: '',
     categoryId: '',
     image: '',
     ingredients: '',
@@ -90,6 +91,7 @@ export default function NewProductPage() {
       const productData = {
         ...formData,
         price: parseFloat(formData.price),
+        salePrice: formData.salePrice ? parseFloat(formData.salePrice) : null,
         ingredients: formData.ingredients ? formData.ingredients.split(',').map(i => i.trim()) : []
       }
 
@@ -199,6 +201,24 @@ export default function NewProductPage() {
                     placeholder="0.00"
                     required
                   />
+                </div>
+
+                {/* Скидочная цена */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Скидочная цена (֏)
+                  </label>
+                  <Input
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    value={formData.salePrice}
+                    onChange={(e) => handleInputChange('salePrice', e.target.value)}
+                    placeholder="0.00"
+                  />
+                  <p className="text-xs text-gray-500 mt-1">
+                    Оставьте пустым, если скидки нет
+                  </p>
                 </div>
 
                 {/* Категория */}

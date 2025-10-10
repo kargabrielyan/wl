@@ -117,6 +117,19 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
         
         {/* 3D Floating Elements - Adjusted for 3D product */}
         <div className="absolute top-2 left-2 flex flex-col gap-2 z-20">
+          {/* Sale Badge */}
+          {product.salePrice && (
+            <div 
+              className="bg-gradient-to-r from-red-500 to-pink-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-2xl animate-pulse"
+              style={{
+                boxShadow: '0 10px 25px rgba(239, 68, 68, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1)',
+                backdropFilter: 'blur(10px)',
+              }}
+            >
+              🔥 СКИДКА
+            </div>
+          )}
+          
           {/* 3D Category Badge */}
           {!isCompact && (
             <div 
@@ -173,13 +186,25 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
 
         {/* 3D Floating Price Badge - Moved to bottom right */}
         <div 
-          className="absolute bottom-2 right-2 bg-white/95 backdrop-blur-md text-orange-600 px-3 py-1 rounded-2xl text-sm font-bold shadow-2xl z-20"
+          className="absolute bottom-2 right-2 bg-white/95 backdrop-blur-md px-3 py-1 rounded-2xl text-sm font-bold shadow-2xl z-20"
           style={{
             boxShadow: '0 15px 35px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.1)',
             backdropFilter: 'blur(15px)',
           }}
         >
-          {product.price} ֏
+          {product.salePrice ? (
+            <div className="flex flex-col items-end">
+              <div className="flex items-center gap-1">
+                <span className="text-lg font-bold text-red-600">{product.salePrice} ֏</span>
+                <span className="bg-red-500 text-white text-xs px-1 py-0.5 rounded-full font-bold">
+                  СКИДКА
+                </span>
+              </div>
+              <span className="text-xs text-gray-400 line-through">{product.price} ֏</span>
+            </div>
+          ) : (
+            <span className="text-orange-600">{product.price} ֏</span>
+          )}
         </div>
 
         {/* Bottom Gradient Overlay - Removed black overlay */}

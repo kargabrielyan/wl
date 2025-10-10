@@ -150,7 +150,7 @@ export default function CheckoutPage() {
         items: items.map(item => ({
           productId: item.product.id,
           quantity: item.quantity,
-          price: item.product.price
+          price: item.product.salePrice || item.product.price
         })),
         total: getTotalPrice()
       }

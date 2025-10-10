@@ -87,7 +87,9 @@ export async function PUT(
 
     // Получаем данные из запроса
     const body = await request.json()
-    const { name, description, price, categoryId, image, ingredients, isAvailable, status } = body
+    const { name, description, price, salePrice, categoryId, image, ingredients, isAvailable, status } = body
+    
+    console.log('Update product data:', { id, name, description, price, salePrice, categoryId, image, ingredients, isAvailable, status })
 
     // Проверяем существование товара
     const existingProduct = await prisma.product.findUnique({
@@ -107,6 +109,23 @@ export async function PUT(
         { error: 'Price must be a positive number' },
         { status: 400 }
       )
+    }
+
+    // Валидация скидочной цены
+    if (salePrice !== undefined && salePrice !== null) {
+      if (typeof salePrice !== 'number' || salePrice <= 0) {
+        return NextResponse.json(
+          { error: 'Sale price must be a positive number' },
+          { status: 400 }
+        )
+      }
+      const currentPrice = price !== undefined ? price : existingProduct.price
+      if (salePrice >= currentPrice) {
+        return NextResponse.json(
+          { error: 'Sale price must be less than regular price' },
+          { status: 400 }
+        )
+      }
     }
 
     // Валидация категории
@@ -141,6 +160,7 @@ export async function PUT(
         ...(name && { name }),
         ...(description && { description }),
         ...(price !== undefined && { price }),
+        ...(salePrice !== undefined && { salePrice: salePrice === null || salePrice === '' ? null : salePrice }),
         ...(categoryId && { categoryId }),
         ...(image !== undefined && { image: image || 'no-image' }), // Специальное значение для отсутствия изображения
         ...(ingredients && { ingredients }),
@@ -161,8 +181,12 @@ export async function PUT(
     return NextResponse.json(updatedProduct)
   } catch (error) {
     console.error('Error updating product:', error)
+    console.error('Error details:', {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined
+    })
     return NextResponse.json(
-      { error: 'Failed to update product' },
+      { error: 'Failed to update product', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     )
   }

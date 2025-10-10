@@ -282,7 +282,21 @@ export default function AdminProducts() {
                     </p>
                     <div className="flex items-center space-x-4 text-sm text-gray-500">
                       <span>Категория: {product.category?.name || 'Без категории'}</span>
-                      <span>Цена: {product.price} ֏</span>
+                      <span>
+                        Цена: {product.salePrice ? (
+                          <span>
+                            <div className="flex items-center gap-2">
+                              <span className="text-red-600 font-bold">{product.salePrice} ֏</span>
+                              <span className="bg-red-500 text-white text-xs px-2 py-1 rounded-full font-bold">
+                                СКИДКА
+                              </span>
+                            </div>
+                            <span className="text-gray-400 line-through text-sm">{product.price} ֏</span>
+                          </span>
+                        ) : (
+                          <span>{product.price} ֏</span>
+                        )}
+                      </span>
                       <span className={`px-2 py-1 rounded-full text-xs ${
                         product.isAvailable 
                           ? 'bg-green-100 text-green-800' 

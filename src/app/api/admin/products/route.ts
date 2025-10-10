@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
 
     // Получаем данные из запроса
     const body = await request.json()
-    const { name, description, price, categoryId, image, ingredients, isAvailable = true, status = 'REGULAR' } = body
+    const { name, description, price, salePrice, categoryId, image, ingredients, isAvailable = true, status = 'REGULAR' } = body
 
     // Валидация обязательных полей
     if (!name || !description || !price || !categoryId) {
@@ -42,6 +42,22 @@ export async function POST(request: NextRequest) {
         { error: 'Price must be a positive number' },
         { status: 400 }
       )
+    }
+
+    // Валидация скидочной цены
+    if (salePrice !== undefined && salePrice !== null) {
+      if (typeof salePrice !== 'number' || salePrice <= 0) {
+        return NextResponse.json(
+          { error: 'Sale price must be a positive number' },
+          { status: 400 }
+        )
+      }
+      if (salePrice >= price) {
+        return NextResponse.json(
+          { error: 'Sale price must be less than regular price' },
+          { status: 400 }
+        )
+      }
     }
 
     // Проверяем, что категория существует
@@ -71,6 +87,7 @@ export async function POST(request: NextRequest) {
         name,
         description,
         price,
+        salePrice: salePrice === null || salePrice === '' ? null : salePrice,
         categoryId,
         image: image || '', // Пустая строка для отсутствия изображения
         ingredients: ingredients || [],
