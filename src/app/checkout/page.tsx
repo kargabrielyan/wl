@@ -428,12 +428,19 @@ export default function CheckoutPage() {
                 ))}
                 
                 <div className="border-t border-gray-300 pt-3">
-                  <div className="flex justify-between text-lg font-bold text-gray-900">
-                    <span>Итого</span>
-                    <span>{getTotalPrice()} ֏</span>
-                  </div>
-                  <div className="text-sm text-green-600 mt-1">
-                    Доставка бесплатно
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-gray-600">
+                      <span>Товары</span>
+                      <span>{getTotalPrice()} ֏</span>
+                    </div>
+                    <div className="flex justify-between text-gray-600">
+                      <span>Доставка</span>
+                      <span>{getDeliveryPrice()} ֏</span>
+                    </div>
+                    <div className="flex justify-between text-lg font-bold text-gray-900 border-t border-gray-300 pt-2">
+                      <span>Итого</span>
+                      <span>{getTotalPrice()} ֏</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -666,12 +673,19 @@ export default function CheckoutPage() {
                   ))}
                   
                   <div className="border-t border-gray-300 pt-4">
-                    <div className="flex justify-between text-lg font-bold text-gray-900">
-                      <span>Итого</span>
-                      <span>{getTotalPrice()} ֏</span>
-                    </div>
-                    <div className="text-sm text-green-600 mt-1">
-                      Доставка бесплатно
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-gray-600">
+                        <span>Товары</span>
+                        <span>{getTotalPrice()} ֏</span>
+                      </div>
+                      <div className="flex justify-between text-gray-600">
+                        <span>Доставка</span>
+                        <span>{getDeliveryPrice()} ֏</span>
+                      </div>
+                      <div className="flex justify-between text-lg font-bold text-gray-900 border-t border-gray-300 pt-2">
+                        <span>Итого</span>
+                        <span>{getTotalPrice()} ֏</span>
+                      </div>
                     </div>
                   </div>
                 </div>

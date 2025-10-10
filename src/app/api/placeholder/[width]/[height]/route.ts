@@ -3,11 +3,12 @@ import { NextRequest, NextResponse } from 'next/server'
 // GET /api/placeholder/{width}/{height} - генерирует placeholder изображение
 export async function GET(
   request: NextRequest,
-  { params }: { params: { width: string; height: string } }
+  { params }: { params: Promise<{ width: string; height: string }> }
 ) {
   try {
-    const width = parseInt(params.width) || 300
-    const height = parseInt(params.height) || 300
+    const { width: widthParam, height: heightParam } = await params
+    const width = parseInt(widthParam) || 300
+    const height = parseInt(heightParam) || 300
     
     // Создаем SVG placeholder
     const svg = `

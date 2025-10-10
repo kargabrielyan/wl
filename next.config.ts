@@ -25,15 +25,8 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react'],
   },
-  // Turbopack конфигурация (новая версия)
-  turbopack: {
-    rules: {
-      '*.svg': {
-        loaders: ['@svgr/webpack'],
-        as: '*.js',
-      },
-    },
-  },
+  // Внешние пакеты для серверных компонентов
+  serverExternalPackages: [],
   // Компрессия
   compress: true,
   // Кэширование

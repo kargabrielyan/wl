@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { ShoppingCart, User, LogOut, Search } from 'lucide-react'
+import { ShoppingCart, User, LogOut, Search, Heart } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { useState, useRef, useEffect } from 'react'
 import { useSession, signOut } from 'next-auth/react'
@@ -16,6 +16,7 @@ export default function DesktopHeader() {
   const { getTotalItems } = useCart()
   const { data: session, status } = useSession()
   const pathname = usePathname()
+  const [wishlistCount, setWishlistCount] = useState(0)
   
   // Instant search hook
   const {
@@ -37,6 +38,27 @@ export default function DesktopHeader() {
   })
 
   const searchRef = useRef<HTMLDivElement>(null)
+
+  // Загрузка количества товаров в wishlist
+  useEffect(() => {
+    if (session?.user?.id) {
+      fetchWishlistCount()
+    } else {
+      setWishlistCount(0)
+    }
+  }, [session])
+
+  const fetchWishlistCount = async () => {
+    try {
+      const response = await fetch('/api/wishlist')
+      if (response.ok) {
+        const data = await response.json()
+        setWishlistCount(data.count || 0)
+      }
+    } catch (error) {
+      console.error('Error fetching wishlist count:', error)
+    }
+  }
 
   // Закрытие dropdown при клике вне его
   useEffect(() => {
@@ -192,6 +214,33 @@ export default function DesktopHeader() {
                 <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-orange-500 rounded-full"></div>
               )}
             </Link>
+
+            {/* Wishlist - только для авторизованных пользователей */}
+            {session && (
+              <Link 
+                href="/wishlist" 
+                className={`
+                  relative p-3 rounded-xl transition-all duration-300 group
+                  ${isActive('/wishlist')
+                    ? 'text-orange-500 bg-orange-50 shadow-md'
+                    : 'text-gray-900 hover:text-orange-500 hover:bg-orange-50'
+                  }
+                `}
+                title="Избранное"
+              >
+                <Heart className="h-6 w-6" />
+                {isHydrated && wishlistCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                    {wishlistCount}
+                  </span>
+                )}
+                
+                {/* Активный индикатор для wishlist */}
+                {isActive('/wishlist') && (
+                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-orange-500 rounded-full"></div>
+                )}
+              </Link>
+            )}
 
             {/* Auth Buttons */}
             {status === 'loading' ? (

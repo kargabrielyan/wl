@@ -23,7 +23,9 @@ export async function GET(request: NextRequest) {
       totalUsers,
       totalRevenue,
       pendingOrders,
-      completedOrders
+      completedOrders,
+      totalDeliveryTypes,
+      totalCategories
     ] = await Promise.all([
       prisma.product.count(),
       prisma.order.count(),
@@ -42,7 +44,9 @@ export async function GET(request: NextRequest) {
         where: {
           status: 'DELIVERED'
         }
-      })
+      }),
+      prisma.deliveryType.count(),
+      prisma.category.count()
     ])
 
     return NextResponse.json({
@@ -51,7 +55,9 @@ export async function GET(request: NextRequest) {
       totalUsers,
       totalRevenue: totalRevenue._sum.total || 0,
       pendingOrders,
-      completedOrders
+      completedOrders,
+      totalDeliveryTypes,
+      totalCategories
     })
   } catch (error) {
     console.error('Stats API error:', error)

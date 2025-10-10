@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Home, ShoppingCart, User, Menu, LogIn } from 'lucide-react'
+import { Home, ShoppingCart, User, Menu, LogIn, Heart } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { useCart } from '@/hooks/useCart'
@@ -15,9 +15,31 @@ export default function MobileBottomNav() {
   const { getTotalItems } = useCart()
   const { data: session, status } = useSession()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [wishlistCount, setWishlistCount] = useState(0)
   
   // Принудительное обновление при изменении сессии
   const navKey = session ? `nav-authenticated-${session.user?.id}` : 'nav-unauthenticated'
+
+  // Загрузка количества товаров в wishlist
+  useEffect(() => {
+    if (session?.user?.id) {
+      fetchWishlistCount()
+    } else {
+      setWishlistCount(0)
+    }
+  }, [session])
+
+  const fetchWishlistCount = async () => {
+    try {
+      const response = await fetch('/api/wishlist')
+      if (response.ok) {
+        const data = await response.json()
+        setWishlistCount(data.count || 0)
+      }
+    } catch (error) {
+      console.error('Error fetching wishlist count:', error)
+    }
+  }
 
   // Блокировка скролла когда меню открыто
   useEffect(() => {
@@ -51,6 +73,7 @@ export default function MobileBottomNav() {
   const navItems = session ? [
     { href: '/', label: 'Главная', icon: Home },
     { href: '/products', label: 'Меню', icon: Menu, isMenu: true },
+    { href: '/wishlist', label: 'Избранное', icon: Heart, showBadge: true, badgeCount: wishlistCount },
     { href: '/cart', label: 'Корзина', icon: ShoppingCart, showBadge: true },
     { href: '/profile', label: 'Профиль', icon: User },
   ] : [
@@ -212,10 +235,20 @@ export default function MobileBottomNav() {
               >
                 <div className="relative">
                   <Icon className={`h-6 w-6 transition-transform duration-300 ${active ? 'scale-110' : ''}`} />
-                  {item.showBadge && isHydrated && getTotalItems() > 0 && (
-                    <span className="absolute -top-2 -right-2 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold shadow-lg">
-                      {getTotalItems()}
-                    </span>
+                  {item.showBadge && isHydrated && (
+                    item.badgeCount !== undefined ? (
+                      item.badgeCount > 0 && (
+                        <span className="absolute -top-2 -right-2 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold shadow-lg">
+                          {item.badgeCount}
+                        </span>
+                      )
+                    ) : (
+                      getTotalItems() > 0 && (
+                        <span className="absolute -top-2 -right-2 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold shadow-lg">
+                          {getTotalItems()}
+                        </span>
+                      )
+                    )
                   )}
                 </div>
                 <span className={`text-xs font-semibold mt-1 transition-all duration-300 ${active ? 'text-orange-600' : ''}`}>{item.label}</span>

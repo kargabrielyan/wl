@@ -17,7 +17,8 @@ import {
   BarChart3,
   Grid3X3,
   FileText,
-  Cog
+  Cog,
+  Truck
 } from 'lucide-react'
 
 interface Stats {
@@ -27,6 +28,8 @@ interface Stats {
   totalRevenue: number
   pendingOrders: number
   completedOrders: number
+  totalDeliveryTypes: number
+  totalCategories: number
 }
 
 export default function AdminDashboard() {
@@ -38,7 +41,9 @@ export default function AdminDashboard() {
     totalUsers: 0,
     totalRevenue: 0,
     pendingOrders: 0,
-    completedOrders: 0
+    completedOrders: 0,
+    totalDeliveryTypes: 0,
+    totalCategories: 0
   })
   const [isLoading, setIsLoading] = useState(true)
 
@@ -100,7 +105,7 @@ export default function AdminDashboard() {
       href: '/admin/categories',
       icon: Tag,
       color: 'bg-green-500',
-      stats: '12 категорий'
+      stats: `${stats.totalCategories} категорий`
     },
     {
       title: 'Заказы',
@@ -109,6 +114,14 @@ export default function AdminDashboard() {
       icon: ShoppingCart,
       color: 'bg-orange-500',
       stats: `${stats.totalOrders} заказов`
+    },
+    {
+      title: 'Типы доставки',
+      description: 'Управление способами доставки',
+      href: '/admin/delivery-types',
+      icon: Truck,
+      color: 'bg-indigo-500',
+      stats: `${stats.totalDeliveryTypes} типов`
     },
     {
       title: 'Настройки',
@@ -139,7 +152,7 @@ export default function AdminDashboard() {
         </div>
 
         {/* Основные разделы */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mb-8">
           {adminSections.map((section) => {
             const IconComponent = section.icon
             return (
