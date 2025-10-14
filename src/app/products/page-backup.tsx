@@ -8,8 +8,6 @@ import { useCart } from '@/hooks/useCart'
 import { Product, Category } from '@/types'
 import Footer from '@/components/Footer'
 import ProductCard from '@/components/ProductCard'
-import Pagination from '@/components/Pagination'
-import SortSelect, { SortOption } from '@/components/SortSelect'
 
 function ProductsPageContent() {
   const searchParams = useSearchParams()
@@ -23,27 +21,10 @@ function ProductsPageContent() {
   const [searching, setSearching] = useState(false)
   const [addedToCart, setAddedToCart] = useState<Set<string>>(new Set())
   const [selectedProductId, setSelectedProductId] = useState<string | null>(null)
-  const [currentPage, setCurrentPage] = useState(1)
-  const [sortBy, setSortBy] = useState('name-asc')
   const { addItem } = useCart()
   const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const selectedProductRef = useRef<HTMLDivElement>(null)
 
-  // Константы пагинации
-  const ITEMS_PER_PAGE = 24
-
-  // Опции сортировки
-  const sortOptions: SortOption[] = [
-    { value: 'name-asc', label: 'По названию (А-Я)' },
-    { value: 'name-desc', label: 'По названию (Я-А)' },
-    { value: 'price-asc', label: 'По цене (по возрастанию)' },
-    { value: 'price-desc', label: 'По цене (по убыванию)' },
-    { value: 'newest', label: 'Сначала новые' },
-    { value: 'oldest', label: 'Сначала старые' }
-  ]
-
-  // Порядок категорий для сортировки (приоритетные категории)
-  const categoryOrder = ['Игрушки', 'Одежда', 'Книги', 'Спорт', 'Творчество']
 
   const fetchProducts = async () => {
     try {
@@ -71,28 +52,6 @@ function ProductsPageContent() {
     }
   }
 
-  // Функция сортировки товаров
-  const sortProducts = useCallback((products: Product[], sortBy: string): Product[] => {
-    const sorted = [...products]
-    
-    switch (sortBy) {
-      case 'name-asc':
-        return sorted.sort((a, b) => a.name.localeCompare(b.name, 'ru'))
-      case 'name-desc':
-        return sorted.sort((a, b) => b.name.localeCompare(a.name, 'ru'))
-      case 'price-asc':
-        return sorted.sort((a, b) => a.price - b.price)
-      case 'price-desc':
-        return sorted.sort((a, b) => b.price - a.price)
-      case 'newest':
-        return sorted.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-      case 'oldest':
-        return sorted.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
-      default:
-        return sorted
-    }
-  }, [])
-
   const filterProducts = useCallback(() => {
     let filtered = products
     // Если есть поисковый запрос, ищем по всем товарам
@@ -105,21 +64,12 @@ function ProductsPageContent() {
     } else {
       // Если нет поискового запроса, показываем товары выбранной категории
       if (selectedCategory !== 'Все') {
-        filtered = filtered.filter(product => {
-          const category = categories.find(cat => cat.id === product.categoryId)
-          return category?.name === selectedCategory
-        })
+        filtered = filtered.filter(product => product.category?.name === selectedCategory)
       }
       // Если выбрано "Все", показываем все товары без фильтрации
     }
-    
-    // Применяем сортировку
-    filtered = sortProducts(filtered, sortBy)
-    
     setFilteredProducts(filtered)
-    // Сбрасываем на первую страницу при изменении фильтров
-    setCurrentPage(1)
-  }, [products, selectedCategory, debouncedSearchQuery, categories, sortBy, sortProducts])
+  }, [products, selectedCategory, debouncedSearchQuery])
 
   useEffect(() => {
     const loadData = async () => {
@@ -185,35 +135,6 @@ function ProductsPageContent() {
     filterProducts()
   }, [filterProducts])
 
-  // Группировка товаров по категориям
-  const groupProductsByCategory = useCallback((products: Product[]) => {
-    // Защита от невалидных данных
-    if (!Array.isArray(products)) {
-      console.warn('groupProductsByCategory: products is not an array', products)
-      return []
-    }
-    
-    const grouped: Record<string, Product[]> = {}
-    
-    products.forEach(product => {
-      const category = categories.find(cat => cat.id === product.categoryId)
-      const categoryName = category?.name || 'Без категории'
-      if (!grouped[categoryName]) {
-        grouped[categoryName] = []
-      }
-      grouped[categoryName].push(product)
-    })
-
-    // Сортируем категории: сначала приоритетные, потом остальные
-    const priorityCategories = categoryOrder.filter(cat => grouped[cat])
-    const otherCategories = Object.keys(grouped).filter(cat => !categoryOrder.includes(cat))
-    const sortedCategories = [...priorityCategories, ...otherCategories]
-    
-    return sortedCategories.map(category => ({
-      category,
-      products: grouped[category]
-    }))
-  }, [categories])
 
   const handleAddToCart = useCallback((product: Product) => {
     addItem(product, 1)
@@ -229,40 +150,6 @@ function ProductsPageContent() {
     }, 2000)
   }, [addItem])
 
-  // Мемоизируем сгруппированные продукты
-  const groupedProducts = useMemo(() => {
-    return groupProductsByCategory(filteredProducts)
-  }, [filteredProducts, groupProductsByCategory])
-
-  // Вычисляем данные для пагинации
-  const paginationData = useMemo(() => {
-    const totalItems = filteredProducts.length
-    const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE)
-    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
-    const endIndex = startIndex + ITEMS_PER_PAGE
-    const paginatedProducts = filteredProducts.slice(startIndex, endIndex)
-    
-    return {
-      totalItems,
-      totalPages,
-      paginatedProducts,
-      startIndex,
-      endIndex
-    }
-  }, [filteredProducts, currentPage, ITEMS_PER_PAGE])
-
-  // Обработчик смены страницы
-  const handlePageChange = useCallback((page: number) => {
-    setCurrentPage(page)
-    // Прокручиваем к началу списка товаров
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }, [])
-
-  // Обработчик изменения сортировки
-  const handleSortChange = useCallback((value: string) => {
-    setSortBy(value)
-    setCurrentPage(1) // Сбрасываем на первую страницу при смене сортировки
-  }, [])
 
   // Компонент скелетона для карточки товара
   const ProductSkeleton = () => (
@@ -318,15 +205,6 @@ function ProductsPageContent() {
       <div className="hidden lg:block h-24"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Каталог товаров</h1>
-          {paginationData.totalPages > 1 && (
-            <p className="text-gray-600">
-              Страница {currentPage} из {paginationData.totalPages}
-            </p>
-          )}
-        </div>
 
         {/* Search and Filter */}
         <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
@@ -436,27 +314,11 @@ function ProductsPageContent() {
               ))}
             </div>
           </div>
-
-          {/* Sort and Results Info */}
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mt-6 pt-6 border-t border-gray-200">
-            <div className="flex items-center gap-3">
-              <span className="text-sm font-medium text-gray-700">Сортировка:</span>
-              <SortSelect
-                value={sortBy}
-                onChange={handleSortChange}
-                options={sortOptions}
-                className="min-w-[200px]"
-              />
-            </div>
-            <div className="text-sm text-gray-600">
-              Показано {paginationData.totalItems} товаров
-            </div>
-          </div>
         </div>
 
         {/* Products Display */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-8 md:gap-15">
-          {paginationData.paginatedProducts.map((product) => (
+          {filteredProducts.map((product) => (
             <div
               key={product.id}
               ref={selectedProductId === product.id ? selectedProductRef : null}
@@ -471,15 +333,6 @@ function ProductsPageContent() {
             </div>
           ))}
         </div>
-
-        {/* Pagination */}
-        <Pagination
-          currentPage={currentPage}
-          totalPages={paginationData.totalPages}
-          onPageChange={handlePageChange}
-          itemsPerPage={ITEMS_PER_PAGE}
-          totalItems={paginationData.totalItems}
-        />
 
         {filteredProducts.length === 0 && (
           <div className="text-center py-12">
@@ -528,7 +381,7 @@ function ProductsPageContent() {
   )
 }
 
-export default function ProductsPage() {
+function ProductsPageWrapper() {
   return (
     <Suspense fallback={
       <div className="min-h-screen bg-gray-50 overflow-x-hidden">
@@ -562,4 +415,8 @@ export default function ProductsPage() {
       <ProductsPageContent />
     </Suspense>
   )
+}
+
+export default function ProductsPage() {
+  return <ProductsPageWrapper />
 }
