@@ -48,7 +48,7 @@ export async function GET(request: NextRequest) {
     }
 
     if (newToys === 'true') {
-      // Новые игрушки за последнюю неделю
+      // Новые музыкальные игрушки за последнюю неделю
       const oneWeekAgo = new Date()
       oneWeekAgo.setDate(oneWeekAgo.getDate() - 7)
       
@@ -56,7 +56,7 @@ export async function GET(request: NextRequest) {
         gte: oneWeekAgo
       }
       whereClause.category = {
-        name: 'Игрушки'
+        name: 'Երաժշտական խաղալիքներ'
       }
     }
 

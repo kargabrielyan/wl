@@ -1,32 +1,34 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { getServerSession } from 'next-auth/next'
-import { authOptions } from '@/lib/auth'
 
-// GET /api/products/[id] - получить товар по ID
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = await params
+    const { id } = params
+
+    if (!id) {
+      return NextResponse.json(
+        { error: 'Product ID is required' },
+        { status: 400 }
+      )
+    }
+
+    // Получаем товар по ID с категорией
     const product = await prisma.product.findUnique({
       where: {
         id,
         isAvailable: true
       },
-      select: {
-        id: true,
-        name: true,
-        description: true,
-        price: true,
-        categoryId: true,
-        category: true,
-        image: true,
-        ingredients: true,
-        isAvailable: true,
-        status: true,
-        createdAt: true
+      include: {
+        category: {
+          select: {
+            id: true,
+            name: true,
+            isActive: true
+          }
+        }
       }
     })
 
@@ -37,72 +39,93 @@ export async function GET(
       )
     }
 
-    // Улучшенное кэширование на 2 часа для отдельных товаров
-    const response = NextResponse.json(product)
-    response.headers.set('Cache-Control', 'public, s-maxage=7200, stale-while-revalidate=14400')
-    response.headers.set('CDN-Cache-Control', 'public, s-maxage=7200')
-    
-    return response
+    return NextResponse.json(product)
   } catch (error) {
     console.error('Error fetching product:', error)
     return NextResponse.json(
-      { error: 'Failed to fetch product' },
+      { error: 'Internal server error' },
       { status: 500 }
     )
   }
 }
 
-// DELETE /api/products/[id] - удалить товар (только для админов)
-export async function DELETE(
+export async function PUT(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = await params
-    
-    // Проверяем аутентификацию
-    const session = await getServerSession(authOptions)
-    
-    if (!session?.user) {
+    const { id } = params
+    const body = await request.json()
+
+    if (!id) {
       return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
+        { error: 'Product ID is required' },
+        { status: 400 }
       )
     }
 
-    // Проверяем права администратора
-    if (session.user.role !== 'ADMIN') {
-      return NextResponse.json(
-        { error: 'Forbidden - Admin access required' },
-        { status: 403 }
-      )
-    }
-
-    // Проверяем существование товара
-    const existingProduct = await prisma.product.findUnique({
-      where: { id }
+    // Обновляем товар
+    const updatedProduct = await prisma.product.update({
+      where: { id },
+      data: {
+        name: body.name,
+        description: body.description,
+        price: body.price,
+        salePrice: body.salePrice,
+        categoryId: body.categoryId,
+        image: body.image,
+        ingredients: body.ingredients,
+        isAvailable: body.isAvailable,
+        status: body.status
+      },
+      include: {
+        category: {
+          select: {
+            id: true,
+            name: true,
+            isActive: true
+          }
+        }
+      }
     })
 
-    if (!existingProduct) {
-      return NextResponse.json(
-        { error: 'Product not found' },
-        { status: 404 }
-      )
-    }
-
-    // Удаляем товар
-    await prisma.product.delete({
-      where: { id }
-    })
-
+    return NextResponse.json(updatedProduct)
+  } catch (error) {
+    console.error('Error updating product:', error)
     return NextResponse.json(
-      { message: 'Product deleted successfully' },
-      { status: 200 }
+      { error: 'Internal server error' },
+      { status: 500 }
     )
+  }
+}
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const { id } = params
+
+    if (!id) {
+      return NextResponse.json(
+        { error: 'Product ID is required' },
+        { status: 400 }
+      )
+    }
+
+    // Мягкое удаление - помечаем как недоступный
+    const deletedProduct = await prisma.product.update({
+      where: { id },
+      data: {
+        isAvailable: false
+      }
+    })
+
+    return NextResponse.json({ message: 'Product deleted successfully' })
   } catch (error) {
     console.error('Error deleting product:', error)
     return NextResponse.json(
-      { error: 'Failed to delete product' },
+      { error: 'Internal server error' },
       { status: 500 }
     )
   }

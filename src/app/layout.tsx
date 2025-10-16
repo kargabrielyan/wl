@@ -17,10 +17,14 @@ export const metadata: Metadata = {
   description: "Традиционная форма с современными начинками. 15 уникальных вкуса для настоящих гурманов! Доставка по Еревану.",
   keywords: "пиде, армянские пиде, мини-пиццы, доставка еды, Ереван, Армения",
   icons: {
-    icon: '/logo.png',
-    shortcut: '/logo.png',
-    apple: '/logo.png',
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/images/logo.png', type: 'image/png' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: '/images/logo.png',
   },
+  manifest: '/manifest.json',
 };
 
 export default function RootLayout({

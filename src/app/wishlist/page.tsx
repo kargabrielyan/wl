@@ -149,9 +149,9 @@ function WishlistContent() {
             <ArrowLeft className="w-5 h-5" />
           </button>
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Избранное</h1>
+            <h1 className="text-3xl font-bold text-gray-900">Նախընտրած</h1>
             <p className="text-gray-600 mt-1">
-              {wishlistItems.length} {wishlistItems.length === 1 ? 'товар' : 'товаров'} в избранном
+              {wishlistItems.length} {wishlistItems.length === 1 ? 'արտադրանք' : 'արտադրանք'} նախընտրածում
             </p>
           </div>
         </div>
@@ -161,16 +161,16 @@ function WishlistContent() {
           <div className="text-center py-16">
             <Heart className="w-16 h-16 text-gray-300 mx-auto mb-4" />
             <h2 className="text-xl font-semibold text-gray-900 mb-2">
-              Ваш список избранного пуст
+              Ձեր նախընտրած ցանկը դատարկ է
             </h2>
             <p className="text-gray-600 mb-6">
-              Добавьте товары в избранное, чтобы не потерять их
+              Ավելացրեք արտադրանք նախընտրածում, որպեսզի չկորցնեք դրանք
             </p>
             <Link
               href="/products"
               className="inline-flex items-center px-6 py-3 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors"
             >
-              Перейти к товарам
+              Գնալ արտադրանքին
             </Link>
           </div>
         ) : (
@@ -274,7 +274,7 @@ function WishlistContent() {
                     }`}
                   >
                     <ShoppingCart className="w-4 h-4 mr-2" />
-                    {item.product.stock && item.product.stock > 0 ? 'В корзину' : 'Нет в наличии'}
+                    {item.product.stock && item.product.stock > 0 ? 'Զամբյուղում' : 'Չկա պահեստում'}
                   </button>
                 </div>
               </div>

@@ -1,31 +1,31 @@
-// Цветовая палитра Детский Мир - Голубой и белый
+// Цветовая палитра Детский Мир - Темно-синий и светло-желтый
 export const colors = {
-  // Основные цвета - голубой
+  // Основные цвета - темно-синий
   primary: {
-    50: '#f0f9ff',
-    100: '#e0f2fe',
-    200: '#bae6fd',
-    300: '#7dd3fc',
-    400: '#38bdf8',
-    500: '#0ea5e9', // Основной голубой
-    600: '#0284c7',
-    700: '#0369a1',
-    800: '#075985',
-    900: '#0c4a6e',
+    50: '#f0f4f8',
+    100: '#d9e2ec',
+    200: '#bcccdc',
+    300: '#9fb3c8',
+    400: '#829ab1',
+    500: '#002c46', // Основной темно-синий
+    600: '#002238',
+    700: '#001d2e',
+    800: '#001824',
+    900: '#00131a',
   },
   
-  // Акцентный белый/светло-голубой
-  accent: {
-    50: '#ffffff',
-    100: '#f8fafc',
-    200: '#f1f5f9',
-    300: '#e2e8f0',
-    400: '#cbd5e1',
-    500: '#94a3b8', // Светло-серый акцент
-    600: '#64748b',
-    700: '#475569',
-    800: '#334155',
-    900: '#1e293b',
+  // Второстепенный цвет - светло-желтый
+  secondary: {
+    50: '#fefcf7',
+    100: '#fdf8ed',
+    200: '#faf0d3',
+    300: '#f7e8b9',
+    400: '#f4e09f',
+    500: '#f3d98c', // Светло-желтый акцент
+    600: '#f1d47a',
+    700: '#efcf68',
+    800: '#edca56',
+    900: '#ebc544',
   },
   
   // Нейтральные цвета
@@ -55,16 +55,16 @@ export const colors = {
 // Tailwind CSS классы для быстрого использования
 export const colorClasses = {
   primary: {
-    bg: 'bg-sky-500',
-    text: 'text-sky-500',
-    border: 'border-sky-500',
-    hover: 'hover:bg-sky-600',
+    bg: 'bg-primary-500',
+    text: 'text-primary-500',
+    border: 'border-primary-500',
+    hover: 'hover:bg-primary-600',
   },
-  accent: {
-    bg: 'bg-slate-200',
-    text: 'text-slate-600',
-    border: 'border-slate-300',
-    hover: 'hover:bg-slate-300',
+  secondary: {
+    bg: 'bg-secondary-500',
+    text: 'text-secondary-500',
+    border: 'border-secondary-500',
+    hover: 'hover:bg-secondary-600',
   },
   neutral: {
     bg: 'bg-white',

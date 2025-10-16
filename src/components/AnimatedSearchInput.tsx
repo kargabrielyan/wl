@@ -13,12 +13,12 @@ interface AnimatedSearchInputProps extends React.InputHTMLAttributes<HTMLInputEl
 }
 
 const PHRASES = [
-  'игрушки',
-  'одежда', 
-  'книги',
-  'спорт',
-  'творчество',
-  'развивающие игры'
+  'խաղալիքներ',
+  'հագուստ', 
+  'գրքեր',
+  'սպորտ',
+  'ստեղծագործություն',
+  'զարգացնող խաղեր'
 ]
 
 export function AnimatedSearchInput({
@@ -116,7 +116,7 @@ export function AnimatedSearchInput({
         onKeyDown={onKeyDown}
         onFocus={handleFocus}
         onBlur={handleBlur}
-        className="w-full pl-10 pr-3 py-2 border border-gray-200 rounded-lg focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm text-gray-900 placeholder-gray-500 bg-gray-50 transition-all duration-300 hover:bg-white focus:bg-white"
+        className="w-full pl-10 pr-3 py-2 border border-gray-200 rounded-lg focus:ring-1 focus:ring-primary-500 focus:border-primary-500 text-sm text-gray-900 placeholder-gray-500 bg-gray-50 transition-all duration-300 hover:bg-white focus:bg-white"
         aria-controls="search-results"
         aria-expanded={props['aria-expanded']}
         aria-autocomplete="list"

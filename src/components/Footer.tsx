@@ -20,8 +20,8 @@ export default function Footer() {
               />
             </div>
             <p className="text-gray-300 mb-4">
-              Армянские пиде - новый вкус. Свежие, вкусные, быстрые!
-              Традиционная форма с современными начинками. 15 уникальных вкусов для настоящих гурманов.
+              Հայկական բիդե - նոր համ: Թարմ, համեղ, արագ:
+              Ավանդական ձև ժամանակակից լցոնումներով: 15 եզակի համ իսկական գուրմանների համար:
             </p>
             <div className="flex space-x-4">
               <a href="tel:+37495044888" className="text-gray-300 hover:text-orange-500 transition-colors">
@@ -35,26 +35,26 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Навигация</h4>
+            <h4 className="text-lg font-semibold mb-4">Նավիգացիա</h4>
             <ul className="space-y-2">
               <li>
                 <Link href="/" className="text-gray-300 hover:text-orange-500 transition-colors">
-                  Главная
+                  Գլխավոր
                 </Link>
               </li>
               <li>
                 <Link href="/products" className="text-gray-300 hover:text-orange-500 transition-colors">
-                  Меню
+                  Մենյու
                 </Link>
               </li>
               <li>
                 <Link href="/about" className="text-gray-300 hover:text-orange-500 transition-colors">
-                  О нас
+                  Մեր մասին
                 </Link>
               </li>
               <li>
                 <Link href="/contact" className="text-gray-300 hover:text-orange-500 transition-colors">
-                  Контакты
+                  Կապ
                 </Link>
               </li>
             </ul>
@@ -62,7 +62,7 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Контакты</h4>
+            <h4 className="text-lg font-semibold mb-4">Կապ</h4>
             <div className="space-y-3">
               <div className="flex items-center space-x-2">
                 <Phone className="h-4 w-4 text-orange-500" />
@@ -100,13 +100,13 @@ export default function Footer() {
                   </a>
                 </div>
               </div>
-              <div className="flex items-center space-x-2">
-                <Clock className="h-4 w-4 text-orange-500" />
-                <div className="text-gray-300">
-                  <div>Пн-Вс: 10:00 - 22:00</div>
-                  <div className="text-sm">Доставка: 11:00 - 21:00</div>
+                <div className="flex items-center space-x-2">
+                  <Clock className="h-4 w-4 text-orange-500" />
+                  <div className="text-gray-300">
+                    <div>Երկ-Կիր: 10:00 - 22:00</div>
+                    <div className="text-sm">Առաքում: 11:00 - 21:00</div>
+                  </div>
                 </div>
-              </div>
             </div>
           </div>
         </div>
@@ -116,10 +116,10 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="flex flex-wrap justify-center md:justify-start space-x-6 text-sm">
               <Link href="/privacy" className="text-gray-400 hover:text-orange-500 transition-colors">
-                Политика конфиденциальности
+                Գաղտնիության քաղաքականություն
               </Link>
               <Link href="/terms" className="text-gray-400 hover:text-orange-500 transition-colors">
-                Условия использования
+                Օգտագործման պայմաններ
               </Link>
             </div>
             <p className="text-sm font-light tracking-wide text-gray-400">

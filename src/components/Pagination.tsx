@@ -52,7 +52,7 @@ export default function Pagination({
     <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-8">
       {/* Информация о товарах */}
       <div className="text-sm text-gray-700">
-        Показано {startItem}-{endItem} из {totalItems} товаров
+        Ցուցադրված {startItem}-{endItem} {totalItems} արտադրանքից
       </div>
 
       {/* Навигация по страницам */}
@@ -64,7 +64,7 @@ export default function Pagination({
           className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
           <ChevronLeft className="w-4 h-4" />
-          Предыдущая
+          Նախորդ
         </button>
 
         {/* Номера страниц */}
@@ -93,7 +93,7 @@ export default function Pagination({
           disabled={currentPage === totalPages}
           className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
-          Следующая
+          Հաջորդ
           <ChevronRight className="w-4 h-4" />
         </button>
       </div>

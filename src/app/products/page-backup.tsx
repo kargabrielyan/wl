@@ -14,7 +14,7 @@ function ProductsPageContent() {
   const [products, setProducts] = useState<Product[]>([])
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([])
   const [categories, setCategories] = useState<Category[]>([])
-  const [selectedCategory, setSelectedCategory] = useState<string>('Все')
+  const [selectedCategory, setSelectedCategory] = useState<string>('Բոլորը')
   const [searchQuery, setSearchQuery] = useState('')
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState('')
   const [loading, setLoading] = useState(true)
@@ -63,10 +63,10 @@ function ProductsPageContent() {
       )
     } else {
       // Если нет поискового запроса, показываем товары выбранной категории
-      if (selectedCategory !== 'Все') {
+      if (selectedCategory !== 'Բոլորը') {
         filtered = filtered.filter(product => product.category?.name === selectedCategory)
       }
-      // Если выбрано "Все", показываем все товары без фильтрации
+      // Если выбрано "Բոլորը", показываем все товары без фильтрации
     }
     setFilteredProducts(filtered)
   }, [products, selectedCategory, debouncedSearchQuery])
@@ -89,7 +89,7 @@ function ProductsPageContent() {
     if (searchParam) {
       setSearchQuery(searchParam)
       setDebouncedSearchQuery(searchParam)
-      setSelectedCategory('Все') // Сбрасываем категорию при поиске
+      setSelectedCategory('Բոլորը') // Сбрасываем категорию при поиске
     }
     
     if (selectedParam) {
@@ -236,7 +236,7 @@ function ProductsPageContent() {
               <div className="space-y-3">
                 {/* First row - Все, Игрушки, Одежда - 3 большие кнопки */}
                 <div className="grid grid-cols-3 gap-3">
-                  {['Все', 'Игрушки', 'Одежда'].map((category) => (
+                  {['Բոլորը', 'Խաղալիքներ', 'Հագուստ'].map((category) => (
                     <button
                       key={category}
                       onClick={() => setSelectedCategory(category)}
@@ -257,7 +257,7 @@ function ProductsPageContent() {
                 {/* Second row - остальные категории */}
                 <div className="flex flex-wrap gap-2 justify-center">
                   {Array.isArray(categories) && categories
-                    .filter(cat => !['Игрушки', 'Одежда'].includes(cat.name))
+                    .filter(cat => !['Խաղալիքներ', 'Հագուստ'].includes(cat.name))
                     .map((category) => (
                     <button
                       key={`mobile-${category.id}`}
@@ -282,17 +282,17 @@ function ProductsPageContent() {
             <div className="hidden lg:flex flex-wrap gap-4">
               {/* Кнопка "Все" */}
               <button
-                onClick={() => setSelectedCategory('Все')}
+                onClick={() => setSelectedCategory('Բոլորը')}
                 className={`px-6 py-3 rounded-2xl font-semibold transition-all duration-300 hover:scale-105 ${
-                  selectedCategory === 'Все'
+                  selectedCategory === 'Բոլորը'
                     ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-lg'
                     : 'bg-gray-100 text-gray-700 hover:bg-orange-100 hover:text-orange-600'
                 }`}
-                style={selectedCategory === 'Все' ? {
+                style={selectedCategory === 'Բոլորը' ? {
                   boxShadow: '0 8px 25px rgba(255, 107, 53, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1)',
                 } : {}}
               >
-                Все
+                Բոլորը
               </button>
               
               {/* Динамические категории */}
@@ -353,7 +353,7 @@ function ProductsPageContent() {
                     Очистить поиск
                   </button>
                   <button
-                    onClick={() => setSelectedCategory('Все')}
+                    onClick={() => setSelectedCategory('Բոլորը')}
                     className="bg-orange-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-orange-600 transition-colors"
                   >
                     Показать все товары

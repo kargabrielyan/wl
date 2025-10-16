@@ -13,10 +13,10 @@ export default function ContactPage() {
       <section className="bg-orange-500 text-white py-20 pt-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            Свяжитесь с нами
+            Կապ մեզ հետ
           </h1>
           <p className="text-xl md:text-2xl text-orange-100 max-w-3xl mx-auto">
-            У вас есть вопросы? Хотите сделать заказ? Мы всегда рады помочь!
+            Հարցեր ունե՞ք: Ցանկանու՞մ եք պատվիրել: Մենք միշտ ուրախ ենք օգնել:
           </p>
         </div>
       </section>
@@ -28,14 +28,14 @@ export default function ContactPage() {
             <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <Phone className="h-8 w-8 text-orange-500" />
             </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-3">Телефон</h3>
+            <h3 className="text-xl font-bold text-gray-900 mb-3">Հեռախոս</h3>
             <p className="text-gray-600 mb-2">+374 95-044-888</p>
-            <p className="text-sm text-gray-500">Пн-Вс: 10:00 - 22:00</p>
+            <p className="text-sm text-gray-500">Երկ-Կիր: 10:00 - 22:00</p>
             <a 
               href="tel:+37495044888"
               className="inline-block mt-4 bg-orange-500 text-white px-6 py-2 rounded-lg hover:bg-orange-600 transition-colors"
             >
-              Позвонить
+              Զանգել
             </a>
           </div>
 
@@ -43,14 +43,14 @@ export default function ContactPage() {
             <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <Mail className="h-8 w-8 text-orange-500" />
             </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-3">Email</h3>
+            <h3 className="text-xl font-bold text-gray-900 mb-3">Էլ. փոստ</h3>
             <p className="text-gray-600 mb-2">info@pideh-armenia.am</p>
-            <p className="text-sm text-gray-500">Ответим в течение 2 часов</p>
+            <p className="text-sm text-gray-500">Պատասխանում ենք 2 ժամում</p>
             <a 
               href="mailto:info@pideh-armenia.am"
               className="inline-block mt-4 bg-orange-500 text-white px-6 py-2 rounded-lg hover:bg-orange-600 transition-colors"
             >
-              Написать
+              Գրել
             </a>
           </div>
 
@@ -58,17 +58,17 @@ export default function ContactPage() {
             <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <Clock className="h-8 w-8 text-orange-500" />
             </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-3">Время работы</h3>
-            <p className="text-gray-600 mb-2">Пн-Вс: 10:00 - 22:00</p>
-            <p className="text-sm text-gray-500">Доставка: 11:00 - 21:00</p>
+            <h3 className="text-xl font-bold text-gray-900 mb-3">Աշխատանքային ժամեր</h3>
+            <p className="text-gray-600 mb-2">Երկ-Կիր: 10:00 - 22:00</p>
+            <p className="text-sm text-gray-500">Առաքում: 11:00 - 21:00</p>
           </div>
         </div>
 
         {/* Quick Order Section */}
         <div className="bg-orange-500 rounded-2xl p-8 text-white text-center mb-16">
-          <h2 className="text-2xl font-bold mb-4">Быстрый заказ</h2>
+          <h2 className="text-2xl font-bold mb-4">Արագ պատվեր</h2>
           <p className="text-lg text-orange-100 mb-6">
-            Просто позвоните нам для быстрого заказа
+            Պարզապես զանգեք մեզ արագ պատվերի համար
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a 
@@ -76,7 +76,7 @@ export default function ContactPage() {
               className="bg-white text-orange-500 px-6 py-3 rounded-xl font-semibold hover:bg-gray-100 transition-colors flex items-center justify-center space-x-2"
             >
               <Phone className="h-5 w-5" />
-              <span>Позвонить +374 95-044-888</span>
+              <span>Զանգել +374 95-044-888</span>
             </a>
             <a 
               href="https://www.facebook.com/PIDEH.Armenia/"
@@ -105,7 +105,7 @@ export default function ContactPage() {
 
         {/* Addresses Section */}
         <div className="bg-white rounded-2xl shadow-lg p-8 mb-16">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">Наши филиалы</h2>
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">Մեր մասնաճյուղերը</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="text-center">
               <div className="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -121,7 +121,7 @@ export default function ContactPage() {
                 rel="noopener noreferrer"
                 className="inline-block bg-orange-500 text-white px-6 py-2 rounded-lg hover:bg-orange-600 transition-colors"
               >
-                На карте
+                Քարտեզում
               </a>
             </div>
             
@@ -139,7 +139,7 @@ export default function ContactPage() {
                 rel="noopener noreferrer"
                 className="inline-block bg-orange-500 text-white px-6 py-2 rounded-lg hover:bg-orange-600 transition-colors"
               >
-                На карте
+                Քարտեզում
               </a>
             </div>
           </div>
@@ -147,84 +147,84 @@ export default function ContactPage() {
 
         {/* FAQ Section */}
         <div className="mb-16">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Часто задаваемые вопросы</h2>
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Հաճախակի տրվող հարցեր</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow">
               <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
                 <Clock className="h-6 w-6 text-orange-500" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Сколько времени готовится заказ?</h3>
-              <p className="text-gray-600">Обычно 15-20 минут. В пиковые часы может быть немного дольше.</p>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">Որքա՞ն ժամանակ է պատրաստվում պատվերը:</h3>
+              <p className="text-gray-600">Սովորաբար 15-20 րոպե: Գագաթնակետային ժամերին կարող է մի փոքր ավելի երկար լինել:</p>
             </div>
             
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow">
               <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
                 <MapPin className="h-6 w-6 text-orange-500" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Есть ли доставка?</h3>
-              <p className="text-gray-600">Да, мы доставляем по всему Еревану. Стоимость доставки уточняйте при заказе.</p>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">Առաքում կա՞:</h3>
+              <p className="text-gray-600">Այո, մենք առաքում ենք ամբողջ Երևանով: Առաքման արժեքը պարզեք պատվիրելիս:</p>
             </div>
             
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow">
               <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
                 <Calendar className="h-6 w-6 text-orange-500" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Можно ли заказать на завтра?</h3>
-              <p className="text-gray-600">Конечно! Мы принимаем предварительные заказы на любой день недели.</p>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">Կարելի՞ է պատվիրել վաղը:</h3>
+              <p className="text-gray-600">Իհարկե: Մենք ընդունում ենք նախապես պատվերներ ցանկացած օրվա համար:</p>
             </div>
             
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow">
               <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
                 <CreditCard className="h-6 w-6 text-orange-500" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Какие способы оплаты?</h3>
-              <p className="text-gray-600">Наличные, карта, Idram, ArCa, Ameriabank - выбирайте удобный способ.</p>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">Ինչ վճարումների եղանակներ կան:</h3>
+              <p className="text-gray-600">Կանխիկ, քարտ, Idram, ArCa, Ameriabank - ընտրեք հարմար եղանակը:</p>
             </div>
             
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow">
               <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
                 <Star className="h-6 w-6 text-orange-500" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Есть ли скидки?</h3>
-              <p className="text-gray-600">Да! При заказе от 5000 ֏ - скидка 10%, от 10000 ֏ - скидка 15%.</p>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">Զեղչեր կա՞ն:</h3>
+              <p className="text-gray-600">Այո: 5000 ֏-ից պատվերի դեպքում - 10% զեղչ, 10000 ֏-ից - 15% զեղչ:</p>
             </div>
             
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow">
               <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
                 <MessageCircle className="h-6 w-6 text-orange-500" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Как связаться с нами?</h3>
-              <p className="text-gray-600">Звоните, пишите в WhatsApp или приходите к нам лично!</p>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">Ինչպե՞ս կապվել մեզ հետ:</h3>
+              <p className="text-gray-600">Զանգեք, գրեք WhatsApp-ով կամ գալեք մեզ մոտ անձամբ:</p>
             </div>
           </div>
         </div>
 
         {/* Testimonials */}
         <div className="bg-white rounded-3xl p-12 shadow-lg">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Отзывы наших клиентов</h2>
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Մեր հաճախորդների ակնարկները</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
               <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl">😋</span>
               </div>
-              <p className="text-gray-600 mb-4">"Невероятно вкусно! Заказываю уже третий раз подряд. Быстрая доставка и отличное качество."</p>
-              <p className="font-semibold text-gray-900">- Анна М.</p>
+              <p className="text-gray-600 mb-4">"Անհավատալի համեղ: Այս արդեն երրորդ անգամն եմ պատվիրում անընդմեջ: Արագ առաքում և գերազանց որակ:"</p>
+              <p className="font-semibold text-gray-900">- Աննա Մ.</p>
             </div>
             
             <div className="text-center">
               <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl">🔥</span>
               </div>
-              <p className="text-gray-600 mb-4">"Лучшие хачапури в Ереване! Острая хачапури просто бомба! Рекомендую всем."</p>
-              <p className="font-semibold text-gray-900">- Давид К.</p>
+              <p className="text-gray-600 mb-4">"Լավագույն խաչապուրիները Երևանում: Խայծ խաչապուրին պարզապես ռումբ է: Խորհուրդ եմ տալիս բոլորին:"</p>
+              <p className="font-semibold text-gray-900">- Դավիթ Կ.</p>
             </div>
             
             <div className="text-center">
               <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl">⭐</span>
               </div>
-              <p className="text-gray-600 mb-4">"Отличный сервис и вкусная еда. Заказываем всей семьей каждые выходные!"</p>
-              <p className="font-semibold text-gray-900">- Семья Петросян</p>
+              <p className="text-gray-600 mb-4">"Գերազանց սպասարկում և համեղ ուտեստ: Պատվիրում ենք ամբողջ ընտանիքով ամեն շաբաթվա վերջ:"</p>
+              <p className="font-semibold text-gray-900">- Պետրոսյանների ընտանիք</p>
             </div>
           </div>
         </div>

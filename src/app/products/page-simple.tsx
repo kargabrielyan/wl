@@ -28,7 +28,7 @@ export default function ProductsPageSimple() {
     return (
       <div className="min-h-screen bg-gray-50 p-8">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-3xl font-bold mb-8">Загрузка товаров...</h1>
+          <h1 className="text-3xl font-bold mb-8">Արտադրանքի բեռնում...</h1>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {[1,2,3,4,5,6,7,8].map(i => (
               <div key={i} className="bg-white rounded-lg p-4 animate-pulse">
@@ -46,8 +46,8 @@ export default function ProductsPageSimple() {
   return (
     <div className="min-h-screen bg-gray-50 p-8">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-bold mb-8">Каталог товаров</h1>
-        <p className="text-gray-600 mb-8">Найдено товаров: {products.length}</p>
+        <h1 className="text-3xl font-bold mb-8">Արտադրանքի կատալոգ</h1>
+        <p className="text-gray-600 mb-8">Գտնված արտադրանք: {products.length}</p>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {products.map((product) => (
@@ -66,7 +66,7 @@ export default function ProductsPageSimple() {
                 <div className="flex justify-between items-center">
                   <span className="text-xl font-bold text-orange-600">{product.price} ֏</span>
                   <button className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 transition-colors">
-                    Купить
+                    Գնել
                   </button>
                 </div>
               </div>

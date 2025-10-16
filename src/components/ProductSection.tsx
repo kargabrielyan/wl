@@ -26,7 +26,7 @@ const ProductSection = memo(function ProductSection({
   viewAllLink = '/products',
   variant = 'default'
 }: ProductSectionProps) {
-  if (!products || products.length === 0) {
+  if (!products || !Array.isArray(products) || products.length === 0) {
     return null
   }
 
@@ -69,7 +69,7 @@ const ProductSection = memo(function ProductSection({
               href={viewAllLink}
               className="group inline-flex items-center bg-primary-500 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-primary-600 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
             >
-              <span>Посмотреть все</span>
+              <span>Դիտել բոլորը</span>
               <svg className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>

@@ -19,7 +19,7 @@ export default function ProductsClientSimple({ products: initialProducts, catego
   const [filteredProducts, setFilteredProducts] = useState<Product[]>(initialProducts)
   const [categories, setCategories] = useState<Category[]>(initialCategories)
   const [isClient, setIsClient] = useState(false)
-  const [selectedCategory, setSelectedCategory] = useState<string>('Все')
+  const [selectedCategory, setSelectedCategory] = useState<string>('Բոլորը')
   const [searchQuery, setSearchQuery] = useState('')
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState('')
   const [loading, setLoading] = useState(false)
@@ -39,7 +39,7 @@ export default function ProductsClientSimple({ products: initialProducts, catego
     if (searchParam) {
       setSearchQuery(searchParam)
       setDebouncedSearchQuery(searchParam)
-      setSelectedCategory('Все')
+      setSelectedCategory('Բոլորը')
     }
     
     if (selectedParam) {
@@ -92,7 +92,7 @@ export default function ProductsClientSimple({ products: initialProducts, catego
         limit: '1000' // Загружаем много товаров сразу
       })
 
-      if (selectedCategory !== 'Все') {
+      if (selectedCategory !== 'Բոլորը') {
         params.append('category', selectedCategory)
       }
 
@@ -142,7 +142,7 @@ export default function ProductsClientSimple({ products: initialProducts, catego
 
   // Загрузка товаров при изменении фильтров
   useEffect(() => {
-    if (isClient && (selectedCategory !== 'Все' || debouncedSearchQuery !== '')) {
+    if (isClient && (selectedCategory !== 'Բոլորը' || debouncedSearchQuery !== '')) {
       console.log('🔄 Фильтры изменились, загружаем товары')
       fetchProducts()
     }
@@ -242,15 +242,15 @@ export default function ProductsClientSimple({ products: initialProducts, catego
           {/* Category Filter */}
           <div className="flex flex-wrap gap-4">
             <button
-              onClick={() => setSelectedCategory('Все')}
+              onClick={() => setSelectedCategory('Բոլորը')}
               className={`px-6 py-3 rounded-2xl font-semibold transition-all duration-300 hover:scale-105 ${
-                selectedCategory === 'Все'
+                selectedCategory === 'Բոլորը'
                   ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-lg'
                   : 'bg-gray-100 text-gray-700 hover:bg-orange-100 hover:text-orange-600'
               }`}
-            >
-              Все
-            </button>
+              >
+                Բոլորը
+              </button>
             
             {categories.map((category) => (
               <button
@@ -289,7 +289,7 @@ export default function ProductsClientSimple({ products: initialProducts, catego
         {/* Информация о количестве товаров */}
         {filteredProducts.length > 0 && (
           <div className="text-center py-4 text-gray-600">
-            Показано {filteredProducts.length} товаров
+            Ցուցադրված {filteredProducts.length} արտադրանք
           </div>
         )}
 
@@ -307,14 +307,14 @@ export default function ProductsClientSimple({ products: initialProducts, catego
               <button
                 onClick={() => {
                   setSearchQuery('')
-                  setSelectedCategory('Все')
+                  setSelectedCategory('Բոլորը')
                 }}
                 className="bg-gray-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-gray-600 transition-colors"
               >
                 Очистить поиск
               </button>
               <button
-                onClick={() => setSelectedCategory('Все')}
+                onClick={() => setSelectedCategory('Բոլորը')}
                 className="bg-orange-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-orange-600 transition-colors"
               >
                 Показать все товары

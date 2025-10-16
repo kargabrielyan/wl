@@ -61,7 +61,7 @@ export default function MobileHeader() {
           <div className="absolute left-1/2 transform -translate-x-1/2">
             <Link href="/" className="hover:opacity-80 transition-all duration-300 hover:scale-105">
               <Image 
-                src="/logo.png" 
+                src="/images/logo.png" 
                 alt="Pideh Armenia Logo" 
                 width={60} 
                 height={18}
@@ -75,7 +75,7 @@ export default function MobileHeader() {
           {/* Mobile Search Button */}
           <button
             onClick={() => setIsSearchOpen(!isSearchOpen)}
-            className="p-3 text-gray-900 hover:text-orange-500 hover:bg-orange-50 rounded-xl transition-all duration-300 active:scale-95 ml-auto"
+            className="p-3 text-gray-900 hover:text-primary-500 hover:bg-primary-50 rounded-xl transition-all duration-300 active:scale-95 ml-auto"
           >
             <Search className="h-5 w-5" />
           </button>
@@ -99,7 +99,7 @@ export default function MobileHeader() {
                         setIsOpen(true)
                       }
                     }}
-                    className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-2xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-base text-gray-900 placeholder-gray-500 bg-gray-50 transition-all duration-300 shadow-sm hover:shadow-md focus:bg-white"
+                    className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-2xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-base text-gray-900 placeholder-gray-500 bg-gray-50 transition-all duration-300 shadow-sm hover:shadow-md focus:bg-white"
                     autoFocus
                     aria-controls="search-results-mobile"
                     aria-expanded={isOpen}
@@ -127,7 +127,7 @@ export default function MobileHeader() {
                       clearSearch()
                     }
                   }}
-                  className="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl flex items-center justify-center hover:from-orange-600 hover:to-red-600 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
+                  className="w-16 h-16 bg-gradient-to-r from-primary-500 to-red-500 rounded-2xl flex items-center justify-center hover:from-primary-600 hover:to-red-600 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
                 >
                   <Search className="w-6 h-6 text-white" />
                 </button>

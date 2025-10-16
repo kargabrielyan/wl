@@ -379,7 +379,7 @@ export default async function OptimizedProductPage({
                   href="/products" 
                   className="group text-orange-500 hover:text-orange-600 text-lg font-bold flex items-center space-x-2 transition-colors duration-300 ml-2"
                 >
-                  <span>Все</span>
+                  <span>Բոլորը</span>
                   <ArrowLeft className="h-5 w-5 rotate-180 group-hover:translate-x-1 transition-transform duration-300" style={{ strokeWidth: 3 }} />
                 </Link>
               </div>

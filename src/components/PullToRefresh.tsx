@@ -62,7 +62,7 @@ export default function PullToRefresh({ children, className = '' }: PullToRefres
             ) : (
               <ArrowDown 
                 className={`w-6 h-6 transition-colors duration-200 ${
-                  canRefresh ? 'text-orange-500' : 'text-blue-500'
+                  canRefresh ? 'text-orange-500' : 'text-primary-500'
                 }`}
                 style={{
                   transform: canRefresh ? 'rotate(180deg)' : 'rotate(0deg)',
@@ -75,7 +75,7 @@ export default function PullToRefresh({ children, className = '' }: PullToRefres
           {/* Текст */}
           <div className="text-center">
             <p className={`text-sm font-medium transition-colors duration-200 ${
-              canRefresh ? 'text-orange-600' : 'text-blue-600'
+              canRefresh ? 'text-orange-600' : 'text-primary-600'
             }`}>
               {isRefreshing 
                 ? 'Обновляем...' 
@@ -87,7 +87,7 @@ export default function PullToRefresh({ children, className = '' }: PullToRefres
             {isPulling && !isRefreshing && (
               <div className="w-24 h-1 bg-gray-200 rounded-full mt-2 overflow-hidden">
                 <div 
-                  className="h-full bg-gradient-to-r from-blue-500 to-orange-500 rounded-full transition-all duration-200"
+                  className="h-full bg-gradient-to-r from-primary-500 to-orange-500 rounded-full transition-all duration-200"
                   style={{
                     width: `${Math.min((pullDistance / 80) * 100, 100)}%`
                   }}

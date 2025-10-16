@@ -63,24 +63,24 @@ export default function MobileBottomNav() {
 
   // Ссылки для меню
   const menuLinks = [
-    { href: '/', label: 'Главная' },
-    { href: '/products', label: 'Меню' },
-    { href: '/about', label: 'О нас' },
-    { href: '/contact', label: 'Контакты' },
+    { href: '/', label: 'Գլխավոր' },
+    { href: '/products', label: 'Մենյու' },
+    { href: '/about', label: 'Մեր մասին' },
+    { href: '/contact', label: 'Կապ' },
   ]
 
   // Навигационные элементы в зависимости от состояния авторизации
   const navItems = session ? [
-    { href: '/', label: 'Главная', icon: Home },
-    { href: '/products', label: 'Меню', icon: Menu, isMenu: true },
-    { href: '/wishlist', label: 'Избранное', icon: Heart, showBadge: true, badgeCount: wishlistCount },
-    { href: '/cart', label: 'Корзина', icon: ShoppingCart, showBadge: true },
-    { href: '/profile', label: 'Профиль', icon: User },
+    { href: '/', label: 'Գլխավոր', icon: Home },
+    { href: '/products', label: 'Մենյու', icon: Menu, isMenu: true },
+    { href: '/wishlist', label: 'Նախընտրած', icon: Heart, showBadge: true, badgeCount: wishlistCount },
+    { href: '/cart', label: 'Զամբյուղ', icon: ShoppingCart, showBadge: true },
+    { href: '/profile', label: 'Պրոֆիլ', icon: User },
   ] : [
-    { href: '/', label: 'Главная', icon: Home },
-    { href: '/products', label: 'Меню', icon: Menu, isMenu: true },
-    { href: '/cart', label: 'Корзина', icon: ShoppingCart, showBadge: true },
-    { href: '/login', label: 'Войти', icon: LogIn },
+    { href: '/', label: 'Գլխավոր', icon: Home },
+    { href: '/products', label: 'Մենյու', icon: Menu, isMenu: true },
+    { href: '/cart', label: 'Զամբյուղ', icon: ShoppingCart, showBadge: true },
+    { href: '/login', label: 'Մուտք', icon: LogIn },
   ]
 
   const menuOverlay = isMenuOpen && isHydrated && createPortal(
@@ -100,7 +100,7 @@ export default function MobileBottomNav() {
             <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
               <Menu className="w-5 h-5" />
             </div>
-            <h2 className="text-2xl font-bold">Навигация</h2>
+            <h2 className="text-2xl font-bold">Նավիգացիա</h2>
           </div>
           <button
             onClick={(e) => {
@@ -147,7 +147,7 @@ export default function MobileBottomNav() {
               className="text-xs text-gray-400 hover:text-orange-500 transition-colors duration-200 underline decoration-dotted underline-offset-2"
               onClick={() => setIsMenuOpen(false)}
             >
-              Политика конфиденциальности
+              Գաղտնիության քաղաքականություն
             </Link>
             <span className="text-xs text-gray-300">•</span>
             <Link 
@@ -155,7 +155,7 @@ export default function MobileBottomNav() {
               className="text-xs text-gray-400 hover:text-orange-500 transition-colors duration-200 underline decoration-dotted underline-offset-2"
               onClick={() => setIsMenuOpen(false)}
             >
-              Условия использования
+              Օգտագործման պայմաններ
             </Link>
           </div>
           

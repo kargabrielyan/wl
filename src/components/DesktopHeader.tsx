@@ -91,10 +91,10 @@ export default function DesktopHeader() {
 
   // Навигационные ссылки
   const navLinks = [
-    { href: '/', label: 'Главная' },
-    { href: '/products', label: 'Меню' },
-    { href: '/about', label: 'О нас' },
-    { href: '/contact', label: 'Контакты' },
+    { href: '/', label: 'Գլխավոր' },
+    { href: '/products', label: 'Մենյու' },
+    { href: '/about', label: 'Մեր մասին' },
+    { href: '/contact', label: 'Կապ' },
   ]
 
   return (
@@ -104,7 +104,7 @@ export default function DesktopHeader() {
           {/* Logo */}
           <Link href="/" className="hover:opacity-80 transition-opacity">
             <Image 
-              src="/logo.png" 
+              src="/images/logo.png" 
               alt="Pideh Armenia Logo" 
               width={180} 
               height={60}
@@ -122,8 +122,8 @@ export default function DesktopHeader() {
                 className={`
                   relative px-6 py-3 rounded-xl font-semibold transition-all duration-300 group
                   ${isActive(link.href)
-                    ? 'text-orange-500 bg-orange-50 shadow-md'
-                    : 'text-gray-700 hover:text-orange-500 hover:bg-orange-50'
+                    ? 'text-primary-500 bg-primary-50 shadow-md'
+                    : 'text-gray-700 hover:text-primary-500 hover:bg-primary-50'
                   }
                 `}
               >
@@ -133,11 +133,11 @@ export default function DesktopHeader() {
                 
                 {/* Активный индикатор */}
                 {isActive(link.href) && (
-                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-8 h-1 bg-orange-500 rounded-full"></div>
+                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-8 h-1 bg-primary-500 rounded-full"></div>
                 )}
                 
                 {/* Hover эффект */}
-                <div className="absolute inset-0 rounded-lg bg-orange-100 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                <div className="absolute inset-0 rounded-lg bg-primary-100 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
               </Link>
             ))}
           </nav>
@@ -148,7 +148,7 @@ export default function DesktopHeader() {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500" />
               <input
                 type="text"
-                placeholder="Поиск..."
+                placeholder="Փնտրել..."
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={handleKeyDown}
@@ -157,7 +157,7 @@ export default function DesktopHeader() {
                     setIsOpen(true)
                   }
                 }}
-                className="w-full pl-10 pr-3 py-2 border border-gray-200 rounded-lg focus:ring-1 focus:ring-orange-500 focus:border-orange-500 text-sm text-gray-900 placeholder-gray-500 bg-gray-50 transition-all duration-300 hover:bg-white focus:bg-white"
+                className="w-full pl-10 pr-3 py-2 border border-gray-200 rounded-lg focus:ring-1 focus:ring-primary-500 focus:border-primary-500 text-sm text-gray-900 placeholder-gray-500 bg-gray-50 transition-all duration-300 hover:bg-white focus:bg-white"
                 aria-controls="search-results"
                 aria-expanded={isOpen}
                 aria-autocomplete="list"
@@ -197,21 +197,21 @@ export default function DesktopHeader() {
               className={`
                 relative p-3 rounded-xl transition-all duration-300 group
                 ${isActive('/cart')
-                  ? 'text-orange-500 bg-orange-50 shadow-md'
-                  : 'text-gray-900 hover:text-orange-500 hover:bg-orange-50'
+                  ? 'text-primary-500 bg-primary-50 shadow-md'
+                  : 'text-gray-900 hover:text-primary-500 hover:bg-primary-50'
                 }
               `}
             >
               <ShoppingCart className="h-6 w-6" />
               {isHydrated && getTotalItems() > 0 && (
-                <span className="absolute -top-1 -right-1 bg-orange-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 bg-primary-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                   {getTotalItems()}
                 </span>
               )}
               
               {/* Активный индикатор для корзины */}
               {isActive('/cart') && (
-                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-orange-500 rounded-full"></div>
+                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-primary-500 rounded-full"></div>
               )}
             </Link>
 
@@ -222,11 +222,11 @@ export default function DesktopHeader() {
                 className={`
                   relative p-3 rounded-xl transition-all duration-300 group
                   ${isActive('/wishlist')
-                    ? 'text-orange-500 bg-orange-50 shadow-md'
-                    : 'text-gray-900 hover:text-orange-500 hover:bg-orange-50'
+                    ? 'text-primary-500 bg-primary-50 shadow-md'
+                    : 'text-gray-900 hover:text-primary-500 hover:bg-primary-50'
                   }
                 `}
-                title="Избранное"
+                title="Նախընտրած"
               >
                 <Heart className="h-6 w-6" />
                 {isHydrated && wishlistCount > 0 && (
@@ -237,7 +237,7 @@ export default function DesktopHeader() {
                 
                 {/* Активный индикатор для wishlist */}
                 {isActive('/wishlist') && (
-                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-orange-500 rounded-full"></div>
+                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-primary-500 rounded-full"></div>
                 )}
               </Link>
             )}
@@ -253,8 +253,8 @@ export default function DesktopHeader() {
                   className={`
                     flex items-center space-x-2 px-3 py-2 rounded-xl transition-all duration-300 group
                     ${isActive('/profile')
-                      ? 'text-orange-500 bg-orange-50 shadow-md'
-                      : 'text-gray-900 hover:text-orange-500 hover:bg-orange-50'
+                      ? 'text-primary-500 bg-primary-50 shadow-md'
+                      : 'text-gray-900 hover:text-primary-500 hover:bg-primary-50'
                     }
                   `}
                 >
@@ -263,7 +263,7 @@ export default function DesktopHeader() {
                   
                   {/* Активный индикатор для профиля */}
                   {isActive('/profile') && (
-                    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-orange-500 rounded-full"></div>
+                    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-primary-500 rounded-full"></div>
                   )}
                 </Link>
                 
@@ -274,16 +274,16 @@ export default function DesktopHeader() {
                     className={`
                       relative px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-300 group
                       ${isActive('/admin')
-                        ? 'text-orange-500 bg-orange-50 shadow-md'
-                        : 'bg-orange-100 text-orange-600 hover:bg-orange-200'
+                        ? 'text-primary-500 bg-primary-50 shadow-md'
+                        : 'bg-primary-100 text-primary-600 hover:bg-primary-200'
                       }
                     `}
                   >
-                    Админ
+                    Ադմին
                     
                     {/* Активный индикатор для админки */}
                     {isActive('/admin') && (
-                      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-orange-500 rounded-full"></div>
+                      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-primary-500 rounded-full"></div>
                     )}
                   </Link>
                 )}
@@ -291,8 +291,8 @@ export default function DesktopHeader() {
                 {/* Logout */}
                 <button
                   onClick={() => signOut({ callbackUrl: '/' })}
-                  className="p-2 text-gray-900 hover:text-orange-500 transition-colors"
-                  title="Выйти"
+                  className="p-2 text-gray-900 hover:text-primary-500 transition-colors"
+                  title="Ելք"
                 >
                   <LogOut className="h-5 w-5" />
                 </button>
@@ -304,16 +304,16 @@ export default function DesktopHeader() {
                   className={`
                     relative px-4 py-2 rounded-xl font-medium transition-all duration-300 group
                     ${isActive('/login')
-                      ? 'text-orange-500 bg-orange-50 shadow-md'
-                      : 'text-gray-900 hover:text-orange-500 hover:bg-orange-50'
+                      ? 'text-primary-500 bg-primary-50 shadow-md'
+                      : 'text-gray-900 hover:text-primary-500 hover:bg-primary-50'
                     }
                   `}
                 >
-                  Войти
+                  Մուտք
                   
                   {/* Активный индикатор для входа */}
                   {isActive('/login') && (
-                    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-orange-500 rounded-full"></div>
+                    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-primary-500 rounded-full"></div>
                   )}
                 </Link>
                 <Link 
@@ -321,16 +321,16 @@ export default function DesktopHeader() {
                   className={`
                     relative px-4 py-2 rounded-xl font-semibold transition-all duration-300 group
                     ${isActive('/register')
-                      ? 'text-orange-500 bg-orange-50 shadow-md'
-                      : 'bg-orange-500 text-white hover:bg-orange-600'
+                      ? 'text-primary-500 bg-primary-50 shadow-md'
+                      : 'bg-primary-500 text-white hover:bg-primary-600'
                     }
                   `}
                 >
-                  Регистрация
+                  Գրանցում
                   
                   {/* Активный индикатор для регистрации */}
                   {isActive('/register') && (
-                    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-orange-500 rounded-full"></div>
+                    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-primary-500 rounded-full"></div>
                   )}
                 </Link>
               </div>

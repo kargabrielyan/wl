@@ -85,9 +85,9 @@ export default function Home() {
       
       setProducts(productsData || [])
       
-      // Фильтруем товары для творчества для секции хитов
-      const creative = (productsData || []).filter((product: Product) => product.category?.name === 'Творчество')
-      setComboProducts(creative.slice(0, 4))
+      // Фильтруем товары для первой категории для секции хитов
+      const firstCategory = (productsData || []).filter((product: Product) => product.category?.name === 'Հյուսեր')
+      setComboProducts(firstCategory.slice(0, 4))
       
       setFeaturedProducts(featuredData || [])
       setNewProducts(newData || [])
@@ -140,15 +140,15 @@ export default function Home() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'HIT':
-        return { text: 'ХИТ ПРОДАЖ', color: 'bg-red-500' }
+        return { text: 'ՎԱՃԱՌՈՒՄ', color: 'bg-red-500' }
       case 'NEW':
-        return { text: 'НОВИНКА', color: 'bg-green-500' }
+        return { text: 'ՆՈՐ', color: 'bg-green-500' }
       case 'CLASSIC':
-        return { text: 'КЛАССИКА', color: 'bg-sky-500' }
+        return { text: 'ԴԱՍԻԿ', color: 'bg-primary-500' }
       case 'BANNER':
-        return { text: 'БАННЕР', color: 'bg-purple-500' }
+        return { text: 'ԲԱՆՆԵՐ', color: 'bg-purple-500' }
       default:
-        return { text: 'ПОПУЛЯРНОЕ', color: 'bg-orange-500' }
+        return { text: 'ՀԱՅՏՆԻ', color: 'bg-orange-500' }
     }
   }
 
@@ -159,7 +159,7 @@ export default function Home() {
       <div className="hidden lg:block h-24"></div>
 
       {/* Hero Section - Compact for Mobile */}
-      <section className="relative bg-gradient-to-br from-sky-500 to-white text-white overflow-hidden">
+      <section className="relative bg-gradient-to-br from-primary-500 to-white text-white overflow-hidden">
         
         {/* Mobile Compact Version - App Style */}
         <div className="md:hidden relative max-w-7xl mx-auto px-4 py-6">
@@ -167,20 +167,20 @@ export default function Home() {
             {/* Left content - compact */}
             <div className="flex-1 pr-4">
               <h1 className="text-3xl font-bold leading-tight mb-3">
-                <span className="block text-white">Детский</span>
-                <span className="block text-yellow-200">Мир</span>
+                <span className="block text-white">Մանկական</span>
+                <span className="block text-yellow-200">Աշխարհ</span>
               </h1>
-              <p className="text-base text-sky-100 mb-4 font-medium">
-                Игрушки, одежда, книги
+              <p className="text-base text-primary-100 mb-4 font-medium">
+                Խաղալիքներ, հագուստ, գրքեր
               </p>
               <div className="flex gap-6 text-sm">
                 <div className="text-center">
                   <div className="text-xl font-bold text-white">1000+</div>
-                  <div className="text-sky-100 font-medium">Товаров</div>
+                  <div className="text-primary-100 font-medium">Արտադրանք</div>
                 </div>
                 <div className="text-center">
                   <div className="text-xl font-bold text-white">24/7</div>
-                  <div className="text-sky-100 font-medium">Доставка</div>
+                  <div className="text-primary-100 font-medium">Առաքում</div>
                 </div>
               </div>
             </div>
@@ -226,7 +226,7 @@ export default function Home() {
                   >
                     <span className="flex items-center justify-center gap-1">
                       <ShoppingCart className="w-3 h-3" />
-                      Добавить
+                      Ավելացնել
                     </span>
                   </button>
                 </div>
@@ -235,8 +235,8 @@ export default function Home() {
                   <div className="relative w-24 h-24 mx-auto mb-2 bg-white/20 rounded-lg flex items-center justify-center">
                     <span className="text-2xl">🧸</span>
                   </div>
-                  <h3 className="text-sm font-bold mb-1 text-white">Детские игрушки</h3>
-                  <p className="text-xs text-sky-100">Веселые и безопасные</p>
+                  <h3 className="text-sm font-bold mb-1 text-white">Մանկական խաղալիքներ</h3>
+                  <p className="text-xs text-primary-100">Զվարճալի և անվտանգ</p>
                 </div>
               )}
             </div>
@@ -249,20 +249,20 @@ export default function Home() {
             {/* Left content - tablet optimized */}
             <div className="flex-1 pr-8">
               <h1 className="text-4xl font-bold leading-tight mb-4">
-                <span className="block text-white">Детский</span>
-                <span className="block text-yellow-200">Мир</span>
+                <span className="block text-white">Մանկական</span>
+                <span className="block text-yellow-200">Աշխարհ</span>
               </h1>
-              <p className="text-lg text-sky-100 mb-6 font-medium">
-                Игрушки, одежда, книги для детей
+              <p className="text-lg text-primary-100 mb-6 font-medium">
+                Խաղալիքներ, հագուստ, գրքեր երեխաների համար
               </p>
               <div className="flex gap-8 text-base">
                 <div className="text-center">
                   <div className="text-2xl font-bold text-white">1000+</div>
-                  <div className="text-sky-100 font-medium">Товаров</div>
+                  <div className="text-primary-100 font-medium">Արտադրանք</div>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-white">24/7</div>
-                  <div className="text-sky-100 font-medium">Доставка</div>
+                  <div className="text-primary-100 font-medium">Առաքում</div>
                 </div>
               </div>
             </div>
@@ -308,7 +308,7 @@ export default function Home() {
                   >
                     <span className="flex items-center justify-center gap-2">
                       <ShoppingCart className="w-4 h-4" />
-                      Добавить
+                      Ավելացնել
                     </span>
                   </button>
                 </div>
@@ -317,8 +317,8 @@ export default function Home() {
                   <div className="relative w-32 h-32 mx-auto mb-3 bg-white/20 rounded-2xl flex items-center justify-center">
                     <span className="text-4xl">🧸</span>
                   </div>
-                  <h3 className="text-base font-bold mb-2 text-white">Детские игрушки</h3>
-                  <p className="text-sm text-sky-100">Веселые и безопасные</p>
+                  <h3 className="text-base font-bold mb-2 text-white">Մանկական խաղալիքներ</h3>
+                  <p className="text-sm text-primary-100">Զվարճալի և անվտանգ</p>
                 </div>
               )}
             </div>
@@ -333,37 +333,37 @@ export default function Home() {
               {/* Badge */}
               <div className="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium">
                 <span className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
-                Безопасные игрушки каждый день
+                Անվտանգ խաղալիքներ ամեն օր
               </div>
               
               {/* Main heading */}
               <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-                <span className="block text-white">Детский</span>
-                <span className="block text-yellow-200">Мир</span>
-                <span className="block text-2xl md:text-3xl font-normal text-sky-100 mt-3">
-                  радость и веселье
+                <span className="block text-white">Մանկական</span>
+                <span className="block text-yellow-200">Աշխարհ</span>
+                <span className="block text-2xl md:text-3xl font-normal text-primary-100 mt-3">
+                  ուրախություն և զվարճություն
                 </span>
               </h1>
               
               {/* Description */}
-              <p className="text-lg md:text-xl text-sky-100 leading-relaxed max-w-lg">
-                Лучшие игрушки, одежда и книги для ваших детей. 
-                <span className="font-semibold text-white"> 1000+ товаров</span> для развития и радости!
+              <p className="text-lg md:text-xl text-primary-100 leading-relaxed max-w-lg">
+                Լավագույն խաղալիքներ, հագուստ և գրքեր ձեր երեխաների համար: 
+                <span className="font-semibold text-white"> 1000+ արտադրանք</span> զարգացման և ուրախության համար!
               </p>
               
               {/* Stats */}
               <div className="flex flex-wrap gap-6">
                 <div className="text-center">
                   <div className="text-2xl font-bold text-white">1000+</div>
-                  <div className="text-sm text-sky-100">Товаров</div>
+                  <div className="text-sm text-primary-100">Արտադրանք</div>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-white">0-14</div>
-                  <div className="text-sm text-sky-100">Лет</div>
+                  <div className="text-sm text-primary-100">Տարի</div>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-white">24/7</div>
-                  <div className="text-sm text-sky-100">Доставка</div>
+                  <div className="text-sm text-primary-100">Առաքում</div>
                 </div>
               </div>
               
@@ -371,10 +371,10 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row gap-3">
                 <Link 
                   href="/products"
-                  className="group bg-white text-sky-500 px-6 py-3 rounded-xl font-bold text-base hover:bg-sky-50 hover:scale-105 transition-all duration-300 text-center shadow-lg hover:shadow-xl"
+                  className="group bg-white text-primary-500 px-6 py-3 rounded-xl font-bold text-base hover:bg-primary-50 hover:scale-105 transition-all duration-300 text-center shadow-lg hover:shadow-xl"
                 >
                   <span className="flex items-center justify-center">
-                  Посмотреть товары
+                  Դիտել արտադրանքը
                     <svg className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
@@ -382,11 +382,11 @@ export default function Home() {
                 </Link>
                 <Link 
                   href="/contact"
-                  className="group border-2 border-white text-white px-6 py-3 rounded-xl font-bold text-base hover:bg-white hover:text-sky-500 hover:scale-105 transition-all duration-300 text-center backdrop-blur-sm"
+                  className="group border-2 border-white text-white px-6 py-3 rounded-xl font-bold text-base hover:bg-white hover:text-primary-500 hover:scale-105 transition-all duration-300 text-center backdrop-blur-sm"
                 >
                   <span className="flex items-center justify-center">
                     <Phone className="mr-2 w-4 h-4 group-hover:rotate-12 transition-transform" />
-                  Связаться с нами
+                  Կապ մեզ հետ
                   </span>
                 </Link>
               </div>
@@ -453,20 +453,20 @@ export default function Home() {
                       className="bg-yellow-400 text-orange-800 px-6 py-3 rounded-xl font-bold hover:scale-105 active:bg-green-500 active:text-white transition-all duration-300 shadow-lg"
                     >
                       <ShoppingCart className="inline w-5 h-5 mr-2" />
-                      Быстрый заказ
+                      Արագ պատվեր
                     </button>
                   </>
                 ) : (
                   <>
-                    <h3 className="text-2xl font-bold mb-2">Детские игрушки</h3>
-                    <p className="text-sky-100 mb-4 opacity-80 group-hover:opacity-100 transition-opacity duration-300">Веселые и безопасные</p>
+                    <h3 className="text-2xl font-bold mb-2">Մանկական խաղալիքներ</h3>
+                    <p className="text-primary-100 mb-4 opacity-80 group-hover:opacity-100 transition-opacity duration-300">Զվարճալի և անվտանգ</p>
                     
                     <Link 
                       href="/products"
-                      className="bg-white text-sky-500 px-6 py-3 rounded-xl font-bold hover:scale-105 active:bg-sky-50 active:text-sky-600 transition-all duration-300 shadow-lg inline-block"
+                      className="bg-white text-primary-500 px-6 py-3 rounded-xl font-bold hover:scale-105 active:bg-primary-50 active:text-primary-600 transition-all duration-300 shadow-lg inline-block"
                     >
                       <ShoppingCart className="inline w-5 h-5 mr-2" />
-                      Посмотреть товары
+                      Դիտել արտադրանքը
                     </Link>
                   </>
                 )}
@@ -478,20 +478,11 @@ export default function Home() {
       </section>
 
 
-      {/* New Products Section */}
-      <ProductSection
-        title="Новые товары"
-        subtitle="Свежие поступления для ваших детей"
-        products={newProducts}
-        onAddToCart={handleAddToCart}
-        addedToCart={addedToCart}
-        variant="compact"
-      />
 
       {/* Sale Products Section */}
       <ProductSection
-        title="Товары со скидкой"
-        subtitle="Выгодные предложения на любимые товары"
+        title="Զեղչված արտադրանք"
+        subtitle="Շահավետ առաջարկություններ սիրելի արտադրանքի համար"
         products={saleProducts}
         onAddToCart={handleAddToCart}
         addedToCart={addedToCart}
@@ -504,10 +495,10 @@ export default function Home() {
           {/* Section header */}
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Почему выбирают нас?
+              Ինչու՞ են ընտրում մեզ:
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Мы создали идеальное сочетание безопасности, качества и радости для ваших детей
+              Մենք ստեղծել ենք անվտանգության, որակի և ուրախության իդեալական համադրություն ձեր երեխաների համար
             </p>
           </div>
 
@@ -520,25 +511,25 @@ export default function Home() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">Безопасность</h3>
-              <p className="text-gray-600 text-center mb-4">Все товары сертифицированы</p>
+              <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">Անվտանգություն</h3>
+              <p className="text-gray-600 text-center mb-4">Բոլոր արտադրանքը հավաստագրված է</p>
               <div className="text-center">
                 <span className="inline-block bg-green-100 text-green-600 px-3 py-1 rounded-full text-sm font-semibold">
-                  🛡️ Безопасно
+                  🛡️ Անվտանգ
                 </span>
               </div>
             </div>
 
             {/* Delivery */}
             <div className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-100">
-              <div className="w-16 h-16 bg-sky-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+              <div className="w-16 h-16 bg-primary-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                 <MapPin className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">Доставка</h3>
-              <p className="text-gray-600 text-center mb-4">По всему городу</p>
+              <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">Առաքում</h3>
+              <p className="text-gray-600 text-center mb-4">Ամբողջ քաղաքով</p>
             <div className="text-center">
-                <span className="inline-block bg-sky-100 text-sky-600 px-3 py-1 rounded-full text-sm font-semibold">
-                  🚚 30 мин
+                <span className="inline-block bg-primary-100 text-primary-600 px-3 py-1 rounded-full text-sm font-semibold">
+                  🚚 30 րոպե
                 </span>
               </div>
             </div>
@@ -550,11 +541,11 @@ export default function Home() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">Развитие</h3>
-              <p className="text-gray-600 text-center mb-4">Игрушки для развития</p>
+              <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">Զարգացում</h3>
+              <p className="text-gray-600 text-center mb-4">Զարգացման խաղալիքներ</p>
             <div className="text-center">
                 <span className="inline-block bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-sm font-semibold">
-                  🧠 Развивающие
+                  🧠 Զարգացնող
                 </span>
               </div>
             </div>
@@ -564,8 +555,8 @@ export default function Home() {
               <div className="w-16 h-16 bg-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                 <Phone className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">Поддержка</h3>
-              <p className="text-gray-600 text-center mb-4">+7 (999) 123-45-67</p>
+              <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">Աջակցություն</h3>
+              <p className="text-gray-600 text-center mb-4">+374 XX XXX XXX</p>
             <div className="text-center">
                 <span className="inline-block bg-pink-100 text-pink-600 px-3 py-1 rounded-full text-sm font-semibold">
                   💬 24/7
@@ -579,8 +570,8 @@ export default function Home() {
 
       {/* New Toys Section */}
       <ProductSection
-        title="Новые игрушки"
-        subtitle="Свежие игрушки для веселых игр"
+        title="Նոր խաղալիքներ"
+        subtitle="Նոր խաղալիքներ զվարճալի խաղերի համար"
         products={newToys}
         onAddToCart={handleAddToCart}
         addedToCart={addedToCart}
@@ -593,10 +584,10 @@ export default function Home() {
           {/* Section header */}
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Что говорят родители
+              Ինչ են ասում ծնողները
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Более 1000 довольных семей уже выбрали наши товары для детей
+              1000-ից ավելի գոհ ընտանիքներ արդեն ընտրել են մեր արտադրանքը երեխաների համար
             </p>
           </div>
 
@@ -614,15 +605,15 @@ export default function Home() {
                 </div>
               </div>
               <p className="text-gray-600 mb-6 italic">
-                "Отличные игрушки для моего сына! Качество на высоте, ребенок в восторге. Быстрая доставка и безопасные материалы. Рекомендую всем родителям!"
+                "Հիանալի խաղալիքներ իմ որդու համար: Որակը բարձր մակարդակի վրա է, երեխան հիացած է: Արագ առաքում և անվտանգ նյութեր: Խորհուրդ եմ տալիս բոլոր ծնողներին:"
               </p>
               <div className="flex items-center">
-                <div className="w-12 h-12 bg-sky-100 rounded-full flex items-center justify-center mr-4">
-                  <span className="text-sky-500 font-bold text-lg">А</span>
+                <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mr-4">
+                  <span className="text-primary-500 font-bold text-lg">Ա</span>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900">Анна Петрова</h4>
-                  <p className="text-sm text-gray-500">Мама 3-летнего сына</p>
+                  <h4 className="font-semibold text-gray-900">Աննա Պետրովա</h4>
+                  <p className="text-sm text-gray-500">3 տարեկան որդու մայր</p>
                 </div>
               </div>
             </div>
@@ -639,15 +630,15 @@ export default function Home() {
                 </div>
               </div>
               <p className="text-gray-600 mb-6 italic">
-                "Покупаем здесь уже год! Отличные развивающие игрушки, качественная детская одежда. Дочка просто в восторге от новых книжек!"
+                "Այստեղ գնում ենք արդեն մեկ տարի: Հիանալի զարգացնող խաղալիքներ, որակյալ մանկական հագուստ: Դուստրը պարզապես հիացած է նոր գրքերից:"
               </p>
               <div className="flex items-center">
                 <div className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center mr-4">
-                  <span className="text-pink-500 font-bold text-lg">М</span>
+                  <span className="text-pink-500 font-bold text-lg">Մ</span>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900">Мария Смирнова</h4>
-                  <p className="text-sm text-gray-500">Мама 5-летней дочки</p>
+                  <h4 className="font-semibold text-gray-900">Մարիա Սմիրնովա</h4>
+                  <p className="text-sm text-gray-500">5 տարեկան դստեր մայր</p>
                 </div>
               </div>
             </div>
@@ -664,15 +655,15 @@ export default function Home() {
                 </div>
               </div>
               <p className="text-gray-600 mb-6 italic">
-                "Заказывали спортивные товары для сына - футбольный мяч и форму. Качество отличное, доставили быстро. Сын очень доволен!"
+                "Պատվիրել ենք սպորտային արտադրանք որդու համար - ֆուտբոլի գնդակ և ձև: Որակը հիանալի է, արագ առաքել են: Որդին շատ գոհ է:"
               </p>
               <div className="flex items-center">
                 <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
-                  <span className="text-green-500 font-bold text-lg">А</span>
+                  <span className="text-green-500 font-bold text-lg">Ա</span>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900">Алексей Козлов</h4>
-                  <p className="text-sm text-gray-500">Папа 7-летнего сына</p>
+                  <h4 className="font-semibold text-gray-900">Ալեքսեյ Կոզլով</h4>
+                  <p className="text-sm text-gray-500">7 տարեկան որդու հայր</p>
                 </div>
               </div>
             </div>
@@ -681,46 +672,46 @@ export default function Home() {
           {/* Stats */}
           <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-4xl font-bold text-sky-500 mb-2">1000+</div>
-              <div className="text-gray-600">Довольных семей</div>
+              <div className="text-4xl font-bold text-primary-500 mb-2">1000+</div>
+              <div className="text-gray-600">Գոհ ընտանիքներ</div>
             </div>
             <div>
-              <div className="text-4xl font-bold text-sky-500 mb-2">1000+</div>
-              <div className="text-gray-600">Товаров для детей</div>
+              <div className="text-4xl font-bold text-primary-500 mb-2">1000+</div>
+              <div className="text-gray-600">Արտադրանք երեխաների համար</div>
             </div>
             <div>
-              <div className="text-4xl font-bold text-sky-500 mb-2">30</div>
-              <div className="text-gray-600">Минут доставка</div>
+              <div className="text-4xl font-bold text-primary-500 mb-2">30</div>
+              <div className="text-gray-600">Րոպե առաքում</div>
             </div>
             <div>
-              <div className="text-4xl font-bold text-sky-500 mb-2">4.9</div>
-              <div className="text-gray-600">Рейтинг родителей</div>
+              <div className="text-4xl font-bold text-primary-500 mb-2">4.9</div>
+              <div className="text-gray-600">Ծնողների վարկանիշ</div>
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section - Hidden on mobile and tablet */}
-      <section className="hidden lg:block py-20 bg-gradient-to-r from-sky-500 to-white text-white">
+      <section className="hidden lg:block py-20 bg-gradient-to-r from-primary-500 to-white text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Готовы порадовать детей?
+            Պատրա՞ստ եք ուրախացնել երեխաներին:
           </h2>
-          <p className="text-xl text-sky-100 mb-8 max-w-2xl mx-auto">
-            Закажите сейчас и получите скидку 15% на первый заказ!
+          <p className="text-xl text-primary-100 mb-8 max-w-2xl mx-auto">
+            Պատվիրեք հիմա և ստացեք 15% զեղչ առաջին պատվերի համար:
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
               href="/products"
-              className="bg-white text-sky-500 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 hover:scale-105 transition-all duration-300 shadow-lg"
+              className="bg-white text-primary-500 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 hover:scale-105 transition-all duration-300 shadow-lg"
             >
-              Заказать сейчас
+              Պատվիրել հիմա
             </Link>
             <Link 
               href="/contact"
-              className="border-2 border-white text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-white hover:text-sky-500 hover:scale-105 transition-all duration-300"
+              className="border-2 border-white text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-white hover:text-primary-500 hover:scale-105 transition-all duration-300"
             >
-              Узнать больше
+              Իմանալ ավելին
             </Link>
           </div>
         </div>
