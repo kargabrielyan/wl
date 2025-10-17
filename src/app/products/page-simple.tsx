@@ -26,7 +26,7 @@ export default function ProductsPageSimple() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 p-8">
+      <div className="min-h-screen p-8" style={{ backgroundColor: '#002c45' }}>
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl font-bold mb-8">Արտադրանքի բեռնում...</h1>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -44,7 +44,7 @@ export default function ProductsPageSimple() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
+    <div className="min-h-screen p-8" style={{ backgroundColor: '#002c45' }}>
       <div className="max-w-7xl mx-auto">
         <h1 className="text-3xl font-bold mb-8">Արտադրանքի կատալոգ</h1>
         <p className="text-gray-600 mb-8">Գտնված արտադրանք: {products.length}</p>

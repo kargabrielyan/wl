@@ -192,7 +192,7 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ backgroundColor: '#002c45' }}>
       
       {/* Отступ для fixed хедера */}
       <div className="lg:hidden h-16"></div>

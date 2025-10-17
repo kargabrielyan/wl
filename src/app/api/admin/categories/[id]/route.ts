@@ -1,12 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { getServerSession } from 'next-auth/next'
+import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 
-// GET /api/admin/categories/[id] - получить категорию по ID
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
     const session = await getServerSession(authOptions)
@@ -15,13 +14,13 @@ export async function GET(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const { id } = await params
-
     const category = await prisma.category.findUnique({
-      where: { id },
+      where: { id: params.id },
       include: {
         _count: {
-          select: { products: true }
+          select: {
+            products: true
+          }
         }
       }
     })
@@ -43,10 +42,9 @@ export async function GET(
   }
 }
 
-// PUT /api/admin/categories/[id] - обновить категорию
 export async function PUT(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
     const session = await getServerSession(authOptions)
@@ -55,20 +53,12 @@ export async function PUT(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const { id } = await params
     const body = await request.json()
-    const { name, description, isActive } = body
+    const { name, description, image, sortOrder, showInMainPage, isActive } = body
 
-    if (!name || name.trim() === '') {
-      return NextResponse.json(
-        { error: 'Name is required' },
-        { status: 400 }
-      )
-    }
-
-    // Проверяем, что категория существует
+    // Проверяем существование категории
     const existingCategory = await prisma.category.findUnique({
-      where: { id }
+      where: { id: params.id }
     })
 
     if (!existingCategory) {
@@ -78,35 +68,42 @@ export async function PUT(
       )
     }
 
-    // Проверяем, что новое имя не конфликтует с существующими категориями
-    if (name.trim() !== existingCategory.name) {
-      const nameConflict = await prisma.category.findUnique({
-        where: { name: name.trim() }
-      })
-
-      if (nameConflict) {
-        return NextResponse.json(
-          { error: 'Category with this name already exists' },
-          { status: 400 }
-        )
-      }
+    // Валидация
+    if (!name || name.trim().length === 0) {
+      return NextResponse.json(
+        { error: 'Name is required' },
+        { status: 400 }
+      )
     }
 
-    const updatedCategory = await prisma.category.update({
-      where: { id },
-      data: {
+    // Проверка на уникальность имени (исключая текущую категорию)
+    const duplicateCategory = await prisma.category.findFirst({
+      where: {
         name: name.trim(),
-        description: description?.trim() || null,
-        isActive: Boolean(isActive)
-      },
-      include: {
-        _count: {
-          select: { products: true }
-        }
+        id: { not: params.id }
       }
     })
 
-    return NextResponse.json(updatedCategory)
+    if (duplicateCategory) {
+      return NextResponse.json(
+        { error: 'Category with this name already exists' },
+        { status: 400 }
+      )
+    }
+
+    const category = await prisma.category.update({
+      where: { id: params.id },
+      data: {
+        name: name.trim(),
+        description: description?.trim() || null,
+        image: image?.trim() || null,
+        sortOrder: sortOrder !== undefined ? sortOrder : existingCategory.sortOrder,
+        showInMainPage: showInMainPage !== undefined ? showInMainPage : existingCategory.showInMainPage,
+        isActive: isActive !== undefined ? isActive : existingCategory.isActive
+      }
+    })
+
+    return NextResponse.json(category)
   } catch (error) {
     console.error('Error updating category:', error)
     return NextResponse.json(
@@ -116,10 +113,9 @@ export async function PUT(
   }
 }
 
-// DELETE /api/admin/categories/[id] - удалить категорию
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
     const session = await getServerSession(authOptions)
@@ -128,14 +124,14 @@ export async function DELETE(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const { id } = await params
-
-    // Проверяем, что категория существует
+    // Проверяем существование категории
     const existingCategory = await prisma.category.findUnique({
-      where: { id },
+      where: { id: params.id },
       include: {
         _count: {
-          select: { products: true }
+          select: {
+            products: true
+          }
         }
       }
     })
@@ -147,7 +143,7 @@ export async function DELETE(
       )
     }
 
-    // Проверяем, что в категории нет товаров
+    // Проверяем, есть ли товары в этой категории
     if (existingCategory._count.products > 0) {
       return NextResponse.json(
         { error: 'Cannot delete category with products. Please move or delete products first.' },
@@ -156,7 +152,7 @@ export async function DELETE(
     }
 
     await prisma.category.delete({
-      where: { id }
+      where: { id: params.id }
     })
 
     return NextResponse.json({ message: 'Category deleted successfully' })

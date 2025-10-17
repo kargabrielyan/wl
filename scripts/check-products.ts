@@ -2,53 +2,74 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-async function main() {
+async function checkProducts() {
   try {
-    console.log('🔍 Проверяем товары в базе данных...')
+    console.log('🔍 Проверяем продукты в базе данных...')
     
-    // Подсчитываем товары
-    const productCount = await prisma.product.count()
-    console.log(`📦 Всего товаров: ${productCount}`)
+    // Подсчитываем общее количество продуктов
+    const totalProducts = await prisma.product.count()
+    console.log(`📊 Общее количество продуктов: ${totalProducts}`)
     
-    // Подсчитываем категории
-    const categoryCount = await prisma.category.count()
-    console.log(`📂 Всего категорий: ${categoryCount}`)
-    
-    // Показываем товары по категориям
-    const productsByCategory = await prisma.product.groupBy({
-      by: ['categoryId'],
+    // Проверяем продукты по статусам
+    const productsByStatus = await prisma.product.groupBy({
+      by: ['status'],
       _count: {
         id: true
       }
     })
     
-    console.log('\n📊 Товары по категориям:')
-    for (const group of productsByCategory) {
-      console.log(`  - ${group.category?.name || 'Без категории'}: ${group._count.id} товаров`)
-    }
+    console.log('\n📋 Продукты по статусам:')
+    productsByStatus.forEach(group => {
+      console.log(`  ${group.status}: ${group._count.id} продуктов`)
+    })
     
-    // Показываем первые 5 товаров
-    const sampleProducts = await prisma.product.findMany({
-      take: 5,
-      include: {
-        category: {
-          select: {
-            name: true
-          }
+    // Проверяем продукты с категориями
+    const productsWithCategories = await prisma.product.count({
+      where: {
+        categoryId: {
+          not: null
         }
       }
     })
     
-    console.log('\n🛍️ Примеры товаров:')
+    const productsWithoutCategories = await prisma.product.count({
+      where: {
+        categoryId: null
+      }
+    })
+    
+    console.log(`\n📂 Продукты с категориями: ${productsWithCategories}`)
+    console.log(`📂 Продукты без категорий: ${productsWithoutCategories}`)
+    
+    // Показываем несколько примеров продуктов
+    const sampleProducts = await prisma.product.findMany({
+      take: 5,
+      include: {
+        category: true
+      }
+    })
+    
+    console.log('\n🔍 Примеры продуктов:')
     sampleProducts.forEach((product, index) => {
-      console.log(`  ${index + 1}. ${product.name} - ${product.price} ֏ (${product.category?.name || 'Без категории'})`)
+      console.log(`${index + 1}. ${product.name}`)
+      console.log(`   Статус: ${product.status}`)
+      console.log(`   Категория: ${product.category?.name || 'Нет категории'}`)
+      console.log(`   Цена: ${product.price} ֏`)
+      console.log('')
+    })
+    
+    // Проверяем связи с категориями
+    const categories = await prisma.category.findMany()
+    console.log(`\n📁 Доступные категории: ${categories.length}`)
+    categories.forEach(cat => {
+      console.log(`  - ${cat.name} (ID: ${cat.id})`)
     })
     
   } catch (error) {
-    console.error('❌ Ошибка при проверке товаров:', error)
+    console.error('❌ Ошибка при проверке продуктов:', error)
   } finally {
     await prisma.$disconnect()
   }
 }
 
-main()
+checkProducts()

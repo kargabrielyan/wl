@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { getServerSession } from 'next-auth/next'
+import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 
-// GET /api/admin/categories - получить все категории
 export async function GET(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
@@ -12,19 +11,18 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const { searchParams } = new URL(request.url)
-    const includeInactive = searchParams.get('includeInactive') === 'true'
-
-    const whereClause = includeInactive ? {} : { isActive: true }
-
     const categories = await prisma.category.findMany({
-      where: whereClause,
+      orderBy: [
+        { sortOrder: 'asc' },
+        { createdAt: 'asc' }
+      ],
       include: {
         _count: {
-          select: { products: true }
+          select: {
+            products: true
+          }
         }
-      },
-      orderBy: { name: 'asc' }
+      }
     })
 
     return NextResponse.json(categories)
@@ -37,7 +35,6 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST /api/admin/categories - создать новую категорию
 export async function POST(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
@@ -47,16 +44,17 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json()
-    const { name, description, isActive = true } = body
+    const { name, description, image, sortOrder, showInMainPage, isActive } = body
 
-    if (!name || name.trim() === '') {
+    // Валидация
+    if (!name || name.trim().length === 0) {
       return NextResponse.json(
         { error: 'Name is required' },
         { status: 400 }
       )
     }
 
-    // Проверяем, что категория с таким именем не существует
+    // Проверка на уникальность имени
     const existingCategory = await prisma.category.findUnique({
       where: { name: name.trim() }
     })
@@ -72,12 +70,10 @@ export async function POST(request: NextRequest) {
       data: {
         name: name.trim(),
         description: description?.trim() || null,
-        isActive: Boolean(isActive)
-      },
-      include: {
-        _count: {
-          select: { products: true }
-        }
+        image: image?.trim() || null,
+        sortOrder: sortOrder || 0,
+        showInMainPage: showInMainPage || false,
+        isActive: isActive !== undefined ? isActive : true
       }
     })
 

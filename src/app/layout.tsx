@@ -34,7 +34,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru" data-scroll-behavior="smooth" suppressHydrationWarning>
-      <body className={`${inter.variable} font-sans antialiased overflow-x-hidden`}>
+      <body className={`${inter.variable} font-sans antialiased overflow-x-hidden`} style={{ backgroundColor: '#002c45' }}>
         <ServiceWorkerProvider />
         <ClientProviders>
           <Header />

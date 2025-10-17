@@ -25,13 +25,16 @@ model User {
 }
 
 model Category {
-  id          String    @id @default(cuid())
-  name        String    @unique
-  description String?
-  isActive    Boolean   @default(true)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  products    Product[]
+  id              String    @id @default(cuid())
+  name            String    @unique
+  description     String?
+  image           String?   // Путь к изображению категории
+  sortOrder       Int       @default(0) // Порядок сортировки
+  showInMainPage  Boolean   @default(false) // Показывать на главной странице
+  isActive        Boolean   @default(true)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  products        Product[]
 
   @@map("categories")
 }

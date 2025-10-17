@@ -9,6 +9,8 @@ import { Product } from "@/types";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
 import ProductSection from "@/components/ProductSection";
+import CategoriesBlock from "@/components/CategoriesBlock";
+import { AnimatedCounter } from "@/components/AnimatedCounter";
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([])
@@ -153,13 +155,13 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 overflow-x-hidden">
+    <div className="min-h-screen overflow-x-hidden" style={{ backgroundColor: '#002c45' }}>
       {/* Отступ для fixed хедера */}
       <div className="lg:hidden h-16"></div>
       <div className="hidden lg:block h-24"></div>
 
       {/* Hero Section - Compact for Mobile */}
-      <section className="relative bg-gradient-to-br from-primary-500 to-white text-white overflow-hidden">
+      <section className="relative text-white overflow-hidden" style={{ backgroundColor: '#002c45' }}>
         
         {/* Mobile Compact Version - App Style */}
         <div className="md:hidden relative max-w-7xl mx-auto px-4 py-6">
@@ -222,7 +224,8 @@ export default function Home() {
                       e.stopPropagation();
                       handleAddToCart(bannerProduct);
                     }}
-                    className="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white py-1.5 px-2 rounded-lg text-xs font-bold hover:from-orange-600 hover:to-red-600 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
+                    className="w-full text-white py-1.5 px-2 rounded-lg text-xs font-bold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
+                    style={{ backgroundColor: '#ffdd84' }}
                   >
                     <span className="flex items-center justify-center gap-1">
                       <ShoppingCart className="w-3 h-3" />
@@ -304,7 +307,8 @@ export default function Home() {
                       e.stopPropagation();
                       handleAddToCart(bannerProduct);
                     }}
-                    className="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white py-2 px-3 rounded-xl text-sm font-bold hover:from-orange-600 hover:to-red-600 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
+                    className="w-full text-white py-2 px-3 rounded-xl text-sm font-bold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
+                    style={{ backgroundColor: '#ffdd84' }}
                   >
                     <span className="flex items-center justify-center gap-2">
                       <ShoppingCart className="w-4 h-4" />
@@ -477,7 +481,12 @@ export default function Home() {
         </div>
       </section>
 
-
+      {/* Categories Section */}
+      <CategoriesBlock 
+        title="Կատեգորիաներ"
+        subtitle="Ընտրեք ձեր սիրելի կատեգորիան"
+        limit={9}
+      />
 
       {/* Sale Products Section */}
       <ProductSection
@@ -490,14 +499,14 @@ export default function Home() {
       />
 
       {/* Features Section - Hidden on mobile and tablet */}
-      <section className="hidden lg:block py-20 bg-gray-50">
+      <section className="hidden lg:block py-20" style={{ backgroundColor: '#002c45' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section header */}
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
               Ինչու՞ են ընտրում մեզ:
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-200 max-w-2xl mx-auto">
               Մենք ստեղծել ենք անվտանգության, որակի և ուրախության իդեալական համադրություն ձեր երեխաների համար
             </p>
           </div>
@@ -505,60 +514,60 @@ export default function Home() {
           {/* Features grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Safety */}
-            <div className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-100">
+            <div className="group bg-white/10 backdrop-blur-lg rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-white/20">
               <div className="w-16 h-16 bg-green-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                 <svg className="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">Անվտանգություն</h3>
-              <p className="text-gray-600 text-center mb-4">Բոլոր արտադրանքը հավաստագրված է</p>
+              <h3 className="text-xl font-bold text-white mb-3 text-center">Անվտանգություն</h3>
+              <p className="text-gray-200 text-center mb-4">Բոլոր արտադրանքը հավաստագրված է</p>
               <div className="text-center">
-                <span className="inline-block bg-green-100 text-green-600 px-3 py-1 rounded-full text-sm font-semibold">
+                <span className="inline-block bg-green-500/20 text-green-300 px-3 py-1 rounded-full text-sm font-semibold border border-green-400/30">
                   🛡️ Անվտանգ
                 </span>
               </div>
             </div>
 
             {/* Delivery */}
-            <div className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-100">
+            <div className="group bg-white/10 backdrop-blur-lg rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-white/20">
               <div className="w-16 h-16 bg-primary-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                 <MapPin className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">Առաքում</h3>
-              <p className="text-gray-600 text-center mb-4">Ամբողջ քաղաքով</p>
+              <h3 className="text-xl font-bold text-white mb-3 text-center">Առաքում</h3>
+              <p className="text-gray-200 text-center mb-4">Ամբողջ քաղաքով</p>
             <div className="text-center">
-                <span className="inline-block bg-primary-100 text-primary-600 px-3 py-1 rounded-full text-sm font-semibold">
+                <span className="inline-block bg-primary-500/20 text-primary-300 px-3 py-1 rounded-full text-sm font-semibold border border-primary-400/30">
                   🚚 30 րոպե
                 </span>
               </div>
             </div>
 
             {/* Development */}
-            <div className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-100">
+            <div className="group bg-white/10 backdrop-blur-lg rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-white/20">
               <div className="w-16 h-16 bg-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                 <svg className="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">Զարգացում</h3>
-              <p className="text-gray-600 text-center mb-4">Զարգացման խաղալիքներ</p>
+              <h3 className="text-xl font-bold text-white mb-3 text-center">Զարգացում</h3>
+              <p className="text-gray-200 text-center mb-4">Զարգացման խաղալիքներ</p>
             <div className="text-center">
-                <span className="inline-block bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-sm font-semibold">
+                <span className="inline-block bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm font-semibold border border-purple-400/30">
                   🧠 Զարգացնող
                 </span>
               </div>
             </div>
 
             {/* Support */}
-            <div className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-100">
+            <div className="group bg-white/10 backdrop-blur-lg rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-white/20">
               <div className="w-16 h-16 bg-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                 <Phone className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">Աջակցություն</h3>
-              <p className="text-gray-600 text-center mb-4">+374 XX XXX XXX</p>
+              <h3 className="text-xl font-bold text-white mb-3 text-center">Աջակցություն</h3>
+              <p className="text-gray-200 text-center mb-4">+374 XX XXX XXX</p>
             <div className="text-center">
-                <span className="inline-block bg-pink-100 text-pink-600 px-3 py-1 rounded-full text-sm font-semibold">
+                <span className="inline-block bg-pink-500/20 text-pink-300 px-3 py-1 rounded-full text-sm font-semibold border border-pink-400/30">
                   💬 24/7
                 </span>
               </div>
@@ -567,6 +576,119 @@ export default function Home() {
 
         </div>
       </section>
+
+      {/* Statistics Section */}
+      <section className="py-16 lg:py-20" style={{ backgroundColor: '#002c45' }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Section header */}
+          <div className="text-center mb-12 lg:mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
+              Մեր հաջողությունները
+            </h2>
+            <p className="text-lg text-gray-200 max-w-2xl mx-auto">
+              Տարիների փորձը և հազարավոր գոհ հաճախորդները մեր հպարտությունն են
+            </p>
+          </div>
+
+          {/* Stats grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
+            {/* Years of Experience */}
+            <div className="text-center group">
+              <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 lg:p-10 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-white/20 min-h-[320px] flex flex-col justify-center items-center">
+                <div className="w-20 h-20 bg-yellow-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <svg className="h-10 w-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div className="space-y-2">
+                  <AnimatedCounter 
+                    end={10} 
+                    suffix="+"
+                    className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white"
+                    duration={2500}
+                  />
+                  <div className="text-lg sm:text-xl lg:text-2xl font-bold text-white leading-tight">
+                    տարվա փորձ
+                  </div>
+                </div>
+                <p className="text-gray-200 text-sm lg:text-base mt-4">Պրոֆեսիոնալ ծառայություն</p>
+              </div>
+            </div>
+
+            {/* Partners */}
+            <div className="text-center group">
+              <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 lg:p-10 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-white/20 min-h-[320px] flex flex-col justify-center items-center">
+                <div className="w-20 h-20 bg-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <svg className="h-10 w-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                </div>
+                <div className="space-y-2">
+                  <AnimatedCounter 
+                    end={50} 
+                    suffix="+"
+                    className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white"
+                    duration={2000}
+                  />
+                  <div className="text-lg sm:text-xl lg:text-2xl font-bold text-white leading-tight">
+                    գործընկերներ
+                  </div>
+                </div>
+                <p className="text-gray-200 text-sm lg:text-base mt-4">Վստահելի գործընկերներ</p>
+              </div>
+            </div>
+
+            {/* Happy Customers */}
+            <div className="text-center group">
+              <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 lg:p-10 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-white/20 min-h-[320px] flex flex-col justify-center items-center">
+                <div className="w-20 h-20 bg-green-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <svg className="h-10 w-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  </svg>
+                </div>
+                <div className="space-y-2">
+                  <AnimatedCounter 
+                    end={80000} 
+                    suffix="+"
+                    className="text-xl sm:text-2xl lg:text-3xl font-bold text-white"
+                    duration={3000}
+                  />
+                  <div className="text-base sm:text-lg lg:text-xl font-bold text-white leading-tight">
+                    գոհ հաճախորդ
+                  </div>
+                </div>
+                <p className="text-gray-200 text-sm lg:text-base mt-4">Գոհ հաճախորդներ</p>
+              </div>
+            </div>
+
+            {/* Products Sold */}
+            <div className="text-center group">
+              <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 lg:p-10 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-white/20 min-h-[320px] flex flex-col justify-center items-center">
+                <div className="w-20 h-20 bg-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <svg className="h-10 w-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                  </svg>
+                </div>
+                <div className="space-y-2">
+                  <AnimatedCounter 
+                    end={100000} 
+                    suffix="+"
+                    className="text-lg sm:text-xl lg:text-2xl font-bold text-white"
+                    duration={3500}
+                  />
+                  <div className="text-sm sm:text-base lg:text-lg font-bold text-white leading-tight">
+                    վաճառված ապրանքներ
+                  </div>
+                </div>
+                <p className="text-gray-200 text-sm lg:text-base mt-4">Վաճառված ապրանքներ</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Divider */}
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
 
       {/* New Toys Section */}
       <ProductSection
@@ -579,14 +701,14 @@ export default function Home() {
       />
 
       {/* Testimonials Section - Hidden on mobile and tablet */}
-      <section className="hidden lg:block py-20 bg-slate-50">
+      <section className="hidden lg:block py-20" style={{ backgroundColor: '#002c45' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section header */}
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
               Ինչ են ասում ծնողները
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-200 max-w-2xl mx-auto">
               1000-ից ավելի գոհ ընտանիքներ արդեն ընտրել են մեր արտադրանքը երեխաների համար
             </p>
           </div>
@@ -594,7 +716,7 @@ export default function Home() {
           {/* Testimonials grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Testimonial 1 */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-white/20">
               <div className="flex items-center mb-4">
                 <div className="flex text-yellow-400">
                   {[...Array(5)].map((_, i) => (
@@ -604,22 +726,22 @@ export default function Home() {
                   ))}
                 </div>
               </div>
-              <p className="text-gray-600 mb-6 italic">
+              <p className="text-gray-200 mb-6 italic">
                 "Հիանալի խաղալիքներ իմ որդու համար: Որակը բարձր մակարդակի վրա է, երեխան հիացած է: Արագ առաքում և անվտանգ նյութեր: Խորհուրդ եմ տալիս բոլոր ծնողներին:"
               </p>
               <div className="flex items-center">
-                <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mr-4">
-                  <span className="text-primary-500 font-bold text-lg">Ա</span>
+                <div className="w-12 h-12 bg-primary-500/20 rounded-full flex items-center justify-center mr-4 border border-primary-400/30">
+                  <span className="text-primary-300 font-bold text-lg">Ա</span>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900">Աննա Պետրովա</h4>
-                  <p className="text-sm text-gray-500">3 տարեկան որդու մայր</p>
+                  <h4 className="font-semibold text-white">Աննա Պետրովա</h4>
+                  <p className="text-sm text-gray-300">3 տարեկան որդու մայր</p>
                 </div>
               </div>
             </div>
 
             {/* Testimonial 2 */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-white/20">
               <div className="flex items-center mb-4">
                 <div className="flex text-yellow-400">
                   {[...Array(5)].map((_, i) => (
@@ -629,22 +751,22 @@ export default function Home() {
                   ))}
                 </div>
               </div>
-              <p className="text-gray-600 mb-6 italic">
+              <p className="text-gray-200 mb-6 italic">
                 "Այստեղ գնում ենք արդեն մեկ տարի: Հիանալի զարգացնող խաղալիքներ, որակյալ մանկական հագուստ: Դուստրը պարզապես հիացած է նոր գրքերից:"
               </p>
               <div className="flex items-center">
-                <div className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center mr-4">
-                  <span className="text-pink-500 font-bold text-lg">Մ</span>
+                <div className="w-12 h-12 bg-pink-500/20 rounded-full flex items-center justify-center mr-4 border border-pink-400/30">
+                  <span className="text-pink-300 font-bold text-lg">Մ</span>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900">Մարիա Սմիրնովա</h4>
-                  <p className="text-sm text-gray-500">5 տարեկան դստեր մայր</p>
+                  <h4 className="font-semibold text-white">Մարիա Սմիրնովա</h4>
+                  <p className="text-sm text-gray-300">5 տարեկան դստեր մայր</p>
                 </div>
               </div>
             </div>
 
             {/* Testimonial 3 */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-white/20">
               <div className="flex items-center mb-4">
                 <div className="flex text-yellow-400">
                   {[...Array(5)].map((_, i) => (
@@ -654,16 +776,16 @@ export default function Home() {
                   ))}
                 </div>
               </div>
-              <p className="text-gray-600 mb-6 italic">
+              <p className="text-gray-200 mb-6 italic">
                 "Պատվիրել ենք սպորտային արտադրանք որդու համար - ֆուտբոլի գնդակ և ձև: Որակը հիանալի է, արագ առաքել են: Որդին շատ գոհ է:"
               </p>
               <div className="flex items-center">
-                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
-                  <span className="text-green-500 font-bold text-lg">Ա</span>
+                <div className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center mr-4 border border-green-400/30">
+                  <span className="text-green-300 font-bold text-lg">Ա</span>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900">Ալեքսեյ Կոզլով</h4>
-                  <p className="text-sm text-gray-500">7 տարեկան որդու հայր</p>
+                  <h4 className="font-semibold text-white">Ալեքսեյ Կոզլով</h4>
+                  <p className="text-sm text-gray-300">7 տարեկան որդու հայր</p>
                 </div>
               </div>
             </div>
@@ -672,27 +794,30 @@ export default function Home() {
           {/* Stats */}
           <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-4xl font-bold text-primary-500 mb-2">1000+</div>
-              <div className="text-gray-600">Գոհ ընտանիքներ</div>
+              <div className="text-4xl font-bold text-white mb-2">1000+</div>
+              <div className="text-gray-200">Գոհ ընտանիքներ</div>
             </div>
             <div>
-              <div className="text-4xl font-bold text-primary-500 mb-2">1000+</div>
-              <div className="text-gray-600">Արտադրանք երեխաների համար</div>
+              <div className="text-4xl font-bold text-white mb-2">1000+</div>
+              <div className="text-gray-200">Արտադրանք երեխաների համար</div>
             </div>
             <div>
-              <div className="text-4xl font-bold text-primary-500 mb-2">30</div>
-              <div className="text-gray-600">Րոպե առաքում</div>
+              <div className="text-4xl font-bold text-white mb-2">30</div>
+              <div className="text-gray-200">Րոպե առաքում</div>
             </div>
             <div>
-              <div className="text-4xl font-bold text-primary-500 mb-2">4.9</div>
-              <div className="text-gray-600">Ծնողների վարկանիշ</div>
+              <div className="text-4xl font-bold text-white mb-2">4.9</div>
+              <div className="text-gray-200">Ծնողների վարկանիշ</div>
             </div>
           </div>
         </div>
       </section>
 
+      {/* Divider */}
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+
       {/* CTA Section - Hidden on mobile and tablet */}
-      <section className="hidden lg:block py-20 bg-gradient-to-r from-primary-500 to-white text-white">
+      <section className="hidden lg:block py-20 text-white" style={{ backgroundColor: '#002c45' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Պատրա՞ստ եք ուրախացնել երեխաներին:
@@ -716,6 +841,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Divider before Footer */}
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
 
       {/* Footer - Hidden on mobile and tablet */}
       <div className="hidden lg:block">

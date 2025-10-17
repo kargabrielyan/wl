@@ -20,11 +20,11 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
   const isAdded = addedToCart?.has(product.id) || false
 
   return (
-    <div className={`relative bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden group hover:shadow-md transition-shadow duration-200 ${
+    <div className={`relative bg-gray-600/60 backdrop-blur-sm rounded-lg shadow-lg border border-gray-500/40 overflow-hidden group hover:shadow-xl hover:bg-gray-600/70 transition-all duration-300 ${
       isSelected ? 'ring-2 ring-primary-500' : ''
     }`}>
       {/* Контейнер изображения */}
-      <div className={`relative bg-gray-50 ${isCompact ? 'h-48' : 'h-64'}`}>
+      <div className={`relative bg-gray-500/20 ${isCompact ? 'h-48' : 'h-64'}`}>
         {/* Изображение товара */}
         {product.image && product.image !== 'no-image' ? (
           <Image 
@@ -47,7 +47,7 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
             }}
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center bg-gray-100 text-6xl">
+          <div className="w-full h-full flex items-center justify-center bg-gray-500/20 text-6xl">
             🥟
           </div>
         )}
@@ -93,7 +93,7 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
         {/* Статус наличия */}
         {!product.stock || product.stock <= 0 ? (
           <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-            <div className="bg-white px-4 py-2 rounded text-sm font-medium text-gray-900">
+            <div className="bg-gray-800 px-4 py-2 rounded text-sm font-medium text-white border border-gray-600">
               Չկա պահեստում
             </div>
           </div>
@@ -104,7 +104,7 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
       <div className="p-4">
         {/* Название товара */}
         <Link href={`/products/${product.id}`}>
-          <h3 className={`font-semibold text-gray-900 line-clamp-2 hover:text-primary-600 transition-colors ${
+          <h3 className={`font-semibold text-white line-clamp-2 hover:text-primary-300 transition-colors ${
             isCompact ? 'text-sm mb-2' : 'text-base mb-2'
           }`}>
             {product.name}
@@ -113,7 +113,7 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
         
         {/* Краткое описание (только для полного варианта) */}
         {!isCompact && product.description && (
-          <p className="text-gray-600 text-sm mb-3 line-clamp-1">
+          <p className="text-gray-300 text-sm mb-3 line-clamp-1">
             {product.description}
           </p>
         )}
@@ -125,7 +125,7 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
               <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />
             ))}
           </div>
-          <span className="text-xs text-gray-500">(4.8)</span>
+          <span className="text-xs text-gray-400">(4.8)</span>
         </div>
         
         {/* Цена */}
@@ -133,14 +133,14 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
           <div className="flex items-center gap-2">
             {product.salePrice ? (
               <>
-                <span className="text-lg font-bold text-red-600">{product.salePrice} ֏</span>
-                <span className="text-sm text-gray-500 line-through">{product.price} ֏</span>
+                <span className="text-lg font-bold text-red-400">{product.salePrice} ֏</span>
+                <span className="text-sm text-gray-400 line-through">{product.price} ֏</span>
                 <span className="bg-red-500 text-white text-xs px-1 py-0.5 rounded font-bold">
                   -{Math.round((1 - product.salePrice / product.price) * 100)}%
                 </span>
               </>
             ) : (
-              <span className="text-lg font-bold text-gray-900">{product.price} ֏</span>
+              <span className="text-lg font-bold text-white">{product.price} ֏</span>
             )}
           </div>
         </div>

@@ -210,7 +210,7 @@ function ProductsPageContent() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen" style={{ backgroundColor: '#002c45' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="text-center mb-12">
             <div className="h-12 bg-gray-200 rounded mx-auto mb-4 w-64 animate-pulse"></div>
@@ -251,7 +251,7 @@ function ProductsPageContent() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 overflow-x-hidden">
+    <div className="min-h-screen overflow-x-hidden" style={{ backgroundColor: '#002c45' }}>
       {/* Отступ для fixed хедера */}
       <div className="lg:hidden h-16"></div>
       <div className="hidden lg:block h-24"></div>
@@ -452,7 +452,7 @@ function ProductsPageContent() {
 export default function ProductsPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-gray-50 overflow-x-hidden">
+      <div className="min-h-screen overflow-x-hidden" style={{ backgroundColor: '#002c45' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="text-center mb-12">
             <div className="h-12 bg-gray-200 rounded mx-auto mb-4 w-64 animate-pulse"></div>

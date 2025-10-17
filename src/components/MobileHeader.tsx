@@ -54,7 +54,7 @@ export default function MobileHeader() {
   }
 
   return (
-    <header className="bg-white/95 backdrop-blur-xl shadow-lg fixed top-0 left-0 right-0 z-[100] border-b border-gray-200" style={{ position: 'fixed' }}>
+    <header className="backdrop-blur-xl shadow-lg fixed top-0 left-0 right-0 z-[100] border-b border-white/20" style={{ position: 'fixed', backgroundColor: '#002c45' }}>
       <div className="px-4 py-1.5">
         <div className="relative flex justify-between items-center">
           {/* Mobile Logo - Absolutely Centered */}
@@ -75,7 +75,7 @@ export default function MobileHeader() {
           {/* Mobile Search Button */}
           <button
             onClick={() => setIsSearchOpen(!isSearchOpen)}
-            className="p-3 text-gray-900 hover:text-primary-500 hover:bg-primary-50 rounded-xl transition-all duration-300 active:scale-95 ml-auto"
+            className="p-3 text-white/90 hover:text-white hover:bg-white/10 rounded-xl transition-all duration-300 active:scale-95 ml-auto"
           >
             <Search className="h-5 w-5" />
           </button>
@@ -127,7 +127,8 @@ export default function MobileHeader() {
                       clearSearch()
                     }
                   }}
-                  className="w-16 h-16 bg-gradient-to-r from-primary-500 to-red-500 rounded-2xl flex items-center justify-center hover:from-primary-600 hover:to-red-600 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
+                  className="w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
+                  style={{ backgroundColor: '#ffdd84' }}
                 >
                   <Search className="w-6 h-6 text-white" />
                 </button>

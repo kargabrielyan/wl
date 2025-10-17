@@ -4,7 +4,7 @@ import { Phone, Mail, MapPin, Clock } from 'lucide-react'
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-white py-12">
+    <footer className="text-white py-12" style={{ backgroundColor: '#002c46' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
@@ -25,10 +25,10 @@ export default function Footer() {
             </p>
             <div className="flex space-x-4">
               <a href="tel:+37495044888" className="text-gray-300 hover:text-orange-500 transition-colors">
-                <Phone className="h-5 w-5" />
+                <Phone className="h-5 w-5" style={{ color: '#ffdd84' }} />
               </a>
               <a href="mailto:info@pideh.am" className="text-gray-300 hover:text-orange-500 transition-colors">
-                <Mail className="h-5 w-5" />
+                <Mail className="h-5 w-5" style={{ color: '#ffdd84' }} />
               </a>
             </div>
           </div>
@@ -65,20 +65,20 @@ export default function Footer() {
             <h4 className="text-lg font-semibold mb-4">Կապ</h4>
             <div className="space-y-3">
               <div className="flex items-center space-x-2">
-                <Phone className="h-4 w-4 text-orange-500" />
+                <Phone className="h-4 w-4" style={{ color: '#ffdd84' }} />
                 <a href="tel:+37495044888" className="text-gray-300 hover:text-orange-500 transition-colors">
                   +374 95-044-888
                 </a>
               </div>
               <div className="flex items-center space-x-2">
-                <Mail className="h-4 w-4 text-orange-500" />
+                <Mail className="h-4 w-4" style={{ color: '#ffdd84' }} />
                 <a href="mailto:info@pideh.am" className="text-gray-300 hover:text-orange-500 transition-colors">
                   info@pideh.am
                 </a>
               </div>
               <div className="space-y-2">
                 <div className="flex items-center space-x-2">
-                  <MapPin className="h-4 w-4 text-orange-500" />
+                  <MapPin className="h-4 w-4" style={{ color: '#ffdd84' }} />
                   <a 
                     href="https://maps.google.com/?q=ул.+Зоравар+Андраник+151/2,+Ереван,+Армения"
                     target="_blank"
@@ -89,7 +89,7 @@ export default function Footer() {
                   </a>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <MapPin className="h-4 w-4 text-orange-500" />
+                  <MapPin className="h-4 w-4" style={{ color: '#ffdd84' }} />
                   <a 
                     href="https://maps.google.com/?q=ул.+Езник+Кохбаци+83,+Ереван,+Армения"
                     target="_blank"
@@ -101,7 +101,7 @@ export default function Footer() {
                 </div>
               </div>
                 <div className="flex items-center space-x-2">
-                  <Clock className="h-4 w-4 text-orange-500" />
+                  <Clock className="h-4 w-4" style={{ color: '#ffdd84' }} />
                   <div className="text-gray-300">
                     <div>Երկ-Կիր: 10:00 - 22:00</div>
                     <div className="text-sm">Առաքում: 11:00 - 21:00</div>
@@ -128,7 +128,8 @@ export default function Footer() {
                 href="https://neetrino.com" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-orange-500 hover:text-orange-400 transition-colors font-normal"
+                className="transition-colors font-normal"
+                style={{ color: '#ffdd84' }}
               >
                 Neetrino IT Company
               </a>

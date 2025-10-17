@@ -31,15 +31,18 @@ const ProductSection = memo(function ProductSection({
   }
 
   return (
-    <section className="py-12 lg:py-16 bg-white">
+    <section className="py-12 lg:py-16" style={{ backgroundColor: '#002c45' }}>
+      {/* Top Divider */}
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent mb-8"></div>
+      
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             {title}
           </h2>
           {subtitle && (
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-200 max-w-2xl mx-auto">
               {subtitle}
             </p>
           )}
@@ -77,6 +80,9 @@ const ProductSection = memo(function ProductSection({
           </div>
         )}
       </div>
+      
+      {/* Bottom Divider */}
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent mt-8"></div>
     </section>
   )
 })

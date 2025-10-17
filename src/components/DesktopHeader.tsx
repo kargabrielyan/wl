@@ -98,7 +98,7 @@ export default function DesktopHeader() {
   ]
 
   return (
-    <header className="bg-white shadow-sm fixed top-0 left-0 right-0 z-[60]" style={{ position: 'fixed' }}>
+    <header className="shadow-sm fixed top-0 left-0 right-0 z-[60]" style={{ position: 'fixed', backgroundColor: '#002c46' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
@@ -122,8 +122,8 @@ export default function DesktopHeader() {
                 className={`
                   relative px-6 py-3 rounded-xl font-semibold transition-all duration-300 group
                   ${isActive(link.href)
-                    ? 'text-primary-500 bg-primary-50 shadow-md'
-                    : 'text-gray-700 hover:text-primary-500 hover:bg-primary-50'
+                    ? 'text-white bg-white/20 shadow-md'
+                    : 'text-white/90 hover:text-white hover:bg-white/10'
                   }
                 `}
               >
@@ -133,11 +133,11 @@ export default function DesktopHeader() {
                 
                 {/* Активный индикатор */}
                 {isActive(link.href) && (
-                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-8 h-1 bg-primary-500 rounded-full"></div>
+                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-8 h-1 bg-white rounded-full"></div>
                 )}
                 
                 {/* Hover эффект */}
-                <div className="absolute inset-0 rounded-lg bg-primary-100 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                <div className="absolute inset-0 rounded-lg bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </Link>
             ))}
           </nav>
@@ -145,7 +145,7 @@ export default function DesktopHeader() {
           {/* Search Bar - Compact with Instant Search */}
           <div className="max-w-xs relative" ref={searchRef}>
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4" style={{ color: '#ffdd84' }} />
               <input
                 type="text"
                 placeholder="Փնտրել..."
@@ -157,7 +157,7 @@ export default function DesktopHeader() {
                     setIsOpen(true)
                   }
                 }}
-                className="w-full pl-10 pr-3 py-2 border border-gray-200 rounded-lg focus:ring-1 focus:ring-primary-500 focus:border-primary-500 text-sm text-gray-900 placeholder-gray-500 bg-gray-50 transition-all duration-300 hover:bg-white focus:bg-white"
+                className="w-full pl-10 pr-3 py-2 border border-white/30 rounded-lg focus:ring-1 focus:ring-white/50 focus:border-white/50 text-sm text-white placeholder-white/70 bg-white/10 transition-all duration-300 hover:bg-white/20 focus:bg-white/20"
                 aria-controls="search-results"
                 aria-expanded={isOpen}
                 aria-autocomplete="list"
@@ -167,9 +167,9 @@ export default function DesktopHeader() {
               {query && (
                 <button
                   onClick={clearSearch}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1 hover:bg-gray-100 rounded transition-colors"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1 hover:bg-white/20 rounded transition-colors"
                 >
-                  <svg className="h-3 w-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="h-3 w-3" style={{ color: '#ffdd84' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
@@ -197,8 +197,8 @@ export default function DesktopHeader() {
               className={`
                 relative p-3 rounded-xl transition-all duration-300 group
                 ${isActive('/cart')
-                  ? 'text-primary-500 bg-primary-50 shadow-md'
-                  : 'text-gray-900 hover:text-primary-500 hover:bg-primary-50'
+                  ? 'text-white bg-white/20 shadow-md'
+                  : 'text-white/90 hover:text-white hover:bg-white/10'
                 }
               `}
             >
@@ -211,7 +211,7 @@ export default function DesktopHeader() {
               
               {/* Активный индикатор для корзины */}
               {isActive('/cart') && (
-                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-primary-500 rounded-full"></div>
+                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-white rounded-full"></div>
               )}
             </Link>
 
@@ -222,8 +222,8 @@ export default function DesktopHeader() {
                 className={`
                   relative p-3 rounded-xl transition-all duration-300 group
                   ${isActive('/wishlist')
-                    ? 'text-primary-500 bg-primary-50 shadow-md'
-                    : 'text-gray-900 hover:text-primary-500 hover:bg-primary-50'
+                    ? 'text-white bg-white/20 shadow-md'
+                    : 'text-white/90 hover:text-white hover:bg-white/10'
                   }
                 `}
                 title="Նախընտրած"
@@ -237,14 +237,14 @@ export default function DesktopHeader() {
                 
                 {/* Активный индикатор для wishlist */}
                 {isActive('/wishlist') && (
-                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-primary-500 rounded-full"></div>
+                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-white rounded-full"></div>
                 )}
               </Link>
             )}
 
             {/* Auth Buttons */}
             {status === 'loading' ? (
-              <div className="w-8 h-8 bg-gray-200 rounded-full animate-pulse"></div>
+              <div className="w-8 h-8 bg-white/20 rounded-full animate-pulse"></div>
             ) : session ? (
               <div className="flex items-center space-x-2">
                 {/* User Profile */}
@@ -253,8 +253,8 @@ export default function DesktopHeader() {
                   className={`
                     flex items-center space-x-2 px-3 py-2 rounded-xl transition-all duration-300 group
                     ${isActive('/profile')
-                      ? 'text-primary-500 bg-primary-50 shadow-md'
-                      : 'text-gray-900 hover:text-primary-500 hover:bg-primary-50'
+                      ? 'text-white bg-white/20 shadow-md'
+                      : 'text-white/90 hover:text-white hover:bg-white/10'
                     }
                   `}
                 >
@@ -263,7 +263,7 @@ export default function DesktopHeader() {
                   
                   {/* Активный индикатор для профиля */}
                   {isActive('/profile') && (
-                    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-primary-500 rounded-full"></div>
+                    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-white rounded-full"></div>
                   )}
                 </Link>
                 
@@ -274,8 +274,8 @@ export default function DesktopHeader() {
                     className={`
                       relative px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-300 group
                       ${isActive('/admin')
-                        ? 'text-primary-500 bg-primary-50 shadow-md'
-                        : 'bg-primary-100 text-primary-600 hover:bg-primary-200'
+                        ? 'text-white bg-white/20 shadow-md'
+                        : 'bg-white/10 text-white hover:bg-white/20'
                       }
                     `}
                   >
@@ -283,7 +283,7 @@ export default function DesktopHeader() {
                     
                     {/* Активный индикатор для админки */}
                     {isActive('/admin') && (
-                      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-primary-500 rounded-full"></div>
+                      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-white rounded-full"></div>
                     )}
                   </Link>
                 )}
@@ -291,7 +291,7 @@ export default function DesktopHeader() {
                 {/* Logout */}
                 <button
                   onClick={() => signOut({ callbackUrl: '/' })}
-                  className="p-2 text-gray-900 hover:text-primary-500 transition-colors"
+                  className="p-2 text-white/90 hover:text-white transition-colors"
                   title="Ելք"
                 >
                   <LogOut className="h-5 w-5" />
@@ -304,8 +304,8 @@ export default function DesktopHeader() {
                   className={`
                     relative px-4 py-2 rounded-xl font-medium transition-all duration-300 group
                     ${isActive('/login')
-                      ? 'text-primary-500 bg-primary-50 shadow-md'
-                      : 'text-gray-900 hover:text-primary-500 hover:bg-primary-50'
+                      ? 'text-white bg-white/20 shadow-md'
+                      : 'text-white/90 hover:text-white hover:bg-white/10'
                     }
                   `}
                 >
@@ -313,7 +313,7 @@ export default function DesktopHeader() {
                   
                   {/* Активный индикатор для входа */}
                   {isActive('/login') && (
-                    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-primary-500 rounded-full"></div>
+                    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-white rounded-full"></div>
                   )}
                 </Link>
                 <Link 
@@ -321,8 +321,8 @@ export default function DesktopHeader() {
                   className={`
                     relative px-4 py-2 rounded-xl font-semibold transition-all duration-300 group
                     ${isActive('/register')
-                      ? 'text-primary-500 bg-primary-50 shadow-md'
-                      : 'bg-primary-500 text-white hover:bg-primary-600'
+                      ? 'text-white bg-white/20 shadow-md'
+                      : 'bg-white/20 text-white hover:bg-white/30'
                     }
                   `}
                 >
@@ -330,7 +330,7 @@ export default function DesktopHeader() {
                   
                   {/* Активный индикатор для регистрации */}
                   {isActive('/register') && (
-                    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-primary-500 rounded-full"></div>
+                    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-white rounded-full"></div>
                   )}
                 </Link>
               </div>

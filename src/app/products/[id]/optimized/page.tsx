@@ -122,7 +122,8 @@ export default async function OptimizedProductPage({
                       <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-[calc(100%+1rem)] h-[calc(100%+1rem)]">
                         {/* 3D Shadow Layer */}
                         <div 
-                          className="absolute inset-0 bg-gradient-to-br from-gray-200/20 to-gray-300/15 rounded-3xl transform translate-y-2 translate-x-1 group-hover:translate-y-3 group-hover:translate-x-2 transition-all duration-700"
+                          className="absolute inset-0 rounded-3xl transform translate-y-2 translate-x-1 group-hover:translate-y-3 group-hover:translate-x-2 transition-all duration-700"
+                          style={{ backgroundColor: 'rgba(255, 221, 132, 0.1)' }}
                           style={{
                             filter: 'none',
                           }}
@@ -168,7 +169,8 @@ export default async function OptimizedProductPage({
                   <div className="absolute top-12 left-4 flex flex-col gap-2 z-20">
                     {/* 3D Category Badge */}
                     <div 
-                      className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-2xl text-xs font-bold shadow-2xl transform group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-500"
+                      className="text-white px-4 py-2 rounded-2xl text-xs font-bold shadow-2xl transform group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-500"
+                      style={{ backgroundColor: '#ffdd84' }}
                       style={{
                         boxShadow: '0 10px 25px rgba(255, 107, 53, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1)',
                         backdropFilter: 'blur(10px)',
@@ -180,7 +182,8 @@ export default async function OptimizedProductPage({
                     {/* 3D Special Badge */}
                     {product.status === 'HIT' && (
                       <div 
-                        className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-3 py-1 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-1 transform group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-500"
+                        className="text-white px-3 py-1 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-1 transform group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-500"
+                        style={{ backgroundColor: '#ffdd84' }}
                         style={{
                           boxShadow: '0 10px 25px rgba(255, 193, 7, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1)',
                           backdropFilter: 'blur(10px)',
@@ -193,7 +196,8 @@ export default async function OptimizedProductPage({
                     
                     {product.status === 'NEW' && (
                       <div 
-                        className="bg-gradient-to-r from-green-400 to-emerald-500 text-white px-3 py-1 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-1 transform group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-500"
+                        className="text-white px-3 py-1 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-1 transform group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-500"
+                        style={{ backgroundColor: '#ffdd84' }}
                         style={{
                           boxShadow: '0 10px 25px rgba(34, 197, 94, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1)',
                           backdropFilter: 'blur(10px)',
@@ -206,7 +210,8 @@ export default async function OptimizedProductPage({
                     
                     {product.status === 'CLASSIC' && (
                       <div 
-                        className="bg-gradient-to-r from-blue-400 to-indigo-500 text-white px-3 py-1 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-1 transform group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-500"
+                        className="text-white px-3 py-1 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-1 transform group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-500"
+                        style={{ backgroundColor: '#ffdd84' }}
                         style={{
                           boxShadow: '0 10px 25px rgba(59, 130, 246, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1)',
                           backdropFilter: 'blur(10px)',
@@ -222,23 +227,26 @@ export default async function OptimizedProductPage({
                 
                 {/* 3D Floating Decorative Elements - positioned inside container */}
                 <div 
-                  className="absolute top-2 right-2 w-6 h-6 bg-gradient-to-br from-orange-400 to-red-500 rounded-full opacity-30 group-hover:opacity-60 transition-all duration-500 group-hover:scale-110"
+                  className="absolute top-2 right-2 w-6 h-6 rounded-full opacity-30 group-hover:opacity-60 transition-all duration-500 group-hover:scale-110"
                   style={{
-                    boxShadow: '0 10px 25px rgba(255, 107, 53, 0.3)',
+                    backgroundColor: '#ffdd84',
+                    boxShadow: '0 10px 25px rgba(255, 221, 132, 0.3)',
                     filter: 'blur(1px)',
                   }}
                 />
                 <div 
-                  className="absolute bottom-2 left-2 w-4 h-4 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full opacity-30 group-hover:opacity-60 transition-all duration-500 group-hover:scale-110"
+                  className="absolute bottom-2 left-2 w-4 h-4 rounded-full opacity-30 group-hover:opacity-60 transition-all duration-500 group-hover:scale-110"
                   style={{
-                    boxShadow: '0 10px 25px rgba(255, 193, 7, 0.3)',
+                    backgroundColor: '#ffdd84',
+                    boxShadow: '0 10px 25px rgba(255, 221, 132, 0.3)',
                     filter: 'blur(1px)',
                   }}
                 />
                 <div 
-                  className="absolute top-1/2 left-2 w-2 h-2 bg-gradient-to-br from-pink-400 to-purple-500 rounded-full opacity-20 group-hover:opacity-40 transition-all duration-500 group-hover:scale-125"
+                  className="absolute top-1/2 left-2 w-2 h-2 rounded-full opacity-20 group-hover:opacity-40 transition-all duration-500 group-hover:scale-125"
                   style={{
-                    boxShadow: '0 5px 15px rgba(236, 72, 153, 0.2)',
+                    backgroundColor: '#ffdd84',
+                    boxShadow: '0 5px 15px rgba(255, 221, 132, 0.2)',
                     filter: 'blur(0.5px)',
                   }}
                 />
@@ -374,7 +382,7 @@ export default async function OptimizedProductPage({
                 <h2 className="text-3xl font-bold text-gray-900">
                   Похожие товары
                 </h2>
-                <div className="w-1 h-8 bg-gradient-to-b from-orange-500 to-red-500 rounded-full"></div>
+                <div className="w-1 h-8 rounded-full" style={{ backgroundColor: '#ffdd84' }}></div>
                 <Link 
                   href="/products" 
                   className="group text-orange-500 hover:text-orange-600 text-lg font-bold flex items-center space-x-2 transition-colors duration-300 ml-2"

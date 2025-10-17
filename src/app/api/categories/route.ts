@@ -1,37 +1,39 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 
-// GET /api/categories - получить все активные категории с количеством товаров
 export async function GET(request: NextRequest) {
   try {
+    const { searchParams } = new URL(request.url)
+    const showInMainPage = searchParams.get('showInMainPage')
+    const limit = searchParams.get('limit')
+
+    const where: any = {
+      isActive: true
+    }
+
+    if (showInMainPage === 'true') {
+      where.showInMainPage = true
+    }
+
     const categories = await prisma.category.findMany({
-      where: {
-        isActive: true,
-        products: {
-          some: {
-            isAvailable: true
-          }
-        }
-      },
-      include: {
-        _count: {
-          select: { 
-            products: {
-              where: {
-                isAvailable: true
-              }
-            }
-          }
-        }
-      },
-      orderBy: { name: 'asc' }
+      where,
+      orderBy: [
+        { sortOrder: 'asc' },
+        { createdAt: 'asc' }
+      ],
+      take: limit ? parseInt(limit) : undefined,
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        image: true,
+        sortOrder: true,
+        showInMainPage: true,
+        createdAt: true
+      }
     })
 
-    // Добавляем кэширование на 5 минут
-    const response = NextResponse.json(categories)
-    response.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=600')
-    
-    return response
+    return NextResponse.json(categories)
   } catch (error) {
     console.error('Error fetching categories:', error)
     return NextResponse.json(

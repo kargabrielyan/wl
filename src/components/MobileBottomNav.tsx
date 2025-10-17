@@ -217,7 +217,7 @@ export default function MobileBottomNav() {
                   
                   {/* Active indicator */}
                   {isMenuOpen && (
-                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-10 h-1 bg-gradient-to-r from-orange-500 to-red-500 rounded-b-full shadow-lg"></div>
+                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-10 h-1 rounded-b-full shadow-lg" style={{ backgroundColor: '#ffdd84' }}></div>
                   )}
                 </button>
               )
@@ -238,13 +238,13 @@ export default function MobileBottomNav() {
                   {item.showBadge && isHydrated && (
                     item.badgeCount !== undefined ? (
                       item.badgeCount > 0 && (
-                        <span className="absolute -top-2 -right-2 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold shadow-lg">
+                        <span className="absolute -top-2 -right-2 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold shadow-lg" style={{ backgroundColor: '#ffdd84' }}>
                           {item.badgeCount}
                         </span>
                       )
                     ) : (
                       getTotalItems() > 0 && (
-                        <span className="absolute -top-2 -right-2 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold shadow-lg">
+                        <span className="absolute -top-2 -right-2 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold shadow-lg" style={{ backgroundColor: '#ffdd84' }}>
                           {getTotalItems()}
                         </span>
                       )
@@ -255,7 +255,7 @@ export default function MobileBottomNav() {
                 
                 {/* Active indicator */}
                 {active && (
-                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-10 h-1 bg-gradient-to-r from-orange-500 to-red-500 rounded-b-full shadow-lg"></div>
+                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-10 h-1 rounded-b-full shadow-lg" style={{ backgroundColor: '#ffdd84' }}></div>
                 )}
               </Link>
             )
