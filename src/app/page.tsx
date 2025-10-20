@@ -11,6 +11,7 @@ import ProductCard from "@/components/ProductCard";
 import ProductSection from "@/components/ProductSection";
 import CategoriesBlock from "@/components/CategoriesBlock";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
+import TwinklingStars from "@/components/TwinklingStars";
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([])
@@ -155,13 +156,16 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen overflow-x-hidden" style={{ backgroundColor: '#002c45' }}>
+    <div className="min-h-screen overflow-x-hidden relative" style={{ backgroundColor: '#002c45' }}>
+      {/* Global Twinkling Stars over the whole home page */}
+      <TwinklingStars count={80} imageStarRatio={0.25} />
       {/* Отступ для fixed хедера */}
       <div className="lg:hidden h-16"></div>
       <div className="hidden lg:block h-24"></div>
 
       {/* Hero Section - Compact for Mobile */}
       <section className="relative text-white overflow-hidden" style={{ backgroundColor: '#002c45' }}>
+        <TwinklingStars count={100} imageStarRatio={0.4} className="z-20" />
         
         {/* Mobile Compact Version - App Style */}
         <div className="md:hidden relative max-w-7xl mx-auto px-4 py-6">
@@ -482,24 +486,31 @@ export default function Home() {
       </section>
 
       {/* Categories Section */}
-      <CategoriesBlock 
-        title="Կատեգորիաներ"
-        subtitle="Ընտրեք ձեր սիրելի կատեգորիան"
-        limit={9}
-      />
+      <div className="relative" style={{ backgroundColor: '#002c45' }}>
+        <TwinklingStars count={70} imageStarRatio={0.25} className="z-20" />
+        <CategoriesBlock 
+          title="Կատեգորիաներ"
+          subtitle="Ընտրեք ձեր սիրելի կատեգորիան"
+          limit={9}
+        />
+      </div>
 
       {/* Sale Products Section */}
-      <ProductSection
-        title="Զեղչված արտադրանք"
-        subtitle="Շահավետ առաջարկություններ սիրելի արտադրանքի համար"
-        products={saleProducts}
-        onAddToCart={handleAddToCart}
-        addedToCart={addedToCart}
-        variant="compact"
-      />
+      <div className="relative" style={{ backgroundColor: '#002c45' }}>
+        <TwinklingStars count={60} imageStarRatio={0.2} className="z-20" />
+        <ProductSection
+          title="Զեղչված արտադրանք"
+          subtitle="Շահավետ առաջարկություններ սիրելի արտադրանքի համար"
+          products={saleProducts}
+          onAddToCart={handleAddToCart}
+          addedToCart={addedToCart}
+          variant="compact"
+        />
+      </div>
 
       {/* Features Section - Hidden on mobile and tablet */}
-      <section className="hidden lg:block py-20" style={{ backgroundColor: '#002c45' }}>
+      <section className="hidden lg:block py-20 relative" style={{ backgroundColor: '#002c45' }}>
+        <TwinklingStars count={80} imageStarRatio={0.3} className="z-20" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section header */}
           <div className="text-center mb-16">
@@ -791,25 +802,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Stats */}
-          <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div>
-              <div className="text-4xl font-bold text-white mb-2">1000+</div>
-              <div className="text-gray-200">Գոհ ընտանիքներ</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold text-white mb-2">1000+</div>
-              <div className="text-gray-200">Արտադրանք երեխաների համար</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold text-white mb-2">30</div>
-              <div className="text-gray-200">Րոպե առաքում</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold text-white mb-2">4.9</div>
-              <div className="text-gray-200">Ծնողների վարկանիշ</div>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -817,7 +809,8 @@ export default function Home() {
       <div className="w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
 
       {/* CTA Section - Hidden on mobile and tablet */}
-      <section className="hidden lg:block py-20 text-white" style={{ backgroundColor: '#002c45' }}>
+      <section className="hidden lg:block py-20 text-white relative" style={{ backgroundColor: '#002c45' }}>
+        <TwinklingStars count={40} imageStarRatio={0.25} className="z-20" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Պատրա՞ստ եք ուրախացնել երեխաներին:

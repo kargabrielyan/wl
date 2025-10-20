@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { ArrowLeft, ShoppingCart, Minus, Trash2, ShoppingBag } from 'lucide-react'
 import { useCart } from '@/hooks/useCart'
 import Footer from '@/components/Footer'
+import TwinklingStars from '@/components/TwinklingStars'
 
 export default function CartPage() {
   const { items, updateQuantity, removeItem, getTotalPrice, clearCart } = useCart()
@@ -28,7 +29,8 @@ export default function CartPage() {
 
   if (items.length === 0) {
     return (
-      <div className="min-h-screen" style={{ backgroundColor: '#002c45' }}>
+      <div className="min-h-screen relative" style={{ backgroundColor: '#002c45' }}>
+        <TwinklingStars count={40} imageStarRatio={0.2} />
         
         {/* Отступ для fixed хедера */}
         <div className="h-16 lg:h-24"></div>
@@ -61,7 +63,8 @@ export default function CartPage() {
   }
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#002c45' }}>
+    <div className="min-h-screen relative" style={{ backgroundColor: '#002c45' }}>
+      <TwinklingStars count={40} imageStarRatio={0.2} />
       
       {/* Отступ для fixed хедера */}
       <div className="h-16 lg:h-24"></div>

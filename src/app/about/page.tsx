@@ -1,23 +1,24 @@
 import Footer from '@/components/Footer'
 import { Clock, Users, Heart, Award, ChefHat, Truck, Star, CheckCircle } from 'lucide-react'
+import TwinklingStars from '@/components/TwinklingStars'
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#002c45' }}>
+    <div className="min-h-screen relative" style={{ backgroundColor: '#002c45' }}>
+      <TwinklingStars count={60} imageStarRatio={0.3} />
       
       {/* Отступ для fixed хедера */}
       <div className="lg:hidden h-16"></div>
       <div className="hidden lg:block h-24"></div>
       
       {/* Hero Section */}
-      <section className="bg-orange-500 text-white py-24 pt-8">
+      <section className="text-white py-24 pt-8" style={{ backgroundColor: '#f3d98c' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl md:text-7xl font-bold mb-8">
-            Pideh Armenia-ի մասին
+          <h1 className="text-5xl md:text-7xl font-bold mb-8" style={{ color: '#002c46' }}>
+            Welcome Baby-ի մասին
           </h1>
-          <p className="text-xl md:text-2xl text-orange-100 max-w-4xl mx-auto leading-relaxed">
-            Մենք ստեղծում ենք եզակի հայկական բիդե,
-            համադրելով ավանդական բաղադրատոմսերը ժամանակակից համերով:
+          <p className="text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed" style={{ color: '#002c46' }}>
+            Նորածնային կահույք և անկողնային պարագաներ արտադրող ընկերություն
           </p>
         </div>
       </section>
@@ -26,24 +27,19 @@ export default function AboutPage() {
         {/* Story Section */}
         <div className="mb-24">
           <div className="space-y-6">
-            <h2 className="text-4xl font-bold text-gray-900 mb-8">Մեր պատմությունը</h2>
-            <div className="space-y-6 text-lg text-gray-600 leading-relaxed">
+            <h2 className="text-4xl font-bold text-white mb-8">Մեր պատմությունը</h2>
+            <div className="space-y-6 text-lg text-gray-200 leading-relaxed">
               <p>
-                Pideh Armenia-ն ծնվել է ավանդական հայկական խոհանոցի հանդեպ սիրուց և 
-                հայկական շուկայի համար ինչ-որ եզակի ստեղծելու ցանկությունից: Մենք ստեղծեցինք նոր 
-                արտադրանք - հայկական բիդե, լցնելով դրանք այն լցոնումներով, որոնք սիրում են 
-                ժամանակակից գուրմանները:
+                Welcome Baby ընկերությունը ստեղծվել է 2015 թվականին՝ Անահիտ և Լուսինե Անդրյանների ջանքերի շնորհիվ։ Նորածնային կահույք և անկողնային պարագաներ արտադրող ընկերություն, որն ունի իր 2 խանութ սրահները՝ Երևանում և Գյումրիում։
               </p>
               <p>
-                Մեր յուրաքանչյուր "նավակը" պատրաստվում է ձեռքով՝ օգտագործելով միայն 
-                թարմ բաղադրիչներ: Մենք չենք օգտագործում սառեցված կիսաֆաբրիկատներ 
-                կամ պահպանիչներ - միայն բնական արտադրանք և ավանդական 
-                պատրաստման մեթոդներ:
+                Շուրջ 10 տարիների ընթացքում ունենք 80.000 գոհ պատվիրատուներ, ավելի քան 50 գործընկերներ և 100.000ից ավել միավոր ապրանքի արտադրություն։
               </p>
               <p>
-                Կարճ ժամանակում մենք դարձանք սիրելի վայր նրանց համար, ովքեր գնահատում են 
-                որակը, համը և բնօրինակությունը: Մեր առաքելությունը - բերել 
-                Երևան նոր համեր, միաժամանակ պահպանելով ավանդությունների հանդեպ հարգանքը:
+                Ունենք առաքում Երևանում, Հայաստանի բոլոր մարզերում նաև արտերկիր հայ փոստի միջոցով։
+              </p>
+              <p>
+                Ամենակարևոր առավելություններից է անհատական պատվերների ընդունումը և պատվերների սեղմ ժամկետները։
               </p>
             </div>
           </div>
@@ -51,11 +47,11 @@ export default function AboutPage() {
 
         {/* Values Section */}
         <div className="mb-24">
-            <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">Մեր արժեքները</h2>
+            <h2 className="text-4xl font-bold text-center text-white mb-16">Մեր արժեքները</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow text-center group">
-              <div className="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                <Heart className="h-10 w-10 text-orange-500" />
+              <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform" style={{ backgroundColor: '#f3d98c' }}>
+                <Heart className="h-10 w-10" style={{ color: '#002c46' }} />
               </div>
               <h3 className="text-2xl font-bold mb-4 text-gray-900">Սեր գործի հանդեպ</h3>
               <p className="text-gray-700 leading-relaxed">
@@ -64,8 +60,8 @@ export default function AboutPage() {
             </div>
             
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow text-center group">
-              <div className="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                <Award className="h-10 w-10 text-orange-500" />
+              <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform" style={{ backgroundColor: '#f3d98c' }}>
+                <Award className="h-10 w-10" style={{ color: '#002c46' }} />
               </div>
               <h3 className="text-2xl font-bold mb-4 text-gray-900">Որակ</h3>
               <p className="text-gray-700 leading-relaxed">
@@ -74,8 +70,8 @@ export default function AboutPage() {
             </div>
             
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow text-center group">
-              <div className="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                <Clock className="h-10 w-10 text-orange-500" />
+              <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform" style={{ backgroundColor: '#f3d98c' }}>
+                <Clock className="h-10 w-10" style={{ color: '#002c46' }} />
               </div>
               <h3 className="text-2xl font-bold mb-4 text-gray-900">Արագություն</h3>
               <p className="text-gray-700 leading-relaxed">
@@ -84,8 +80,8 @@ export default function AboutPage() {
             </div>
             
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow text-center group">
-              <div className="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                <Users className="h-10 w-10 text-orange-500" />
+              <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform" style={{ backgroundColor: '#f3d98c' }}>
+                <Users className="h-10 w-10" style={{ color: '#002c46' }} />
               </div>
               <h3 className="text-2xl font-bold mb-4 text-gray-900">Համայնք</h3>
               <p className="text-gray-700 leading-relaxed">
@@ -97,11 +93,11 @@ export default function AboutPage() {
 
         {/* Team Section */}
         <div className="mb-24">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">Մեր թիմը</h2>
+          <h2 className="text-4xl font-bold text-center text-white mb-16">Մեր թիմը</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow text-center group">
-              <div className="w-32 h-32 bg-orange-200 rounded-full mx-auto mb-6 flex items-center justify-center group-hover:scale-105 transition-transform">
-                <ChefHat className="h-16 w-16 text-orange-500" />
+              <div className="w-32 h-32 rounded-full mx-auto mb-6 flex items-center justify-center group-hover:scale-105 transition-transform" style={{ backgroundColor: '#f3d98c' }}>
+                <ChefHat className="h-16 w-16" style={{ color: '#002c46' }} />
               </div>
               <h3 className="text-2xl font-bold mb-3 text-gray-900">Գլխավոր խոհարար</h3>
               <p className="text-gray-700 leading-relaxed">
@@ -111,8 +107,8 @@ export default function AboutPage() {
             </div>
             
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow text-center group">
-              <div className="w-32 h-32 bg-orange-200 rounded-full mx-auto mb-6 flex items-center justify-center group-hover:scale-105 transition-transform">
-                <Users className="h-16 w-16 text-orange-500" />
+              <div className="w-32 h-32 rounded-full mx-auto mb-6 flex items-center justify-center group-hover:scale-105 transition-transform" style={{ backgroundColor: '#f3d98c' }}>
+                <Users className="h-16 w-16" style={{ color: '#002c46' }} />
               </div>
               <h3 className="text-2xl font-bold mb-3 text-gray-900">Մենեջեր</h3>
               <p className="text-gray-700 leading-relaxed">
@@ -122,8 +118,8 @@ export default function AboutPage() {
             </div>
             
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow text-center group">
-              <div className="w-32 h-32 bg-orange-200 rounded-full mx-auto mb-6 flex items-center justify-center group-hover:scale-105 transition-transform">
-                <Truck className="h-16 w-16 text-orange-500" />
+              <div className="w-32 h-32 rounded-full mx-auto mb-6 flex items-center justify-center group-hover:scale-105 transition-transform" style={{ backgroundColor: '#f3d98c' }}>
+                <Truck className="h-16 w-16" style={{ color: '#002c46' }} />
               </div>
               <h3 className="text-2xl font-bold mb-3 text-gray-900">Առաքում</h3>
               <p className="text-gray-700 leading-relaxed">
@@ -136,62 +132,66 @@ export default function AboutPage() {
 
 
         {/* Stats Section */}
-        <div className="bg-orange-500 rounded-3xl p-16 text-white text-center mb-16">
-          <h2 className="text-4xl font-bold mb-12">Pideh Armenia-ն թվերով</h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="group">
-              <div className="text-6xl font-bold mb-4 group-hover:scale-110 transition-transform">500+</div>
-              <div className="text-xl text-orange-100">Պատվեր օրական</div>
+        <div className="rounded-3xl p-16 text-center mb-16" style={{ backgroundColor: '#f3d98c' }}>
+          <h2 className="text-4xl font-bold mb-16" style={{ color: '#002c46' }}>Welcome Baby-ն թվերով</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <div className="text-5xl font-bold mb-3" style={{ color: '#002c46' }}>10+</div>
+              <div className="text-lg font-semibold mb-2" style={{ color: '#002c46' }}>տարվա փորձ</div>
+              <div className="text-sm text-gray-600">Պրոֆեսիոնալ ծառայություն</div>
             </div>
-            <div className="group">
-              <div className="text-6xl font-bold mb-4 group-hover:scale-110 transition-transform">15</div>
-              <div className="text-xl text-orange-100">Եզակի համեր</div>
+            <div className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <div className="text-5xl font-bold mb-3" style={{ color: '#002c46' }}>50+</div>
+              <div className="text-lg font-semibold mb-2" style={{ color: '#002c46' }}>գործընկերներ</div>
+              <div className="text-sm text-gray-600">Վստահելի գործընկերներ</div>
             </div>
-            <div className="group">
-              <div className="text-6xl font-bold mb-4 group-hover:scale-110 transition-transform">2</div>
-              <div className="text-xl text-orange-100">Մասնաճյուղ Երևանում</div>
+            <div className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <div className="text-4xl font-bold mb-3" style={{ color: '#002c46' }}>80,000+</div>
+              <div className="text-lg font-semibold mb-2" style={{ color: '#002c46' }}>գոհ հաճախորդ</div>
+              <div className="text-sm text-gray-600">Գոհ հաճախորդներ</div>
             </div>
-            <div className="group">
-              <div className="text-6xl font-bold mb-4 group-hover:scale-110 transition-transform">15-20</div>
-              <div className="text-xl text-orange-100">Րոպե պատրաստում</div>
+            <div className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <div className="text-4xl font-bold mb-3" style={{ color: '#002c46' }}>100,000+</div>
+              <div className="text-lg font-semibold mb-2" style={{ color: '#002c46' }}>վաճառված ապրանքներ</div>
+              <div className="text-sm text-gray-600">Վաճառված ապրանքներ</div>
             </div>
           </div>
         </div>
 
         {/* Process Section */}
         <div className="bg-white rounded-3xl p-16 shadow-lg mb-16">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">Ինչպես ենք պատրաստում</h2>
+          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">Մեր ծառայությունները</h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="text-center">
-              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-orange-500">1</span>
+              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: '#f3d98c' }}>
+                <span className="text-2xl font-bold" style={{ color: '#002c46' }}>1</span>
               </div>
-              <h3 className="text-xl font-semibold mb-3 text-gray-900">Բաղադրիչների ընտրություն</h3>
-              <p className="text-gray-700">Յուրաքանչյուր առավոտ ընտրում ենք միայն թարմ արտադրանք</p>
+              <h3 className="text-xl font-semibold mb-3 text-gray-900">Արտադրություն</h3>
+              <p className="text-gray-700">Նորածնային կահույք և անկողնային պարագաներ</p>
             </div>
             
             <div className="text-center">
-              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-orange-500">2</span>
+              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: '#f3d98c' }}>
+                <span className="text-2xl font-bold" style={{ color: '#002c46' }}>2</span>
               </div>
-              <h3 className="text-xl font-semibold mb-3 text-gray-900">Խմորի պատրաստում</h3>
-              <p className="text-gray-700">Խմոր ենք հունցում ավանդական բաղադրատոմսով</p>
+              <h3 className="text-xl font-semibold mb-3 text-gray-900">Առաքում</h3>
+              <p className="text-gray-700">Առաքում Երևանում, Հայաստանի բոլոր մարզերում</p>
             </div>
             
             <div className="text-center">
-              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-orange-500">3</span>
+              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: '#f3d98c' }}>
+                <span className="text-2xl font-bold" style={{ color: '#002c46' }}>3</span>
               </div>
-              <h3 className="text-xl font-semibold mb-3 text-gray-900">Ձևավորում</h3>
-              <p className="text-gray-700">Ձեռքով ձևավորում ենք նավակներ և ավելացնում լցոնում</p>
+              <h3 className="text-xl font-semibold mb-3 text-gray-900">Անհատական պատվերներ</h3>
+              <p className="text-gray-700">Ընդունում ենք անհատական պատվերներ</p>
             </div>
             
             <div className="text-center">
-              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-orange-500">4</span>
+              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: '#f3d98c' }}>
+                <span className="text-2xl font-bold" style={{ color: '#002c46' }}>4</span>
               </div>
-              <h3 className="text-xl font-semibold mb-3 text-gray-900">Թխում</h3>
-              <p className="text-gray-700">Թխում ենք մինչև ոսկեգույն կեղև</p>
+              <h3 className="text-xl font-semibold mb-3 text-gray-900">Արտերկիր առաքում</h3>
+              <p className="text-gray-700">Առաքում արտերկիր հայ փոստի միջոցով</p>
             </div>
           </div>
         </div>

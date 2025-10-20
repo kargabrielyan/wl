@@ -1,9 +1,11 @@
 import Footer from '@/components/Footer'
 import { Phone, Mail, MapPin, Clock, MessageCircle, Star, Calendar, CreditCard } from 'lucide-react'
+import TwinklingStars from '@/components/TwinklingStars'
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#002c45' }}>
+    <div className="min-h-screen relative" style={{ backgroundColor: '#002c45' }}>
+      <TwinklingStars count={50} imageStarRatio={0.25} />
       
       {/* Отступ для fixed хедера */}
       <div className="lg:hidden h-16"></div>

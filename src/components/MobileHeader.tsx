@@ -6,9 +6,11 @@ import { Search } from 'lucide-react'
 import { useState, useRef, useEffect } from 'react'
 import { useInstantSearch } from '@/hooks/useInstantSearch'
 import { SearchDropdown } from '@/components/SearchDropdown'
+import { useSettings } from '@/hooks/useSettings'
 
 export default function MobileHeader() {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const { settings } = useSettings()
   
   // Instant search hook
   const {
@@ -61,8 +63,8 @@ export default function MobileHeader() {
           <div className="absolute left-1/2 transform -translate-x-1/2">
             <Link href="/" className="hover:opacity-80 transition-all duration-300 hover:scale-105">
               <Image 
-                src="/images/logo.png" 
-                alt="Pideh Armenia Logo" 
+                src={settings.logo || "/images/logo.png"} 
+                alt={settings.siteName || "Pideh Armenia Logo"} 
                 width={60} 
                 height={18}
                 className="h-4 w-auto"

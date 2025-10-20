@@ -10,11 +10,13 @@ import { useCart } from '@/hooks/useCart'
 import { useHydration } from '@/hooks/useHydration'
 import { useInstantSearch } from '@/hooks/useInstantSearch'
 import { SearchDropdown } from '@/components/SearchDropdown'
+import { useSettings } from '@/hooks/useSettings'
 
 export default function DesktopHeader() {
   const isHydrated = useHydration()
   const { getTotalItems } = useCart()
   const { data: session, status } = useSession()
+  const { settings } = useSettings()
   const pathname = usePathname()
   const [wishlistCount, setWishlistCount] = useState(0)
   
@@ -104,8 +106,8 @@ export default function DesktopHeader() {
           {/* Logo */}
           <Link href="/" className="hover:opacity-80 transition-opacity">
             <Image 
-              src="/images/logo.png" 
-              alt="Pideh Armenia Logo" 
+              src={settings.logo || "/images/logo.png"} 
+              alt={settings.siteName || "Pideh Armenia Logo"} 
               width={180} 
               height={60}
               className="h-16 w-auto"

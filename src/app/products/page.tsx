@@ -7,6 +7,7 @@ import { useCart } from '@/hooks/useCart'
 import { Product, Category } from '@/types'
 import Footer from '@/components/Footer'
 import ProductCard from '@/components/ProductCard'
+import TwinklingStars from '@/components/TwinklingStars'
 
 function ProductsPageContent() {
   const searchParams = useSearchParams()
@@ -251,7 +252,10 @@ function ProductsPageContent() {
   }
 
   return (
-    <div className="min-h-screen overflow-x-hidden" style={{ backgroundColor: '#002c45' }}>
+    <div className="min-h-screen overflow-x-hidden relative" style={{ backgroundColor: '#002c45' }}>
+      {/* Twinkling Stars */}
+      <TwinklingStars count={60} imageStarRatio={0.3} />
+      
       {/* Отступ для fixed хедера */}
       <div className="lg:hidden h-16"></div>
       <div className="hidden lg:block h-24"></div>

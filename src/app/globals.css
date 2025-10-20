@@ -118,3 +118,32 @@ input[type="number"]::placeholder,
 textarea::placeholder {
   color: #9ca3af !important; /* text-gray-400 */
 }
+
+/* Twinkling stars animation */
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.twinkle {
+  animation: twinkle 2s ease-in-out infinite;
+}
+
+/* Star image mask to ensure transparent background around star shape */
+.star-mask {
+  background-color: #ffffff; /* star color (matches small white dots) */
+  -webkit-mask-image: url('/images/star.png');
+  mask-image: url('/images/star.png');
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}

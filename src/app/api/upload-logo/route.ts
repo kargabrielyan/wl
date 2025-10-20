@@ -49,11 +49,12 @@ export async function POST(request: NextRequest) {
     const buffer = Buffer.from(bytes)
     await writeFile(logoPath, buffer)
 
-    // Возвращаем успешный ответ
+    // Возвращаем успешный ответ с timestamp для обхода кэша
+    const timestamp = Date.now()
     return NextResponse.json({ 
       success: true,
       message: 'Logo updated successfully',
-      url: '/logo.png'
+      url: `/logo.png?v=${timestamp}`
     })
   } catch (error) {
     console.error('Logo upload error:', error)

@@ -7,6 +7,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Heart, ShoppingCart, Trash2, ArrowLeft } from 'lucide-react'
 import { Product } from '@/types'
+import TwinklingStars from '@/components/TwinklingStars'
 
 interface WishlistItem {
   id: string
@@ -30,7 +31,8 @@ export default function WishlistPage() {
 
 function WishlistLoading() {
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#002c45' }}>
+    <div className="min-h-screen relative" style={{ backgroundColor: '#002c45' }}>
+      <TwinklingStars count={30} imageStarRatio={0.2} />
       <div className="container mx-auto px-4 py-8">
         <div className="animate-pulse">
           <div className="h-8 bg-gray-200 rounded w-48 mb-6"></div>
@@ -138,7 +140,8 @@ function WishlistContent() {
   }
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#002c45' }}>
+    <div className="min-h-screen relative" style={{ backgroundColor: '#002c45' }}>
+      <TwinklingStars count={30} imageStarRatio={0.2} />
       <div className="container mx-auto px-4 py-8">
         {/* Заголовок */}
         <div className="flex items-center gap-4 mb-8">

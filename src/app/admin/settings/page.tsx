@@ -24,6 +24,7 @@ export default function AdminSettings() {
   const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null)
+  const [logoVersion, setLogoVersion] = useState(Date.now())
 
   useEffect(() => {
     if (status === 'loading') return
@@ -160,7 +161,7 @@ export default function AdminSettings() {
                 <p className="text-sm font-medium text-gray-700 mb-2">Текущий логотип:</p>
                 <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
                   <img 
-                    src="/logo.png" 
+                    src={`${settings.logo || '/logo.png'}?v=${logoVersion}`}
                     alt="Current Logo" 
                     className="h-16 w-auto"
                     onError={(e) => {
@@ -171,10 +172,29 @@ export default function AdminSettings() {
               </div>
 
               <ImageUpload
-                currentImage="/logo.png"
-                onImageChange={(url) => {
-                  // Обновляем логотип через специальный API
-                  updateLogo()
+                currentImage={`${settings.logo || '/logo.png'}`}
+                onImageChange={async (url) => {
+                  console.log('Logo uploaded, URL:', url)
+                  try {
+                    // сохраняем новое значение логотипа в настройках
+                    const response = await fetch('/api/admin/settings', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ key: 'logo', value: url })
+                    })
+                    
+                    if (!response.ok) {
+                      throw new Error(`HTTP ${response.status}`)
+                    }
+                    
+                    console.log('Logo setting saved successfully')
+                    setSettings(prev => ({ ...prev, logo: url }))
+                    setLogoVersion(Date.now()) // Обновляем версию для обхода кэша
+                    setMessage({ type: 'success', text: 'Логотип успешно обновлен!' })
+                  } catch (err) {
+                    console.error('Failed to save logo setting', err)
+                    setMessage({ type: 'error', text: 'Ошибка при сохранении логотипа' })
+                  }
                 }}
                 onImageRemove={() => {
                   // Можно добавить функцию сброса к дефолтному логотипу
