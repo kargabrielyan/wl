@@ -151,7 +151,7 @@ export default function ImageUpload({
         
         <div className="space-y-2">
           {isUploading ? (
-            <div className="w-8 h-8 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
+            <div className="w-8 h-8 border-4 border-t-transparent rounded-full animate-spin mx-auto" style={{ borderColor: '#f3d98c', borderTopColor: 'transparent' }}></div>
           ) : (
             <Upload className="w-8 h-8 text-gray-400 mx-auto" />
           )}

@@ -72,7 +72,7 @@ export default function DefaultProductPage({
     return (
       <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#002c45' }}>
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-16 h-16 border-4 border-t-transparent rounded-full animate-spin mx-auto mb-4" style={{ borderColor: '#f3d98c', borderTopColor: 'transparent' }}></div>
           <p className="text-gray-600">Загружаем товар...</p>
         </div>
       </div>

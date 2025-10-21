@@ -93,7 +93,7 @@ export default async function OptimizedProductPage({
             <nav className="flex items-center space-x-2 text-sm">
               <Link href="/" className="text-gray-500 hover:text-orange-500">Главная</Link>
               <span className="text-gray-400">/</span>
-              <Link href="/products" className="text-gray-500 hover:text-orange-500">Меню</Link>
+              <Link href="/products" className="text-gray-500 hover:text-orange-500">Կատալոգ</Link>
               <span className="text-gray-400">/</span>
               <span className="text-gray-900 font-medium">{product.name}</span>
             </nav>

@@ -37,16 +37,17 @@ export default function CartPage() {
         
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="text-center">
-            <div className="w-32 h-32 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-8">
-              <ShoppingBag className="h-16 w-16 text-orange-500" />
+            <div className="w-32 h-32 rounded-full flex items-center justify-center mx-auto mb-8" style={{ backgroundColor: '#f3d98c' }}>
+              <ShoppingBag className="h-16 w-16 text-white" />
             </div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">Զամբյուղը դատարկ է</h1>
-            <p className="text-lg text-gray-600 mb-8">
+            <h1 className="text-3xl font-bold text-white mb-4">Զամբյուղը դատարկ է</h1>
+            <p className="text-lg text-gray-300 mb-8">
               Ավելացրեք արտադրանք մեր մենյուից, որպեսզի պատվիրեք
             </p>
             <Link 
               href="/products"
-              className="inline-flex items-center bg-orange-500 text-white px-8 py-4 rounded-xl font-semibold hover:bg-orange-600 transition-colors text-lg"
+              className="inline-flex items-center text-white px-8 py-4 rounded-xl font-semibold transition-colors text-lg"
+              style={{ backgroundColor: '#f3d98c' }}
             >
               <ArrowLeft className="h-5 w-5 mr-2" />
               Գնալ մենյու
@@ -76,12 +77,15 @@ export default function CartPage() {
           <div className="flex items-center justify-between mb-4">
             <Link 
               href="/products"
-              className="flex items-center text-gray-600 hover:text-orange-500 transition-colors"
+              className="flex items-center text-gray-300 transition-colors"
+              style={{ '--hover-color': '#f3d98c' } as React.CSSProperties}
+              onMouseEnter={(e) => e.currentTarget.style.color = '#f3d98c'}
+              onMouseLeave={(e) => e.currentTarget.style.color = '#f3d98c'}
             >
               <ArrowLeft className="h-6 w-6 mr-2" />
               <span className="text-lg font-medium">մենյու</span>
             </Link>
-            <h1 className="text-2xl font-bold text-gray-900">զամբյուղ</h1>
+            <h1 className="text-2xl font-bold text-white">զամբյուղ</h1>
             <button
               onClick={handleClearCart}
               disabled={isClearing}
@@ -97,13 +101,16 @@ export default function CartPage() {
           <div className="flex items-center space-x-4">
             <Link 
               href="/products"
-              className="flex items-center text-gray-600 hover:text-orange-500 transition-colors"
+              className="flex items-center text-gray-300 transition-colors"
+              style={{ '--hover-color': '#f3d98c' } as React.CSSProperties}
+              onMouseEnter={(e) => e.currentTarget.style.color = '#f3d98c'}
+              onMouseLeave={(e) => e.currentTarget.style.color = '#f3d98c'}
             >
               <ArrowLeft className="h-5 w-5 mr-2" />
               Վերադառնալ մենյու
             </Link>
-            <div className="h-8 w-px bg-gray-300"></div>
-            <h1 className="text-3xl font-bold text-gray-900">Զամբյուղ</h1>
+            <div className="h-8 w-px bg-gray-400"></div>
+            <h1 className="text-3xl font-bold text-white">Զամբյուղ</h1>
           </div>
           
           <button
@@ -120,7 +127,7 @@ export default function CartPage() {
         <div className="lg:hidden">
           {/* Mobile Cart Items */}
           <div className="mb-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 px-2">
+            <h2 className="text-lg font-semibold text-white mb-4 px-2">
               Արտադրանք զամբյուղում ({items.length})
             </h2>
             
@@ -129,7 +136,7 @@ export default function CartPage() {
                 <div key={item.product.id} className="bg-white rounded-2xl shadow-lg p-4">
                   <div className="flex items-start space-x-4">
                     {/* Product Image */}
-                    <div className="w-16 h-16 bg-orange-50 rounded-xl flex items-center justify-center overflow-hidden flex-shrink-0">
+                    <div className="w-16 h-16 rounded-xl flex items-center justify-center overflow-hidden flex-shrink-0" style={{ backgroundColor: '#f3d98c' }}>
                       {item.product.image && item.product.image !== 'no-image' ? (
                         <img 
                           src={item.product.image} 
@@ -160,7 +167,7 @@ export default function CartPage() {
                       <p className="text-sm text-gray-600 mb-2">
                         {item.product.category?.name || 'Առանց կատեգորիայի'}
                       </p>
-                      <div className="text-lg font-bold text-orange-500 mb-3">
+                      <div className="text-lg font-bold mb-3" style={{ color: '#f3d98c' }}>
                         {item.product.price} ֏
                       </div>
                       
@@ -213,7 +220,7 @@ export default function CartPage() {
           <div className="lg:col-span-2">
             <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
               <div className="p-6 border-b border-gray-300">
-                <h2 className="text-xl font-semibold text-gray-900">
+                <h2 className="text-xl font-semibold text-white">
                   Արտադրանք զամբյուղում ({items.length})
                 </h2>
               </div>
@@ -223,7 +230,7 @@ export default function CartPage() {
                   <div key={item.product.id} className="p-6">
                     <div className="flex items-center space-x-4">
                       {/* Product Image */}
-                      <div className="w-20 h-20 bg-orange-50 rounded-xl flex items-center justify-center overflow-hidden flex-shrink-0">
+                      <div className="w-20 h-20 rounded-xl flex items-center justify-center overflow-hidden flex-shrink-0" style={{ backgroundColor: '#f3d98c' }}>
                         {item.product.image && item.product.image !== 'no-image' ? (
                           <img 
                             src={item.product.image} 
@@ -254,7 +261,7 @@ export default function CartPage() {
                         <p className="text-sm text-gray-600 mb-2">
                           {item.product.category?.name || 'Առանց կատեգորիայի'}
                         </p>
-                        <div className="text-xl font-bold text-orange-500">
+                        <div className="text-xl font-bold" style={{ color: '#f3d98c' }}>
                           {item.product.salePrice ? (
                             <div className="flex flex-col">
                               <div className="flex items-center gap-2">
@@ -317,7 +324,7 @@ export default function CartPage() {
           {/* Order Summary */}
           <div className="lg:col-span-1">
             <div className="bg-white rounded-2xl shadow-lg p-6 sticky top-8">
-              <h2 className="text-xl font-semibold text-gray-900 mb-6">Ընդամենը</h2>
+              <h2 className="text-xl font-semibold text-white mb-6">Ընդամենը</h2>
               
               <div className="space-y-4 mb-6">
                 <div className="flex justify-between text-gray-600">
@@ -338,7 +345,8 @@ export default function CartPage() {
               
               <Link
                 href="/checkout"
-                className="w-full bg-orange-500 text-white py-4 rounded-xl font-semibold hover:bg-orange-600 transition-colors text-center block text-lg"
+                className="w-full text-white py-4 rounded-xl font-semibold transition-colors text-center block text-lg"
+                style={{ backgroundColor: '#f3d98c' }}
               >
                 Պատվիրել
               </Link>
@@ -346,7 +354,10 @@ export default function CartPage() {
               <div className="mt-4 text-center">
                 <Link 
                   href="/products"
-                  className="text-gray-600 hover:text-orange-500 transition-colors text-sm"
+                  className="text-gray-300 transition-colors text-sm"
+                  style={{ '--hover-color': '#f3d98c' } as React.CSSProperties}
+                  onMouseEnter={(e) => e.currentTarget.style.color = '#f3d98c'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = '#f3d98c'}
                 >
                   Շարունակել գնումները
                 </Link>
@@ -358,7 +369,7 @@ export default function CartPage() {
         {/* Mobile Order Summary */}
         <div className="lg:hidden">
           <div className="bg-white rounded-2xl shadow-lg p-6 mb-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Ընդամենը</h2>
+            <h2 className="text-lg font-semibold text-white mb-4">Ընդամենը</h2>
             
             <div className="space-y-3 mb-6">
               <div className="flex justify-between text-gray-600">
@@ -379,7 +390,8 @@ export default function CartPage() {
             
             <Link
               href="/checkout"
-              className="w-full bg-orange-500 text-white py-4 rounded-xl font-semibold hover:bg-orange-600 transition-colors text-center block text-lg"
+              className="w-full text-white py-4 rounded-xl font-semibold transition-colors text-center block text-lg"
+              style={{ backgroundColor: '#f3d98c' }}
             >
               Оформить заказ
             </Link>
@@ -387,9 +399,12 @@ export default function CartPage() {
             <div className="mt-4 text-center">
               <Link 
                 href="/products"
-                className="text-gray-600 hover:text-orange-500 transition-colors text-sm"
+                className="text-gray-300 transition-colors text-sm"
+                style={{ '--hover-color': '#f3d98c' } as React.CSSProperties}
+                onMouseEnter={(e) => e.currentTarget.style.color = '#f3d98c'}
+                onMouseLeave={(e) => e.currentTarget.style.color = '#f3d98c'}
               >
-                Продолжить покупки
+                Շարունակել գնումները
               </Link>
             </div>
           </div>

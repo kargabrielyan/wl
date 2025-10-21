@@ -1,9 +1,11 @@
 'use client'
 
 import { useState, useEffect, useMemo, useCallback, useRef, Suspense } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams, useRouter } from 'next/navigation'
 import { Search } from 'lucide-react'
 import { useCart } from '@/hooks/useCart'
+import { useInstantSearch } from '@/hooks/useInstantSearch'
+import { SearchDropdown } from '@/components/SearchDropdown'
 import { Product, Category } from '@/types'
 import Footer from '@/components/Footer'
 import ProductCard from '@/components/ProductCard'
@@ -11,21 +13,38 @@ import TwinklingStars from '@/components/TwinklingStars'
 
 function ProductsPageContent() {
   const searchParams = useSearchParams()
+  const router = useRouter()
   const [products, setProducts] = useState<Product[]>([])
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([])
   const [categories, setCategories] = useState<Category[]>([])
   const [selectedCategory, setSelectedCategory] = useState<string>('Բոլորը')
-  const [searchQuery, setSearchQuery] = useState('')
-  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState('')
   const [loading, setLoading] = useState(true)
-  const [searching, setSearching] = useState(false)
   const [addedToCart, setAddedToCart] = useState<Set<string>>(new Set())
   const [selectedProductId, setSelectedProductId] = useState<string | null>(null)
   const [currentPage, setCurrentPage] = useState(1)
   const [sortBy, setSortBy] = useState('name-asc')
   const { addItem } = useCart()
-  const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const selectedProductRef = useRef<HTMLDivElement>(null)
+  const searchRef = useRef<HTMLDivElement>(null)
+
+  // Instant search hook
+  const {
+    query,
+    setQuery,
+    results,
+    loading: searchLoading,
+    error: searchError,
+    isOpen,
+    setIsOpen,
+    selectedIndex,
+    setSelectedIndex,
+    handleKeyDown,
+    clearSearch
+  } = useInstantSearch({
+    debounceMs: 200,
+    minQueryLength: 2,
+    maxResults: 8
+  })
 
   // Константы пагинации
   const ITEMS_PER_PAGE = 24
@@ -88,22 +107,12 @@ function ProductsPageContent() {
       })
     }
     
-    // Фильтр по поиску
-    if (debouncedSearchQuery) {
-      const query = debouncedSearchQuery.toLowerCase()
-      filtered = filtered.filter(product =>
-        product.name.toLowerCase().includes(query) ||
-        (product.description && product.description.toLowerCase().includes(query)) ||
-        (product.ingredients && product.ingredients.toLowerCase().includes(query))
-      )
-    }
-    
     // Применяем сортировку
     filtered = sortProducts(filtered, sortBy)
     
     setFilteredProducts(filtered)
     setCurrentPage(1) // Сбрасываем на первую страницу
-  }, [products, selectedCategory, debouncedSearchQuery, categories, sortBy, sortProducts])
+  }, [products, selectedCategory, categories, sortBy, sortProducts])
 
   useEffect(() => {
     const loadData = async () => {
@@ -121,15 +130,47 @@ function ProductsPageContent() {
     const selectedParam = searchParams.get('selected')
     
     if (searchParam) {
-      setSearchQuery(searchParam)
-      setDebouncedSearchQuery(searchParam)
+      setQuery(searchParam)
       setSelectedCategory('Բոլորը')
     }
     
     if (selectedParam) {
       setSelectedProductId(selectedParam)
     }
-  }, [searchParams])
+  }, [searchParams, setQuery])
+
+  // Закрытие dropdown при клике вне его
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+        setIsOpen(false)
+      }
+    }
+
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+      return () => document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [isOpen, setIsOpen])
+
+  // Обработка клика по результату поиска
+  const handleResultClick = useCallback((result: any) => {
+    router.push(`/products/${result.id}`)
+    setIsOpen(false)
+    clearSearch()
+  }, [router, setIsOpen, clearSearch])
+
+  // Кастомный обработчик клавиатуры для Enter
+  const handleCustomKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && isOpen && selectedIndex >= 0 && selectedIndex < results.length) {
+      e.preventDefault()
+      const selectedResult = results[selectedIndex]
+      handleResultClick(selectedResult)
+    } else {
+      // Используем стандартный обработчик для других клавиш
+      handleKeyDown(e)
+    }
+  }, [isOpen, selectedIndex, results, handleResultClick, handleKeyDown])
 
   // Прокрутка к выбранному товару
   useEffect(() => {
@@ -142,28 +183,6 @@ function ProductsPageContent() {
       }, 100)
     }
   }, [selectedProductId, filteredProducts])
-
-  // Debounce search query
-  useEffect(() => {
-    if (searchTimeoutRef.current) {
-      clearTimeout(searchTimeoutRef.current)
-    }
-    
-    if (searchQuery !== debouncedSearchQuery) {
-      setSearching(true)
-    }
-    
-    searchTimeoutRef.current = setTimeout(() => {
-      setDebouncedSearchQuery(searchQuery)
-      setSearching(false)
-    }, 300)
-
-    return () => {
-      if (searchTimeoutRef.current) {
-        clearTimeout(searchTimeoutRef.current)
-      }
-    }
-  }, [searchQuery, debouncedSearchQuery])
 
   useEffect(() => {
     filterProducts()
@@ -263,9 +282,9 @@ function ProductsPageContent() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Արտադրանքի կատալոգ</h1>
+          <h1 className="text-4xl font-bold text-white mb-4 drop-shadow-lg">Արտադրանքի կատալոգ</h1>
           {paginationData.totalPages > 1 && (
-            <p className="text-gray-600">
+            <p className="text-xl font-semibold text-white drop-shadow-md">
               Էջ {currentPage} {paginationData.totalPages}-ից
             </p>
           )}
@@ -274,22 +293,39 @@ function ProductsPageContent() {
         {/* Search and Filter */}
         <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
           <div className="flex flex-col md:flex-row gap-4 mb-6">
-            <div className="flex-1 lg:w-80 relative">
+            <div className="flex-1 lg:w-80 relative" ref={searchRef}>
               <Search className={`absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 ${
-                searching ? 'text-primary-500 animate-pulse' : 'text-gray-500'
+                searchLoading ? 'text-primary-500 animate-pulse' : 'text-gray-500'
               }`} />
               <input
                 type="text"
                 placeholder="Փնտրել անվանումով, նկարագրությամբ կամ բաղադրիչներով..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                onKeyDown={handleCustomKeyDown}
+                onFocus={() => setIsOpen(true)}
                 className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-2xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-lg text-gray-900 placeholder-gray-600 bg-white transition-all duration-300 shadow-sm hover:shadow-md focus:bg-white"
+                aria-controls="search-results"
+                aria-expanded={isOpen}
+                aria-autocomplete="list"
               />
-              {searching && (
+              {searchLoading && (
                 <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
                   <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-primary-500"></div>
                 </div>
               )}
+              
+              {/* Search Dropdown */}
+              <SearchDropdown
+                results={results}
+                loading={searchLoading}
+                error={searchError}
+                isOpen={isOpen}
+                selectedIndex={selectedIndex}
+                onResultClick={handleResultClick}
+                onClose={() => setIsOpen(false)}
+                className="top-full left-0"
+              />
             </div>
           </div>
 
@@ -366,40 +402,104 @@ function ProductsPageContent() {
           ))}
         </div>
 
-        {/* Simple Pagination */}
+        {/* Enhanced Pagination */}
         {paginationData.totalPages > 1 && (
-          <div className="flex justify-center items-center gap-2 mt-8">
+          <div className="flex justify-center items-center gap-3 mt-12">
             <button
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
-              className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-300"
+              className="px-6 py-3 bg-white text-gray-700 rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 hover:shadow-md transition-all duration-200 border border-gray-200"
             >
               Նախորդ
             </button>
             
-            <div className="flex gap-1">
-              {Array.from({ length: Math.min(5, paginationData.totalPages) }, (_, i) => {
-                const page = i + 1
-                return (
-                  <button
-                    key={page}
-                    onClick={() => handlePageChange(page)}
-                    className={`px-3 py-2 rounded-lg ${
-                      currentPage === page
-                        ? 'bg-primary-500 text-white'
-                        : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                    }`}
-                  >
-                    {page}
-                  </button>
-                )
-              })}
+            <div className="flex gap-2">
+              {(() => {
+                const totalPages = paginationData.totalPages;
+                const current = currentPage;
+                const pages = [];
+                
+                // Определяем диапазон страниц для отображения
+                let startPage = Math.max(1, current - 2);
+                let endPage = Math.min(totalPages, current + 2);
+                
+                // Если мы близко к началу, показываем больше страниц справа
+                if (current <= 3) {
+                  endPage = Math.min(totalPages, 5);
+                }
+                
+                // Если мы близко к концу, показываем больше страниц слева
+                if (current >= totalPages - 2) {
+                  startPage = Math.max(1, totalPages - 4);
+                }
+                
+                // Добавляем первую страницу и многоточие если нужно
+                if (startPage > 1) {
+                  pages.push(
+                    <button
+                      key={1}
+                      onClick={() => handlePageChange(1)}
+                      className="px-4 py-3 rounded-xl font-semibold transition-all duration-200 bg-white text-gray-600 hover:bg-gray-50 hover:shadow-md border border-gray-200"
+                    >
+                      1
+                    </button>
+                  );
+                  
+                  if (startPage > 2) {
+                    pages.push(
+                      <span key="ellipsis1" className="px-2 py-3 text-gray-400">
+                        ...
+                      </span>
+                    );
+                  }
+                }
+                
+                // Добавляем страницы в диапазоне
+                for (let i = startPage; i <= endPage; i++) {
+                  pages.push(
+                    <button
+                      key={i}
+                      onClick={() => handlePageChange(i)}
+                      className={`px-4 py-3 rounded-xl font-semibold transition-all duration-200 ${
+                        currentPage === i
+                          ? 'bg-white text-gray-900 shadow-lg border-2 border-gray-300 scale-105'
+                          : 'bg-white text-gray-600 hover:bg-gray-50 hover:shadow-md border border-gray-200'
+                      }`}
+                    >
+                      {i}
+                    </button>
+                  );
+                }
+                
+                // Добавляем многоточие и последнюю страницу если нужно
+                if (endPage < totalPages) {
+                  if (endPage < totalPages - 1) {
+                    pages.push(
+                      <span key="ellipsis2" className="px-2 py-3 text-gray-400">
+                        ...
+                      </span>
+                    );
+                  }
+                  
+                  pages.push(
+                    <button
+                      key={totalPages}
+                      onClick={() => handlePageChange(totalPages)}
+                      className="px-4 py-3 rounded-xl font-semibold transition-all duration-200 bg-white text-gray-600 hover:bg-gray-50 hover:shadow-md border border-gray-200"
+                    >
+                      {totalPages}
+                    </button>
+                  );
+                }
+                
+                return pages;
+              })()}
             </div>
             
             <button
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === paginationData.totalPages}
-              className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-300"
+              className="px-6 py-3 bg-white text-gray-700 rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 hover:shadow-md transition-all duration-200 border border-gray-200"
             >
               Հաջորդ
             </button>
@@ -409,17 +509,20 @@ function ProductsPageContent() {
         {filteredProducts.length === 0 && (
           <div className="text-center py-12">
             <div className="text-6xl mb-4">🍽️</div>
-            {debouncedSearchQuery ? (
+            {query ? (
               <>
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                  "{debouncedSearchQuery}" հարցման համար ոչինչ չի գտնվել
+                  "{query}" հարցման համար ոչինչ չի գտնվել
                 </h3>
                 <p className="text-gray-600 mb-6">
                   Փնտրումը կատարվել է ամբողջ մենյուում: Փորձեք փոխել որոնման հարցումը կամ ընտրել կատեգորիա
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
                   <button
-                    onClick={() => setSearchQuery('')}
+                    onClick={() => {
+                      setQuery('')
+                      clearSearch()
+                    }}
                     className="bg-gray-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-gray-600 transition-colors"
                   >
                     Очистить поиск

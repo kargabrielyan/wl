@@ -34,18 +34,9 @@ function WishlistLoading() {
     <div className="min-h-screen relative" style={{ backgroundColor: '#002c45' }}>
       <TwinklingStars count={30} imageStarRatio={0.2} />
       <div className="container mx-auto px-4 py-8">
-        <div className="animate-pulse">
-          <div className="h-8 bg-gray-200 rounded w-48 mb-6"></div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {[...Array(8)].map((_, i) => (
-              <div key={i} className="bg-white rounded-lg p-4">
-                <div className="h-48 bg-gray-200 rounded mb-4"></div>
-                <div className="h-4 bg-gray-200 rounded mb-2"></div>
-                <div className="h-4 bg-gray-200 rounded w-3/4 mb-4"></div>
-                <div className="h-8 bg-gray-200 rounded"></div>
-              </div>
-            ))}
-          </div>
+        <div className="text-center py-16">
+          <div className="w-16 h-16 border-4 border-t-transparent rounded-full animate-spin mx-auto mb-4" style={{ borderColor: '#f3d98c', borderTopColor: 'transparent' }}></div>
+          <p className="text-white text-lg">Բեռնվում է...</p>
         </div>
       </div>
     </div>
@@ -78,7 +69,8 @@ function WishlistContent() {
         const data = await response.json()
         setWishlistItems(data.data || [])
       } else {
-        console.error('Failed to fetch wishlist')
+        const errorData = await response.json()
+        console.error('Failed to fetch wishlist:', errorData.error)
       }
     } catch (error) {
       console.error('Error fetching wishlist:', error)
@@ -147,13 +139,13 @@ function WishlistContent() {
         <div className="flex items-center gap-4 mb-8">
           <button
             onClick={() => router.back()}
-            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+            className="p-2 hover:bg-gray-700 rounded-full transition-colors"
           >
-            <ArrowLeft className="w-5 h-5" />
+            <ArrowLeft className="w-5 h-5 text-white" />
           </button>
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Նախընտրած</h1>
-            <p className="text-gray-600 mt-1">
+            <h1 className="text-3xl font-bold text-white">Նախընտրած</h1>
+            <p className="text-gray-300 mt-1">
               {wishlistItems.length} {wishlistItems.length === 1 ? 'արտադրանք' : 'արտադրանք'} նախընտրածում
             </p>
           </div>
@@ -163,15 +155,16 @@ function WishlistContent() {
         {wishlistItems.length === 0 ? (
           <div className="text-center py-16">
             <Heart className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <h2 className="text-xl font-semibold text-gray-900 mb-2">
+            <h2 className="text-xl font-semibold text-white mb-2">
               Ձեր նախընտրած ցանկը դատարկ է
             </h2>
-            <p className="text-gray-600 mb-6">
+            <p className="text-gray-300 mb-6">
               Ավելացրեք արտադրանք նախընտրածում, որպեսզի չկորցնեք դրանք
             </p>
             <Link
               href="/products"
-              className="inline-flex items-center px-6 py-3 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors"
+              className="inline-flex items-center px-6 py-3 text-gray-900 rounded-lg transition-colors"
+              style={{ backgroundColor: '#f3d98c' }}
             >
               Գնալ արտադրանքին
             </Link>
@@ -179,9 +172,9 @@ function WishlistContent() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {wishlistItems.map((item) => (
-              <div key={item.id} className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden group hover:shadow-md transition-shadow duration-200">
+              <div key={item.id} className="bg-white/10 backdrop-blur-lg rounded-lg shadow-sm border border-white/20 overflow-hidden group hover:shadow-md transition-shadow duration-200">
                 {/* Изображение */}
-                <div className="relative h-64 bg-gray-50">
+                <div className="relative h-64 bg-white/10">
                   <Link href={`/products/${item.product.id}`}>
                     {item.product.image && item.product.image !== 'no-image' ? (
                       <Image
@@ -194,7 +187,7 @@ function WishlistContent() {
                         quality={85}
                       />
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center bg-gray-100 text-6xl">
+                      <div className="w-full h-full flex items-center justify-center bg-white/20 text-6xl">
                         🥟
                       </div>
                     )}
@@ -204,13 +197,13 @@ function WishlistContent() {
                   <button
                     onClick={() => removeFromWishlist(item.product.id)}
                     disabled={isRemoving === item.product.id}
-                    className="absolute top-2 right-2 w-8 h-8 bg-white rounded-full shadow-sm flex items-center justify-center hover:bg-gray-50 transition-colors disabled:opacity-50"
+                    className="absolute top-2 right-2 w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full shadow-sm flex items-center justify-center hover:bg-white/30 transition-colors disabled:opacity-50"
                     title="Удалить из избранного"
                   >
                     {isRemoving === item.product.id ? (
                       <div className="w-4 h-4 animate-spin border-2 border-gray-300 border-t-gray-600 rounded-full" />
                     ) : (
-                      <Trash2 className="w-4 h-4 text-gray-600" />
+                      <Trash2 className="w-4 h-4 text-white" />
                     )}
                   </button>
 
@@ -222,7 +215,9 @@ function WishlistContent() {
                       </span>
                     )}
                     {item.product.status === 'HIT' && (
-                      <span className="bg-orange-500 text-white px-2 py-1 rounded text-xs font-bold">
+                      <span className="text-white px-2 py-1 rounded text-xs font-bold"
+                        style={{ backgroundColor: '#f3d98c' }}
+                      >
                         ХИТ
                       </span>
                     )}
@@ -238,13 +233,13 @@ function WishlistContent() {
                 <div className="p-4">
                   {/* Название */}
                   <Link href={`/products/${item.product.id}`}>
-                    <h3 className="font-semibold text-gray-900 line-clamp-2 hover:text-primary-600 transition-colors mb-2">
+                    <h3 className="font-semibold text-white line-clamp-2 hover:text-yellow-200 transition-colors mb-2">
                       {item.product.name}
                     </h3>
                   </Link>
 
                   {/* Категория */}
-                  <p className="text-sm text-gray-500 mb-2">
+                  <p className="text-sm text-gray-300 mb-2">
                     {item.product.category.name}
                   </p>
 
@@ -255,12 +250,12 @@ function WishlistContent() {
                         <span className="text-lg font-bold text-red-600">
                           {item.product.salePrice} ֏
                         </span>
-                        <span className="text-sm text-gray-500 line-through">
+                        <span className="text-sm text-gray-400 line-through">
                           {item.product.price} ֏
                         </span>
                       </>
                     ) : (
-                      <span className="text-lg font-bold text-gray-900">
+                      <span className="text-lg font-bold text-white">
                         {item.product.price} ֏
                       </span>
                     )}
@@ -272,9 +267,10 @@ function WishlistContent() {
                     disabled={!item.product.stock || item.product.stock <= 0}
                     className={`w-full h-10 rounded-md font-medium text-sm flex items-center justify-center transition-all duration-200 ${
                       item.product.stock && item.product.stock > 0
-                        ? 'bg-primary-500 text-white hover:bg-primary-600'
+                        ? 'text-gray-900 hover:opacity-90'
                         : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                     }`}
+                    style={item.product.stock && item.product.stock > 0 ? { backgroundColor: '#f3d98c' } : {}}
                   >
                     <ShoppingCart className="w-4 h-4 mr-2" />
                     {item.product.stock && item.product.stock > 0 ? 'Զամբյուղում' : 'Չկա պահեստում'}

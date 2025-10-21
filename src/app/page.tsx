@@ -341,7 +341,7 @@ export default function Home() {
               {/* Badge */}
               <div className="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium">
                 <span className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
-                Անվտանգ խաղալիքներ ամեն օր
+                Բարձր որակի ապրանքներ
               </div>
               
               {/* Main heading */}
@@ -356,24 +356,9 @@ export default function Home() {
               {/* Description */}
               <p className="text-lg md:text-xl text-primary-100 leading-relaxed max-w-lg">
                 Լավագույն խաղալիքներ, հագուստ և գրքեր ձեր երեխաների համար: 
-                <span className="font-semibold text-white"> 1000+ արտադրանք</span> զարգացման և ուրախության համար!
+                <span className="font-semibold text-white"> 1000+ արտադրանք</span>  ուրախության համար!
               </p>
               
-              {/* Stats */}
-              <div className="flex flex-wrap gap-6">
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-white">1000+</div>
-                  <div className="text-sm text-primary-100">Արտադրանք</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-white">0-14</div>
-                  <div className="text-sm text-primary-100">Տարի</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-white">24/7</div>
-                  <div className="text-sm text-primary-100">Առաքում</div>
-                </div>
-              </div>
               
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-3">
@@ -532,7 +517,7 @@ export default function Home() {
                 </svg>
               </div>
               <h3 className="text-xl font-bold text-white mb-3 text-center">Անվտանգություն</h3>
-              <p className="text-gray-200 text-center mb-4">Բոլոր արտադրանքը հավաստագրված է</p>
+              <p className="text-gray-200 text-center mb-4">Բոլոր ապրանքները հավաստագրված են</p>
               <div className="text-center">
                 <span className="inline-block bg-green-500/20 text-green-300 px-3 py-1 rounded-full text-sm font-semibold border border-green-400/30">
                   🛡️ Անվտանգ
@@ -576,7 +561,7 @@ export default function Home() {
                 <Phone className="h-8 w-8 text-white" />
               </div>
               <h3 className="text-xl font-bold text-white mb-3 text-center">Աջակցություն</h3>
-              <p className="text-gray-200 text-center mb-4">+374 XX XXX XXX</p>
+              <p className="text-gray-200 text-center mb-4">+374 77 79 29 29<br/>+374 44 79 29 29</p>
             <div className="text-center">
                 <span className="inline-block bg-pink-500/20 text-pink-300 px-3 py-1 rounded-full text-sm font-semibold border border-pink-400/30">
                   💬 24/7
@@ -594,7 +579,7 @@ export default function Home() {
           {/* Section header */}
           <div className="text-center mb-12 lg:mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
-              Մեր հաջողությունները
+              Մեր Առավելությունները
             </h2>
             <p className="text-lg text-gray-200 max-w-2xl mx-auto">
               Տարիների փորձը և հազարավոր գոհ հաճախորդները մեր հպարտությունն են

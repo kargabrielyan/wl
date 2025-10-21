@@ -118,3 +118,5 @@ echo -e "${YELLOW}📝 Для перезапуска: ssh root@$SERVER_IP 'cd /v
 
 
 
+
+

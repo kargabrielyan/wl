@@ -64,7 +64,7 @@ export default function MobileBottomNav() {
   // Ссылки для меню
   const menuLinks = [
     { href: '/', label: 'Գլխավոր' },
-    { href: '/products', label: 'Մենյու' },
+    { href: '/products', label: 'Կատալոգ' },
     { href: '/about', label: 'Մեր մասին' },
     { href: '/contact', label: 'Կապ' },
   ]
@@ -72,13 +72,13 @@ export default function MobileBottomNav() {
   // Навигационные элементы в зависимости от состояния авторизации
   const navItems = session ? [
     { href: '/', label: 'Գլխավոր', icon: Home },
-    { href: '/products', label: 'Մենյու', icon: Menu, isMenu: true },
+    { href: '/products', label: 'Կատալոգ', icon: Menu, isMenu: true },
     { href: '/wishlist', label: 'Նախընտրած', icon: Heart, showBadge: true, badgeCount: wishlistCount },
     { href: '/cart', label: 'Զամբյուղ', icon: ShoppingCart, showBadge: true },
     { href: '/profile', label: 'Պրոֆիլ', icon: User },
   ] : [
     { href: '/', label: 'Գլխավոր', icon: Home },
-    { href: '/products', label: 'Մենյու', icon: Menu, isMenu: true },
+    { href: '/products', label: 'Կատալոգ', icon: Menu, isMenu: true },
     { href: '/cart', label: 'Զամբյուղ', icon: ShoppingCart, showBadge: true },
     { href: '/login', label: 'Մուտք', icon: LogIn },
   ]

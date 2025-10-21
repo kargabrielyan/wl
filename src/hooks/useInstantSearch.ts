@@ -172,9 +172,9 @@ export function useInstantSearch({
         e.preventDefault()
         if (selectedIndex >= 0 && selectedIndex < results.length) {
           const selectedResult = results[selectedIndex]
-          // Переходим на страницу конкретного товара
-          window.location.href = `/products/${selectedResult.id}`
+          // Возвращаем результат для обработки в компоненте
           setIsOpen(false)
+          // Компонент должен обработать переход
         }
         break
       case 'Escape':
@@ -183,7 +183,7 @@ export function useInstantSearch({
         setSelectedIndex(-1)
         break
     }
-  }, [isOpen, results, selectedIndex])
+  }, [isOpen, results, selectedIndex, setIsOpen])
 
   // Очистка поиска
   const clearSearch = useCallback(() => {

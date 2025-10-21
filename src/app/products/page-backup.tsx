@@ -343,7 +343,7 @@ function ProductsPageContent() {
                   По запросу "{debouncedSearchQuery}" ничего не найдено
                 </h3>
                 <p className="text-gray-600 mb-6">
-                  Поиск выполнен по всему меню. Попробуйте изменить поисковый запрос или выбрать категорию
+                  Поиск выполнен по всему каталогу. Попробуйте изменить поисковый запрос или выбрать категорию
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
                   <button
