@@ -23,7 +23,7 @@ const nextConfig: NextConfig = {
   },
   // Экспериментальные функции для производительности
   experimental: {
-    optimizePackageImports: ['lucide-react'],
+    // optimizePackageImports: ['lucide-react'], // Временно отключаем
   },
   // Внешние пакеты для серверных компонентов
   serverExternalPackages: [],

@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { ShoppingCart, Star, Heart, Eye } from 'lucide-react'
 import { Product } from '@/types'
 import { WishlistButton } from './WishlistButton'
+import { isValidImagePath, getFallbackImage } from '@/utils/imageUtils'
 
 interface ProductCardProps {
   product: Product
@@ -26,9 +27,10 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
       {/* Контейнер изображения */}
       <div className={`relative bg-gray-100 ${isCompact ? 'h-48' : 'h-64'}`}>
         {/* Изображение товара */}
-        {product.image && product.image !== 'no-image' ? (
-          <Image 
-            src={product.image} 
+        {isValidImagePath(product.image) ? (
+          <>
+            <Image 
+            src={product.image!} 
             alt={product.name}
             fill
             sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 20vw"
@@ -38,7 +40,7 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
             placeholder="blur"
             blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
             onError={(e) => {
-              console.error('Ошибка загрузки изображения:', product.image);
+              // Тихо обрабатываем ошибку загрузки изображения
               e.currentTarget.style.display = 'none';
               const nextElement = e.currentTarget.nextElementSibling as HTMLElement;
               if (nextElement) {
@@ -46,9 +48,28 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
               }
             }}
           />
+            {/* Fallback изображение (скрыто по умолчанию) */}
+            <div className="w-full h-full flex items-center justify-center bg-gray-200" style={{ display: 'none' }}>
+              <Image 
+                src={getFallbackImage()} 
+                alt="No image available"
+                width={80}
+                height={80}
+                className="opacity-50"
+                priority={false}
+              />
+            </div>
+          </>
         ) : (
-          <div className="w-full h-full flex items-center justify-center bg-gray-200 text-6xl">
-            🥟
+          <div className="w-full h-full flex items-center justify-center bg-gray-200">
+            <Image 
+              src={getFallbackImage()} 
+              alt="No image available"
+              width={80}
+              height={80}
+              className="opacity-50"
+              priority={false}
+            />
           </div>
         )}
 

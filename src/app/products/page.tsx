@@ -101,7 +101,7 @@ function ProductsPageContent() {
   const filterProducts = useCallback(() => {
     let filtered = products
     
-    // Фильтр по категории
+    // Фильтр по категории - показываем все товары если выбрана "Բոլորը"
     if (selectedCategory !== 'Բոլորը' && selectedCategoryId) {
       filtered = filtered.filter(product => product.categoryId === selectedCategoryId)
     }
