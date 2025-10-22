@@ -19,3 +19,4 @@ echo Порт: 5432
 echo.
 echo Для остановки: docker stop postgres-local
 echo Для удаления: docker rm postgres-local
+

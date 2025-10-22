@@ -8,3 +8,4 @@ REM Удалить контейнер
 docker rm postgres-local
 
 echo PostgreSQL остановлен и удален.
+
