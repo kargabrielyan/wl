@@ -22,14 +22,13 @@
 
 ---
 
-## 🚀 БЫСТРЫЙ СТАРТ
+## 🚀 БЫСТРЫЙ СТАРТ (ЛОКАЛЬНЫЙ ЗАПУСК)
 
 ### Требования:
 
 - Node.js 18.20.0+
-- PostgreSQL 16+
-- Redis 7+
-- Docker 24+ (для production)
+- PostgreSQL 16+ (локально установленный)
+- npm или yarn
 
 ### Установка и запуск:
 
@@ -42,27 +41,39 @@ cd shop-classic
 npm install
 
 # 3. Создать .env из шаблона
-cp Documentation/env.example.txt .env
+cp env.example .env
 
-# 4. Настроить .env (DATABASE_URL, REDIS_URL, и т.д.)
+# 4. Настроить .env (DATABASE_URL для локального PostgreSQL)
 nano .env
 
-# 5. Применить миграции БД
-npx prisma migrate deploy
+# 5. Запустить PostgreSQL (выберите один вариант):
 
-# 6. Сгенерировать Prisma client
-npx prisma generate
+# Вариант A: Docker (рекомендуется)
+# Windows: запустить start-postgres.bat
+# Linux/macOS: docker run --name postgres-local -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=detskiy_mir -p 5432:5432 -d postgres:16
 
-# 7. Заполнить тестовыми данными
+# Вариант B: Локальная установка PostgreSQL
+# Windows: запустить PostgreSQL service
+# macOS: brew services start postgresql
+# Linux: sudo systemctl start postgresql
+# Затем: createdb detskiy_mir
+
+# 6. Применить миграции БД
+npm run db:migrate
+
+# 7. Сгенерировать Prisma client
+npm run db:generate
+
+# 8. Заполнить тестовыми данными
 npm run db:seed
 
-# 8. Запустить в dev режиме
+# 9. Запустить в dev режиме
 npm run dev
 
-# 9. Открыть в браузере
+# 10. Открыть в браузере
 # Витрина: http://localhost:3000
-# API: http://localhost:3001/api
 # Админка: http://localhost:3000/admin
+# Prisma Studio: npm run db:studio
 ```
 
 ---
@@ -71,33 +82,24 @@ npm run dev
 
 **Frontend:**
 - Next.js 15 (App Router, SSR/ISR)
-- React 18
+- React 19
 - TypeScript 5
 - Tailwind CSS 3
 - React Hook Form + Zod
 
 **Backend:**
-- NestJS 10
+- Next.js API Routes
 - TypeScript 5
 - Prisma ORM
-- class-validator
-- BullMQ (очереди)
+- NextAuth.js
 
-**Database & Cache:**
-- PostgreSQL 16
-- Redis 7
+**Database:**
+- PostgreSQL 16 (локальная установка)
 
-**Search:**
-- Meilisearch 1.6
-
-**Infrastructure:**
-- Docker & Docker Compose
-- Nginx
-- GitHub Actions (CI/CD)
-
-**Payments:**
-- Idram
-- ArCa
+**Development:**
+- ESLint + Prettier
+- Prisma Studio
+- TypeScript strict mode
 
 ---
 
@@ -105,34 +107,36 @@ npm run dev
 
 ```
 shop-classic/
-├── apps/
-│   ├── web/          # Next.js витрина
-│   └── api/          # NestJS backend
+├── src/
+│   ├── app/              # Next.js App Router
+│   │   ├── api/          # API routes
+│   │   ├── admin/         # Админ-панель
+│   │   ├── products/     # Страницы товаров
+│   │   └── ...
+│   ├── components/       # React компоненты
+│   ├── lib/              # Утилиты и конфигурация
+│   └── types/            # TypeScript типы
 │
-├── packages/
-│   ├── domain/       # Бизнес-логика
-│   ├── ui/           # UI компоненты
-│   ├── design-tokens/# Дизайн-система
-│   └── adapters/     # Интеграции
-│
-├── config/           # Конфиги клиента
-│   ├── brand.json
-│   ├── contact.json
-│   └── shipping.json
-│
-├── prisma/           # БД схема
+├── prisma/               # БД схема и миграции
 │   ├── schema.prisma
 │   └── migrations/
 │
-├── Documentation/    # Документация (ЧИТАЙ!)
-│   ├── RULES.md      # 🔥 ГЛАВНЫЙ файл
+├── public/               # Статические файлы
+│   ├── images/
+│   └── logo.png
+│
+├── scripts/              # Скрипты для администрирования
+│   └── seed.ts
+│
+├── Documentation/        # Документация (ЧИТАЙ!)
+│   ├── RULES.md          # 🔥 ГЛАВНЫЙ файл
 │   ├── ENVIRONMENT.md
 │   ├── ARCHITECTURE.md
 │   └── ...
 │
-└── scripts/          # Скрипты
-    ├── setup-new-client.sh
-    └── deploy.sh
+├── env.example           # Пример переменных окружения
+├── package.json          # Зависимости и скрипты
+└── README.md             # Этот файл
 ```
 
 ---
@@ -163,32 +167,29 @@ shop-classic/
 ### Development:
 
 ```bash
-npm run dev          # Запустить все приложения (web + api)
-npm run dev:web      # Только витрина
-npm run dev:api      # Только API
+npm run dev          # Запустить приложение в dev режиме
 npm run build        # Собрать production build
-npm test             # Запустить тесты
+npm run start        # Запустить production build
 npm run lint         # Проверить код
-npm run format       # Форматировать код
 ```
 
 ### Database:
 
 ```bash
-npx prisma migrate dev              # Создать миграцию (dev)
-npx prisma migrate deploy           # Применить миграции (prod)
-npx prisma generate                 # Сгенерировать Prisma client
-npx prisma studio                   # Открыть GUI для БД
-npm run db:seed                     # Заполнить тестовыми данными
+npm run db:migrate   # Создать и применить миграцию (dev)
+npm run db:generate  # Сгенерировать Prisma client
+npm run db:studio    # Открыть GUI для БД
+npm run db:seed      # Заполнить тестовыми данными
+npm run db:reset     # Сбросить БД и заполнить заново
+npm run db:push      # Применить изменения схемы без миграции
 ```
 
-### Docker:
+### Утилиты:
 
 ```bash
-docker compose up -d                # Запустить все сервисы
-docker compose down                 # Остановить все
-docker compose logs -f              # Логи всех сервисов
-docker compose ps                   # Статус контейнеров
+npm run parse        # Парсинг данных с buy.am
+npm run import       # Импорт данных из файла
+npm run auto-import  # Автоматический импорт
 ```
 
 ---

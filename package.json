@@ -9,6 +9,10 @@
     "lint": "eslint",
     "db:seed": "tsx scripts/seed.ts",
     "db:reset": "prisma migrate reset --force && npm run db:seed",
+    "db:migrate": "prisma migrate dev",
+    "db:generate": "prisma generate",
+    "db:studio": "prisma studio",
+    "db:push": "prisma db push",
     "parse": "tsx scripts/parse-buy-am.ts",
     "import": "tsx scripts/import-from-file.ts",
     "auto-import": "tsx scripts/auto-import.ts"
