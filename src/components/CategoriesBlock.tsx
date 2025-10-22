@@ -48,18 +48,18 @@ export default function CategoriesBlock({
 
   if (loading) {
     return (
-      <section className="py-12" style={{ backgroundColor: '#002c45' }}>
+      <section className="py-12" style={{ backgroundColor: '#ffffff' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-white mb-4">{title}</h2>
-            <p className="text-gray-200">{subtitle}</p>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">{title}</h2>
+            <p className="text-gray-600">{subtitle}</p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
             {[...Array(limit)].map((_, i) => (
-              <div key={i} className="bg-white/10 backdrop-blur-lg rounded-xl p-4 animate-pulse">
-                <div className="w-full h-24 bg-white/20 rounded-lg mb-3"></div>
-                <div className="h-4 bg-white/20 rounded mb-2"></div>
-                <div className="h-3 bg-white/20 rounded w-3/4"></div>
+              <div key={i} className="bg-gray-50 rounded-xl p-4 animate-pulse">
+                <div className="w-full h-24 bg-gray-200 rounded-lg mb-3"></div>
+                <div className="h-4 bg-gray-200 rounded mb-2"></div>
+                <div className="h-3 bg-gray-200 rounded w-3/4"></div>
               </div>
             ))}
           </div>
@@ -73,12 +73,12 @@ export default function CategoriesBlock({
   }
 
   return (
-    <section className="py-12" style={{ backgroundColor: '#002c45' }}>
+    <section className="py-12" style={{ backgroundColor: '#ffffff' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Заголовок секции */}
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-white mb-4">{title}</h2>
-          <p className="text-gray-200">{subtitle}</p>
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">{title}</h2>
+          <p className="text-gray-600">{subtitle}</p>
         </div>
 
         {/* Сетка категорий */}
@@ -87,7 +87,7 @@ export default function CategoriesBlock({
             <Link
               key={category.id}
               href={`/products?category=${encodeURIComponent(category.name)}`}
-              className="group bg-white/10 backdrop-blur-lg rounded-xl p-4 hover:bg-white/20 transition-all duration-300 hover:scale-105 hover:shadow-xl border border-white/20 hover:border-white/30"
+              className="group bg-gray-50 rounded-xl p-4 hover:bg-gray-100 transition-all duration-300 hover:scale-105 hover:shadow-xl border border-gray-200 hover:border-gray-300"
             >
               {/* Изображение категории */}
               <div className="relative w-full h-24 mb-3 rounded-lg overflow-hidden">
@@ -107,7 +107,7 @@ export default function CategoriesBlock({
                   />
                 ) : null}
                 <div 
-                  className="w-full h-full flex items-center justify-center text-4xl bg-white/20"
+                  className="w-full h-full flex items-center justify-center text-4xl bg-gray-200"
                   style={{ display: category.image ? 'none' : 'flex' }}
                 >
                   🎯
@@ -115,13 +115,13 @@ export default function CategoriesBlock({
               </div>
 
               {/* Название категории */}
-              <h3 className="text-white font-semibold text-sm text-center group-hover:text-yellow-200 transition-colors duration-300 line-clamp-2">
+              <h3 className="text-gray-900 font-semibold text-sm text-center group-hover:text-primary-600 transition-colors duration-300 line-clamp-2">
                 {category.name}
               </h3>
 
               {/* Описание (если есть) */}
               {category.description && (
-                <p className="text-gray-300 text-xs text-center mt-1 line-clamp-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <p className="text-gray-600 text-xs text-center mt-1 line-clamp-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   {category.description}
                 </p>
               )}
@@ -133,7 +133,7 @@ export default function CategoriesBlock({
         <div className="text-center mt-8">
           <Link
             href="/products"
-            className="inline-flex items-center px-6 py-3 bg-white/20 backdrop-blur-lg text-white font-semibold rounded-xl hover:bg-white/30 transition-all duration-300 hover:scale-105 border border-white/30"
+            className="inline-flex items-center px-6 py-3 bg-primary-500 text-white font-semibold rounded-xl hover:bg-primary-600 transition-all duration-300 hover:scale-105 border border-primary-500"
           >
             Դիտել բոլոր կատեգորիաները
             <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

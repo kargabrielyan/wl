@@ -114,7 +114,8 @@ export default function DefaultProductPage({
       </div>
       
       {/* Отступ для fixed хедера */}
-      <div className="lg:hidden h-16"></div>
+      <div className="lg:hidden h-20"></div>
+      <div className="hidden lg:block h-28"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Breadcrumb */}

@@ -102,15 +102,15 @@ export default function DesktopHeader() {
   return (
     <header className="shadow-sm fixed top-0 left-0 right-0 z-[60]" style={{ position: 'fixed', backgroundColor: '#002c45' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-4">
+        <div className="flex justify-between items-center py-0.5">
           {/* Logo */}
           <Link href="/" className="hover:opacity-80 transition-opacity">
             <Image 
               src={settings.logo || "/images/logo.png"} 
               alt={settings.siteName || "Pideh Armenia Logo"} 
-              width={180} 
-              height={60}
-              className="h-16 w-auto"
+              width={333}
+              height={125}
+              className="h-[112px] w-auto"
               priority
             />
           </Link>
@@ -122,7 +122,7 @@ export default function DesktopHeader() {
                 key={link.href}
                 href={link.href}
                 className={`
-                  relative px-6 py-3 rounded-xl font-semibold transition-all duration-300 group
+                  relative px-6 py-3 rounded-xl font-semibold transition-all duration-300 group capitalize
                   ${isActive(link.href)
                     ? 'text-white bg-white/20 shadow-md'
                     : 'text-white/90 hover:text-white hover:bg-white/10'

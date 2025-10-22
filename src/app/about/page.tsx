@@ -1,21 +1,28 @@
-import Footer from '@/components/Footer'
+'use client'
+
+import dynamic from 'next/dynamic'
 import { Clock, Users, Heart, Award, ChefHat, Truck, Star, CheckCircle } from 'lucide-react'
-import TwinklingStars from '@/components/TwinklingStars'
+
+const Footer = dynamic(() => import('@/components/Footer'), {
+  ssr: false
+})
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen relative" style={{ backgroundColor: '#002c45' }}>
-      <TwinklingStars count={60} imageStarRatio={0.3} />
+    <div className="min-h-screen relative" style={{ backgroundColor: '#ffffff' }}>
       
+      {/* Отступ для fixed хедера */}
+      <div className="lg:hidden h-20"></div>
+      <div className="hidden lg:block h-28"></div>
+
       {/* Hero Section */}
       <section className="relative text-white overflow-hidden flex items-center justify-center py-20 pt-48" style={{ backgroundColor: '#f3d98c' }}>
-        <TwinklingStars count={40} imageStarRatio={0.3} />
         
         {/* Decorative Elements */}
-        <div className="absolute top-10 left-10 w-20 h-20 rounded-full opacity-20" style={{ backgroundColor: '#002c45' }}></div>
-        <div className="absolute top-20 right-20 w-16 h-16 rounded-full opacity-15" style={{ backgroundColor: '#002c45' }}></div>
-        <div className="absolute bottom-20 left-1/4 w-12 h-12 rounded-full opacity-25" style={{ backgroundColor: '#002c45' }}></div>
-        <div className="absolute bottom-10 right-1/3 w-8 h-8 rounded-full opacity-20" style={{ backgroundColor: '#002c45' }}></div>
+        <div className="absolute top-10 left-10 w-20 h-20 rounded-full opacity-20" style={{ backgroundColor: '#f3d98c' }}></div>
+        <div className="absolute top-20 right-20 w-16 h-16 rounded-full opacity-15" style={{ backgroundColor: '#f3d98c' }}></div>
+        <div className="absolute bottom-20 left-1/4 w-12 h-12 rounded-full opacity-25" style={{ backgroundColor: '#f3d98c' }}></div>
+        <div className="absolute bottom-10 right-1/3 w-8 h-8 rounded-full opacity-20" style={{ backgroundColor: '#f3d98c' }}></div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight text-center" style={{ color: '#002c45' }}>
@@ -34,8 +41,8 @@ export default function AboutPage() {
         {/* Story Section */}
         <div className="mb-24">
           <div className="space-y-6">
-            <h2 className="text-4xl font-bold text-white mb-8">Մեր պատմությունը</h2>
-            <div className="space-y-6 text-lg text-gray-200 leading-relaxed">
+            <h2 className="text-4xl font-bold text-gray-900 mb-8">Մեր պատմությունը</h2>
+            <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
               <p>
                 Welcome Baby ընկերությունը ստեղծվել է 2015 թվականին՝ Անահիտ և Լուսինե Անդրյանների ջանքերի շնորհիվ։ Նորածնային կահույք և անկողնային պարագաներ արտադրող ընկերություն, որն ունի իր 2 խանութ սրահները՝ Երևանում և Գյումրիում։
               </p>
@@ -54,7 +61,7 @@ export default function AboutPage() {
 
         {/* Values Section */}
         <div className="mb-24">
-            <h2 className="text-4xl font-bold text-center text-white mb-16">Մեր արժեքները</h2>
+            <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">Մեր արժեքները</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow text-center group">
               <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform" style={{ backgroundColor: '#f3d98c' }}>
@@ -100,7 +107,7 @@ export default function AboutPage() {
 
         {/* Team Section */}
         <div className="mb-24">
-          <h2 className="text-4xl font-bold text-center text-white mb-16">Մեր թիմը</h2>
+          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">Մեր թիմը</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow text-center group">
               <div className="w-32 h-32 rounded-full mx-auto mb-6 flex items-center justify-center group-hover:scale-105 transition-transform" style={{ backgroundColor: '#f3d98c' }}>

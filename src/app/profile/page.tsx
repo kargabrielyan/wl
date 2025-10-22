@@ -19,7 +19,6 @@ import {
   LogOut
 } from 'lucide-react'
 import Footer from '@/components/Footer'
-import TwinklingStars from '@/components/TwinklingStars'
 import EditProfileModal from '@/components/EditProfileModal'
 import DeleteAccountModal from '@/components/DeleteAccountModal'
 
@@ -211,8 +210,7 @@ export default function ProfilePage() {
 
   if (status === 'loading' || isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center relative" style={{ backgroundColor: '#002c45' }}>
-        <TwinklingStars count={30} imageStarRatio={0.2} />
+      <div className="min-h-screen flex items-center justify-center relative" style={{ backgroundColor: '#ffffff' }}>
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-t-transparent rounded-full animate-spin mx-auto mb-4" style={{ borderColor: '#f3d98c', borderTopColor: 'transparent' }}></div>
           <p className="text-white text-lg">Բեռնվում է...</p>
@@ -226,8 +224,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen relative" style={{ backgroundColor: '#002c45' }}>
-      <TwinklingStars count={30} imageStarRatio={0.2} />
+    <div className="min-h-screen relative" style={{ backgroundColor: '#ffffff' }}>
       
       {/* Mobile Header */}
       <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200">
@@ -245,7 +242,8 @@ export default function ProfilePage() {
       </div>
       
       {/* Отступ для fixed хедера */}
-      <div className="lg:hidden h-16"></div>
+      <div className="lg:hidden h-20"></div>
+      <div className="hidden lg:block h-28"></div>
       
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20 lg:pt-32 lg:pb-8">
         {/* Mobile Profile Card */}

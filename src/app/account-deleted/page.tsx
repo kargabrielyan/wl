@@ -28,7 +28,7 @@ export default function AccountDeletedPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       
-      <div className="min-h-screen flex items-center justify-center p-4" style={{ backgroundColor: '#002c45' }}>
+      <div className="min-h-screen flex items-center justify-center p-4" style={{ backgroundColor: '#ffffff' }}>
         <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 text-center">
         {/* Иконка успеха */}
         <div className="mb-6">

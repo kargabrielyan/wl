@@ -88,8 +88,8 @@ export default function PullToRefresh({ children, className = '' }: PullToRefres
               <div className="w-24 h-1 bg-gray-200 rounded-full mt-2 overflow-hidden">
                 <div 
                   className="h-full rounded-full transition-all duration-200"
-                  style={{ backgroundColor: '#ffdd84' }}
-                  style={{
+                  style={{ 
+                    backgroundColor: '#ffdd84',
                     width: `${Math.min((pullDistance / 80) * 100, 100)}%`
                   }}
                 />

@@ -265,8 +265,8 @@ export default function AdminOrdersPage() {
     <div className="min-h-screen bg-gray-50">
       
       {/* Отступ для fixed хедера */}
-      <div className="lg:hidden h-16"></div>
-      <div className="hidden lg:block h-24"></div>
+      <div className="lg:hidden h-20"></div>
+      <div className="hidden lg:block h-28"></div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
@@ -624,7 +624,7 @@ export default function AdminOrdersPage() {
                     )}
                     <div>
                       <p className="text-sm text-gray-600 mb-1">Адрес доставки</p>
-                      <p className="font-medium text-gray-900">{selectedOrder.deliveryAddress}</p>
+                      <p className="font-medium text-gray-900">{selectedOrder.address || 'Адрес не указан'}</p>
                     </div>
                     <div>
                       <p className="text-sm text-gray-600 mb-1">Время доставки</p>

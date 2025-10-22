@@ -39,7 +39,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#002c45' }}>
+    <div className="min-h-screen" style={{ backgroundColor: '#ffffff' }}>
       
       {/* Mobile Header */}
       <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200">
@@ -59,7 +59,8 @@ export default function LoginPage() {
       </div>
       
       {/* Отступ для fixed хедера */}
-      <div className="lg:hidden h-16"></div>
+      <div className="lg:hidden h-20"></div>
+      <div className="hidden lg:block h-28"></div>
       
       <div className="max-w-md mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-16">
         <div className="bg-white rounded-2xl shadow-lg p-8">

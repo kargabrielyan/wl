@@ -105,7 +105,7 @@ export default function ProductsPagePaginated() {
     <div className="min-h-screen bg-gray-50 p-8">
       <div className="max-w-7xl mx-auto">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-4">Արտադրանքի կատալոգ</h1>
+          <h1 className="text-3xl font-bold mb-4">Արտադրանքի Կատալոգ</h1>
           <div className="flex items-center justify-between">
             <p className="text-gray-600">
               Ցուցադրված {products.length} {totalItems} արտադրանքից

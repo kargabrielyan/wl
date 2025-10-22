@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { Phone, Mail, MapPin, Clock, Instagram } from 'lucide-react'
+import { Phone, Mail, MapPin, Clock, Instagram, Facebook } from 'lucide-react'
 import { useSettings } from '@/hooks/useSettings'
 
 export default function Footer() {
@@ -38,6 +38,17 @@ export default function Footer() {
                 onMouseLeave={(e) => e.target.style.color = '#ffffff'}
               >
                 <Instagram className="h-5 w-5" style={{ color: '#ffffff' }} />
+              </a>
+              <a 
+                href="https://www.facebook.com/welcomebaby.yerevan?utm_source=neetrino.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="transition-colors" 
+                style={{ color: '#ffffff' }} 
+                onMouseEnter={(e) => e.target.style.color = '#f3d98c'} 
+                onMouseLeave={(e) => e.target.style.color = '#ffffff'}
+              >
+                <Facebook className="h-5 w-5" style={{ color: '#ffffff' }} />
               </a>
             </div>
           </div>

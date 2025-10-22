@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import { Product } from '@/types'
-import TwinklingStars from '@/components/TwinklingStars'
 
 export default function ProductsPageSimple() {
   const [products, setProducts] = useState<Product[]>([])
@@ -28,10 +27,9 @@ export default function ProductsPageSimple() {
     return (
       <div className="min-h-screen p-8 relative" style={{ backgroundColor: '#002c45' }}>
         {/* Twinkling Stars */}
-        <TwinklingStars count={50} imageStarRatio={0.35} />
         
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-3xl font-bold mb-8">Արտադրանքի բեռնում...</h1>
+          <h1 className="text-3xl font-bold mb-8">Արտադրանքի Բեռնում...</h1>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {[1,2,3,4,5,6,7,8].map(i => (
               <div key={i} className="bg-white rounded-lg p-4 animate-pulse">
@@ -49,10 +47,9 @@ export default function ProductsPageSimple() {
   return (
     <div className="min-h-screen p-8 relative" style={{ backgroundColor: '#002c45' }}>
       {/* Twinkling Stars */}
-      <TwinklingStars count={50} imageStarRatio={0.35} />
       
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-bold mb-8">Արտադրանքի կատալոգ</h1>
+        <h1 className="text-3xl font-bold mb-8">Արտադրանքի Կատալոգ</h1>
         <p className="text-gray-600 mb-8">Գտնված արտադրանք: {products.length}</p>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">

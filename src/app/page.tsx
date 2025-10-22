@@ -1,17 +1,19 @@
 'use client'
 
+import dynamic from 'next/dynamic'
 import Image from "next/image";
 import Link from "next/link";
 import { Phone, MapPin, Clock, ShoppingCart, Search } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useCart } from "@/hooks/useCart";
 import { Product } from "@/types";
-import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
 import ProductSection from "@/components/ProductSection";
-import CategoriesBlock from "@/components/CategoriesBlock";
+import HorizontalCategorySlider from "@/components/HorizontalCategorySlider";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import TwinklingStars from "@/components/TwinklingStars";
+
+const Footer = dynamic(() => import('@/components/Footer'))
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([])
@@ -89,7 +91,7 @@ export default function Home() {
       setProducts(productsData || [])
       
       // Фильтруем товары для первой категории для секции хитов
-      const firstCategory = (productsData || []).filter((product: Product) => product.category?.name === 'Հյուսեր')
+      const firstCategory = (productsData || []).filter((product: Product) => product.categoryId === 'Հյուսեր')
       setComboProducts(firstCategory.slice(0, 4))
       
       setFeaturedProducts(featuredData || [])
@@ -157,11 +159,13 @@ export default function Home() {
 
   return (
     <div className="min-h-screen overflow-x-hidden relative" style={{ backgroundColor: '#002c45' }}>
-      {/* Global Twinkling Stars over the whole home page */}
-      <TwinklingStars count={80} imageStarRatio={0.25} />
-      {/* Отступ для fixed хедера */}
-      <div className="lg:hidden h-16"></div>
-      <div className="hidden lg:block h-24"></div>
+      {/* Отступ для fixed хедера с фоном и звездочками */}
+      <div className="lg:hidden h-20 relative" style={{ backgroundColor: '#002c45' }}>
+        <TwinklingStars count={50} imageStarRatio={0.4} className="z-10" />
+      </div>
+      <div className="hidden lg:block h-28 relative" style={{ backgroundColor: '#002c45' }}>
+        <TwinklingStars count={50} imageStarRatio={0.4} className="z-10" />
+      </div>
 
       {/* Hero Section - Compact for Mobile */}
       <section className="relative text-white overflow-hidden" style={{ backgroundColor: '#002c45' }}>
@@ -242,7 +246,7 @@ export default function Home() {
                   <div className="relative w-24 h-24 mx-auto mb-2 bg-white/20 rounded-lg flex items-center justify-center">
                     <span className="text-2xl">🧸</span>
                   </div>
-                  <h3 className="text-sm font-bold mb-1 text-white">Մանկական խաղալիքներ</h3>
+                  <h3 className="text-sm font-bold mb-1 text-white">Մանկական Խաղալիքներ</h3>
                   <p className="text-xs text-primary-100">Զվարճալի և անվտանգ</p>
                 </div>
               )}
@@ -325,7 +329,7 @@ export default function Home() {
                   <div className="relative w-32 h-32 mx-auto mb-3 bg-white/20 rounded-2xl flex items-center justify-center">
                     <span className="text-4xl">🧸</span>
                   </div>
-                  <h3 className="text-base font-bold mb-2 text-white">Մանկական խաղալիքներ</h3>
+                  <h3 className="text-base font-bold mb-2 text-white">Մանկական Խաղալիքներ</h3>
                   <p className="text-sm text-primary-100">Զվարճալի և անվտանգ</p>
                 </div>
               )}
@@ -353,11 +357,8 @@ export default function Home() {
                 </span>
               </h1>
               
-              {/* Description */}
-              <p className="text-lg md:text-xl text-primary-100 leading-relaxed max-w-lg">
-                Լավագույն խաղալիքներ, հագուստ և գրքեր ձեր երեխաների համար: 
-                <span className="font-semibold text-white"> 1000+ արտադրանք</span>  ուրախության համար!
-              </p>
+              {/* Description - Empty space */}
+              <div className="h-8"></div>
               
               
               {/* CTA Buttons */}
@@ -401,14 +402,16 @@ export default function Home() {
                       style={{
                         filter: 'none',
                         transform: 'perspective(1000px) rotateX(8deg) rotateY(-3deg)',
-                        imageRendering: 'crisp-edges',
                         imageRendering: '-webkit-optimize-contrast',
                       }}
                       loading="lazy"
                       onError={(e) => {
                         console.error('Ошибка загрузки изображения:', bannerProduct.image);
                         e.currentTarget.style.display = 'none';
-                        e.currentTarget.nextElementSibling.style.display = 'flex';
+                        const nextElement = e.currentTarget.nextElementSibling as HTMLElement;
+                        if (nextElement) {
+                          nextElement.style.display = 'flex';
+                        }
                       }}
                     />
 
@@ -451,7 +454,7 @@ export default function Home() {
                   </>
                 ) : (
                   <>
-                    <h3 className="text-2xl font-bold mb-2">Մանկական խաղալիքներ</h3>
+                    <h3 className="text-2xl font-bold mb-2">Մանկական Խաղալիքներ</h3>
                     <p className="text-primary-100 mb-4 opacity-80 group-hover:opacity-100 transition-opacity duration-300">Զվարճալի և անվտանգ</p>
                     
                     <Link 
@@ -471,20 +474,18 @@ export default function Home() {
       </section>
 
       {/* Categories Section */}
-      <div className="relative" style={{ backgroundColor: '#002c45' }}>
-        <TwinklingStars count={70} imageStarRatio={0.25} className="z-20" />
-        <CategoriesBlock 
+      <section className="relative py-8 lg:py-12">
+        <HorizontalCategorySlider 
           title="Կատեգորիաներ"
           subtitle="Ընտրեք ձեր սիրելի կատեգորիան"
           limit={9}
         />
-      </div>
+      </section>
 
       {/* Sale Products Section */}
-      <div className="relative" style={{ backgroundColor: '#002c45' }}>
-        <TwinklingStars count={60} imageStarRatio={0.2} className="z-20" />
+      <div className="relative" style={{ backgroundColor: '#ffffff' }}>
         <ProductSection
-          title="Զեղչված արտադրանք"
+          title="Զեղչված Արտադրանք"
           subtitle="Շահավետ առաջարկություններ սիրելի արտադրանքի համար"
           products={saleProducts}
           onAddToCart={handleAddToCart}
@@ -494,15 +495,14 @@ export default function Home() {
       </div>
 
       {/* Features Section - Hidden on mobile and tablet */}
-      <section className="hidden lg:block py-20 relative" style={{ backgroundColor: '#002c45' }}>
-        <TwinklingStars count={80} imageStarRatio={0.3} className="z-20" />
+      <section className="hidden lg:block py-20 relative" style={{ backgroundColor: '#ffffff' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section header */}
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Ինչու՞ են ընտրում մեզ:
             </h2>
-            <p className="text-xl text-gray-200 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Մենք ստեղծել ենք անվտանգության, որակի և ուրախության իդեալական համադրություն ձեր երեխաների համար
             </p>
           </div>
@@ -510,14 +510,14 @@ export default function Home() {
           {/* Features grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Safety */}
-            <div className="group bg-white/10 backdrop-blur-lg rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-white/20">
+            <div className="group bg-gray-50 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-200">
               <div className="w-16 h-16 bg-green-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                 <svg className="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-white mb-3 text-center">Անվտանգություն</h3>
-              <p className="text-gray-200 text-center mb-4">Բոլոր ապրանքները հավաստագրված են</p>
+              <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">Անվտանգություն</h3>
+              <p className="text-gray-600 text-center mb-4">Բոլոր ապրանքները հավաստագրված են</p>
               <div className="text-center">
                 <span className="inline-block bg-green-500/20 text-green-300 px-3 py-1 rounded-full text-sm font-semibold border border-green-400/30">
                   🛡️ Անվտանգ
@@ -526,12 +526,12 @@ export default function Home() {
             </div>
 
             {/* Delivery */}
-            <div className="group bg-white/10 backdrop-blur-lg rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-white/20">
+            <div className="group bg-gray-50 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-200">
               <div className="w-16 h-16 bg-primary-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                 <MapPin className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-3 text-center">Առաքում</h3>
-              <p className="text-gray-200 text-center mb-4">Ամբողջ քաղաքով</p>
+              <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">Առաքում</h3>
+              <p className="text-gray-600 text-center mb-4">Ամբողջ քաղաքով</p>
             <div className="text-center">
                 <span className="inline-block bg-primary-500/20 text-primary-300 px-3 py-1 rounded-full text-sm font-semibold border border-primary-400/30">
                   🚚 30 րոպե
@@ -540,14 +540,14 @@ export default function Home() {
             </div>
 
             {/* Development */}
-            <div className="group bg-white/10 backdrop-blur-lg rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-white/20">
+            <div className="group bg-gray-50 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-200">
               <div className="w-16 h-16 bg-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                 <svg className="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-white mb-3 text-center">Զարգացում</h3>
-              <p className="text-gray-200 text-center mb-4">Զարգացման խաղալիքներ</p>
+              <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">Զարգացում</h3>
+              <p className="text-gray-600 text-center mb-4">Զարգացման խաղալիքներ</p>
             <div className="text-center">
                 <span className="inline-block bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm font-semibold border border-purple-400/30">
                   🧠 Զարգացնող
@@ -556,12 +556,12 @@ export default function Home() {
             </div>
 
             {/* Support */}
-            <div className="group bg-white/10 backdrop-blur-lg rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-white/20">
+            <div className="group bg-gray-50 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-200">
               <div className="w-16 h-16 bg-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                 <Phone className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-3 text-center">Աջակցություն</h3>
-              <p className="text-gray-200 text-center mb-4">+374 77 79 29 29<br/>+374 44 79 29 29</p>
+              <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">Աջակցություն</h3>
+              <p className="text-gray-600 text-center mb-4">+374 77 79 29 29<br/>+374 44 79 29 29</p>
             <div className="text-center">
                 <span className="inline-block bg-pink-500/20 text-pink-300 px-3 py-1 rounded-full text-sm font-semibold border border-pink-400/30">
                   💬 24/7
@@ -574,14 +574,14 @@ export default function Home() {
       </section>
 
       {/* Statistics Section */}
-      <section className="py-16 lg:py-20" style={{ backgroundColor: '#002c45' }}>
+      <section className="py-16 lg:py-20" style={{ backgroundColor: '#ffffff' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section header */}
           <div className="text-center mb-12 lg:mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
               Մեր Առավելությունները
             </h2>
-            <p className="text-lg text-gray-200 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Տարիների փորձը և հազարավոր գոհ հաճախորդները մեր հպարտությունն են
             </p>
           </div>
@@ -590,7 +590,7 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
             {/* Years of Experience */}
             <div className="text-center group">
-              <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 lg:p-10 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-white/20 min-h-[320px] flex flex-col justify-center items-center">
+              <div className="bg-gray-50 rounded-2xl p-8 lg:p-10 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-200 min-h-[320px] flex flex-col justify-center items-center">
                 <div className="w-20 h-20 bg-yellow-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                   <svg className="h-10 w-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -600,20 +600,20 @@ export default function Home() {
                   <AnimatedCounter 
                     end={10} 
                     suffix="+"
-                    className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white"
+                    className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900"
                     duration={2500}
                   />
-                  <div className="text-lg sm:text-xl lg:text-2xl font-bold text-white leading-tight">
+                  <div className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 leading-tight">
                     տարվա փորձ
                   </div>
                 </div>
-                <p className="text-gray-200 text-sm lg:text-base mt-4">Պրոֆեսիոնալ ծառայություն</p>
+                <p className="text-gray-600 text-sm lg:text-base mt-4">Պրոֆեսիոնալ ծառայություն</p>
               </div>
             </div>
 
             {/* Partners */}
             <div className="text-center group">
-              <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 lg:p-10 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-white/20 min-h-[320px] flex flex-col justify-center items-center">
+              <div className="bg-gray-50 rounded-2xl p-8 lg:p-10 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-200 min-h-[320px] flex flex-col justify-center items-center">
                 <div className="w-20 h-20 bg-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                   <svg className="h-10 w-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -623,20 +623,20 @@ export default function Home() {
                   <AnimatedCounter 
                     end={50} 
                     suffix="+"
-                    className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white"
+                    className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900"
                     duration={2000}
                   />
-                  <div className="text-lg sm:text-xl lg:text-2xl font-bold text-white leading-tight">
+                  <div className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 leading-tight">
                     գործընկերներ
                   </div>
                 </div>
-                <p className="text-gray-200 text-sm lg:text-base mt-4">Վստահելի գործընկերներ</p>
+                <p className="text-gray-600 text-sm lg:text-base mt-4">Վստահելի գործընկերներ</p>
               </div>
             </div>
 
             {/* Happy Customers */}
             <div className="text-center group">
-              <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 lg:p-10 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-white/20 min-h-[320px] flex flex-col justify-center items-center">
+              <div className="bg-gray-50 rounded-2xl p-8 lg:p-10 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-200 min-h-[320px] flex flex-col justify-center items-center">
                 <div className="w-20 h-20 bg-green-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                   <svg className="h-10 w-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
@@ -646,20 +646,20 @@ export default function Home() {
                   <AnimatedCounter 
                     end={80000} 
                     suffix="+"
-                    className="text-xl sm:text-2xl lg:text-3xl font-bold text-white"
+                    className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900"
                     duration={3000}
                   />
-                  <div className="text-base sm:text-lg lg:text-xl font-bold text-white leading-tight">
+                  <div className="text-base sm:text-lg lg:text-xl font-bold text-gray-900 leading-tight">
                     գոհ հաճախորդ
                   </div>
                 </div>
-                <p className="text-gray-200 text-sm lg:text-base mt-4">Գոհ հաճախորդներ</p>
+                <p className="text-gray-600 text-sm lg:text-base mt-4">Գոհ հաճախորդներ</p>
               </div>
             </div>
 
             {/* Products Sold */}
             <div className="text-center group">
-              <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 lg:p-10 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-white/20 min-h-[320px] flex flex-col justify-center items-center">
+              <div className="bg-gray-50 rounded-2xl p-8 lg:p-10 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-200 min-h-[320px] flex flex-col justify-center items-center">
                 <div className="w-20 h-20 bg-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                   <svg className="h-10 w-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
@@ -669,26 +669,38 @@ export default function Home() {
                   <AnimatedCounter 
                     end={100000} 
                     suffix="+"
-                    className="text-lg sm:text-xl lg:text-2xl font-bold text-white"
+                    className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900"
                     duration={3500}
                   />
-                  <div className="text-sm sm:text-base lg:text-lg font-bold text-white leading-tight">
+                  <div className="text-sm sm:text-base lg:text-lg font-bold text-gray-900 leading-tight">
                     վաճառված ապրանքներ
                   </div>
                 </div>
-                <p className="text-gray-200 text-sm lg:text-base mt-4">Վաճառված ապրանքներ</p>
+                <p className="text-gray-600 text-sm lg:text-base mt-4">Վաճառված ապրանքներ</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
+      {/* New Products Section */}
+      <div className="relative" style={{ backgroundColor: '#ffffff' }}>
+        <ProductSection
+          title="Նոր Արտադրանք"
+          subtitle="Նոր արտադրանք մեր մենյուից"
+          products={newProducts}
+          onAddToCart={handleAddToCart}
+          addedToCart={addedToCart}
+          variant="compact"
+        />
+      </div>
+
       {/* Divider */}
-      <div className="w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
 
       {/* New Toys Section */}
       <ProductSection
-        title="Նոր խաղալիքներ"
+        title="Նոր Խաղալիքներ"
         subtitle="Նոր խաղալիքներ զվարճալի խաղերի համար"
         products={newToys}
         onAddToCart={handleAddToCart}
@@ -697,14 +709,14 @@ export default function Home() {
       />
 
       {/* Testimonials Section - Hidden on mobile and tablet */}
-      <section className="hidden lg:block py-20" style={{ backgroundColor: '#002c45' }}>
+      <section className="hidden lg:block py-20" style={{ backgroundColor: '#ffffff' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section header */}
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Ինչ են ասում ծնողները
             </h2>
-            <p className="text-xl text-gray-200 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               1000-ից ավելի գոհ ընտանիքներ արդեն ընտրել են մեր արտադրանքը երեխաների համար
             </p>
           </div>
@@ -712,7 +724,7 @@ export default function Home() {
           {/* Testimonials grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Testimonial 1 */}
-            <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-white/20">
+            <div className="bg-gray-50 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200">
               <div className="flex items-center mb-4">
                 <div className="flex text-yellow-400">
                   {[...Array(5)].map((_, i) => (
@@ -722,7 +734,7 @@ export default function Home() {
                   ))}
                 </div>
               </div>
-              <p className="text-gray-200 mb-6 italic">
+              <p className="text-gray-600 mb-6 italic">
                 "Հիանալի խաղալիքներ իմ որդու համար: Որակը բարձր մակարդակի վրա է, երեխան հիացած է: Արագ առաքում և անվտանգ նյութեր: Խորհուրդ եմ տալիս բոլոր ծնողներին:"
               </p>
               <div className="flex items-center">
@@ -730,14 +742,14 @@ export default function Home() {
                   <span className="text-primary-300 font-bold text-lg">Ա</span>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-white">Աննա Պետրովա</h4>
-                  <p className="text-sm text-gray-300">3 տարեկան որդու մայր</p>
+                  <h4 className="font-semibold text-gray-900">Աննա Պետրովա</h4>
+                  <p className="text-sm text-gray-600">3 տարեկան որդու մայր</p>
                 </div>
               </div>
             </div>
 
             {/* Testimonial 2 */}
-            <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-white/20">
+            <div className="bg-gray-50 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200">
               <div className="flex items-center mb-4">
                 <div className="flex text-yellow-400">
                   {[...Array(5)].map((_, i) => (
@@ -747,7 +759,7 @@ export default function Home() {
                   ))}
                 </div>
               </div>
-              <p className="text-gray-200 mb-6 italic">
+              <p className="text-gray-600 mb-6 italic">
                 "Այստեղ գնում ենք արդեն մեկ տարի: Հիանալի զարգացնող խաղալիքներ, որակյալ մանկական հագուստ: Դուստրը պարզապես հիացած է նոր գրքերից:"
               </p>
               <div className="flex items-center">
@@ -755,14 +767,14 @@ export default function Home() {
                   <span className="text-pink-300 font-bold text-lg">Մ</span>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-white">Մարիա Սմիրնովա</h4>
-                  <p className="text-sm text-gray-300">5 տարեկան դստեր մայր</p>
+                  <h4 className="font-semibold text-gray-900">Մարիա Սմիրնովա</h4>
+                  <p className="text-sm text-gray-600">5 տարեկան դստեր մայր</p>
                 </div>
               </div>
             </div>
 
             {/* Testimonial 3 */}
-            <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-white/20">
+            <div className="bg-gray-50 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200">
               <div className="flex items-center mb-4">
                 <div className="flex text-yellow-400">
                   {[...Array(5)].map((_, i) => (
@@ -772,7 +784,7 @@ export default function Home() {
                   ))}
                 </div>
               </div>
-              <p className="text-gray-200 mb-6 italic">
+              <p className="text-gray-600 mb-6 italic">
                 "Պատվիրել ենք սպորտային արտադրանք որդու համար - ֆուտբոլի գնդակ և ձև: Որակը հիանալի է, արագ առաքել են: Որդին շատ գոհ է:"
               </p>
               <div className="flex items-center">
@@ -780,8 +792,8 @@ export default function Home() {
                   <span className="text-green-300 font-bold text-lg">Ա</span>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-white">Ալեքսեյ Կոզլով</h4>
-                  <p className="text-sm text-gray-300">7 տարեկան որդու հայր</p>
+                  <h4 className="font-semibold text-gray-900">Ալեքսեյ Կոզլով</h4>
+                  <p className="text-sm text-gray-600">7 տարեկան որդու հայր</p>
                 </div>
               </div>
             </div>
@@ -791,28 +803,27 @@ export default function Home() {
       </section>
 
       {/* Divider */}
-      <div className="w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
 
       {/* CTA Section - Hidden on mobile and tablet */}
-      <section className="hidden lg:block py-20 text-white relative" style={{ backgroundColor: '#002c45' }}>
-        <TwinklingStars count={40} imageStarRatio={0.25} className="z-20" />
+      <section className="hidden lg:block py-20 text-gray-900 relative" style={{ backgroundColor: '#ffffff' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Պատրա՞ստ եք ուրախացնել երեխաներին:
           </h2>
-          <p className="text-xl text-primary-100 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
             Պատվիրեք հիմա և ստացեք 15% զեղչ առաջին պատվերի համար:
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
               href="/products"
-              className="bg-white text-primary-500 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 hover:scale-105 transition-all duration-300 shadow-lg"
+              className="bg-primary-500 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-primary-600 hover:scale-105 transition-all duration-300 shadow-lg"
             >
               Պատվիրել հիմա
             </Link>
             <Link 
               href="/contact"
-              className="border-2 border-white text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-white hover:text-primary-500 hover:scale-105 transition-all duration-300"
+              className="border-2 border-primary-500 text-primary-500 px-8 py-4 rounded-xl font-bold text-lg hover:bg-primary-500 hover:text-white hover:scale-105 transition-all duration-300"
             >
               Իմանալ ավելին
             </Link>

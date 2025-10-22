@@ -2,6 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Глобальные стили для плавающей кнопки чата */
+.chat-button-container {
+  position: fixed !important;
+  bottom: 24px !important;
+  right: 24px !important;
+  z-index: 9999 !important;
+  pointer-events: auto !important;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+  .chat-button-container {
+    bottom: 20px !important;
+    right: 20px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .chat-button-container {
+    bottom: 16px !important;
+    right: 16px !important;
+  }
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;

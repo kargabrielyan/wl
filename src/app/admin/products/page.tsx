@@ -72,7 +72,7 @@ export default function AdminProducts() {
   const filteredProducts = products.filter(product => {
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          product.description.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesCategory = !selectedCategory || product.category?.name === selectedCategory
+    const matchesCategory = !selectedCategory || product.categoryId === selectedCategory
     
     // Фильтр по статусу: "all" - все товары, "special" - только особые (HIT, NEW, CLASSIC, BANNER)
     const matchesStatus = !selectedStatus || 
@@ -82,7 +82,7 @@ export default function AdminProducts() {
     return matchesSearch && matchesCategory && matchesStatus
   })
 
-  const categories = [...new Set(products.map(p => p.category?.name).filter(Boolean))]
+  const categories = [...new Set(products.map(p => p.categoryId).filter(Boolean))]
   
   // Статистика по статусам
   const statusStats = {
@@ -140,8 +140,8 @@ export default function AdminProducts() {
     <div className="min-h-screen bg-gray-50">
       
       {/* Отступ для fixed хедера */}
-      <div className="lg:hidden h-16"></div>
-      <div className="hidden lg:block h-24"></div>
+      <div className="lg:hidden h-20"></div>
+      <div className="hidden lg:block h-28"></div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
@@ -281,7 +281,7 @@ export default function AdminProducts() {
                       {product.description}
                     </p>
                     <div className="flex items-center space-x-4 text-sm text-gray-500">
-                      <span>Категория: {product.category?.name || 'Без категории'}</span>
+                      <span>Категория: {product.categoryId || 'Без категории'}</span>
                       <span>
                         Цена: {product.salePrice ? (
                           <span>

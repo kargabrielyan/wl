@@ -35,6 +35,15 @@ export default function CheckoutPage() {
 
   const [errors, setErrors] = useState<Record<string, string>>({})
 
+  // Функция для расчета стоимости доставки
+  const getDeliveryPrice = () => {
+    const total = getTotalPrice()
+    if (total >= 10000) {
+      return 0 // Бесплатная доставка от 10000 ֏
+    }
+    return 1000 // Стандартная стоимость доставки
+  }
+
   // Redirect if cart is empty and validate cart
   useEffect(() => {
     if (items.length === 0) {
@@ -192,10 +201,11 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#002c45' }}>
+    <div className="min-h-screen" style={{ backgroundColor: '#ffffff' }}>
       
       {/* Отступ для fixed хедера */}
-      <div className="lg:hidden h-16"></div>
+      <div className="lg:hidden h-20"></div>
+      <div className="hidden lg:block h-28"></div>
       
       {/* Mobile App Style Container */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 lg:py-8 pb-20 lg:pb-8">

@@ -65,9 +65,9 @@ export default function MobileHeader() {
               <Image 
                 src={settings.logo || "/images/logo.png"} 
                 alt={settings.siteName || "Pideh Armenia Logo"} 
-                width={60} 
-                height={18}
-                className="h-4 w-auto"
+                width={120} 
+                height={36}
+                className="h-[32px] w-auto"
                 style={{ width: "auto", height: "auto" }}
                 priority
               />

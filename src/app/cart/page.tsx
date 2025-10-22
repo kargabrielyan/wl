@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { ArrowLeft, ShoppingCart, Minus, Trash2, ShoppingBag } from 'lucide-react'
 import { useCart } from '@/hooks/useCart'
 import Footer from '@/components/Footer'
-import TwinklingStars from '@/components/TwinklingStars'
 
 export default function CartPage() {
   const { items, updateQuantity, removeItem, getTotalPrice, clearCart } = useCart()
@@ -29,11 +28,10 @@ export default function CartPage() {
 
   if (items.length === 0) {
     return (
-      <div className="min-h-screen relative" style={{ backgroundColor: '#002c45' }}>
-        <TwinklingStars count={40} imageStarRatio={0.2} />
+      <div className="min-h-screen relative" style={{ backgroundColor: '#ffffff' }}>
         
         {/* Отступ для fixed хедера */}
-        <div className="h-16 lg:h-24"></div>
+        <div className="h-20 lg:h-28"></div>
         
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="text-center">
@@ -65,10 +63,9 @@ export default function CartPage() {
 
   return (
     <div className="min-h-screen relative" style={{ backgroundColor: '#002c45' }}>
-      <TwinklingStars count={40} imageStarRatio={0.2} />
       
       {/* Отступ для fixed хедера */}
-      <div className="h-16 lg:h-24"></div>
+      <div className="h-20 lg:h-28"></div>
       
       {/* Mobile App Style Container */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 lg:py-8 pb-20 lg:pb-8">
@@ -165,7 +162,7 @@ export default function CartPage() {
                         {item.product.name}
                       </h3>
                       <p className="text-sm text-gray-600 mb-2">
-                        {item.product.category?.name || 'Առանց կատեգորիայի'}
+                        {item.product.categoryId || 'Առանց կատեգորիայի'}
                       </p>
                       <div className="text-lg font-bold mb-3" style={{ color: '#f3d98c' }}>
                         {item.product.price} ֏
@@ -259,7 +256,7 @@ export default function CartPage() {
                           {item.product.name}
                         </h3>
                         <p className="text-sm text-gray-600 mb-2">
-                          {item.product.category?.name || 'Առանց կատեգորիայի'}
+                          {item.product.categoryId || 'Առանց կատեգորիայի'}
                         </p>
                         <div className="text-xl font-bold" style={{ color: '#f3d98c' }}>
                           {item.product.salePrice ? (

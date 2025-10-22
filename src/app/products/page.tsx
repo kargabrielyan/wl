@@ -1,5 +1,6 @@
 'use client'
 
+import dynamic from 'next/dynamic'
 import { useState, useEffect, useMemo, useCallback, useRef, Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { Search } from 'lucide-react'
@@ -7,9 +8,9 @@ import { useCart } from '@/hooks/useCart'
 import { useInstantSearch } from '@/hooks/useInstantSearch'
 import { SearchDropdown } from '@/components/SearchDropdown'
 import { Product, Category } from '@/types'
-import Footer from '@/components/Footer'
 import ProductCard from '@/components/ProductCard'
-import TwinklingStars from '@/components/TwinklingStars'
+
+const Footer = dynamic(() => import('@/components/Footer'))
 
 function ProductsPageContent() {
   const searchParams = useSearchParams()
@@ -18,6 +19,7 @@ function ProductsPageContent() {
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([])
   const [categories, setCategories] = useState<Category[]>([])
   const [selectedCategory, setSelectedCategory] = useState<string>('Բոլորը')
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
   const [addedToCart, setAddedToCart] = useState<Set<string>>(new Set())
   const [selectedProductId, setSelectedProductId] = useState<string | null>(null)
@@ -100,11 +102,8 @@ function ProductsPageContent() {
     let filtered = products
     
     // Фильтр по категории
-    if (selectedCategory !== 'Բոլորը') {
-      filtered = filtered.filter(product => {
-        const category = categories.find(cat => cat.id === product.categoryId)
-        return category?.name === selectedCategory
-      })
+    if (selectedCategory !== 'Բոլորը' && selectedCategoryId) {
+      filtered = filtered.filter(product => product.categoryId === selectedCategoryId)
     }
     
     // Применяем сортировку
@@ -112,7 +111,7 @@ function ProductsPageContent() {
     
     setFilteredProducts(filtered)
     setCurrentPage(1) // Сбрасываем на первую страницу
-  }, [products, selectedCategory, categories, sortBy, sortProducts])
+  }, [products, selectedCategory, selectedCategoryId, sortBy, sortProducts])
 
   useEffect(() => {
     const loadData = async () => {
@@ -230,7 +229,7 @@ function ProductsPageContent() {
 
   if (loading) {
     return (
-      <div className="min-h-screen" style={{ backgroundColor: '#002c45' }}>
+      <div className="min-h-screen" style={{ backgroundColor: '#ffffff' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="text-center mb-12">
             <div className="h-12 bg-gray-200 rounded mx-auto mb-4 w-64 animate-pulse"></div>
@@ -271,20 +270,18 @@ function ProductsPageContent() {
   }
 
   return (
-    <div className="min-h-screen overflow-x-hidden relative" style={{ backgroundColor: '#002c45' }}>
-      {/* Twinkling Stars */}
-      <TwinklingStars count={60} imageStarRatio={0.3} />
+    <div className="min-h-screen overflow-x-hidden relative" style={{ backgroundColor: '#ffffff' }}>
       
       {/* Отступ для fixed хедера */}
-      <div className="lg:hidden h-16"></div>
-      <div className="hidden lg:block h-24"></div>
+      <div className="lg:hidden h-20"></div>
+      <div className="hidden lg:block h-28"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-white mb-4 drop-shadow-lg">Արտադրանքի կատալոգ</h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4 drop-shadow-lg">Արտադրանքի Կատալոգ</h1>
           {paginationData.totalPages > 1 && (
-            <p className="text-xl font-semibold text-white drop-shadow-md">
+            <p className="text-xl font-semibold text-gray-900 drop-shadow-md">
               Էջ {currentPage} {paginationData.totalPages}-ից
             </p>
           )}
@@ -334,7 +331,10 @@ function ProductsPageContent() {
             <div className="flex flex-wrap gap-4">
               {/* Кнопка "Все" */}
               <button
-                onClick={() => setSelectedCategory('Բոլորը')}
+                onClick={() => {
+                  setSelectedCategory('Բոլորը')
+                  setSelectedCategoryId(null)
+                }}
                 className={`px-6 py-3 rounded-2xl font-semibold transition-all duration-300 hover:scale-105 ${
                   selectedCategory === 'Բոլորը'
                     ? 'bg-primary-500 text-white shadow-lg'
@@ -345,19 +345,29 @@ function ProductsPageContent() {
               </button>
               
               {/* Динамические категории */}
-              {Array.isArray(categories) && categories.map((category) => (
-                <button
-                  key={category.id}
-                  onClick={() => setSelectedCategory(category.name)}
-                  className={`px-6 py-3 rounded-2xl font-semibold transition-all duration-300 hover:scale-105 ${
-                    selectedCategory === category.name
-                      ? 'bg-primary-500 text-white shadow-lg'
-                      : 'bg-gray-100 text-gray-700 hover:bg-primary-100 hover:text-primary-600'
-                  }`}
-                >
-                  {category.name}
-                </button>
-              ))}
+              {loading ? (
+                <div className="flex items-center gap-2 text-gray-500">
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary-500"></div>
+                  <span>Բեռնվում են կատեգորիաները...</span>
+                </div>
+              ) : (
+                Array.isArray(categories) && categories.map((category) => (
+                  <button
+                    key={category.id}
+                    onClick={() => {
+                      setSelectedCategory(category.name)
+                      setSelectedCategoryId(category.id)
+                    }}
+                    className={`px-6 py-3 rounded-2xl font-semibold transition-all duration-300 hover:scale-105 ${
+                      selectedCategory === category.name
+                        ? 'bg-primary-500 text-white shadow-lg'
+                        : 'bg-gray-100 text-gray-700 hover:bg-primary-100 hover:text-primary-600'
+                    }`}
+                  >
+                    {category.name}
+                  </button>
+                ))
+              )}
             </div>
           </div>
 
@@ -559,7 +569,7 @@ function ProductsPageContent() {
 export default function ProductsPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen overflow-x-hidden" style={{ backgroundColor: '#002c45' }}>
+      <div className="min-h-screen overflow-x-hidden" style={{ backgroundColor: '#ffffff' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="text-center mb-12">
             <div className="h-12 bg-gray-200 rounded mx-auto mb-4 w-64 animate-pulse"></div>

@@ -6,6 +6,7 @@ import MobileBottomNav from "@/components/MobileBottomNav";
 import ServiceWorkerProvider from "@/components/ServiceWorkerProvider";
 import PullToRefresh from "@/components/PullToRefresh";
 import Header from "@/components/Header";
+import ChatButton from "@/components/ChatButton";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -34,7 +35,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru" data-scroll-behavior="smooth" suppressHydrationWarning>
-      <body className={`${inter.variable} font-sans antialiased overflow-x-hidden`} style={{ backgroundColor: '#002c45' }}>
+      <body className={`${inter.variable} font-sans antialiased overflow-x-hidden`} style={{ backgroundColor: '#ffffff' }}>
         <ServiceWorkerProvider />
         <ClientProviders>
           <Header />
@@ -42,6 +43,12 @@ export default function RootLayout({
             {children}
           </PullToRefresh>
           <MobileBottomNav />
+          
+          {/* Глобальная плавающая кнопка чата - зафиксирована в правом нижнем углу экрана */}
+          <ChatButton 
+            instagramUrl="https://www.instagram.com/welcome_baby_armenia/?utm_source=neetrino.com"
+            facebookUrl="https://www.facebook.com/welcomebaby.yerevan"
+          />
         </ClientProviders>
       </body>
     </html>
