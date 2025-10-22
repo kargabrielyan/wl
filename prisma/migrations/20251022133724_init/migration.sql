@@ -28,6 +28,9 @@ CREATE TABLE "categories" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "description" TEXT,
+    "image" TEXT,
+    "sortOrder" INTEGER NOT NULL DEFAULT 0,
+    "showInMainPage" BOOLEAN NOT NULL DEFAULT false,
     "isActive" BOOLEAN NOT NULL DEFAULT true,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -41,10 +44,12 @@ CREATE TABLE "products" (
     "name" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "price" DOUBLE PRECISION NOT NULL,
+    "salePrice" DOUBLE PRECISION,
     "image" TEXT NOT NULL,
     "categoryId" TEXT NOT NULL,
     "ingredients" TEXT NOT NULL,
     "isAvailable" BOOLEAN NOT NULL DEFAULT true,
+    "stock" INTEGER NOT NULL DEFAULT 0,
     "status" "ProductStatus" NOT NULL DEFAULT 'REGULAR',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -82,6 +87,31 @@ CREATE TABLE "order_items" (
 );
 
 -- CreateTable
+CREATE TABLE "wishlist" (
+    "id" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "productId" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "wishlist_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "delivery_types" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "deliveryTime" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
+    "price" DOUBLE PRECISION NOT NULL,
+    "isActive" BOOLEAN NOT NULL DEFAULT true,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "delivery_types_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "settings" (
     "id" TEXT NOT NULL,
     "key" TEXT NOT NULL,
@@ -99,6 +129,12 @@ CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 CREATE UNIQUE INDEX "categories_name_key" ON "categories"("name");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "wishlist_userId_productId_key" ON "wishlist"("userId", "productId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "delivery_types_name_key" ON "delivery_types"("name");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "settings_key_key" ON "settings"("key");
 
 -- AddForeignKey
@@ -112,3 +148,9 @@ ALTER TABLE "order_items" ADD CONSTRAINT "order_items_productId_fkey" FOREIGN KE
 
 -- AddForeignKey
 ALTER TABLE "order_items" ADD CONSTRAINT "order_items_orderId_fkey" FOREIGN KEY ("orderId") REFERENCES "orders"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "wishlist" ADD CONSTRAINT "wishlist_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "wishlist" ADD CONSTRAINT "wishlist_productId_fkey" FOREIGN KEY ("productId") REFERENCES "products"("id") ON DELETE CASCADE ON UPDATE CASCADE;
