@@ -56,3 +56,9 @@ jspm_packages/
 
 # Yarn Integrity file
 .yarn-integrity
+
+# Large files
+*.exe
+*.msi
+*.dmg
+*.pkg
