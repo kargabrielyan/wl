@@ -11,22 +11,19 @@ export default function Footer() {
   return (
     <footer className="text-white py-12" style={{ backgroundColor: '#002c45' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Company Info */}
-          <div className="md:col-span-2">
-            <div className="flex items-center mb-4">
+          <div>
+            <div className="flex items-center mb-6 -mt-4">
               <Image 
                 src={settings.logo || "/logo.png"} 
                 alt={settings.siteName || "Pideh Armenia Logo"} 
-                width={120} 
-                height={40}
-                className="h-10 w-auto"
+                width={160} 
+                height={60}
+                className="h-16 w-auto"
                 style={{ width: "auto", height: "auto" }}
               />
             </div>
-            <p className="mb-4" style={{ color: '#ffffff' }}>
-              Հայկական բիդե - նոր համ: Թարմ, համեղ, արագ: Ավանդական ձև ժամանակակից լցոնումներով: 15 եզակի համ իսկական գուրմանների համար:
-            </p>
             <div className="flex space-x-4">
               <a 
                 href="https://www.instagram.com/welcome_baby_armenia" 
@@ -55,7 +52,7 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Նավիգացիա</h4>
+            <h4 className="text-lg font-semibold mb-4 mt-6">Նավիգացիա</h4>
             <ul className="space-y-2">
               <li>
                 <Link href="/products" className="transition-colors" style={{ color: '#ffffff' }} onMouseEnter={(e) => e.target.style.color = '#f3d98c'} onMouseLeave={(e) => e.target.style.color = '#ffffff'}>
@@ -77,7 +74,7 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Կապ</h4>
+            <h4 className="text-lg font-semibold mb-4 mt-6">Կապ</h4>
             <div className="space-y-3">
               <div className="flex items-center space-x-2">
                 <Phone className="h-4 w-4" style={{ color: '#ffffff' }} />

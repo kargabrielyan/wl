@@ -474,7 +474,7 @@ export default function Home() {
       </section>
 
       {/* Categories Section */}
-      <section className="relative py-8 lg:py-12">
+      <section className="relative py-8 lg:py-12" style={{ backgroundColor: '#ffffff' }}>
         <HorizontalCategorySlider 
           title="Կատեգորիաներ"
           subtitle="Ընտրեք ձեր սիրելի կատեգորիան"
@@ -516,8 +516,7 @@ export default function Home() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">Անվտանգություն</h3>
-              <p className="text-gray-600 text-center mb-4">Բոլոր ապրանքները հավաստագրված են</p>
+              <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Անվտանգություն</h3>
               <div className="text-center">
                 <span className="inline-block bg-green-500/20 text-green-300 px-3 py-1 rounded-full text-sm font-semibold border border-green-400/30">
                   🛡️ Անվտանգ
@@ -530,9 +529,8 @@ export default function Home() {
               <div className="w-16 h-16 bg-primary-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                 <MapPin className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">Առաքում</h3>
-              <p className="text-gray-600 text-center mb-4">Ամբողջ քաղաքով</p>
-            <div className="text-center">
+              <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Առաքում</h3>
+              <div className="text-center">
                 <span className="inline-block bg-primary-500/20 text-primary-300 px-3 py-1 rounded-full text-sm font-semibold border border-primary-400/30">
                   🚚 30 րոպե
                 </span>
@@ -546,9 +544,8 @@ export default function Home() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">Զարգացում</h3>
-              <p className="text-gray-600 text-center mb-4">Զարգացման խաղալիքներ</p>
-            <div className="text-center">
+              <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Զարգացում</h3>
+              <div className="text-center">
                 <span className="inline-block bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm font-semibold border border-purple-400/30">
                   🧠 Զարգացնող
                 </span>
@@ -560,9 +557,8 @@ export default function Home() {
               <div className="w-16 h-16 bg-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                 <Phone className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">Աջակցություն</h3>
-              <p className="text-gray-600 text-center mb-4">+374 77 79 29 29<br/>+374 44 79 29 29</p>
-            <div className="text-center">
+              <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Աջակցություն</h3>
+              <div className="text-center">
                 <span className="inline-block bg-pink-500/20 text-pink-300 px-3 py-1 rounded-full text-sm font-semibold border border-pink-400/30">
                   💬 24/7
                 </span>
@@ -604,10 +600,9 @@ export default function Home() {
                     duration={2500}
                   />
                   <div className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 leading-tight">
-                    տարվա փորձ
+                    Տարվա Փորձ
                   </div>
                 </div>
-                <p className="text-gray-600 text-sm lg:text-base mt-4">Պրոֆեսիոնալ ծառայություն</p>
               </div>
             </div>
 
@@ -627,10 +622,9 @@ export default function Home() {
                     duration={2000}
                   />
                   <div className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 leading-tight">
-                    գործընկերներ
+                    Գործընկերներ
                   </div>
                 </div>
-                <p className="text-gray-600 text-sm lg:text-base mt-4">Վստահելի գործընկերներ</p>
               </div>
             </div>
 
@@ -650,10 +644,9 @@ export default function Home() {
                     duration={3000}
                   />
                   <div className="text-base sm:text-lg lg:text-xl font-bold text-gray-900 leading-tight">
-                    գոհ հաճախորդ
+                    Գոհ Հաճախորդ
                   </div>
                 </div>
-                <p className="text-gray-600 text-sm lg:text-base mt-4">Գոհ հաճախորդներ</p>
               </div>
             </div>
 
@@ -673,10 +666,9 @@ export default function Home() {
                     duration={3500}
                   />
                   <div className="text-sm sm:text-base lg:text-lg font-bold text-gray-900 leading-tight">
-                    վաճառված ապրանքներ
+                    Վաճառված Ապրանքներ
                   </div>
                 </div>
-                <p className="text-gray-600 text-sm lg:text-base mt-4">Վաճառված ապրանքներ</p>
               </div>
             </div>
           </div>
