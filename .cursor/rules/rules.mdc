@@ -1,7 +1,7 @@
 ---
 alwaysApply: true
 ---
- never use SQLite
+ never use SQLite and docker
  do every thing in http://localhost:3000/ dont switch port
  before every answering read every .md fayl
 # ПРАВИЛА ДЛЯ AI — ЧИТАТЬ ОБЯЗАТЕЛЬНО!
