@@ -30,9 +30,20 @@ export async function GET(request: NextRequest) {
       }
     });
 
+    // Нормализуем изображения товаров - все товары без изображения получат nophoto.jpg
+    const normalizedItems = wishlistItems.map(item => ({
+      ...item,
+      product: {
+        ...item.product,
+        image: (item.product.image && item.product.image.trim() !== '') 
+          ? item.product.image 
+          : '/images/nophoto.jpg'
+      }
+    }));
+
     return NextResponse.json({ 
-      data: wishlistItems,
-      count: wishlistItems.length 
+      data: normalizedItems,
+      count: normalizedItems.length 
     });
 
   } catch (error) {
@@ -106,8 +117,19 @@ export async function POST(request: NextRequest) {
       }
     });
 
+    // Нормализуем изображение товара
+    const normalizedItem = {
+      ...wishlistItem,
+      product: {
+        ...wishlistItem.product,
+        image: (wishlistItem.product.image && wishlistItem.product.image.trim() !== '') 
+          ? wishlistItem.product.image 
+          : '/images/nophoto.jpg'
+      }
+    };
+
     return NextResponse.json({ 
-      data: wishlistItem,
+      data: normalizedItem,
       message: 'Product added to wishlist' 
     }, { status: 201 });
 

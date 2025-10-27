@@ -105,7 +105,15 @@ export async function POST(request: NextRequest) {
       }
     })
 
-    return NextResponse.json(product, { status: 201 })
+    // Нормализуем изображение - товар без изображения получит nophoto.jpg
+    const normalizedProduct = {
+      ...product,
+      image: (product.image && product.image.trim() !== '') 
+        ? product.image 
+        : '/images/nophoto.jpg'
+    }
+
+    return NextResponse.json(normalizedProduct, { status: 201 })
   } catch (error) {
     console.error('Error creating product:', error)
     return NextResponse.json(

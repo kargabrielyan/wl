@@ -10,43 +10,16 @@
 export function isValidImagePath(imagePath: string | null | undefined): boolean {
   if (!imagePath) return false;
   
-  // Список невалидных путей (изображения которых нет в public/images)
-  const invalidPaths = [
-    'no-image',
-    '/images/product-1.jpg',
-    '/images/product-6.jpg',
-    '/images/product-7.jpg',
-    '/images/product-8.jpg',
-    '/images/product-11.jpg',
-    '/images/product-17.jpg',
-    '/images/product-19.jpg',
-    '/images/product-23.jpg',
-    '/images/product-24.jpg',
-    '/images/product-27.jpg',
-    '/images/product-28.jpg',
-    '/images/product-29.jpg',
-    '/images/product-30.jpg',
-    '/images/product-34.jpg',
-    '/images/product-35.jpg',
-    '/images/product-36.jpg',
-    '/images/product-45.jpg',
-    '/images/product-46.jpg',
-    '/images/product-49.jpg',
-    '/images/product-50.jpg',
-    '/images/product-54.jpg',
-    '/images/product-57.jpg',
-    '/images/product-58.jpg',
-    '/images/product-59.jpg',
-    '/images/product-60.jpg',
-    '/images/product-69.jpg',
-    '/images/product-81.jpg',
-    '/images/product-84.jpg',
-    '/images/product-96.jpg',
-    '/images/product-99.jpg',
-    // Добавьте сюда другие невалидные пути по мере обнаружения
-  ];
+  // Проверяем, что путь начинается с /images/
+  if (!imagePath.startsWith('/images/')) {
+    return false;
+  }
   
-  return !invalidPaths.includes(imagePath);
+  // Проверяем формат файла
+  const validExtensions = ['.jpg', '.jpeg', '.png', '.webp', '.avif', '.gif'];
+  const hasValidExtension = validExtensions.some(ext => imagePath.toLowerCase().endsWith(ext));
+  
+  return hasValidExtension;
 }
 
 /**

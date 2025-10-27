@@ -30,7 +30,15 @@ export async function GET(request: NextRequest) {
       }
     })
 
-    return NextResponse.json(products)
+    // Нормализуем изображения - все товары без изображения получат nophoto.jpg
+    const normalizedProducts = products.map(product => ({
+      ...product,
+      image: (product.image && product.image.trim() !== '') 
+        ? product.image 
+        : '/images/nophoto.jpg'
+    }))
+
+    return NextResponse.json(normalizedProducts)
   } catch (error) {
     console.error('Error fetching featured products:', error)
     return NextResponse.json(

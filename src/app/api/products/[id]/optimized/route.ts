@@ -75,10 +75,25 @@ export async function GET(
       )
     }
 
+    // Нормализуем изображения - товары без изображения получат nophoto.jpg
+    const normalizedProduct = {
+      ...product,
+      image: (product.image && product.image.trim() !== '') 
+        ? product.image 
+        : '/images/nophoto.jpg'
+    }
+
+    const normalizedSimilarProducts = similarProducts.map(p => ({
+      ...p,
+      image: (p.image && p.image.trim() !== '') 
+        ? p.image 
+        : '/images/nophoto.jpg'
+    }))
+
     // Возвращаем объединенные данные
     const response = {
-      product,
-      similarProducts
+      product: normalizedProduct,
+      similarProducts: normalizedSimilarProducts
     }
 
     // Агрессивное кэширование на 10 минут

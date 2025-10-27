@@ -39,7 +39,15 @@ export async function GET(
       )
     }
 
-    return NextResponse.json(product)
+    // Нормализуем изображение - товар без изображения получит nophoto.jpg
+    const normalizedProduct = {
+      ...product,
+      image: (product.image && product.image.trim() !== '') 
+        ? product.image 
+        : '/images/nophoto.jpg'
+    }
+
+    return NextResponse.json(normalizedProduct)
   } catch (error) {
     console.error('Error fetching product:', error)
     return NextResponse.json(
@@ -89,7 +97,15 @@ export async function PUT(
       }
     })
 
-    return NextResponse.json(updatedProduct)
+    // Нормализуем изображение - товар без изображения получит nophoto.jpg
+    const normalizedProduct = {
+      ...updatedProduct,
+      image: (updatedProduct.image && updatedProduct.image.trim() !== '') 
+        ? updatedProduct.image 
+        : '/images/nophoto.jpg'
+    }
+
+    return NextResponse.json(normalizedProduct)
   } catch (error) {
     console.error('Error updating product:', error)
     return NextResponse.json(

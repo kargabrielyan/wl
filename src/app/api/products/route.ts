@@ -94,8 +94,16 @@ export async function GET(request: NextRequest) {
       }
     })
 
+    // Нормализуем изображения - все товары без изображения получат nophoto.jpg
+    const normalizedProducts = products.map(product => ({
+      ...product,
+      image: (product.image && product.image.trim() !== '') 
+        ? product.image 
+        : '/images/nophoto.jpg'
+    }))
+
     // Возвращаем массив продуктов напрямую
-    const response = NextResponse.json(products)
+    const response = NextResponse.json(normalizedProducts)
     response.headers.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=7200')
     response.headers.set('CDN-Cache-Control', 'public, s-maxage=3600')
     
