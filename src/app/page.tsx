@@ -177,11 +177,10 @@ export default function Home() {
             {/* Left content - compact */}
             <div className="flex-1 pr-4">
               <h1 className="text-3xl font-bold leading-tight mb-3">
-                <span className="block text-white">Pideh</span>
-                <span className="block text-yellow-200">Armenia</span>
+                <span className="block text-white">Մանկական <span style={{ color: '#f3d98c' }}>Աշխարհ</span></span>
               </h1>
               <p className="text-base text-primary-100 mb-4 font-medium">
-                Армянские пиде новый вкус
+                Որակյալ արտադրանք ձեր երեխաների համար
               </p>
               <div className="flex gap-6 text-sm">
                 <div className="text-center">
@@ -246,8 +245,7 @@ export default function Home() {
                   <div className="relative w-24 h-24 mx-auto mb-2 bg-white/20 rounded-lg flex items-center justify-center">
                     <span className="text-2xl">🧸</span>
                   </div>
-                  <h3 className="text-sm font-bold mb-1 text-white">Армянские Пиде</h3>
-                  <p className="text-xs text-primary-100">Традиционные и вкусные</p>
+                  <h3 className="text-sm font-bold mb-1 text-white">Մանկական <span style={{ color: '#f3d98c' }}>Աշխարհ</span></h3>
                 </div>
               )}
             </div>
@@ -260,11 +258,10 @@ export default function Home() {
             {/* Left content - tablet optimized */}
             <div className="flex-1 pr-8">
               <h1 className="text-4xl font-bold leading-tight mb-4">
-                <span className="block text-white">Pideh</span>
-                <span className="block text-yellow-200">Armenia</span>
+                <span className="block text-white">Մանկական <span style={{ color: '#f3d98c' }}>Աշխարհ</span></span>
               </h1>
               <p className="text-lg text-primary-100 mb-6 font-medium">
-                Армянские пиде новый вкус для настоящих гурманов
+                Որակյալ արտադրանք ձեր երեխաների համար
               </p>
               <div className="flex gap-8 text-base">
                 <div className="text-center">
@@ -329,8 +326,7 @@ export default function Home() {
                   <div className="relative w-32 h-32 mx-auto mb-3 bg-white/20 rounded-2xl flex items-center justify-center">
                     <span className="text-4xl">🧸</span>
                   </div>
-                  <h3 className="text-base font-bold mb-2 text-white">Армянские Пиде</h3>
-                  <p className="text-sm text-primary-100">Традиционные и вкусные</p>
+                  <h3 className="text-base font-bold mb-2 text-white">Մանկական <span style={{ color: '#f3d98c' }}>Աշխարհ</span></h3>
                 </div>
               )}
             </div>
@@ -345,15 +341,14 @@ export default function Home() {
               {/* Badge */}
               <div className="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium">
                 <span className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
-                Высокое качество продуктов
+                Երեխաների համար անվտանգ արտադրանք
               </div>
               
               {/* Main heading */}
               <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-                <span className="block text-white">Pideh</span>
-                <span className="block text-yellow-200">Armenia</span>
+                <span className="block text-white">Մանկական <span style={{ color: '#f3d98c' }}>Աշխարհ</span></span>
                 <span className="block text-2xl md:text-3xl font-normal text-primary-100 mt-3">
-                  традиционная форма с современными начинками
+                  Որակյալ արտադրանք ձեր երեխաների համար
                 </span>
               </h1>
               
@@ -454,8 +449,7 @@ export default function Home() {
                   </>
                 ) : (
                   <>
-                    <h3 className="text-2xl font-bold mb-2">Армянские Пиде</h3>
-                    <p className="text-primary-100 mb-4 opacity-80 group-hover:opacity-100 transition-opacity duration-300">Традиционные и вкусные</p>
+                    <h3 className="text-2xl font-bold mb-2 text-white">Մանկական <span style={{ color: '#f3d98c' }}>Աշխարհ</span></h3>
                     
                     <Link 
                       href="/products"
