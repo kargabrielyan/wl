@@ -45,6 +45,18 @@ export async function POST(request: NextRequest) {
 
     const body = await request.json()
     const { name, description, image, sortOrder, showInMainPage, isActive } = body
+    
+    // Нормализуем URL изображения и добавим cache-busting
+    const normalizedImage = ((): string | null => {
+      if (!image || typeof image !== 'string') return null
+      const trimmed = image.trim()
+      if (!trimmed) return null
+      const withoutOrigin = trimmed.replace(/^https?:\/\/[^/]+/, '')
+      const basePath = withoutOrigin.startsWith('/') ? withoutOrigin : `/${withoutOrigin}`
+      const stamp = Date.now()
+      const sep = basePath.includes('?') ? '&' : '?'
+      return `${basePath}${sep}v=${stamp}`
+    })()
 
     // Валидация
     if (!name || name.trim().length === 0) {
@@ -70,7 +82,7 @@ export async function POST(request: NextRequest) {
       data: {
         name: name.trim(),
         description: description?.trim() || null,
-        image: image?.trim() || null,
+        image: normalizedImage,
         sortOrder: sortOrder || 0,
         showInMainPage: showInMainPage || false,
         isActive: isActive !== undefined ? isActive : true

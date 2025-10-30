@@ -56,6 +56,20 @@ export async function PUT(
     const body = await request.json()
     const { name, description, image, sortOrder, showInMainPage, isActive } = body
 
+    // Нормализуем URL изображения и добавим cache-busting
+    const normalizedImage = ((): string | null => {
+      if (!image || typeof image !== 'string') return null
+      const trimmed = image.trim()
+      if (!trimmed) return null
+      // Оставляем только веб-путь, уберём возможный абсолютный URL
+      const withoutOrigin = trimmed.replace(/^https?:\/\/[^/]+/, '')
+      const basePath = withoutOrigin.startsWith('/') ? withoutOrigin : `/${withoutOrigin}`
+      const stamp = Date.now()
+      // Добавить/обновить параметр v
+      const sep = basePath.includes('?') ? '&' : '?'
+      return `${basePath}${sep}v=${stamp}`
+    })()
+
     // Проверяем существование категории
     const existingCategory = await prisma.category.findUnique({
       where: { id: params.id }
@@ -96,7 +110,7 @@ export async function PUT(
       data: {
         name: name.trim(),
         description: description?.trim() || null,
-        image: image?.trim() || null,
+        image: normalizedImage,
         sortOrder: sortOrder !== undefined ? sortOrder : existingCategory.sortOrder,
         showInMainPage: showInMainPage !== undefined ? showInMainPage : existingCategory.showInMainPage,
         isActive: isActive !== undefined ? isActive : existingCategory.isActive
