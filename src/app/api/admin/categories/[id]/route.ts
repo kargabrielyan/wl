@@ -61,6 +61,8 @@ export async function PUT(
       if (!image || typeof image !== 'string') return null
       const trimmed = image.trim()
       if (!trimmed) return null
+      // запретить blob:/data:
+      if (/^(blob:|data:)/i.test(trimmed)) return null
       // Оставляем только веб-путь, уберём возможный абсолютный URL
       const withoutOrigin = trimmed.replace(/^https?:\/\/[^/]+/, '')
       const basePath = withoutOrigin.startsWith('/') ? withoutOrigin : `/${withoutOrigin}`

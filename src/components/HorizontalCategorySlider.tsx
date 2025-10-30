@@ -29,6 +29,8 @@ export default function HorizontalCategorySlider({
     if (!value) return null
     let url = String(value).trim()
     if (!url) return null
+    // ignore blob:/data: urls from browser
+    if (/^(blob:|data:)/i.test(url)) return null
     url = url.replace(/\\/g, '/')
     url = url.replace(/^https?:\/\/[^/]+/, '')
     if (!url.startsWith('/')) url = `/${url}`

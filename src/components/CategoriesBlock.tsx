@@ -29,10 +29,13 @@ export default function CategoriesBlock({
     if (!value) return null
     let url = String(value).trim()
     if (!url) return null
-    // Заменим обратные слеши на прямые
-    url = url.replace(/\\/g, '/')</n+    // Уберём протокол и домен, если есть
+    // Игнорировать blob:/data:
+    if (/^(blob:|data:)/i.test(url)) return null
+    // Заменить обратные слеши на прямые
+    url = url.replace(/\\/g, '/')
+    // Удалить протокол и домен
     url = url.replace(/^https?:\/\/[^/]+/, '')
-    // Гарантируем ведущий слеш
+    // Обеспечить ведущий слеш
     if (!url.startsWith('/')) url = `/${url}`
     return url
   }

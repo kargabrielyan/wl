@@ -51,6 +51,7 @@ export async function POST(request: NextRequest) {
       if (!image || typeof image !== 'string') return null
       const trimmed = image.trim()
       if (!trimmed) return null
+      if (/^(blob:|data:)/i.test(trimmed)) return null
       const withoutOrigin = trimmed.replace(/^https?:\/\/[^/]+/, '')
       const basePath = withoutOrigin.startsWith('/') ? withoutOrigin : `/${withoutOrigin}`
       const stamp = Date.now()
