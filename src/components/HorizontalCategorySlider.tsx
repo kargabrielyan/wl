@@ -143,7 +143,7 @@ export default function HorizontalCategorySlider({
           <div className="flex gap-4 md:gap-6 overflow-hidden px-4 md:px-0">
             {[...Array(4)].map((_, i) => (
               <div key={i} className="flex-shrink-0 w-48 md:w-64 bg-gray-100 rounded-2xl p-4 md:p-6 animate-pulse">
-                <div className="w-full h-24 md:h-32 bg-gray-200 rounded-xl mb-3 md:mb-4"></div>
+                <div className="w-full aspect-square bg-gray-200 rounded-xl mb-3 md:mb-4"></div>
                 <div className="h-4 md:h-5 bg-gray-200 rounded mb-2"></div>
                 <div className="h-3 md:h-4 bg-gray-200 rounded w-3/4"></div>
               </div>
@@ -221,8 +221,8 @@ export default function HorizontalCategorySlider({
                   href={`/products?category=${encodeURIComponent(category.name)}`}
                   className="group block bg-white rounded-2xl p-4 md:p-6 hover:shadow-2xl transition-all duration-300 hover:scale-105 border border-gray-200 hover:border-gray-300"
                 >
-                  {/* Изображение категории */}
-                  <div className="relative w-full h-24 md:h-32 mb-3 md:mb-4 rounded-xl overflow-hidden">
+                  {/* Изображение категории (квадратное) */}
+                  <div className="relative w-full aspect-square mb-3 md:mb-4 rounded-xl overflow-hidden">
                     {category.image ? (
                       <Image
                         src={category.image}
