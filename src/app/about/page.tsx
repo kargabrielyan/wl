@@ -2,6 +2,7 @@
 
 import dynamic from 'next/dynamic'
 import { Clock, Users, Heart, Award, ChefHat, Truck, Star, CheckCircle } from 'lucide-react'
+import { AnimatedCounter } from "@/components/AnimatedCounter"
 
 const Footer = dynamic(() => import('@/components/Footer'), {
   ssr: false
@@ -16,7 +17,7 @@ export default function AboutPage() {
       <div className="hidden lg:block h-28"></div>
 
       {/* Hero Section */}
-      <section className="relative text-white overflow-hidden flex items-center justify-center py-20 pt-48" style={{ backgroundColor: '#f3d98c' }}>
+      <section className="relative text-white overflow-hidden flex items-center justify-center py-8" style={{ backgroundColor: '#f3d98c' }}>
         
         {/* Decorative Elements */}
         <div className="absolute top-10 left-10 w-20 h-20 rounded-full opacity-20" style={{ backgroundColor: '#f3d98c' }}></div>
@@ -61,8 +62,8 @@ export default function AboutPage() {
 
         {/* Values Section */}
         <div className="mb-24">
-            <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">Մեր արժեքները</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">Մեր արժեքները</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow text-center group">
               <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform" style={{ backgroundColor: '#f3d98c' }}>
                 <Heart className="h-10 w-10" style={{ color: '#002c45' }} />
@@ -92,23 +93,13 @@ export default function AboutPage() {
                 Պատրաստում ենք արագ, բայց ոչ որակի և համի հաշվին
               </p>
             </div>
-            
-            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow text-center group">
-              <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform" style={{ backgroundColor: '#f3d98c' }}>
-                <Users className="h-10 w-10" style={{ color: '#002c45' }} />
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-gray-900">Համայնք</h3>
-              <p className="text-gray-700 leading-relaxed">
-                Ստեղծում ենք վայր, որտեղ հավաքվում են համեղ ուտեստների սիրահարները
-              </p>
-            </div>
           </div>
         </div>
 
         {/* Team Section */}
         <div className="mb-24">
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">Մեր թիմը</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow text-center group">
               <div className="w-32 h-32 rounded-full mx-auto mb-6 flex items-center justify-center group-hover:scale-105 transition-transform" style={{ backgroundColor: '#f3d98c' }}>
                 <ChefHat className="h-16 w-16" style={{ color: '#002c45' }} />
@@ -131,46 +122,119 @@ export default function AboutPage() {
               </p>
             </div>
             
-            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow text-center group">
-              <div className="w-32 h-32 rounded-full mx-auto mb-6 flex items-center justify-center group-hover:scale-105 transition-transform" style={{ backgroundColor: '#f3d98c' }}>
-                <Truck className="h-16 w-16" style={{ color: '#002c45' }} />
-              </div>
-              <h3 className="text-2xl font-bold mb-3 text-gray-900">Առաքում</h3>
-              <p className="text-gray-700 leading-relaxed">
-                Արագ և ճշգրիտ առաքում ամբողջ Երևանով: 
-                Ձեր պատվերը կհասնի տաք և թարմ:
+          </div>
+        </div>
+
+
+        {/* Statistics Section */}
+        <section className="py-16 lg:py-20" style={{ backgroundColor: '#ffffff' }}>
+          {/* Top Divider */}
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent mb-8"></div>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Section header */}
+            <div className="text-center mb-12 lg:mb-16">
+              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                Մեր Առավելությունները
+              </h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Տարիների Փորձը Եվ Հազարավոր Գոհ Հաճախորդները Մեր Հպարտությունն Են
               </p>
             </div>
-          </div>
-        </div>
 
+            {/* Stats grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
+              {/* Years of Experience */}
+              <div className="text-center group">
+                <div className="bg-gray-50 rounded-2xl p-8 lg:p-10 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-200 min-h-[320px] flex flex-col justify-center items-center">
+                  <div className="w-20 h-20 bg-yellow-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                    <svg className="h-10 w-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <div className="space-y-2">
+                    <AnimatedCounter 
+                      end={10} 
+                      suffix="+"
+                      className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900"
+                      duration={2500}
+                    />
+                    <div className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 leading-tight">
+                      Տարվա Փորձ
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-        {/* Stats Section */}
-        <div className="rounded-3xl p-16 text-center mb-16" style={{ backgroundColor: '#f3d98c' }}>
-          <h2 className="text-4xl font-bold mb-16" style={{ color: '#002c45' }}>Welcome Baby-ն թվերով</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-              <div className="text-5xl font-bold mb-3" style={{ color: '#002c45' }}>10+</div>
-              <div className="text-lg font-semibold mb-2" style={{ color: '#002c45' }}>տարվա փորձ</div>
-              <div className="text-sm text-gray-600">Պրոֆեսիոնալ ծառայություն</div>
-            </div>
-            <div className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-              <div className="text-5xl font-bold mb-3" style={{ color: '#002c45' }}>50+</div>
-              <div className="text-lg font-semibold mb-2" style={{ color: '#002c45' }}>գործընկերներ</div>
-              <div className="text-sm text-gray-600">Վստահելի գործընկերներ</div>
-            </div>
-            <div className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-              <div className="text-4xl font-bold mb-3" style={{ color: '#002c45' }}>80,000+</div>
-              <div className="text-lg font-semibold mb-2" style={{ color: '#002c45' }}>գոհ հաճախորդ</div>
-              <div className="text-sm text-gray-600">Գոհ հաճախորդներ</div>
-            </div>
-            <div className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-              <div className="text-4xl font-bold mb-3" style={{ color: '#002c45' }}>100,000+</div>
-              <div className="text-lg font-semibold mb-2" style={{ color: '#002c45' }}>վաճառված ապրանքներ</div>
-              <div className="text-sm text-gray-600">Վաճառված ապրանքներ</div>
+              {/* Partners */}
+              <div className="text-center group">
+                <div className="bg-gray-50 rounded-2xl p-8 lg:p-10 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-200 min-h-[320px] flex flex-col justify-center items-center">
+                  <div className="w-20 h-20 bg-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                    <svg className="h-10 w-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                  </div>
+                  <div className="space-y-2">
+                    <AnimatedCounter 
+                      end={50} 
+                      suffix="+"
+                      className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900"
+                      duration={2000}
+                    />
+                    <div className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 leading-tight">
+                      Գործընկերներ
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Happy Customers */}
+              <div className="text-center group">
+                <div className="bg-gray-50 rounded-2xl p-8 lg:p-10 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-200 min-h-[320px] flex flex-col justify-center items-center">
+                  <div className="w-20 h-20 bg-green-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                    <svg className="h-10 w-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                  </div>
+                  <div className="space-y-2">
+                    <AnimatedCounter 
+                      end={80000} 
+                      suffix="+"
+                      className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900"
+                      duration={3000}
+                    />
+                    <div className="text-base sm:text-lg lg:text-xl font-bold text-gray-900 leading-tight">
+                      Գոհ Հաճախորդ
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Products Sold */}
+              <div className="text-center group">
+                <div className="bg-gray-50 rounded-2xl p-8 lg:p-10 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-200 min-h-[320px] flex flex-col justify-center items-center">
+                  <div className="w-20 h-20 bg-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                    <svg className="h-10 w-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                    </svg>
+                  </div>
+                  <div className="space-y-2">
+                    <AnimatedCounter 
+                      end={100000} 
+                      suffix="+"
+                      className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900"
+                      duration={3500}
+                    />
+                    <div className="text-sm sm:text-base lg:text-lg font-bold text-gray-900 leading-tight">
+                      Վաճառված Ապրանքներ
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+          {/* Bottom Divider */}
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent mt-8"></div>
+        </section>
 
         {/* Process Section */}
         <div className="bg-white rounded-3xl p-16 shadow-lg mb-16">

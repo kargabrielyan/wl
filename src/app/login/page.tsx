@@ -46,7 +46,7 @@ export default function LoginPage() {
         <div className="flex items-center justify-between px-4 py-3 h-16">
           <Link 
             href="/"
-            className="flex items-center text-gray-600 hover:text-orange-500 transition-colors"
+            className="flex items-center text-gray-600 hover:text-[#f3d98c] transition-colors"
           >
             <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -85,7 +85,7 @@ export default function LoginPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors text-gray-800 bg-white"
+                className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-[#f3d98c] focus:border-[#f3d98c] transition-colors text-gray-800 bg-white"
                 placeholder="your@email.com"
                 required
               />
@@ -101,7 +101,7 @@ export default function LoginPage() {
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 pr-12 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors text-gray-800 bg-white"
+                  className="w-full px-4 py-3 pr-12 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-[#f3d98c] focus:border-[#f3d98c] transition-colors text-gray-800 bg-white"
                   placeholder="Введите пароль"
                   required
                 />
@@ -118,7 +118,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-orange-500 text-white py-4 rounded-xl font-semibold hover:bg-orange-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-[#f3d98c] text-gray-900 py-4 rounded-xl font-semibold hover:bg-[#f3d98c] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? 'Входим...' : 'Войти'}
             </button>
@@ -127,7 +127,7 @@ export default function LoginPage() {
           <div className="mt-6 text-center">
             <p className="text-gray-600">
               Нет аккаунта?{' '}
-              <Link href="/register" className="text-orange-500 hover:text-orange-600 font-semibold">
+              <Link href="/register" className="text-[#f3d98c] hover:text-[#f3d98c] font-semibold">
                 Зарегистрироваться
               </Link>
             </p>

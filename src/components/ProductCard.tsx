@@ -78,20 +78,20 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
           {/* Скидка */}
           {product.salePrice && (
             <span className="bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">
-              SALE
+              ԶԵՂՉ
             </span>
           )}
           
           {/* Статус товара */}
           {product.status === 'HIT' && (
             <span className="bg-orange-500 text-white px-2 py-1 rounded text-xs font-bold">
-              ХИТ
+              ՀԻԹ
             </span>
           )}
           
           {product.status === 'NEW' && (
             <span className="bg-green-500 text-white px-2 py-1 rounded text-xs font-bold">
-              NEW
+              ՆՈՐ
             </span>
           )}
         </div>

@@ -12,7 +12,7 @@ export default function MobileHeader() {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const { settings } = useSettings()
   
-  // Instant search hook
+  // Instant search hook (search-as-you-type)
   const {
     query,
     setQuery,
@@ -27,7 +27,7 @@ export default function MobileHeader() {
     clearSearch
   } = useInstantSearch({
     debounceMs: 200,
-    minQueryLength: 2,
+    minQueryLength: 1, // Поиск работает с первого символа
     maxResults: 4 // Меньше результатов для мобильного
   })
 
@@ -91,13 +91,21 @@ export default function MobileHeader() {
                  <div className="relative flex-1">
                   <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-500" />
                   <input
-                    type="text"
+                    type="search"
                     placeholder="Поиск по каталогу..."
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     onKeyDown={handleKeyDown}
                     onFocus={() => {
-                      if (query.length >= 2 && results.length > 0) {
+                      // Открываем dropdown если есть результаты поиска (search-as-you-type)
+                      if (query.length >= 1 && results.length > 0) {
+                        setIsOpen(true)
+                      }
+                    }}
+                    // Search as you type - поиск при вводе
+                    onInput={(e) => {
+                      // Автоматически открываем dropdown при вводе
+                      if (query.length >= 1) {
                         setIsOpen(true)
                       }
                     }}

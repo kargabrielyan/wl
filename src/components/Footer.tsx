@@ -11,7 +11,7 @@ export default function Footer() {
   return (
     <footer className="text-white py-12" style={{ backgroundColor: '#002c45' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div>
             <div className="flex items-center mb-6 -mt-4">
@@ -52,7 +52,7 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-lg font-semibold mb-4 mt-6">Նավիգացիա</h4>
+            <h4 className="text-lg font-semibold mb-4 mt-6">Մենյու</h4>
             <ul className="space-y-2">
               <li>
                 <Link href="/products" className="transition-colors" style={{ color: '#ffffff' }} onMouseEnter={(e) => e.target.style.color = '#f3d98c'} onMouseLeave={(e) => e.target.style.color = '#ffffff'}>
@@ -67,6 +67,33 @@ export default function Footer() {
               <li>
                 <Link href="/contact" className="transition-colors" style={{ color: '#ffffff' }} onMouseEnter={(e) => e.target.style.color = '#f3d98c'} onMouseLeave={(e) => e.target.style.color = '#ffffff'}>
                   Կապ
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Important Links */}
+          <div>
+            <h4 className="text-lg font-semibold mb-4 mt-6">Կարևոր Հղումներ</h4>
+            <ul className="space-y-2">
+              <li>
+                <Link href="#" className="transition-colors" style={{ color: '#ffffff' }} onMouseEnter={(e) => e.target.style.color = '#f3d98c'} onMouseLeave={(e) => e.target.style.color = '#ffffff'}>
+                  Գաղտնիության Քաղաքականություն
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="transition-colors" style={{ color: '#ffffff' }} onMouseEnter={(e) => e.target.style.color = '#f3d98c'} onMouseLeave={(e) => e.target.style.color = '#ffffff'}>
+                  Առաքման և Մատակարարման Պայմաններ
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="transition-colors" style={{ color: '#ffffff' }} onMouseEnter={(e) => e.target.style.color = '#f3d98c'} onMouseLeave={(e) => e.target.style.color = '#ffffff'}>
+                  Վերադարձի և Փոխանակման Քաղաքականություն
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="transition-colors" style={{ color: '#ffffff' }} onMouseEnter={(e) => e.target.style.color = '#f3d98c'} onMouseLeave={(e) => e.target.style.color = '#ffffff'}>
+                  Օգտագործման Պայմաններ
                 </Link>
               </li>
             </ul>
@@ -132,14 +159,6 @@ export default function Footer() {
         {/* Bottom */}
         <div className="border-t border-gray-700 mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <div className="flex flex-wrap justify-center md:justify-start space-x-6 text-sm">
-              <Link href="/privacy" className="transition-colors" style={{ color: '#ffffff' }} onMouseEnter={(e) => e.target.style.color = '#f3d98c'} onMouseLeave={(e) => e.target.style.color = '#ffffff'}>
-                Գաղտնիության քաղաքականություն
-              </Link>
-              <Link href="/terms" className="transition-colors" style={{ color: '#ffffff' }} onMouseEnter={(e) => e.target.style.color = '#f3d98c'} onMouseLeave={(e) => e.target.style.color = '#ffffff'}>
-                Օգտագործման պայմաններ
-              </Link>
-            </div>
             <p className="text-sm font-light tracking-wide" style={{ color: '#ffffff' }}>
               Copyright © 2025. All Rights Reserved. Created by{' '}
               <a 
@@ -154,6 +173,15 @@ export default function Footer() {
                 Neetrino IT Company
               </a>
             </p>
+            <div className="flex items-center">
+              <Image 
+                src="/images/Group 465918.png" 
+                alt="Payment Methods"
+                width={100}
+                height={20}
+                className="h-5 w-auto opacity-90 hover:opacity-100 transition-opacity"
+              />
+            </div>
           </div>
         </div>
       </div>

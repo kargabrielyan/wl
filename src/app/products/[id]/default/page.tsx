@@ -160,17 +160,17 @@ export default function DefaultProductPage({
                 <div className="absolute top-4 left-4 flex flex-col gap-2">
                   {product.status === 'HIT' && (
                     <span className="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold">
-                      ХИТ
+                      ՀԻԹ
                     </span>
                   )}
                   {product.status === 'NEW' && (
                     <span className="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">
-                      НОВИНКА
+                      ՆՈՐ
                     </span>
                   )}
                   {product.status === 'SALE' && (
                     <span className="bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold">
-                      СКИДКА
+                      ԶԵՂՉ
                     </span>
                   )}
                 </div>

@@ -12,6 +12,7 @@ import ProductSection from "@/components/ProductSection";
 import HorizontalCategorySlider from "@/components/HorizontalCategorySlider";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import TwinklingStars from "@/components/TwinklingStars";
+import { getFallbackImage } from "@/utils/imageUtils";
 
 const Footer = dynamic(() => import('@/components/Footer'))
 
@@ -145,7 +146,7 @@ export default function Home() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'HIT':
-        return { text: 'ՎԱՃԱՌՈՒՄ', color: 'bg-red-500' }
+        return { text: 'ՀԻԹ', color: 'bg-red-500' }
       case 'NEW':
         return { text: 'ՆՈՐ', color: 'bg-green-500' }
       case 'CLASSIC':
@@ -180,7 +181,7 @@ export default function Home() {
                 <span className="block text-white">Մանկական <span style={{ color: '#f3d98c' }}>Աշխարհ</span></span>
               </h1>
               <p className="text-base text-primary-100 mb-4 font-medium">
-                Որակյալ արտադրանք ձեր երեխաների համար
+                Որակյալ Արտադրանք Ձեր Երեխաների Համար
               </p>
               <div className="flex gap-6 text-sm">
                 <div className="text-center">
@@ -201,15 +202,11 @@ export default function Home() {
                   {/* Product Image Container */}
                   <div className="relative w-28 h-28 mx-auto mb-2 rounded-xl flex items-center justify-center overflow-hidden">
                     <img 
-                      src={bannerProduct.image} 
+                      src={bannerProduct.image || getFallbackImage()} 
                       alt={bannerProduct.name}
                       className="relative w-full h-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-300"
                       onError={(e) => {
-                        e.currentTarget.style.display = 'none';
-                        const nextElement = e.currentTarget.nextElementSibling as HTMLElement;
-                        if (nextElement) {
-                          nextElement.style.display = 'flex';
-                        }
+                        e.currentTarget.src = getFallbackImage();
                       }}
                     />
                     <div 
@@ -261,7 +258,7 @@ export default function Home() {
                 <span className="block text-white">Մանկական <span style={{ color: '#f3d98c' }}>Աշխարհ</span></span>
               </h1>
               <p className="text-lg text-primary-100 mb-6 font-medium">
-                Որակյալ արտադրանք ձեր երեխաների համար
+                Որակյալ Արտադրանք Ձեր Երեխաների Համար
               </p>
               <div className="flex gap-8 text-base">
                 <div className="text-center">
@@ -282,15 +279,11 @@ export default function Home() {
                   {/* Product Image Container */}
                   <div className="relative w-36 h-36 mx-auto mb-3 rounded-2xl flex items-center justify-center overflow-hidden">
                     <img 
-                      src={bannerProduct.image} 
+                      src={bannerProduct.image || getFallbackImage()} 
                       alt={bannerProduct.name}
                       className="relative w-full h-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-300"
                       onError={(e) => {
-                        e.currentTarget.style.display = 'none';
-                        const nextElement = e.currentTarget.nextElementSibling as HTMLElement;
-                        if (nextElement) {
-                          nextElement.style.display = 'flex';
-                        }
+                        e.currentTarget.src = getFallbackImage();
                       }}
                     />
                     <div 
@@ -338,17 +331,11 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left content */}
             <div className="space-y-6">
-              {/* Badge */}
-              <div className="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium">
-                <span className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
-                Երեխաների համար անվտանգ արտադրանք
-              </div>
-              
               {/* Main heading */}
               <h1 className="text-4xl md:text-6xl font-bold leading-tight">
                 <span className="block text-white">Մանկական <span style={{ color: '#f3d98c' }}>Աշխարհ</span></span>
                 <span className="block text-2xl md:text-3xl font-normal text-primary-100 mt-3">
-                  Որակյալ արտադրանք ձեր երեխաների համար
+                  Որակյալ Արտադրանք Ձեր Երեխաների Համար
                 </span>
               </h1>
               
@@ -391,7 +378,7 @@ export default function Home() {
                   <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-[calc(100%+4rem)] h-[calc(100%+4rem)] group z-50">
                     {/* Enhanced Main 3D Product Image */}
                     <img 
-                      src={bannerProduct.image} 
+                      src={bannerProduct.image || getFallbackImage()} 
                       alt={bannerProduct.name}
                       className="relative w-full h-full object-contain z-50"
                       style={{
@@ -401,12 +388,7 @@ export default function Home() {
                       }}
                       loading="lazy"
                       onError={(e) => {
-                        console.error('Ошибка загрузки изображения:', bannerProduct.image);
-                        e.currentTarget.style.display = 'none';
-                        const nextElement = e.currentTarget.nextElementSibling as HTMLElement;
-                        if (nextElement) {
-                          nextElement.style.display = 'flex';
-                        }
+                        e.currentTarget.src = getFallbackImage();
                       }}
                     />
 
@@ -467,11 +449,14 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Divider */}
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+
       {/* Categories Section */}
       <section className="relative py-8 lg:py-12" style={{ backgroundColor: '#ffffff' }}>
         <HorizontalCategorySlider 
           title="Կատեգորիաներ"
-          subtitle="Ընտրեք ձեր սիրելի կատեգորիան"
+          subtitle="Ընտրեք Ձեր Սիրելի Կատեգորիան"
           limit={9}
         />
       </section>
@@ -480,7 +465,7 @@ export default function Home() {
       <div className="relative" style={{ backgroundColor: '#ffffff' }}>
         <ProductSection
           title="Զեղչված Արտադրանք"
-          subtitle="Շահավետ առաջարկություններ սիրելի արտադրանքի համար"
+          subtitle="Շահավետ Առաջարկություններ Սիրելի Արտադրանքի Համար"
           products={saleProducts}
           onAddToCart={handleAddToCart}
           addedToCart={addedToCart}
@@ -494,10 +479,10 @@ export default function Home() {
           {/* Section header */}
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Ինչու՞ են ընտրում մեզ:
+              Ինչու՞ Են Ընտրում Մեզ
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Մենք ստեղծել ենք անվտանգության, որակի և ուրախության իդեալական համադրություն ձեր երեխաների համար
+              Մենք Ստեղծել Ենք Անվտանգության, Որակի Եվ Ուրախության Իդեալական Համադրություն Ձեր Երեխաների Համար
             </p>
           </div>
 
@@ -512,8 +497,8 @@ export default function Home() {
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Անվտանգություն</h3>
               <div className="text-center">
-                <span className="inline-block bg-green-500/20 text-green-300 px-3 py-1 rounded-full text-sm font-semibold border border-green-400/30">
-                  🛡️ Անվտանգ
+                <span className="inline-block bg-green-500/20 text-black px-3 py-1 rounded-full text-sm font-semibold border border-green-400/30">
+                  Անվտանգ
                 </span>
               </div>
             </div>
@@ -525,8 +510,8 @@ export default function Home() {
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Առաքում</h3>
               <div className="text-center">
-                <span className="inline-block bg-primary-500/20 text-primary-300 px-3 py-1 rounded-full text-sm font-semibold border border-primary-400/30">
-                  🚚 30 րոպե
+                <span className="inline-block bg-primary-500/20 text-black px-3 py-1 rounded-full text-sm font-semibold border border-primary-400/30">
+                  30 րոպե
                 </span>
               </div>
             </div>
@@ -540,8 +525,8 @@ export default function Home() {
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Զարգացում</h3>
               <div className="text-center">
-                <span className="inline-block bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm font-semibold border border-purple-400/30">
-                  🧠 Զարգացնող
+                <span className="inline-block bg-purple-500/20 text-black px-3 py-1 rounded-full text-sm font-semibold border border-purple-400/30">
+                  Զարգացնող
                 </span>
               </div>
             </div>
@@ -553,8 +538,8 @@ export default function Home() {
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Աջակցություն</h3>
               <div className="text-center">
-                <span className="inline-block bg-pink-500/20 text-pink-300 px-3 py-1 rounded-full text-sm font-semibold border border-pink-400/30">
-                  💬 24/7
+                <span className="inline-block bg-pink-500/20 text-black px-3 py-1 rounded-full text-sm font-semibold border border-pink-400/30">
+                  24/7
                 </span>
               </div>
             </div>
@@ -562,6 +547,18 @@ export default function Home() {
 
         </div>
       </section>
+
+      {/* New Products Section */}
+      <div className="relative" style={{ backgroundColor: '#ffffff' }}>
+        <ProductSection
+          title="Նոր Արտադրանք"
+          subtitle=""
+          products={newProducts}
+          onAddToCart={handleAddToCart}
+          addedToCart={addedToCart}
+          variant="compact"
+        />
+      </div>
 
       {/* Statistics Section */}
       <section className="py-16 lg:py-20" style={{ backgroundColor: '#ffffff' }}>
@@ -572,7 +569,7 @@ export default function Home() {
               Մեր Առավելությունները
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Տարիների փորձը և հազարավոր գոհ հաճախորդները մեր հպարտությունն են
+              Տարիների Փորձը Եվ Հազարավոր Գոհ Հաճախորդները Մեր Հպարտությունն Են
             </p>
           </div>
 
@@ -667,22 +664,9 @@ export default function Home() {
             </div>
           </div>
         </div>
+        {/* Bottom Divider */}
+        <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent mt-8"></div>
       </section>
-
-      {/* New Products Section */}
-      <div className="relative" style={{ backgroundColor: '#ffffff' }}>
-        <ProductSection
-          title="Նոր Արտադրանք"
-          subtitle="Նոր արտադրանք մեր մենյուից"
-          products={newProducts}
-          onAddToCart={handleAddToCart}
-          addedToCart={addedToCart}
-          variant="compact"
-        />
-      </div>
-
-      {/* Divider */}
-      <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
 
       {/* New Toys Section */}
       <ProductSection
@@ -700,10 +684,10 @@ export default function Home() {
           {/* Section header */}
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Ինչ են ասում ծնողները
+              Ինչ Են Ասում Ծնողները
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              1000-ից ավելի գոհ ընտանիքներ արդեն ընտրել են մեր արտադրանքը երեխաների համար
+              1000-ից Ավելի Գոհ Ընտանիքներ Արդեն Ընտրել Են Մեր Արտադրանքը Երեխաների Համար
             </p>
           </div>
 
@@ -786,19 +770,18 @@ export default function Home() {
           </div>
 
         </div>
+        {/* Bottom Divider */}
+        <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent mt-8"></div>
       </section>
-
-      {/* Divider */}
-      <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
 
       {/* CTA Section - Hidden on mobile and tablet */}
       <section className="hidden lg:block py-20 text-gray-900 relative" style={{ backgroundColor: '#ffffff' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Պատրա՞ստ եք ուրախացնել երեխաներին:
+            Պատրա՞ստ Եք Ուրախացնել Երեխաներին
           </h2>
           <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            Պատվիրեք հիմա և ստացեք 15% զեղչ առաջին պատվերի համար:
+            Պատվիրեք Հիմա Եվ Ստացեք 15% Զեղչ Առաջին Պատվերի Համար
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
@@ -815,10 +798,11 @@ export default function Home() {
             </Link>
           </div>
         </div>
+        {/* Bottom Divider */}
+        <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent mt-8"></div>
       </section>
 
-      {/* Divider before Footer */}
-      <div className="w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+      
 
       {/* Footer - Hidden on mobile and tablet */}
       <div className="hidden lg:block">

@@ -20,7 +20,7 @@ export default function DesktopHeader() {
   const pathname = usePathname()
   const [wishlistCount, setWishlistCount] = useState(0)
   
-  // Instant search hook
+  // Instant search hook (search-as-you-type)
   const {
     query,
     setQuery,
@@ -35,7 +35,7 @@ export default function DesktopHeader() {
     clearSearch
   } = useInstantSearch({
     debounceMs: 200,
-    minQueryLength: 2,
+    minQueryLength: 1, // Поиск работает с первого символа
     maxResults: 5
   })
 
@@ -122,7 +122,7 @@ export default function DesktopHeader() {
                 key={link.href}
                 href={link.href}
                 className={`
-                  relative px-6 py-3 rounded-xl font-semibold transition-all duration-300 group capitalize
+                  relative px-6 py-3 rounded-xl font-semibold transition-all duration-300 group capitalize whitespace-nowrap
                   ${isActive(link.href)
                     ? 'text-white bg-white/20 shadow-md'
                     : 'text-white/90 hover:text-white hover:bg-white/10'
@@ -149,13 +149,21 @@ export default function DesktopHeader() {
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4" style={{ color: '#ffdd84' }} />
               <input
-                type="text"
+                type="search"
                 placeholder="Փնտրել..."
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={handleKeyDown}
                 onFocus={() => {
-                  if (query.length >= 2 && results.length > 0) {
+                  // Открываем dropdown если есть результаты поиска (search-as-you-type)
+                  if (query.length >= 1 && results.length > 0) {
+                    setIsOpen(true)
+                  }
+                }}
+                // Search as you type - поиск при вводе
+                onInput={(e) => {
+                  // Автоматически открываем dropdown при вводе
+                  if (query.length >= 1) {
                     setIsOpen(true)
                   }
                 }}

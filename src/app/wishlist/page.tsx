@@ -208,19 +208,19 @@ function WishlistContent() {
                   <div className="absolute top-2 left-2 flex flex-col gap-1">
                     {item.product.salePrice && (
                       <span className="bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">
-                        SALE
+                        ԶԵՂՉ
                       </span>
                     )}
                     {item.product.status === 'HIT' && (
                       <span className="text-white px-2 py-1 rounded text-xs font-bold"
                         style={{ backgroundColor: '#f3d98c' }}
                       >
-                        ХИТ
+                        ՀԻԹ
                       </span>
                     )}
                     {item.product.status === 'NEW' && (
                       <span className="bg-green-500 text-white px-2 py-1 rounded text-xs font-bold">
-                        NEW
+                        ՆՈՐ
                       </span>
                     )}
                   </div>

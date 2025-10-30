@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
 
     // Получаем данные из запроса
     const body = await request.json()
-    const { name, description, price, salePrice, categoryId, image, ingredients, isAvailable = true, status = 'REGULAR' } = body
+    const { name, description, price, salePrice, categoryId, image, ingredients, isAvailable = true, status = 'REGULAR', stock = 10 } = body
 
     // Валидация обязательных полей
     if (!name || !description || !price || !categoryId) {
@@ -89,9 +89,10 @@ export async function POST(request: NextRequest) {
         price,
         salePrice: salePrice === null || salePrice === '' ? null : salePrice,
         categoryId,
-        image: image || '', // Пустая строка для отсутствия изображения
-        ingredients: ingredients || [],
+        image: image && image.trim() !== '' ? image : '/images/nophoto.jpg', // Используем nophoto.jpg по умолчанию
+        ingredients: Array.isArray(ingredients) ? JSON.stringify(ingredients) : (ingredients || ''), // Преобразуем массив в строку JSON или используем строку
         isAvailable,
+        stock: typeof stock === 'number' ? stock : 10, // Устанавливаем stock, по умолчанию 10
         status: status || 'REGULAR' // Если статус не выбран, то REGULAR
       },
       include: {
@@ -116,8 +117,15 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(normalizedProduct, { status: 201 })
   } catch (error) {
     console.error('Error creating product:', error)
+    console.error('Error details:', {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined
+    })
     return NextResponse.json(
-      { error: 'Failed to create product' },
+      { 
+        error: 'Failed to create product',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      },
       { status: 500 }
     )
   }

@@ -134,9 +134,22 @@ const SearchResultItem = memo(function SearchResultItem({
           {result.description}
         </p>
         <div className="flex items-center justify-between mt-1">
-          <span className="text-xs text-red-500 font-medium">
-            {result.price} ֏
-          </span>
+          <div className="flex items-center gap-2">
+            {result.salePrice ? (
+              <>
+                <span className="text-xs text-red-500 font-medium">
+                  {result.salePrice} ֏
+                </span>
+                <span className="text-xs text-gray-400 line-through">
+                  {result.price} ֏
+                </span>
+              </>
+            ) : (
+              <span className="text-xs text-red-500 font-medium">
+                {result.price} ֏
+              </span>
+            )}
+          </div>
           <span className="text-xs text-gray-400 bg-gray-100 px-2 py-1 rounded">
             {result.category}
           </span>

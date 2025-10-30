@@ -32,12 +32,12 @@ export async function GET(request: NextRequest) {
     }
 
     if (newProducts === 'true') {
-      // Товары добавленные за последнюю неделю
-      const oneWeekAgo = new Date()
-      oneWeekAgo.setDate(oneWeekAgo.getDate() - 7)
+      // Товары добавленные за последние 30 дней
+      const thirtyDaysAgo = new Date()
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)
       
       whereClause.createdAt = {
-        gte: oneWeekAgo
+        gte: thirtyDaysAgo
       }
     }
 
@@ -48,12 +48,12 @@ export async function GET(request: NextRequest) {
     }
 
     if (newToys === 'true') {
-      // Новые музыкальные игрушки за последнюю неделю
-      const oneWeekAgo = new Date()
-      oneWeekAgo.setDate(oneWeekAgo.getDate() - 7)
+      // Новые музыкальные игрушки за последние 30 дней
+      const thirtyDaysAgo = new Date()
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)
       
       whereClause.createdAt = {
-        gte: oneWeekAgo
+        gte: thirtyDaysAgo
       }
       whereClause.category = {
         name: 'Երաժշտական խաղալիքներ'

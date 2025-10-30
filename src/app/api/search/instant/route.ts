@@ -8,21 +8,30 @@ export async function GET(request: NextRequest) {
     const query = searchParams.get('q')
     const limit = parseInt(searchParams.get('limit') || '8')
 
-    // Валидация
-    if (!query || query.trim().length < 2) {
+    // Валидация (проверка на минимальную длину убрана для search-as-you-type)
+    if (!query || query.trim().length < 1) {
       return NextResponse.json({ results: [] })
     }
 
-    // Базовый поиск товаров
+    // Поиск товаров напрямую в базе данных (используем OR условия для поиска)
+    const searchQuery = query.toLowerCase().trim()
+    
+    // Поиск с использованием Prisma OR условий для точного поиска в базе данных
     const products = await prisma.product.findMany({
       where: {
-        isAvailable: true
+        isAvailable: true,
+        OR: [
+          { name: { contains: searchQuery, mode: 'insensitive' } },
+          { description: { contains: searchQuery, mode: 'insensitive' } },
+          { ingredients: { contains: searchQuery, mode: 'insensitive' } }
+        ]
       },
       select: {
         id: true,
         name: true,
         description: true,
         price: true,
+        salePrice: true,
         image: true,
         ingredients: true,
         category: {
@@ -31,21 +40,22 @@ export async function GET(request: NextRequest) {
           }
         }
       },
-      take: limit * 2 // Берем больше для фильтрации
+      take: limit, // Берем только нужное количество
+      orderBy: [
+        // Приоритет: товары, где название содержит запрос
+        {
+          name: 'asc'
+        }
+      ]
     })
 
-    // Фильтрация на уровне приложения
-    const filteredProducts = products.filter(product => {
-      const nameMatch = product.name.toLowerCase().includes(query.toLowerCase())
-      const descMatch = product.description?.toLowerCase().includes(query.toLowerCase())
-      const ingredientsMatch = product.ingredients?.toLowerCase().includes(query.toLowerCase()) || false
-      
-      return nameMatch || descMatch || ingredientsMatch
-    }).sort((a, b) => {
-      const aNameMatch = a.name.toLowerCase().includes(query.toLowerCase())
-      const bNameMatch = b.name.toLowerCase().includes(query.toLowerCase())
-      const aIngredientsMatch = a.ingredients?.toLowerCase().includes(query.toLowerCase()) || false
-      const bIngredientsMatch = b.ingredients?.toLowerCase().includes(query.toLowerCase()) || false
+    // Сортируем результаты для лучшего соответствия (название > ингредиенты > описание)
+    const filteredProducts = products.sort((a, b) => {
+      const queryLower = searchQuery
+      const aNameMatch = a.name.toLowerCase().includes(queryLower)
+      const bNameMatch = b.name.toLowerCase().includes(queryLower)
+      const aIngredientsMatch = a.ingredients?.toLowerCase().includes(queryLower) || false
+      const bIngredientsMatch = b.ingredients?.toLowerCase().includes(queryLower) || false
       
       // Приоритет: название > ингредиенты > описание
       if (aNameMatch && !bNameMatch) return -1
@@ -53,7 +63,7 @@ export async function GET(request: NextRequest) {
       if (aIngredientsMatch && !bIngredientsMatch) return -1
       if (!aIngredientsMatch && bIngredientsMatch) return 1
       return 0
-    }).slice(0, limit) // Ограничиваем результат
+    })
 
     // Форматируем результаты для instant search
     const results = filteredProducts.map(product => ({
@@ -61,6 +71,7 @@ export async function GET(request: NextRequest) {
       name: product.name,
       description: product.description,
       price: product.price,
+      salePrice: product.salePrice,
       image: (product.image && product.image.trim() !== '') 
         ? product.image 
         : '/images/nophoto.jpg',
@@ -69,9 +80,13 @@ export async function GET(request: NextRequest) {
       type: 'product' as const
     }))
 
-    // Кэшируем результаты на 5 минут
+    // Логируем для отладки
+    console.log(`[Instant Search] Query: "${query}", Found: ${results.length} results`)
+
+    // Не кэшируем результаты для instant search - новые товары должны появляться сразу
+    // Используем no-store для актуальности данных при добавлении новых товаров через админку
     const response = NextResponse.json({ results })
-    response.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=600')
+    response.headers.set('Cache-Control', 'no-store, must-revalidate')
     
     return response
   } catch (error) {

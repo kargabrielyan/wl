@@ -5,6 +5,7 @@ export interface SearchResult {
   name: string
   description: string
   price: number
+  salePrice?: number | null
   image: string
   ingredients?: string
   category: string
@@ -55,15 +56,16 @@ export function useInstantSearch({
       return
     }
 
-    // Проверяем кэш
-    const cacheKey = `${searchQuery.toLowerCase()}-${maxResults}`
-    const cachedResults = cacheRef.current.get(cacheKey)
-    if (cachedResults) {
-      setResults(cachedResults)
-      setSelectedIndex(-1)
-      setLoading(false)
-      return
-    }
+    // НЕ используем кэш для актуальности данных (новые товары должны появляться сразу)
+    // Проверяем кэш только для очень коротких запросов
+    // const cacheKey = `${searchQuery.toLowerCase()}-${maxResults}`
+    // const cachedResults = cacheRef.current.get(cacheKey)
+    // if (cachedResults) {
+    //   setResults(cachedResults)
+    //   setSelectedIndex(-1)
+    //   setLoading(false)
+    //   return
+    // }
 
     // Отменяем предыдущий запрос
     if (abortControllerRef.current) {
@@ -80,7 +82,11 @@ export function useInstantSearch({
       const response = await fetch(
         `/api/search/instant?q=${encodeURIComponent(searchQuery)}&limit=${maxResults}`,
         {
-          signal: abortControllerRef.current.signal
+          signal: abortControllerRef.current.signal,
+          cache: 'no-store', // Отключаем кэш браузера для актуальности данных
+          headers: {
+            'Cache-Control': 'no-cache'
+          }
         }
       )
 
@@ -91,14 +97,15 @@ export function useInstantSearch({
       const data = await response.json()
       const searchResults = data.results || []
       
-      // Сохраняем в кэш
-      cacheRef.current.set(cacheKey, searchResults)
-      
-      // Ограничиваем размер кэша (максимум 50 запросов)
-      if (cacheRef.current.size > 50) {
-        const firstKey = cacheRef.current.keys().next().value
-        cacheRef.current.delete(firstKey)
-      }
+      // НЕ кэшируем результаты для актуальности данных при добавлении новых товаров
+      // Сохраняем в кэш только если очень нужно (закомментировано)
+      // cacheRef.current.set(cacheKey, searchResults)
+      // 
+      // // Ограничиваем размер кэша (максимум 50 запросов)
+      // if (cacheRef.current.size > 50) {
+      //   const firstKey = cacheRef.current.keys().next().value
+      //   cacheRef.current.delete(firstKey)
+      // }
       
       setResults(searchResults)
       setSelectedIndex(-1)

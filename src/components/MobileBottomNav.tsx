@@ -121,7 +121,7 @@ export default function MobileBottomNav() {
                 key={link.href}
                 href={link.href}
                 className={`
-                  group block px-8 py-6 rounded-2xl text-gray-700 hover:bg-orange-500 hover:text-white transition-all duration-300 font-semibold text-xl text-center shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95
+                  group block px-8 py-6 rounded-2xl text-gray-700 hover:bg-orange-500 hover:text-white transition-all duration-300 font-semibold text-xl text-center shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 whitespace-nowrap
                   ${isActive(link.href) 
                     ? 'bg-orange-500 text-white shadow-xl scale-105' 
                     : 'bg-white/80 backdrop-blur-sm border border-gray-200'
@@ -129,7 +129,7 @@ export default function MobileBottomNav() {
                 `}
                 onClick={() => setIsMenuOpen(false)}
               >
-                <span className="block">{link.label}</span>
+                <span className="block whitespace-nowrap">{link.label}</span>
                 {isActive(link.href) && (
                   <div className="mt-2 w-8 h-1 bg-white/30 rounded-full mx-auto"></div>
                 )}

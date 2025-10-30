@@ -170,8 +170,8 @@ export default async function OptimizedProductPage({
                     {/* 3D Category Badge */}
                     <div 
                       className="text-white px-4 py-2 rounded-2xl text-xs font-bold shadow-2xl transform group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-500"
-                      style={{ backgroundColor: '#ffdd84' }}
                       style={{
+                        backgroundColor: '#ffdd84',
                         boxShadow: '0 10px 25px rgba(255, 107, 53, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1)',
                         backdropFilter: 'blur(10px)',
                       }}
@@ -183,42 +183,42 @@ export default async function OptimizedProductPage({
                     {product.status === 'HIT' && (
                       <div 
                         className="text-white px-3 py-1 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-1 transform group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-500"
-                        style={{ backgroundColor: '#ffdd84' }}
                         style={{
+                          backgroundColor: '#ffdd84',
                           boxShadow: '0 10px 25px rgba(255, 193, 7, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1)',
                           backdropFilter: 'blur(10px)',
                         }}
                       >
                         <Star className="w-3 h-3" />
-                        ХИТ ПРОДАЖ
+                        ՀԻԹ
                       </div>
                     )}
                     
                     {product.status === 'NEW' && (
                       <div 
                         className="text-white px-3 py-1 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-1 transform group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-500"
-                        style={{ backgroundColor: '#ffdd84' }}
                         style={{
+                          backgroundColor: '#ffdd84',
                           boxShadow: '0 10px 25px rgba(34, 197, 94, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1)',
                           backdropFilter: 'blur(10px)',
                         }}
                       >
                         <Zap className="w-3 h-3" />
-                        НОВИНКА
+                        ՆՈՐ
                       </div>
                     )}
                     
                     {product.status === 'CLASSIC' && (
                       <div 
                         className="text-white px-3 py-1 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-1 transform group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-500"
-                        style={{ backgroundColor: '#ffdd84' }}
                         style={{
+                          backgroundColor: '#ffdd84',
                           boxShadow: '0 10px 25px rgba(59, 130, 246, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1)',
                           backdropFilter: 'blur(10px)',
                         }}
                       >
                         <Star className="w-3 h-3" />
-                        КЛАССИКА
+                        ԴԱՍԻԿ
                       </div>
                     )}
                   </div>
