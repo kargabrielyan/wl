@@ -25,6 +25,17 @@ export default function CategoriesBlock({
   subtitle = "Ընտրեք ձեր սիրելի կատեգորիան",
   limit = 9
 }: CategoriesBlockProps) {
+  const sanitizeImageUrl = (value?: string | null): string | null => {
+    if (!value) return null
+    let url = String(value).trim()
+    if (!url) return null
+    // Заменим обратные слеши на прямые
+    url = url.replace(/\\/g, '/')</n+    // Уберём протокол и домен, если есть
+    url = url.replace(/^https?:\/\/[^/]+/, '')
+    // Гарантируем ведущий слеш
+    if (!url.startsWith('/')) url = `/${url}`
+    return url
+  }
   const [categories, setCategories] = useState<Category[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -91,11 +102,14 @@ export default function CategoriesBlock({
             >
               {/* Изображение категории (квадрат) */}
               <div className="relative w-full aspect-square mb-3 rounded-lg overflow-hidden">
-                {category.image ? (
+                {sanitizeImageUrl(category.image) ? (
                   <Image
-                    src={category.image}
+                    key={sanitizeImageUrl(category.image)!}
+                    src={sanitizeImageUrl(category.image)!}
                     alt={category.name}
                     fill
+                    unoptimized
+                    sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 18vw"
                     className="object-cover group-hover:scale-110 transition-transform duration-300"
                     onError={(e) => {
                       e.currentTarget.style.display = 'none'

@@ -25,6 +25,15 @@ export default function HorizontalCategorySlider({
   subtitle = "Ընտրեք ձեր սիրելի կատեգորիան",
   limit = 9
 }: HorizontalCategorySliderProps) {
+  const sanitizeImageUrl = (value?: string | null): string | null => {
+    if (!value) return null
+    let url = String(value).trim()
+    if (!url) return null
+    url = url.replace(/\\/g, '/')
+    url = url.replace(/^https?:\/\/[^/]+/, '')
+    if (!url.startsWith('/')) url = `/${url}`
+    return url
+  }
   const [categories, setCategories] = useState<Category[]>([])
   const [loading, setLoading] = useState(true)
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -223,11 +232,13 @@ export default function HorizontalCategorySlider({
                 >
                   {/* Изображение категории (квадрат) */}
                   <div className="relative w-full aspect-square mb-3 md:mb-4 rounded-xl overflow-hidden">
-                    {category.image ? (
+                    {sanitizeImageUrl(category.image) ? (
                       <Image
-                        src={category.image}
+                        key={sanitizeImageUrl(category.image)!}
+                        src={sanitizeImageUrl(category.image)!}
                         alt={category.name}
                         fill
+                        unoptimized
                         sizes="(max-width: 768px) 150px, (max-width: 1024px) 200px, 250px"
                         className="object-cover group-hover:scale-110 transition-transform duration-300"
                         onError={(e) => {
