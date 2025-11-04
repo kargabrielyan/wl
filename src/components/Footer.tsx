@@ -17,7 +17,7 @@ export default function Footer() {
             <div className="flex items-center mb-6 -mt-4">
               <Image 
                 src={settings.logo || "/logo.png"} 
-                alt={settings.siteName || "Pideh Armenia Logo"} 
+                alt={settings.siteName || "WelcomeBaby Logo"} 
                 width={160} 
                 height={60}
                 className="h-16 w-auto"
@@ -77,22 +77,22 @@ export default function Footer() {
             <h4 className="text-lg font-semibold mb-4 mt-6">Կարևոր Հղումներ</h4>
             <ul className="space-y-2">
               <li>
-                <Link href="#" className="transition-colors" style={{ color: '#ffffff' }} onMouseEnter={(e) => e.target.style.color = '#f3d98c'} onMouseLeave={(e) => e.target.style.color = '#ffffff'}>
+                <Link href="/privacy-policy" className="transition-colors" style={{ color: '#ffffff' }} onMouseEnter={(e) => e.target.style.color = '#f3d98c'} onMouseLeave={(e) => e.target.style.color = '#ffffff'}>
                   Գաղտնիության Քաղաքականություն
                 </Link>
               </li>
               <li>
-                <Link href="#" className="transition-colors" style={{ color: '#ffffff' }} onMouseEnter={(e) => e.target.style.color = '#f3d98c'} onMouseLeave={(e) => e.target.style.color = '#ffffff'}>
+                <Link href="/delivery-terms" className="transition-colors" style={{ color: '#ffffff' }} onMouseEnter={(e) => e.target.style.color = '#f3d98c'} onMouseLeave={(e) => e.target.style.color = '#ffffff'}>
                   Առաքման և Մատակարարման Պայմաններ
                 </Link>
               </li>
               <li>
-                <Link href="#" className="transition-colors" style={{ color: '#ffffff' }} onMouseEnter={(e) => e.target.style.color = '#f3d98c'} onMouseLeave={(e) => e.target.style.color = '#ffffff'}>
+                <Link href="/refund-policy" className="transition-colors" style={{ color: '#ffffff' }} onMouseEnter={(e) => e.target.style.color = '#f3d98c'} onMouseLeave={(e) => e.target.style.color = '#ffffff'}>
                   Վերադարձի և Փոխանակման Քաղաքականություն
                 </Link>
               </li>
               <li>
-                <Link href="#" className="transition-colors" style={{ color: '#ffffff' }} onMouseEnter={(e) => e.target.style.color = '#f3d98c'} onMouseLeave={(e) => e.target.style.color = '#ffffff'}>
+                <Link href="/terms-and-conditions" className="transition-colors" style={{ color: '#ffffff' }} onMouseEnter={(e) => e.target.style.color = '#f3d98c'} onMouseLeave={(e) => e.target.style.color = '#ffffff'}>
                   Օգտագործման Պայմաններ
                 </Link>
               </li>

@@ -1,6 +1,7 @@
 'use client'
 
 import dynamic from 'next/dynamic'
+import Image from 'next/image'
 import { Clock, Users, Heart, Award, ChefHat, Truck, Star, CheckCircle } from 'lucide-react'
 import { AnimatedCounter } from "@/components/AnimatedCounter"
 
@@ -41,8 +42,9 @@ export default function AboutPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Story Section */}
         <div className="mb-24">
-          <div className="space-y-6">
-            <h2 className="text-4xl font-bold text-gray-900 mb-8">Մեր պատմությունը</h2>
+          <h2 className="text-4xl font-bold text-gray-900 mb-8">Մեր պատմությունը</h2>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            {/* Text Content - Left */}
             <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
               <p>
                 Welcome Baby ընկերությունը ստեղծվել է 2015 թվականին՝ Անահիտ և Լուսինե Անդրյանների ջանքերի շնորհիվ։ Նորածնային կահույք և անկողնային պարագաներ արտադրող ընկերություն, որն ունի իր 2 խանութ սրահները՝ Երևանում և Գյումրիում։
@@ -56,6 +58,18 @@ export default function AboutPage() {
               <p>
                 Ամենակարևոր առավելություններից է անհատական պատվերների ընդունումը և պատվերների սեղմ ժամկետները։
               </p>
+            </div>
+            
+            {/* Image - Right */}
+            <div className="relative w-full h-[400px] lg:h-[500px] rounded-2xl overflow-hidden shadow-lg">
+              <Image
+                src="/images/quyrikneri-nkar.webp"
+                alt="Welcome Baby թիմը"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                priority
+              />
             </div>
           </div>
         </div>
@@ -136,7 +150,7 @@ export default function AboutPage() {
               <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
                 Մեր Առավելությունները
               </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              <p className="text-lg text-gray-600 whitespace-nowrap">
                 Տարիների Փորձը Եվ Հազարավոր Գոհ Հաճախորդները Մեր Հպարտությունն Են
               </p>
             </div>
@@ -225,7 +239,7 @@ export default function AboutPage() {
                       duration={3500}
                     />
                     <div className="text-sm sm:text-base lg:text-lg font-bold text-gray-900 leading-tight">
-                      Վաճառված Ապրանքներ
+                      Վաճառված Ապրանք
                     </div>
                   </div>
                 </div>

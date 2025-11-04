@@ -15,6 +15,7 @@ import {
   Search,
   Filter
 } from 'lucide-react'
+import ImageSelector from '@/components/ImageSelector'
 
 interface Category {
   id: string
@@ -147,50 +148,6 @@ export default function CategoriesPage() {
     }
   }
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
-    try {
-      console.log('[Admin/Categories] Начата загрузка изображения категории')
-      if (!file.type.startsWith('image/')) {
-        alert('Пожалуйста, выберите файл изображения')
-        return
-      }
-      if (file.size > 5 * 1024 * 1024) {
-        alert('Файл слишком большой. Максимум 5MB')
-        return
-      }
-
-      const form = new FormData()
-      form.append('image', file)
-
-      const res = await fetch('/api/upload-image', {
-        method: 'POST',
-        body: form
-      })
-
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({}))
-        console.error('[Admin/Categories] Ошибка загрузки', err)
-        alert(err.error || 'Ошибка загрузки изображения')
-        return
-      }
-
-      const data = await res.json()
-      const serverPath = data?.path as string | undefined
-      if (!serverPath) {
-        console.error('[Admin/Categories] Не получен путь изображения от сервера', data)
-        alert('Не получен путь изображения от сервера')
-        return
-      }
-
-      console.log('[Admin/Categories] Изображение загружено', serverPath)
-      setFormData(prev => ({ ...prev, image: serverPath }))
-    } catch (err) {
-      console.error('[Admin/Categories] Непредвиденная ошибка загрузки', err)
-      alert('Не удалось загрузить изображение. Попробуйте ещё раз.')
-    }
-  }
 
   const filteredCategories = categories.filter(category => {
     const matchesSearch = category.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -403,29 +360,10 @@ export default function CategoriesPage() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Изображение
                 </label>
-                <div className="flex items-center gap-4">
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageUpload}
-                    className="hidden"
-                    id="image-upload"
-                  />
-                  <label
-                    htmlFor="image-upload"
-                    className="flex items-center px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors cursor-pointer"
-                  >
-                    <Upload className="w-4 h-4 mr-2" />
-                    Загрузить
-                  </label>
-                  {formData.image && (
-                    <img
-                      src={formData.image}
-                      alt="Preview"
-                      className="w-16 h-16 object-cover rounded-lg"
-                    />
-                  )}
-                </div>
+                <ImageSelector
+                  value={formData.image}
+                  onChange={(imagePath) => setFormData(prev => ({ ...prev, image: imagePath }))}
+                />
               </div>
 
               {/* Порядок сортировки */}

@@ -2,11 +2,8 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Card, CardContent } from '@/components/ui/card'
 import { 
   Upload, 
-  Search, 
   X, 
   Image as ImageIcon,
   Check,
@@ -29,7 +26,6 @@ interface ImageFile {
 export default function ImageSelector({ value, onChange, className = '' }: ImageSelectorProps) {
   const [activeTab, setActiveTab] = useState<'gallery' | 'upload' | null>(null)
   const [images, setImages] = useState<ImageFile[]>([])
-  const [searchTerm, setSearchTerm] = useState('')
   const [uploading, setUploading] = useState(false)
   const [loadingGallery, setLoadingGallery] = useState(false)
   const [dragOver, setDragOver] = useState(false)
@@ -61,10 +57,6 @@ export default function ImageSelector({ value, onChange, className = '' }: Image
     }
   }, [activeTab])
 
-  // Фильтруем изображения по поисковому запросу
-  const filteredImages = images.filter(img => 
-    img.name.toLowerCase().includes(searchTerm.toLowerCase())
-  )
 
   // Обработка загрузки файлов
   const handleFileUpload = async (files: FileList) => {
@@ -231,18 +223,7 @@ export default function ImageSelector({ value, onChange, className = '' }: Image
 
       {/* Содержимое вкладок */}
       {activeTab === 'gallery' && (
-        <div className="mt-4 space-y-4">
-          {/* Поиск */}
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-            <Input
-              placeholder="Поиск изображений..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10"
-            />
-          </div>
-
+        <div className="mt-4">
           {/* Галерея изображений */}
           {loadingGallery ? (
             <div className="flex items-center justify-center py-8">
@@ -251,8 +232,8 @@ export default function ImageSelector({ value, onChange, className = '' }: Image
             </div>
           ) : (
             <>
-              <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2 max-h-64 overflow-y-auto">
-                {filteredImages.map((image) => (
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 max-h-96 overflow-y-auto">
+                {images.map((image) => (
                   <button
                     key={image.path}
                     type="button"
@@ -267,19 +248,19 @@ export default function ImageSelector({ value, onChange, className = '' }: Image
                       src={image.path}
                       alt={image.name}
                       fill
-                      sizes="80px"
+                      sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw"
                       className="object-cover"
                     />
                     {value === image.path && (
                       <div className="absolute inset-0 bg-orange-500 bg-opacity-20 flex items-center justify-center">
-                        <Check className="h-6 w-6 text-orange-600" />
+                        <Check className="h-8 w-8 text-orange-600" />
                       </div>
                     )}
                   </button>
                 ))}
               </div>
 
-              {filteredImages.length === 0 && !loadingGallery && (
+              {images.length === 0 && !loadingGallery && (
                 <div className="text-center py-8 text-gray-500">
                   <ImageIcon className="h-12 w-12 mx-auto mb-2 opacity-50" />
                   <p>Изображения не найдены</p>

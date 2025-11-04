@@ -107,7 +107,7 @@ export default function DesktopHeader() {
           <Link href="/" className="hover:opacity-80 transition-opacity">
             <Image 
               src={settings.logo || "/images/logo.png"} 
-              alt={settings.siteName || "Pideh Armenia Logo"} 
+              alt={settings.siteName || "WelcomeBaby Logo"} 
               width={333}
               height={125}
               className="h-[112px] w-auto"

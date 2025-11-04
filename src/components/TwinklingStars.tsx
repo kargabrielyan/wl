@@ -25,8 +25,10 @@ export default function TwinklingStars({
   imageStarRatio = 0.2
 }: TwinklingStarsProps) {
   const [stars, setStars] = useState<Star[]>([])
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
+    setMounted(true)
     const generateStars = () => {
       const newStars: Star[] = []
       for (let i = 0; i < count; i++) {
@@ -45,6 +47,11 @@ export default function TwinklingStars({
     }
     generateStars()
   }, [count, imageStarRatio])
+
+  // Не рендерим звезды на сервере, чтобы избежать ошибок гидратации
+  if (!mounted) {
+    return null
+  }
 
   return (
     <div className={`absolute inset-0 pointer-events-none overflow-hidden ${className}`}>

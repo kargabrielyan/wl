@@ -64,7 +64,7 @@ export default function MobileHeader() {
             <Link href="/" className="hover:opacity-80 transition-all duration-300 hover:scale-105">
               <Image 
                 src={settings.logo || "/images/logo.png"} 
-                alt={settings.siteName || "Pideh Armenia Logo"} 
+                alt={settings.siteName || "WelcomeBaby Logo"} 
                 width={120} 
                 height={36}
                 className="h-[32px] w-auto"

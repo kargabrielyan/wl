@@ -377,9 +377,8 @@ async function main() {
     const suffixes = ['', ' Deluxe', ' Pro', ' Max', ' Mini', ' Classic', ' Modern', ' Premium', ' Basic', ' Advanced']
     const finalName = name + getRandomElement(suffixes)
     
-    // Генерируем случайное изображение
-    const imageNumber = Math.floor(Math.random() * 100) + 1
-    const image = `/images/product-${imageNumber}.jpg`
+    // Используем placeholder изображение вместо product-*.jpg
+    const image = '/images/nophoto.jpg'
     
     products.push({
       name: finalName,

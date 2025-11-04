@@ -1,5 +1,5 @@
 // Service Worker для кэширования и оптимизации производительности
-const CACHE_NAME = 'pideh-armenia-v1.0.2'
+const CACHE_NAME = 'welcomebaby-v1.0.2'
 
 // Файлы для кэширования (только статические ресурсы)
 const STATIC_FILES = [
@@ -127,7 +127,7 @@ self.addEventListener('push', (event) => {
   console.log('Service Worker: Push notification received')
   
   const options = {
-    body: event.data ? event.data.text() : 'Новое уведомление от Pideh Armenia',
+    body: event.data ? event.data.text() : 'Новое уведомление от WelcomeBaby',
     icon: '/images/logo.png',
     badge: '/images/logo.png',
     vibrate: [100, 50, 100],
@@ -150,7 +150,7 @@ self.addEventListener('push', (event) => {
   }
   
   event.waitUntil(
-    self.registration.showNotification('Pideh Armenia', options)
+    self.registration.showNotification('WelcomeBaby', options)
   )
 })
 

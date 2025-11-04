@@ -369,78 +369,96 @@ export default function Home() {
             </div>
             
             {/* Right content - Product showcase */}
-            <div className="relative">
+            <div className="relative flex justify-end">
               
-              {/* Enhanced 3D Product Image - Outside the card */}
-              {bannerProduct ? (
-                <div className="relative w-80 h-80 mx-auto mb-4">
-                  {/* 3D Product Image with floating effect */}
-                  <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-[calc(100%+4rem)] h-[calc(100%+4rem)] group z-50">
-                    {/* Enhanced Main 3D Product Image */}
-                    <img 
-                      src={bannerProduct.image || getFallbackImage()} 
-                      alt={bannerProduct.name}
-                      className="relative w-full h-full object-contain z-50"
-                      style={{
-                        filter: 'none',
-                        transform: 'perspective(1000px) rotateX(8deg) rotateY(-3deg)',
-                        imageRendering: '-webkit-optimize-contrast',
-                      }}
-                      loading="lazy"
-                      onError={(e) => {
-                        e.currentTarget.src = getFallbackImage();
-                      }}
-                    />
-
-                  </div>
-                </div>
-              ) : (
-                <div className="relative w-72 h-72 mx-auto mb-6">
-                  <div 
-                    className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-[calc(100%+3rem)] h-[calc(100%+3rem)] flex items-center justify-center text-8xl"
-                    style={{
-                      filter: 'none',
-                      transform: 'perspective(1000px) rotateX(5deg) rotateY(-2deg)',
-                    }}
-                  >
-                    🥟
-                  </div>
-                </div>
-              )}
-
-              {/* Main product card - Same as ProductCard */}
-              <div className="relative bg-white/10 backdrop-blur-lg rounded-3xl p-8 text-center border border-white/20 shadow-2xl overflow-visible hover:shadow-3xl hover:scale-110 transition-all duration-700 cursor-pointer group border-0 transform hover:-translate-y-3">
-                {/* Floating elements */}
-                <div className="absolute -top-4 -right-4 w-8 h-8 bg-yellow-300 rounded-full animate-bounce"></div>
-                <div className="absolute -bottom-2 -left-2 w-6 h-6 bg-orange-300 rounded-full animate-pulse"></div>
-                
-                
+              {/* Main product card - Banner Design 450x680px */}
+              <div 
+                className="relative rounded-2xl overflow-hidden shadow-2xl transition-all duration-300 hover:shadow-3xl group"
+                style={{ 
+                  width: '450px', 
+                  height: '680px',
+                  backgroundColor: '#002c45'
+                }}
+              >
                 {bannerProduct ? (
                   <>
-                    <h3 className="text-2xl font-bold mb-2">{bannerProduct.name}</h3>
-                    <p className="text-orange-100 mb-4 opacity-80 group-hover:opacity-100 transition-opacity duration-300">{bannerProduct.description}</p>
+                    {/* Product Image - узкая карточка для вертикальных изображений */}
+                    <div className="relative w-full h-[400px] overflow-hidden flex items-center justify-center" style={{ backgroundColor: '#f5f5f5' }}>
+                      <img 
+                        src={bannerProduct.image || getFallbackImage()} 
+                        alt={bannerProduct.name}
+                        className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                        onError={(e) => {
+                          e.currentTarget.src = getFallbackImage();
+                        }}
+                      />
+                    </div>
                     
-                    {/* Quick action */}
-                    <button
-                      onClick={() => handleAddToCart(bannerProduct)}
-                      className="bg-yellow-400 text-orange-800 px-6 py-3 rounded-xl font-bold hover:scale-105 active:bg-green-500 active:text-white transition-all duration-300 shadow-lg"
-                    >
-                      <ShoppingCart className="inline w-5 h-5 mr-2" />
-                      Արագ պատվեր
-                    </button>
+                    {/* Content Section */}
+                    <div className="p-6 h-[280px] flex flex-col justify-between" style={{ backgroundColor: '#002c45' }}>
+                      {/* Product Info */}
+                      <div className="flex-1">
+                        {/* Product Name */}
+                        <h3 className="text-2xl font-bold mb-3" style={{ color: '#f3d98c' }}>
+                          {bannerProduct.name}
+                        </h3>
+                        
+                        {/* Product Description */}
+                        <p className="text-white/90 text-sm mb-4 line-clamp-3 leading-relaxed">
+                          {bannerProduct.description}
+                        </p>
+                        
+                        {/* Price */}
+                        <div className="flex items-center gap-3 mb-4">
+                          {bannerProduct.salePrice ? (
+                            <>
+                              <span className="text-3xl font-bold" style={{ color: '#f3d98c' }}>
+                                {bannerProduct.salePrice} ֏
+                              </span>
+                              <span className="text-lg text-white/60 line-through">
+                                {bannerProduct.price} ֏
+                              </span>
+                            </>
+                          ) : (
+                            <span className="text-3xl font-bold" style={{ color: '#f3d98c' }}>
+                              {bannerProduct.price} ֏
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      
+                      {/* Quick Order Button */}
+                      <button
+                        onClick={() => handleAddToCart(bannerProduct)}
+                        className="w-full py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2"
+                        style={{ 
+                          backgroundColor: '#f3d98c',
+                          color: '#002c45'
+                        }}
+                      >
+                        <ShoppingCart className="w-5 h-5" />
+                        Արագ պատվեր
+                      </button>
+                    </div>
                   </>
                 ) : (
-                  <>
-                    <h3 className="text-2xl font-bold mb-2 text-white">Մանկական <span style={{ color: '#f3d98c' }}>Աշխարհ</span></h3>
-                    
+                  <div className="w-full h-full flex flex-col items-center justify-center p-8">
+                    <div className="text-6xl mb-4">🧸</div>
+                    <h3 className="text-2xl font-bold mb-4" style={{ color: '#f3d98c' }}>
+                      Մանկական Աշխարհ
+                    </h3>
                     <Link 
                       href="/products"
-                      className="bg-white text-primary-500 px-6 py-3 rounded-xl font-bold hover:scale-105 active:bg-primary-50 active:text-primary-600 transition-all duration-300 shadow-lg inline-block"
+                      className="px-6 py-3 rounded-xl font-bold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 inline-flex items-center gap-2"
+                      style={{ 
+                        backgroundColor: '#f3d98c',
+                        color: '#002c45'
+                      }}
                     >
-                      <ShoppingCart className="inline w-5 h-5 mr-2" />
+                      <ShoppingCart className="w-5 h-5" />
                       Դիտել արտադրանքը
                     </Link>
-                  </>
+                  </div>
                 )}
               </div>
               
@@ -568,7 +586,7 @@ export default function Home() {
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
               Մեր Առավելությունները
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 whitespace-nowrap">
               Տարիների Փորձը Եվ Հազարավոր Գոհ Հաճախորդները Մեր Հպարտությունն Են
             </p>
           </div>
@@ -657,7 +675,7 @@ export default function Home() {
                     duration={3500}
                   />
                   <div className="text-sm sm:text-base lg:text-lg font-bold text-gray-900 leading-tight">
-                    Վաճառված Ապրանքներ
+                    Վաճառված Ապրանք
                   </div>
                 </div>
               </div>

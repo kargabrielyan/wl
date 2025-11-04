@@ -1,9 +1,0 @@
-<svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-  <rect width="80" height="80" fill="#f3f4f6"/>
-  <g transform="translate(40, 40)">
-    <!-- Горы -->
-    <path d="M-25,15 L-15,5 L-5,15 L5,5 L15,15 L25,5 L25,15 L-25,15 Z" fill="#6b7280"/>
-    <!-- Солнце/Луна -->
-    <circle cx="-20" cy="-10" r="8" fill="#6b7280"/>
-  </g>
-</svg>

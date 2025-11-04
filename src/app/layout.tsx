@@ -14,9 +14,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Pideh Armenia - Армянские пиде новый вкус",
-  description: "Традиционная форма с современными начинками. 15 уникальных вкуса для настоящих гурманов! Доставка по Еревану.",
-  keywords: "пиде, армянские пиде, мини-пиццы, доставка еды, Ереван, Армения",
+  title: "WelcomeBaby",
+  description: "Որակյալ Արտադրանք Ձեր Երեխաների Համար",
+  keywords: "մանկական, խաղալիքներ, մանկական արտադրանք, Երևան, Հայաստան",
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },

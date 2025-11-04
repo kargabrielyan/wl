@@ -13,6 +13,11 @@
     "db:generate": "prisma generate",
     "db:studio": "prisma studio",
     "db:push": "prisma db push",
+    "db:fix-images": "tsx scripts/fix-product-images.ts",
+    "db:delete-products": "tsx scripts/delete-all-products.ts",
+    "db:add-300-products": "tsx scripts/add-300-test-products.ts",
+    "db:assign-category-images": "tsx scripts/assign-category-images.ts",
+    "db:remove-banner-status": "tsx scripts/remove-banner-status.ts",
     "parse": "tsx scripts/parse-buy-am.ts",
     "import": "tsx scripts/import-from-file.ts",
     "auto-import": "tsx scripts/auto-import.ts"

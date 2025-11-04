@@ -47,13 +47,18 @@ export async function POST(request: NextRequest) {
     const extension = file.name.split('.').pop()
     const fileName = `${timestamp}-${randomString}.${extension}`
 
-    // Путь для сохранения файла
-    const imagesDir = join(process.cwd(), 'public', 'images')
-    const filePath = join(imagesDir, fileName)
+    // Определяем директорию сохранения
+    // ВАЖНО: по умолчанию и в development, и в production сохраняем в public/images,
+    // чтобы поведение сервера совпадало с локальным без дополнительной настройки Nginx.
+    // При необходимости можно переопределить через переменную окружения UPLOAD_DIR.
+    const defaultDir = join(process.cwd(), 'public', 'images')
+    const uploadDir = process.env.UPLOAD_DIR || defaultDir
+
+    const filePath = join(uploadDir, fileName)
 
     // Создаем папку images если её нет
     try {
-      await mkdir(imagesDir, { recursive: true })
+      await mkdir(uploadDir, { recursive: true })
     } catch (error) {
       // Папка уже существует, это нормально
     }
@@ -63,8 +68,9 @@ export async function POST(request: NextRequest) {
     const buffer = Buffer.from(bytes)
     await writeFile(filePath, buffer)
 
-    // Возвращаем путь к файлу
-    const imagePath = `/images/${fileName}`
+    // Возвращаем относительный URL (префикс можно переопределить)
+    const urlPrefix = (process.env.UPLOAD_URL_PREFIX || '/images').replace(/\/$/, '')
+    const imagePath = `${urlPrefix}/${fileName}`
 
     return NextResponse.json({
       success: true,
