@@ -383,11 +383,12 @@ export default function Home() {
                 {bannerProduct ? (
                   <>
                     {/* Product Image - узкая карточка для вертикальных изображений */}
-                    <div className="relative w-full h-[400px] overflow-hidden flex items-center justify-center" style={{ backgroundColor: '#f5f5f5' }}>
+                    <div className="relative w-full h-[400px] overflow-hidden" style={{ backgroundColor: '#f5f5f5' }}>
                       <img 
                         src={bannerProduct.image || getFallbackImage()} 
                         alt={bannerProduct.name}
-                        className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        style={{ objectPosition: 'center calc(100% + 60px)' }}
                         onError={(e) => {
                           e.currentTarget.src = getFallbackImage();
                         }}
