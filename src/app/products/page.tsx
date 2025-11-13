@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic'
 import { useState, useEffect, useMemo, useCallback, useRef, Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { Search } from 'lucide-react'
+import Image from 'next/image'
 import { useCart } from '@/hooks/useCart'
 import { useInstantSearch } from '@/hooks/useInstantSearch'
 import { SearchDropdown } from '@/components/SearchDropdown'
@@ -11,6 +12,67 @@ import { Product, Category } from '@/types'
 import ProductCard from '@/components/ProductCard'
 
 const Footer = dynamic(() => import('@/components/Footer'))
+
+// Функция для получения пути к иконке категории
+const getCategoryIcon = (categoryName: string): string | null => {
+  const iconMap: Record<string, string> = {
+    'Օրորոցներ': '/images/ororocner.png',
+    'Քողեր': '/images/qoxer.png',
+    'Կահույք': '/images/kahuyq.png',
+    'Հյուսեր': '/images/hyuser.png',
+    'Ներքնակներ': '/images/nerqnakner.png',
+    'Անկողնային Պարագաներ': '/images/ankoxnayin paraganer.png',
+    'Երաժշտական Խաղալիքներ': '/images/erajshtakan xaxaliqner.png',
+    'Մանկական Սենյակի Դեկորներ': '/images/erexayi senkayki dekor.png',
+    'Հավաքածուներ': '/images/havaqacuner.png',
+    'Քույրիկների նկար': '/images/quyrikneri-nkar.webp',
+  }
+  
+  return iconMap[categoryName] || null
+}
+
+// Компонент кнопки категории с иконкой
+function CategoryButton({
+  category,
+  iconPath,
+  isSelected,
+  onSelect
+}: {
+  category: Category
+  iconPath: string | null
+  isSelected: boolean
+  onSelect: () => void
+}) {
+  const [imageError, setImageError] = useState(false)
+
+  return (
+    <button
+      onClick={onSelect}
+      className={`px-4 py-3 rounded-2xl font-semibold transition-all duration-300 hover:scale-105 flex items-center justify-center min-w-[60px] min-h-[60px] ${
+        isSelected
+          ? 'bg-primary-500 text-white shadow-lg'
+          : 'bg-gray-100 text-gray-700 hover:bg-primary-100 hover:text-primary-600'
+      }`}
+      title={category.name}
+    >
+      {iconPath && !imageError ? (
+        <div className={`relative w-10 h-10 ${isSelected ? 'brightness-0 invert' : ''}`}>
+          <Image
+            src={iconPath}
+            alt={category.name}
+            width={40}
+            height={40}
+            className="object-contain transition-all duration-300"
+            unoptimized
+            onError={() => setImageError(true)}
+          />
+        </div>
+      ) : (
+        <span className="text-sm text-center">{category.name}</span>
+      )}
+    </button>
+  )
+}
 
 function ProductsPageContent() {
   const searchParams = useSearchParams()
@@ -335,7 +397,7 @@ function ProductsPageContent() {
                   setSelectedCategory('Բոլորը')
                   setSelectedCategoryId(null)
                 }}
-                className={`px-6 py-3 rounded-2xl font-semibold transition-all duration-300 hover:scale-105 ${
+                className={`px-6 py-3 rounded-2xl font-semibold transition-all duration-300 hover:scale-105 flex items-center justify-center ${
                   selectedCategory === 'Բոլորը'
                     ? 'bg-primary-500 text-white shadow-lg'
                     : 'bg-gray-100 text-gray-700 hover:bg-primary-100 hover:text-primary-600'
@@ -351,22 +413,21 @@ function ProductsPageContent() {
                   <span>Բեռնվում են կատեգորիաները...</span>
                 </div>
               ) : (
-                Array.isArray(categories) && categories.map((category) => (
-                  <button
-                    key={category.id}
-                    onClick={() => {
-                      setSelectedCategory(category.name)
-                      setSelectedCategoryId(category.id)
-                    }}
-                    className={`px-6 py-3 rounded-2xl font-semibold transition-all duration-300 hover:scale-105 ${
-                      selectedCategory === category.name
-                        ? 'bg-primary-500 text-white shadow-lg'
-                        : 'bg-gray-100 text-gray-700 hover:bg-primary-100 hover:text-primary-600'
-                    }`}
-                  >
-                    {category.name}
-                  </button>
-                ))
+                Array.isArray(categories) && categories.map((category) => {
+                  const iconPath = getCategoryIcon(category.name)
+                  return (
+                    <CategoryButton
+                      key={category.id}
+                      category={category}
+                      iconPath={iconPath}
+                      isSelected={selectedCategory === category.name}
+                      onSelect={() => {
+                        setSelectedCategory(category.name)
+                        setSelectedCategoryId(category.id)
+                      }}
+                    />
+                  )
+                })
               )}
             </div>
           </div>
