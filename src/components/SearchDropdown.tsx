@@ -37,7 +37,7 @@ export const SearchDropdown = memo(function SearchDropdown({
       id="search-results"
       className={`absolute top-full left-0 z-[1000] w-[480px] max-w-[520px] max-h-[420px] overflow-auto bg-white border border-black/10 rounded-2xl shadow-xl p-2 sm:w-[min(90vw,520px)] ${className}`}
       role="listbox"
-      aria-label="Результаты поиска"
+      aria-label="Որոնման արդյունքներ"
     >
 
       {/* Content */}
@@ -45,7 +45,7 @@ export const SearchDropdown = memo(function SearchDropdown({
         {loading && (
           <div className="flex items-center justify-center py-4">
             <Loader2 className="h-4 w-4 animate-spin text-orange-500" />
-            <span className="ml-2 text-gray-600 text-sm">Поиск...</span>
+            <span className="ml-2 text-gray-600 text-sm">Փնտրում...</span>
           </div>
         )}
 
@@ -58,8 +58,8 @@ export const SearchDropdown = memo(function SearchDropdown({
         {showEmptyState && (
           <div className="px-3 py-4 text-center text-gray-500 text-sm">
             <Search className="h-6 w-6 mx-auto mb-1 text-gray-300" />
-            <p>Товары не найдены</p>
-            <p className="text-xs mt-1">Попробуйте изменить запрос</p>
+            <p>Արտադրանք չի գտնվել</p>
+            <p className="text-xs mt-1">Փորձեք փոխել որոնման հարցումը</p>
           </div>
         )}
 

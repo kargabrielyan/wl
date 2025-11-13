@@ -21,9 +21,12 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
   const isAdded = addedToCart?.has(product.id) || false
 
   return (
-    <div className={`relative bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden group hover:shadow-xl hover:bg-gray-50 transition-all duration-300 ${
-      isSelected ? 'ring-2 ring-primary-500' : ''
-    }`}>
+    <Link 
+      href={`/products/${product.id}`}
+      className={`relative block bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden group hover:shadow-xl hover:bg-gray-50 transition-all duration-300 ${
+        isSelected ? 'ring-2 ring-primary-500' : ''
+      }`}
+    >
       {/* Контейнер изображения */}
       <div className={`relative bg-gray-100 ${isCompact ? 'h-48' : 'h-64'}`}>
         {/* Изображение товара */}
@@ -74,7 +77,7 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
         )}
 
         {/* Метки */}
-        <div className="absolute top-2 left-2 flex flex-col gap-1">
+        <div className="absolute top-2 left-2 flex flex-col gap-1 z-10 pointer-events-none">
           {/* Скидка */}
           {product.salePrice && (
             <span className="bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">
@@ -97,18 +100,22 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
         </div>
 
         {/* Quick actions (появляются при hover) */}
-        <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col gap-1">
-          <WishlistButton 
-            productId={product.id}
-            size="md"
-            variant="default"
-          />
-          <button 
+        <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col gap-1 z-10">
+          <div onClick={(e) => e.stopPropagation()}>
+            <WishlistButton 
+              productId={product.id}
+              size="md"
+              variant="default"
+            />
+          </div>
+          <Link 
+            href={`/products/${product.id}`}
             className="w-8 h-8 bg-white rounded-full shadow-sm flex items-center justify-center hover:bg-gray-50 transition-colors"
             title="Быстрый просмотр"
+            onClick={(e) => e.stopPropagation()}
           >
             <Eye className="w-4 h-4 text-gray-600" />
-          </button>
+          </Link>
         </div>
 
         {/* Статус наличия */}
@@ -124,13 +131,11 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
       {/* Контент карточки */}
       <div className="p-4">
         {/* Название товара */}
-        <Link href={`/products/${product.id}`}>
-          <h3 className={`font-semibold text-gray-900 line-clamp-2 hover:text-primary-600 transition-colors ${
-            isCompact ? 'text-sm mb-2' : 'text-base mb-2'
-          }`}>
-            {product.name}
-          </h3>
-        </Link>
+        <h3 className={`font-semibold text-gray-900 line-clamp-2 hover:text-primary-600 transition-colors ${
+          isCompact ? 'text-sm mb-2' : 'text-base mb-2'
+        }`}>
+          {product.name}
+        </h3>
         
         {/* Краткое описание (только для полного варианта) */}
         {!isCompact && product.description && (
@@ -174,7 +179,7 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
             onAddToCart(product)
           }}
           disabled={!product.stock || product.stock <= 0}
-          className={`w-full h-10 rounded-md font-medium text-sm flex items-center justify-center transition-all duration-200 ${
+          className={`w-full h-10 rounded-md font-medium text-sm flex items-center justify-center transition-all duration-200 relative z-10 ${
             isAdded
               ? 'bg-green-500 text-white hover:bg-green-600'
               : product.stock && product.stock > 0
@@ -199,7 +204,7 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
           )}
         </button>
       </div>
-    </div>
+    </Link>
   )
 })
 

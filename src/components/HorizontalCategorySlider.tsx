@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -39,6 +39,7 @@ export default function HorizontalCategorySlider({
   const [categories, setCategories] = useState<Category[]>([])
   const [loading, setLoading] = useState(true)
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [isAtEnd, setIsAtEnd] = useState(false)
   const [isDragging, setIsDragging] = useState(false)
   const [startX, setStartX] = useState(0)
   const [scrollLeft, setScrollLeft] = useState(0)
@@ -46,9 +47,47 @@ export default function HorizontalCategorySlider({
   const sliderRef = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
+  // Отслеживание текущей позиции при скролле
+  const handleScroll = useCallback(() => {
+    if (!containerRef.current) return
+    
+    const container = containerRef.current
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+    const cardWidth = isMobile ? 208 : 280
+    const scrollLeft = container.scrollLeft
+    const scrollWidth = container.scrollWidth
+    const clientWidth = container.clientWidth
+    
+    // Проверяем, достигли ли мы конца скролла
+    const atEnd = scrollLeft + clientWidth >= scrollWidth - 10 // 10px допуск для округления
+    setIsAtEnd(atEnd)
+    
+    if (atEnd) {
+      // Если достигли конца, устанавливаем последний индекс
+      const maxIndex = Math.max(0, categories.length - (isMobile ? 2 : 4))
+      setCurrentIndex(maxIndex)
+    } else {
+      // Иначе вычисляем индекс на основе позиции скролла
+      const newIndex = Math.round(scrollLeft / cardWidth)
+      const maxIndex = Math.max(0, categories.length - (isMobile ? 2 : 4))
+      setCurrentIndex(Math.min(newIndex, maxIndex))
+    }
+  }, [categories.length])
+
   useEffect(() => {
     fetchCategories()
   }, [])
+
+  // Обновление индекса при изменении размера окна
+  useEffect(() => {
+    const handleResize = () => {
+      if (!containerRef.current) return
+      handleScroll()
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [handleScroll])
 
   const fetchCategories = async () => {
     try {
@@ -63,6 +102,15 @@ export default function HorizontalCategorySlider({
       setLoading(false)
     }
   }
+
+  // Обновление индекса после загрузки категорий
+  useEffect(() => {
+    if (categories.length > 0 && containerRef.current) {
+      setTimeout(() => {
+        handleScroll()
+      }, 100)
+    }
+  }, [categories.length, handleScroll])
 
   // Навигация
   const scrollToIndex = (index: number) => {
@@ -82,9 +130,24 @@ export default function HorizontalCategorySlider({
   }
 
   const scrollNext = () => {
-    const isMobile = window.innerWidth < 768
+    if (!containerRef.current) return
+    
+    const container = containerRef.current
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
     const visibleCards = isMobile ? 1.5 : 3.5 // на мобильном показываем 1.5 карточки
     const maxIndex = Math.max(0, categories.length - Math.ceil(visibleCards))
+    
+    // Проверяем, достигли ли мы конца
+    const scrollLeft = container.scrollLeft
+    const scrollWidth = container.scrollWidth
+    const clientWidth = container.clientWidth
+    const isAtEnd = scrollLeft + clientWidth >= scrollWidth - 10
+    
+    if (isAtEnd) {
+      // Уже в конце, не делаем ничего
+      return
+    }
+    
     const nextIndex = Math.min(currentIndex + 1, maxIndex)
     scrollToIndex(nextIndex)
   }
@@ -130,17 +193,6 @@ export default function HorizontalCategorySlider({
 
   const handleTouchEnd = () => {
     setIsDragging(false)
-  }
-
-  // Отслеживание текущей позиции при скролле
-  const handleScroll = () => {
-    if (!containerRef.current) return
-    
-    const container = containerRef.current
-    const isMobile = window.innerWidth < 768
-    const cardWidth = isMobile ? 208 : 280
-    const newIndex = Math.round(container.scrollLeft / cardWidth)
-    setCurrentIndex(newIndex)
   }
 
   if (loading) {
@@ -195,7 +247,7 @@ export default function HorizontalCategorySlider({
           {/* Кнопка навигации вправо */}
           <button
             onClick={scrollNext}
-            disabled={currentIndex >= Math.max(0, categories.length - 3)}
+            disabled={isAtEnd || categories.length === 0}
             className="nav-button absolute right-2 md:right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 md:w-14 md:h-14 bg-gray-100 hover:bg-white rounded-full flex items-center justify-center text-gray-700 hover:text-gray-900 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed border-2 border-gray-200 hover:border-gray-300 shadow-lg hover:shadow-xl"
             style={{ transform: 'translateY(-50%)' }}
           >
@@ -278,17 +330,24 @@ export default function HorizontalCategorySlider({
 
           {/* Индикаторы */}
           <div className="flex justify-center mt-4 md:mt-6 space-x-2">
-            {Array.from({ length: Math.max(1, categories.length - 2) }).map((_, index) => (
-              <button
-                key={index}
-                onClick={() => scrollToIndex(index)}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  index === currentIndex 
-                    ? 'bg-gray-800 w-6 md:w-8' 
-                    : 'bg-gray-300 hover:bg-gray-400 w-2'
-                }`}
-              />
-            ))}
+            {(() => {
+              const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+              const visibleCards = isMobile ? 1.5 : 3.5
+              const maxIndex = Math.max(0, categories.length - Math.ceil(visibleCards))
+              const dotsCount = Math.max(1, maxIndex + 1)
+              
+              return Array.from({ length: dotsCount }).map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => scrollToIndex(index)}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    index === currentIndex 
+                      ? 'bg-gray-800 w-6 md:w-8' 
+                      : 'bg-gray-300 hover:bg-gray-400 w-2'
+                  }`}
+                />
+              ))
+            })()}
           </div>
         </div>
 

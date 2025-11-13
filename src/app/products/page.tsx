@@ -48,7 +48,7 @@ function CategoryButton({
   return (
     <button
       onClick={onSelect}
-      className={`px-4 py-3 rounded-2xl font-semibold transition-all duration-300 hover:scale-105 flex items-center justify-center min-w-[60px] min-h-[60px] ${
+      className={`px-4 py-3 rounded-2xl font-semibold transition-all duration-300 hover:scale-105 flex flex-col items-center justify-center min-w-[60px] gap-2 ${
         isSelected
           ? 'bg-primary-500 text-white shadow-lg'
           : 'bg-gray-100 text-gray-700 hover:bg-primary-100 hover:text-primary-600'
@@ -56,17 +56,22 @@ function CategoryButton({
       title={category.name}
     >
       {iconPath && !imageError ? (
-        <div className={`relative w-10 h-10 ${isSelected ? 'brightness-0 invert' : ''}`}>
-          <Image
-            src={iconPath}
-            alt={category.name}
-            width={40}
-            height={40}
-            className="object-contain transition-all duration-300"
-            unoptimized
-            onError={() => setImageError(true)}
-          />
-        </div>
+        <>
+          <div className={`relative w-10 h-10 ${isSelected ? 'brightness-0 invert' : ''}`}>
+            <Image
+              src={iconPath}
+              alt={category.name}
+              width={40}
+              height={40}
+              className="object-contain transition-all duration-300"
+              unoptimized
+              onError={() => setImageError(true)}
+            />
+          </div>
+          <span className={`text-xs text-center leading-tight ${isSelected ? 'text-white' : 'text-gray-700'}`}>
+            {category.name}
+          </span>
+        </>
       ) : (
         <span className="text-sm text-center">{category.name}</span>
       )}
@@ -137,6 +142,11 @@ function ProductsPageContent() {
     }
   }
 
+  // Функция для получения актуальной цены товара (salePrice если есть, иначе price)
+  const getActualPrice = useCallback((product: Product): number => {
+    return product.salePrice ?? product.price
+  }, [])
+
   // Оптимизированная функция сортировки
   const sortProducts = useCallback((products: Product[], sortBy: string): Product[] => {
     const sorted = [...products]
@@ -147,9 +157,9 @@ function ProductsPageContent() {
       case 'name-desc':
         return sorted.sort((a, b) => b.name.localeCompare(a.name, 'ru'))
       case 'price-asc':
-        return sorted.sort((a, b) => a.price - b.price)
+        return sorted.sort((a, b) => getActualPrice(a) - getActualPrice(b))
       case 'price-desc':
-        return sorted.sort((a, b) => b.price - a.price)
+        return sorted.sort((a, b) => getActualPrice(b) - getActualPrice(a))
       case 'newest':
         return sorted.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
       case 'oldest':
@@ -157,7 +167,7 @@ function ProductsPageContent() {
       default:
         return sorted
     }
-  }, [])
+  }, [getActualPrice])
 
   // Оптимизированная функция фильтрации
   const filterProducts = useCallback(() => {
@@ -189,16 +199,29 @@ function ProductsPageContent() {
   useEffect(() => {
     const searchParam = searchParams.get('search')
     const selectedParam = searchParams.get('selected')
+    const categoryParam = searchParams.get('category')
     
     if (searchParam) {
       setQuery(searchParam)
       setSelectedCategory('Բոլորը')
+      setSelectedCategoryId(null)
     }
     
     if (selectedParam) {
       setSelectedProductId(selectedParam)
     }
-  }, [searchParams, setQuery])
+    
+    // Обработка параметра category из URL
+    if (categoryParam && categories.length > 0) {
+      const decodedCategory = decodeURIComponent(categoryParam)
+      const foundCategory = categories.find(cat => cat.name === decodedCategory)
+      
+      if (foundCategory) {
+        setSelectedCategory(foundCategory.name)
+        setSelectedCategoryId(foundCategory.id)
+      }
+    }
+  }, [searchParams, setQuery, categories])
 
   // Закрытие dropdown при клике вне его
   useEffect(() => {
@@ -248,6 +271,13 @@ function ProductsPageContent() {
   useEffect(() => {
     filterProducts()
   }, [filterProducts])
+
+  // Дополнительная проверка: если категория установлена из URL, но товары еще не отфильтрованы
+  useEffect(() => {
+    if (selectedCategoryId && products.length > 0 && filteredProducts.length === products.length && selectedCategory !== 'Բոլորը') {
+      filterProducts()
+    }
+  }, [selectedCategoryId, products.length, filteredProducts.length, selectedCategory, filterProducts])
 
   const handleAddToCart = useCallback((product: Product) => {
     addItem(product, 1)
@@ -344,7 +374,7 @@ function ProductsPageContent() {
           <h1 className="text-4xl font-bold text-gray-900 mb-4 drop-shadow-lg">Արտադրանքի Կատալոգ</h1>
           {paginationData.totalPages > 1 && (
             <p className="text-xl font-semibold text-gray-900 drop-shadow-md">
-              Էջ {currentPage} {paginationData.totalPages}-ից
+              Էջ {currentPage}-{paginationData.totalPages}
             </p>
           )}
         </div>
@@ -596,7 +626,7 @@ function ProductsPageContent() {
                     }}
                     className="bg-gray-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-gray-600 transition-colors"
                   >
-                    Очистить поиск
+                    Մաքրել որոնումը
                   </button>
                   <button
                     onClick={() => setSelectedCategory('Բոլորը')}

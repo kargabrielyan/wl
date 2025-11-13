@@ -70,10 +70,10 @@ export default function DefaultProductPage({
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#002c45' }}>
+      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#ffffff' }}>
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-t-transparent rounded-full animate-spin mx-auto mb-4" style={{ borderColor: '#f3d98c', borderTopColor: 'transparent' }}></div>
-          <p className="text-gray-600">Загружаем товар...</p>
+          <div className="w-16 h-16 border-4 border-t-transparent rounded-full animate-spin mx-auto mb-4" style={{ borderColor: '#002c45', borderTopColor: 'transparent' }}></div>
+          <p className="text-gray-600">Բեռնվում է արտադրանքը...</p>
         </div>
       </div>
     )
@@ -84,14 +84,17 @@ export default function DefaultProductPage({
   }
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#002c45' }}>
+    <div className="min-h-screen" style={{ backgroundColor: '#ffffff' }}>
       
       {/* Mobile Header */}
       <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200">
         <div className="flex items-center justify-between px-4 py-3 h-16">
           <Link 
             href="/products"
-            className="flex items-center text-gray-600 hover:text-orange-500 transition-colors"
+            className="flex items-center text-gray-600 transition-colors"
+            style={{ '--hover-color': '#002c45' } as React.CSSProperties & { '--hover-color': string }}
+            onMouseEnter={(e) => e.currentTarget.style.color = '#002c45'}
+            onMouseLeave={(e) => e.currentTarget.style.color = ''}
           >
             <ArrowLeft className="h-5 w-5 mr-2" />
             Назад
@@ -120,9 +123,25 @@ export default function DefaultProductPage({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Breadcrumb */}
         <nav className="hidden lg:flex items-center space-x-2 text-sm mb-8">
-          <Link href="/" className="text-gray-500 hover:text-orange-500">Главная</Link>
+          <Link 
+            href="/" 
+            className="text-gray-500 transition-colors"
+            style={{ '--hover-color': '#002c45' } as React.CSSProperties & { '--hover-color': string }}
+            onMouseEnter={(e) => e.currentTarget.style.color = '#002c45'}
+            onMouseLeave={(e) => e.currentTarget.style.color = ''}
+          >
+            Գլխավոր
+          </Link>
           <span className="text-gray-400">/</span>
-          <Link href="/products" className="text-gray-500 hover:text-orange-500">Товары</Link>
+          <Link 
+            href="/products" 
+            className="text-gray-500 transition-colors"
+            style={{ '--hover-color': '#002c45' } as React.CSSProperties & { '--hover-color': string }}
+            onMouseEnter={(e) => e.currentTarget.style.color = '#002c45'}
+            onMouseLeave={(e) => e.currentTarget.style.color = ''}
+          >
+            Արտադրանք
+          </Link>
           <span className="text-gray-400">/</span>
           <span className="text-gray-900 font-medium">{product.name}</span>
         </nav>
@@ -130,10 +149,13 @@ export default function DefaultProductPage({
         {/* Back Button - Desktop */}
         <Link 
           href="/products"
-          className="hidden lg:inline-flex items-center text-gray-600 hover:text-orange-500 mb-8 group"
+          className="hidden lg:inline-flex items-center text-gray-600 mb-8 group transition-colors"
+          style={{ '--hover-color': '#002c45' } as React.CSSProperties & { '--hover-color': string }}
+          onMouseEnter={(e) => e.currentTarget.style.color = '#002c45'}
+          onMouseLeave={(e) => e.currentTarget.style.color = ''}
         >
           <ArrowLeft className="h-4 w-4 mr-2 group-hover:-translate-x-1 transition-transform" />
-          Назад к каталогу
+          Վերադառնալ կատալոգ
         </Link>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-16">
@@ -169,7 +191,7 @@ export default function DefaultProductPage({
                     </span>
                   )}
                   {product.status === 'SALE' && (
-                    <span className="bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold">
+                    <span className="text-white px-3 py-1 rounded-full text-xs font-bold" style={{ backgroundColor: '#002c45' }}>
                       ԶԵՂՉ
                     </span>
                   )}
@@ -217,7 +239,7 @@ export default function DefaultProductPage({
                 <span className="text-gray-300">•</span>
                 <div className="flex items-center">
                   <Star className="h-4 w-4 text-yellow-400 fill-current" />
-                  <span className="text-sm text-gray-600 ml-1">4.8 (127 отзывов)</span>
+                  <span className="text-sm text-gray-600 ml-1">4.8 (127 կարծիք)</span>
                 </div>
               </div>
               
@@ -239,18 +261,30 @@ export default function DefaultProductPage({
                   </span>
                 </div>
               ) : (
-                <span className="text-3xl font-bold text-orange-500">{product.price} ֏</span>
+                <span className="text-3xl font-bold" style={{ color: '#002c45' }}>{product.price} ֏</span>
               )}
             </div>
 
             {/* Quantity and Add to Cart */}
             <div className="space-y-4">
               <div className="flex items-center space-x-4">
-                <span className="text-lg font-medium text-gray-900">Количество:</span>
+                <span className="text-lg font-medium text-gray-900">Քանակ:</span>
                 <div className="flex items-center border-2 border-gray-300 rounded-xl overflow-hidden bg-white">
                   <button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="p-3 hover:bg-orange-100 transition-colors text-gray-700 hover:text-orange-600"
+                    className="p-3 transition-colors text-gray-700"
+                    style={{ 
+                      '--hover-bg': '#002c4533',
+                      '--hover-text': '#002c45'
+                    } as React.CSSProperties & { '--hover-bg': string; '--hover-text': string }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = '#002c4533'
+                      e.currentTarget.style.color = '#002c45'
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = ''
+                      e.currentTarget.style.color = ''
+                    }}
                   >
                     <Minus className="h-4 w-4" />
                   </button>
@@ -259,7 +293,19 @@ export default function DefaultProductPage({
                   </span>
                   <button
                     onClick={() => setQuantity(quantity + 1)}
-                    className="p-3 hover:bg-orange-100 transition-colors text-gray-700 hover:text-orange-600"
+                    className="p-3 transition-colors text-gray-700"
+                    style={{ 
+                      '--hover-bg': '#002c4533',
+                      '--hover-text': '#002c45'
+                    } as React.CSSProperties & { '--hover-bg': string; '--hover-text': string }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = '#002c4533'
+                      e.currentTarget.style.color = '#002c45'
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = ''
+                      e.currentTarget.style.color = ''
+                    }}
                   >
                     <Plus className="h-4 w-4" />
                   </button>
@@ -271,12 +317,23 @@ export default function DefaultProductPage({
                 className={`w-full px-6 py-4 rounded-xl font-bold text-lg transition-all duration-300 flex items-center justify-center space-x-3 ${
                   addedToCart
                     ? 'bg-green-500 text-white scale-105 shadow-lg'
-                    : 'bg-orange-500 text-white hover:bg-orange-600 hover:scale-105 shadow-lg hover:shadow-xl'
+                    : 'text-white hover:scale-105 shadow-lg hover:shadow-xl'
                 }`}
+                style={addedToCart ? {} : { backgroundColor: '#002c45' } as React.CSSProperties}
+                onMouseEnter={(e) => {
+                  if (!addedToCart) {
+                    e.currentTarget.style.backgroundColor = '#003d5c'
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!addedToCart) {
+                    e.currentTarget.style.backgroundColor = '#002c45'
+                  }
+                }}
               >
                 <ShoppingCart className="h-5 w-5" />
                 <span>
-                  {addedToCart ? '✓ Добавлено в корзину!' : 'Добавить в корзину'}
+                  {addedToCart ? '✓ Ավելացվել է զամբյուղում!' : 'Զամբյուղում ավելացնել'}
                 </span>
               </button>
             </div>
@@ -285,30 +342,30 @@ export default function DefaultProductPage({
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
                 <div className="flex items-center space-x-3">
-                  <Truck className="h-5 w-5 text-orange-500" />
+                  <Truck className="h-5 w-5" style={{ color: '#002c45' }} />
                   <div>
-                    <div className="font-semibold text-gray-900">Быстрая доставка</div>
-                    <div className="text-sm text-gray-600">1-2 дня</div>
+                    <div className="font-semibold text-gray-900">Արագ առաքում</div>
+                    <div className="text-sm text-gray-600">1-2 օր</div>
                   </div>
                 </div>
               </div>
               
               <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
                 <div className="flex items-center space-x-3">
-                  <Shield className="h-5 w-5 text-orange-500" />
+                  <Shield className="h-5 w-5" style={{ color: '#002c45' }} />
                   <div>
-                    <div className="font-semibold text-gray-900">Гарантия качества</div>
-                    <div className="text-sm text-gray-600">30 дней</div>
+                    <div className="font-semibold text-gray-900">Որակի երաշխիք</div>
+                    <div className="text-sm text-gray-600">30 օր</div>
                   </div>
                 </div>
               </div>
               
               <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
                 <div className="flex items-center space-x-3">
-                  <RotateCcw className="h-5 w-5 text-orange-500" />
+                  <RotateCcw className="h-5 w-5" style={{ color: '#002c45' }} />
                   <div>
-                    <div className="font-semibold text-gray-900">Возврат</div>
-                    <div className="text-sm text-gray-600">14 дней</div>
+                    <div className="font-semibold text-gray-900">Վերադարձ</div>
+                    <div className="text-sm text-gray-600">14 օր</div>
                   </div>
                 </div>
               </div>
@@ -325,7 +382,10 @@ export default function DefaultProductPage({
               </h2>
               <Link 
                 href="/products" 
-                className="text-orange-500 hover:text-orange-600 font-semibold flex items-center space-x-2"
+                className="font-semibold flex items-center space-x-2 transition-colors"
+                style={{ color: '#002c45' } as React.CSSProperties}
+                onMouseEnter={(e) => e.currentTarget.style.color = '#003d5c'}
+                onMouseLeave={(e) => e.currentTarget.style.color = '#002c45'}
               >
                 <span>Все товары</span>
                 <ArrowLeft className="h-4 w-4 rotate-180" />
