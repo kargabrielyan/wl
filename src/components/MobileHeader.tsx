@@ -2,14 +2,20 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { Search } from 'lucide-react'
+import { Search, Menu, X } from 'lucide-react'
 import { useState, useRef, useEffect } from 'react'
 import { useInstantSearch } from '@/hooks/useInstantSearch'
 import { SearchDropdown } from '@/components/SearchDropdown'
 import { useSettings } from '@/hooks/useSettings'
+import { usePathname } from 'next/navigation'
+import { useHydration } from '@/hooks/useHydration'
+import { createPortal } from 'react-dom'
 
 export default function MobileHeader() {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const pathname = usePathname()
+  const isHydrated = useHydration()
   const { settings } = useSettings()
   
   // Instant search hook (search-as-you-type)
@@ -47,6 +53,34 @@ export default function MobileHeader() {
     }
   }, [isOpen, setIsOpen])
 
+  // Блокировка скролла когда меню открыто
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [isMenuOpen])
+
+  const isActive = (path: string) => {
+    if (path === '/') {
+      return pathname === '/'
+    }
+    return pathname.startsWith(path)
+  }
+
+  // Ссылки для меню
+  const menuLinks = [
+    { href: '/', label: 'Գլխավոր' },
+    { href: '/products', label: 'Կատալոգ' },
+    { href: '/about', label: 'Մեր մասին' },
+    { href: '/contact', label: 'Կապ' },
+  ]
+
   // Обработка клика по результату поиска
   const handleResultClick = (result: any) => {
     window.location.href = `/products/${result.id}`
@@ -59,6 +93,19 @@ export default function MobileHeader() {
     <header className="backdrop-blur-xl shadow-lg fixed top-0 left-0 right-0 z-[100] border-b border-white/20" style={{ position: 'fixed', backgroundColor: '#002c45' }}>
       <div className="px-4 py-1.5">
         <div className="relative flex justify-between items-center">
+          {/* Burger Menu Button */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="p-3 text-white/90 hover:text-white hover:bg-white/10 rounded-xl transition-all duration-300 active:scale-95"
+            aria-label="Открыть меню"
+          >
+            {isMenuOpen ? (
+              <X className="h-5 w-5" />
+            ) : (
+              <Menu className="h-5 w-5" />
+            )}
+          </button>
+
           {/* Mobile Logo - Absolutely Centered */}
           <div className="absolute left-1/2 transform -translate-x-1/2">
             <Link href="/" className="hover:opacity-80 transition-all duration-300 hover:scale-105">
@@ -78,6 +125,7 @@ export default function MobileHeader() {
           <button
             onClick={() => setIsSearchOpen(!isSearchOpen)}
             className="p-3 text-white/90 hover:text-white hover:bg-white/10 rounded-xl transition-all duration-300 active:scale-95 ml-auto"
+            aria-label="Поиск"
           >
             <Search className="h-5 w-5" />
           </button>
@@ -162,6 +210,105 @@ export default function MobileHeader() {
         )}
 
       </div>
+
+      {/* Burger Menu Overlay */}
+      {isMenuOpen && isHydrated && createPortal(
+        <div 
+          className="fixed inset-0 bg-white z-[9999] animate-menu-fade-in"
+          onClick={() => setIsMenuOpen(false)}
+          style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
+        >
+          {/* Backdrop with blur effect */}
+          <div className="absolute inset-0 bg-white"></div>
+          
+          {/* Menu Content Container */}
+          <div className="relative z-10 h-full flex flex-col animate-menu-slide-in">
+            {/* Menu Header */}
+            <div className="bg-[#f3d98c] text-gray-900 p-6 flex items-center justify-between shadow-lg">
+              <div className="flex items-center space-x-3">
+                <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+                  <Menu className="w-5 h-5" />
+                </div>
+                <h2 className="text-2xl font-bold">Նավիգացիա</h2>
+              </div>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setIsMenuOpen(false)
+                }}
+                className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-all duration-300 active:scale-95"
+              >
+                <X className="w-5 h-5 text-white" />
+              </button>
+            </div>
+
+            {/* Menu Items - Centered */}
+            <div className="flex-1 flex flex-col justify-center px-6 py-8">
+              <div className="space-y-3">
+                {menuLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={`
+                      group block px-8 py-6 rounded-2xl text-gray-700 hover:bg-[#f3d98c] hover:text-gray-900 transition-all duration-300 font-semibold text-xl text-center shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 whitespace-nowrap
+                      ${isActive(link.href) 
+                        ? 'bg-[#f3d98c] text-gray-900 shadow-xl scale-105' 
+                        : 'bg-white/80 backdrop-blur-sm border border-gray-200'
+                      }
+                    `}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <span className="block whitespace-nowrap">{link.label}</span>
+                    {isActive(link.href) && (
+                      <div className="mt-2 w-8 h-1 bg-white/30 rounded-full mx-auto"></div>
+                    )}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Bottom Info */}
+            <div className="p-6 bg-gray-50 border-t border-gray-200">
+              {/* Legal Links */}
+              <div className="flex justify-center space-x-4 mb-4">
+                <Link 
+                  href="/privacy" 
+                  className="text-xs text-gray-400 hover:text-[#f3d98c] transition-colors duration-200 underline decoration-dotted underline-offset-2"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Գաղտնիության քաղաքականություն
+                </Link>
+                <span className="text-xs text-gray-300">•</span>
+                <Link 
+                  href="/terms" 
+                  className="text-xs text-gray-400 hover:text-[#f3d98c] transition-colors duration-200 underline decoration-dotted underline-offset-2"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Օգտագործման պայմաններ
+                </Link>
+              </div>
+              
+              <div className="text-center text-gray-600">
+                <p className="text-xs text-gray-500 mb-2">
+                  Copyright © 2025. All Rights Reserved.
+                </p>
+                <p className="text-xs text-gray-500">
+                  Created by{' '}
+                  <a 
+                    href="https://neetrino.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-[#f3d98c] hover:text-[#f3d98c] font-semibold transition-colors duration-200"
+                  >
+                    Neetrino
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>,
+        document.body
+      )}
     </header>
   )
 }

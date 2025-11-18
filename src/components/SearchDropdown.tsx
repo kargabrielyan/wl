@@ -3,6 +3,7 @@
 import { SearchResult } from '@/hooks/useInstantSearch'
 import { Search, Loader2 } from 'lucide-react'
 import { memo, useMemo } from 'react'
+import { formatPrice } from '@/utils/priceUtils'
 
 interface SearchDropdownProps {
   results: SearchResult[]
@@ -44,7 +45,7 @@ export const SearchDropdown = memo(function SearchDropdown({
       <div className="py-2">
         {loading && (
           <div className="flex items-center justify-center py-4">
-            <Loader2 className="h-4 w-4 animate-spin text-orange-500" />
+            <Loader2 className="h-4 w-4 animate-spin text-[#f3d98c]" />
             <span className="ml-2 text-gray-600 text-sm">Փնտրում...</span>
           </div>
         )}
@@ -96,7 +97,7 @@ const SearchResultItem = memo(function SearchResultItem({
     <button
       onClick={onClick}
       className={`grid grid-cols-[56px_1fr] gap-3 items-center px-3 py-2 rounded-xl hover:bg-black/5 text-left transition-colors w-full ${
-        isSelected ? 'bg-orange-50 border-r-2 border-orange-500' : ''
+        isSelected ? 'bg-[#f3d98c]/10 border-r-2 border-[#f3d98c]' : ''
       }`}
       role="option"
       aria-selected={isSelected}
@@ -138,15 +139,15 @@ const SearchResultItem = memo(function SearchResultItem({
             {result.salePrice ? (
               <>
                 <span className="text-xs text-red-500 font-medium">
-                  {result.salePrice} ֏
+                  {formatPrice(result.salePrice)} ֏
                 </span>
                 <span className="text-xs text-gray-400 line-through">
-                  {result.price} ֏
+                  {formatPrice(result.price)} ֏
                 </span>
               </>
             ) : (
               <span className="text-xs text-red-500 font-medium">
-                {result.price} ֏
+                {formatPrice(result.price)} ֏
               </span>
             )}
           </div>

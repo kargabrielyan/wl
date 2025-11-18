@@ -2,11 +2,13 @@
 
 import { memo } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { ShoppingCart, Star, Heart, Eye } from 'lucide-react'
 import { Product } from '@/types'
 import { WishlistButton } from './WishlistButton'
 import { isValidImagePath, getFallbackImage } from '@/utils/imageUtils'
+import { formatPrice } from '@/utils/priceUtils'
 
 interface ProductCardProps {
   product: Product
@@ -17,8 +19,15 @@ interface ProductCardProps {
 }
 
 const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCart, isSelected = false }: ProductCardProps) => {
+  const router = useRouter()
   const isCompact = variant === 'compact'
   const isAdded = addedToCart?.has(product.id) || false
+
+  const handleQuickView = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    router.push(`/products/${product.id}`)
+  }
 
   return (
     <Link 
@@ -87,7 +96,7 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
           
           {/* Статус товара */}
           {product.status === 'HIT' && (
-            <span className="bg-orange-500 text-white px-2 py-1 rounded text-xs font-bold">
+            <span className="bg-[#f3d98c] text-gray-900 px-2 py-1 rounded text-xs font-bold">
               ՀԻԹ
             </span>
           )}
@@ -108,14 +117,14 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
               variant="default"
             />
           </div>
-          <Link 
-            href={`/products/${product.id}`}
+          <button
+            type="button"
+            onClick={handleQuickView}
             className="w-8 h-8 bg-white rounded-full shadow-sm flex items-center justify-center hover:bg-gray-50 transition-colors"
             title="Быстрый просмотр"
-            onClick={(e) => e.stopPropagation()}
           >
             <Eye className="w-4 h-4 text-gray-600" />
-          </Link>
+          </button>
         </div>
 
         {/* Статус наличия */}
@@ -159,14 +168,14 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
           <div className="flex items-center gap-2">
             {product.salePrice ? (
               <>
-                <span className="text-lg font-bold text-red-400">{product.salePrice} ֏</span>
-                <span className="text-sm text-gray-500 line-through">{product.price} ֏</span>
+                <span className="text-lg font-bold text-red-400">{formatPrice(product.salePrice)} ֏</span>
+                <span className="text-sm text-gray-500 line-through">{formatPrice(product.price)} ֏</span>
                 <span className="bg-red-500 text-white text-xs px-1 py-0.5 rounded font-bold">
                   -{Math.round((1 - product.salePrice / product.price) * 100)}%
                 </span>
               </>
             ) : (
-              <span className="text-lg font-bold text-gray-900">{product.price} ֏</span>
+              <span className="text-lg font-bold text-gray-900">{formatPrice(product.price)} ֏</span>
             )}
           </div>
         </div>

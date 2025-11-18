@@ -26,13 +26,13 @@ export default function LoginPage() {
       })
 
       if (result?.error) {
-        setError('Неверный email или пароль')
+        setError('Սխալ email կամ գաղտնաբառ')
       } else {
         // Перенаправляем на главную страницу
         window.location.href = '/'
       }
     } catch (error) {
-      setError('Произошла ошибка при входе')
+      setError('Մուտք գործելիս սխալ է տեղի ունեցել')
     } finally {
       setIsLoading(false)
     }
@@ -65,8 +65,8 @@ export default function LoginPage() {
       <div className="max-w-md mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-16">
         <div className="bg-white rounded-2xl shadow-lg p-8">
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Вход в аккаунт</h1>
-            <p className="text-gray-600">Войдите, чтобы управлять заказами</p>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">Մուտք հաշիվ</h1>
+            <p className="text-gray-600">Մուտք գործեք պատվերները կառավարելու համար</p>
           </div>
 
           {error && (
@@ -94,7 +94,7 @@ export default function LoginPage() {
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 <Lock className="inline h-4 w-4 mr-1" />
-                Пароль
+                Գաղտնաբառ
               </label>
               <div className="relative">
                 <input
@@ -102,7 +102,7 @@ export default function LoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full px-4 py-3 pr-12 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-[#f3d98c] focus:border-[#f3d98c] transition-colors text-gray-800 bg-white"
-                  placeholder="Введите пароль"
+                  placeholder="Մուտքագրեք գաղտնաբառը"
                   required
                 />
                 <button
@@ -120,15 +120,15 @@ export default function LoginPage() {
               disabled={isLoading}
               className="w-full bg-[#f3d98c] text-gray-900 py-4 rounded-xl font-semibold hover:bg-[#f3d98c] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isLoading ? 'Входим...' : 'Войти'}
+              {isLoading ? 'Մուտք գործում ենք...' : 'Մուտք գործել'}
             </button>
           </form>
 
           <div className="mt-6 text-center">
             <p className="text-gray-600">
-              Нет аккаунта?{' '}
+              Հաշիվ չունե՞ք?{' '}
               <Link href="/register" className="text-[#f3d98c] hover:text-[#f3d98c] font-semibold">
-                Зарегистрироваться
+                Գրանցվել
               </Link>
             </p>
           </div>

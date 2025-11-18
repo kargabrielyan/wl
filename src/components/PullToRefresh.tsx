@@ -56,13 +56,13 @@ export default function PullToRefresh({ children, className = '' }: PullToRefres
           <div className="relative">
             {isRefreshing ? (
               <RefreshCw 
-                className={`w-6 h-6 text-orange-500 animate-spin`}
+                className={`w-6 h-6 text-[#f3d98c] animate-spin`}
                 style={{ animationDuration: '1s' }}
               />
             ) : (
               <ArrowDown 
                 className={`w-6 h-6 transition-colors duration-200 ${
-                  canRefresh ? 'text-orange-500' : 'text-primary-500'
+                  canRefresh ? 'text-[#f3d98c]' : 'text-primary-500'
                 }`}
                 style={{
                   transform: canRefresh ? 'rotate(180deg)' : 'rotate(0deg)',
@@ -75,7 +75,7 @@ export default function PullToRefresh({ children, className = '' }: PullToRefres
           {/* Текст */}
           <div className="text-center">
             <p className={`text-sm font-medium transition-colors duration-200 ${
-              canRefresh ? 'text-orange-600' : 'text-primary-600'
+              canRefresh ? 'text-[#f3d98c]' : 'text-primary-600'
             }`}>
               {isRefreshing 
                 ? 'Обновляем...' 

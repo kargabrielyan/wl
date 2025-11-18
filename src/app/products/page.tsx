@@ -1,6 +1,5 @@
 'use client'
 
-import dynamic from 'next/dynamic'
 import { useState, useEffect, useMemo, useCallback, useRef, Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { Search } from 'lucide-react'
@@ -11,7 +10,7 @@ import { SearchDropdown } from '@/components/SearchDropdown'
 import { Product, Category } from '@/types'
 import ProductCard from '@/components/ProductCard'
 
-const Footer = dynamic(() => import('@/components/Footer'))
+import Footer from '@/components/Footer'
 
 // Функция для получения пути к иконке категории
 const getCategoryIcon = (categoryName: string): string | null => {

@@ -1,6 +1,5 @@
 'use client'
 
-import dynamic from 'next/dynamic'
 import Image from "next/image";
 import Link from "next/link";
 import { Phone, MapPin, Clock, ShoppingCart, Search } from "lucide-react";
@@ -13,8 +12,9 @@ import HorizontalCategorySlider from "@/components/HorizontalCategorySlider";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import TwinklingStars from "@/components/TwinklingStars";
 import { getFallbackImage } from "@/utils/imageUtils";
+import { formatPrice } from "@/utils/priceUtils";
 
-const Footer = dynamic(() => import('@/components/Footer'))
+import Footer from '@/components/Footer'
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([])
@@ -414,15 +414,15 @@ export default function Home() {
                           {bannerProduct.salePrice ? (
                             <>
                               <span className="text-3xl font-bold" style={{ color: '#f3d98c' }}>
-                                {bannerProduct.salePrice} ֏
+                                {formatPrice(bannerProduct.salePrice)} ֏
                               </span>
                               <span className="text-lg text-white/60 line-through">
-                                {bannerProduct.price} ֏
+                                {formatPrice(bannerProduct.price)} ֏
                               </span>
                             </>
                           ) : (
                             <span className="text-3xl font-bold" style={{ color: '#f3d98c' }}>
-                              {bannerProduct.price} ֏
+                              {formatPrice(bannerProduct.price)} ֏
                             </span>
                           )}
                         </div>
@@ -467,9 +467,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* Divider */}
-      <div className="w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
 
       {/* Categories Section */}
       <section className="relative py-8 lg:py-12" style={{ backgroundColor: '#ffffff' }}>
@@ -597,8 +594,8 @@ export default function Home() {
             {/* Years of Experience */}
             <div className="text-center group">
               <div className="bg-gray-50 rounded-2xl p-8 lg:p-10 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-200 min-h-[320px] flex flex-col justify-center items-center">
-                <div className="w-20 h-20 bg-yellow-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <svg className="h-10 w-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300" style={{ backgroundColor: '#f3d98c' }}>
+                  <svg className="h-10 w-10 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
@@ -619,8 +616,8 @@ export default function Home() {
             {/* Partners */}
             <div className="text-center group">
               <div className="bg-gray-50 rounded-2xl p-8 lg:p-10 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-200 min-h-[320px] flex flex-col justify-center items-center">
-                <div className="w-20 h-20 bg-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <svg className="h-10 w-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300" style={{ backgroundColor: '#f3d98c' }}>
+                  <svg className="h-10 w-10 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                   </svg>
                 </div>
@@ -641,8 +638,8 @@ export default function Home() {
             {/* Happy Customers */}
             <div className="text-center group">
               <div className="bg-gray-50 rounded-2xl p-8 lg:p-10 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-200 min-h-[320px] flex flex-col justify-center items-center">
-                <div className="w-20 h-20 bg-green-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <svg className="h-10 w-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300" style={{ backgroundColor: '#f3d98c' }}>
+                  <svg className="h-10 w-10 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                   </svg>
                 </div>
@@ -663,8 +660,8 @@ export default function Home() {
             {/* Products Sold */}
             <div className="text-center group">
               <div className="bg-gray-50 rounded-2xl p-8 lg:p-10 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-200 min-h-[320px] flex flex-col justify-center items-center">
-                <div className="w-20 h-20 bg-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <svg className="h-10 w-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300" style={{ backgroundColor: '#f3d98c' }}>
+                  <svg className="h-10 w-10 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                   </svg>
                 </div>
@@ -683,8 +680,6 @@ export default function Home() {
             </div>
           </div>
         </div>
-        {/* Bottom Divider */}
-        <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent mt-8"></div>
       </section>
 
       {/* New Toys Section */}
@@ -817,8 +812,6 @@ export default function Home() {
             </Link>
           </div>
         </div>
-        {/* Bottom Divider */}
-        <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent mt-8"></div>
       </section>
 
       

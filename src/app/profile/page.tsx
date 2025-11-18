@@ -21,6 +21,7 @@ import {
 import Footer from '@/components/Footer'
 import EditProfileModal from '@/components/EditProfileModal'
 import DeleteAccountModal from '@/components/DeleteAccountModal'
+import { formatPrice } from '@/utils/priceUtils'
 
 interface Order {
   id: string
@@ -179,7 +180,7 @@ export default function ProfilePage() {
       case 'CONFIRMED':
         return { text: 'Հաստատված', color: 'text-blue-600', bg: 'bg-blue-100' }
       case 'PREPARING':
-        return { text: 'Պատրաստվում է', color: 'text-orange-600', bg: 'bg-orange-100' }
+        return { text: 'Պատրաստվում է', color: 'text-[#f3d98c]', bg: 'bg-[#f3d98c]/10' }
       case 'READY':
         return { text: 'Պատրաստ է հանձնման', color: 'text-purple-600', bg: 'bg-purple-100' }
       case 'DELIVERED':
@@ -231,7 +232,7 @@ export default function ProfilePage() {
         <div className="flex items-center justify-between px-4 py-3 h-16">
           <Link 
             href="/"
-            className="flex items-center text-gray-600 hover:text-orange-500 transition-colors"
+            className="flex items-center text-gray-600 hover:text-[#f3d98c] transition-colors"
           >
             <ArrowLeft className="h-5 w-5 mr-2" />
             Վերադառնալ
@@ -252,7 +253,7 @@ export default function ProfilePage() {
           {/* Mobile Profile Card */}
           <div className="bg-white rounded-2xl shadow-lg p-6 mb-6">
             <div className="flex items-center space-x-4 mb-4">
-              <div className="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center">
+              <div className="w-16 h-16 bg-[#f3d98c] rounded-full flex items-center justify-center">
                 <User className="h-8 w-8 text-white" />
               </div>
               <div className="flex-1">
@@ -261,7 +262,7 @@ export default function ProfilePage() {
               </div>
               <button 
                 onClick={() => setIsEditModalOpen(true)}
-                className="p-2 text-orange-500 hover:bg-orange-50 rounded-full transition-colors"
+                className="p-2 text-[#f3d98c] hover:bg-[#f3d98c]/10 rounded-full transition-colors"
               >
                 <Edit className="h-5 w-5" />
               </button>
@@ -281,7 +282,7 @@ export default function ProfilePage() {
             {/* Mobile Logout Button */}
             <button
               onClick={() => signOut({ callbackUrl: '/' })}
-              className="w-full text-gray-600 text-sm py-2 rounded-lg font-normal hover:text-orange-500 hover:bg-orange-50 transition-all duration-200 flex items-center justify-center space-x-1 border border-gray-200 hover:border-orange-200 mb-2"
+              className="w-full text-gray-600 text-sm py-2 rounded-lg font-normal hover:text-[#f3d98c] hover:bg-[#f3d98c]/10 transition-all duration-200 flex items-center justify-center space-x-1 border border-gray-200 hover:border-[#f3d98c]/30 mb-2"
             >
               <LogOut className="h-3 w-3" />
               <span>Ելք հաշվից</span>
@@ -302,51 +303,51 @@ export default function ProfilePage() {
         <div className="hidden lg:flex items-center space-x-4 mb-8">
           <Link 
             href="/"
-            className="flex items-center text-white hover:text-yellow-200 transition-colors"
+            className="flex items-center text-gray-700 hover:text-[#f3d98c] transition-colors"
           >
             <ArrowLeft className="h-5 w-5 mr-2" />
             Գլխավոր
           </Link>
-          <div className="h-8 w-px bg-white/30"></div>
-          <h1 className="text-3xl font-bold text-white">Իմ պրոֆիլը</h1>
+          <div className="h-8 w-px bg-gray-300"></div>
+          <h1 className="text-3xl font-bold text-gray-900">Իմ պրոֆիլը</h1>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-8">
           {/* Profile Info - Desktop Only */}
           <div className="hidden lg:block lg:col-span-1">
-            <div className="bg-white/10 backdrop-blur-lg rounded-2xl shadow-lg p-6 border border-white/20">
-              <h2 className="text-xl font-semibold text-white mb-6">Պրոֆիլի մասին տեղեկություն</h2>
+            <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-200">
+              <h2 className="text-xl font-semibold text-gray-900 mb-6">Պրոֆիլի մասին տեղեկություն</h2>
               
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">
                   <User className="h-5 w-5 text-gray-400" />
                   <div>
-                    <p className="text-sm text-gray-200">Անուն</p>
-                    <p className="font-medium text-white">{userProfile.name || 'Չի նշված'}</p>
+                    <p className="text-sm text-gray-500">Անուն</p>
+                    <p className="font-medium text-gray-900">{userProfile.name || 'Չի նշված'}</p>
                   </div>
                 </div>
                 
                 <div className="flex items-center space-x-3">
                   <Mail className="h-5 w-5 text-gray-400" />
                   <div>
-                    <p className="text-sm text-gray-200">Էլ. փոստ</p>
-                    <p className="font-medium text-white">{userProfile.email}</p>
+                    <p className="text-sm text-gray-500">Էլ. փոստ</p>
+                    <p className="font-medium text-gray-900">{userProfile.email}</p>
                   </div>
                 </div>
                 
                 <div className="flex items-center space-x-3">
                   <Phone className="h-5 w-5 text-gray-400" />
                   <div>
-                    <p className="text-sm text-gray-200">Հեռախոս</p>
-                    <p className="font-medium text-white">{userProfile.phone || 'Չի նշված'}</p>
+                    <p className="text-sm text-gray-500">Հեռախոս</p>
+                    <p className="font-medium text-gray-900">{userProfile.phone || 'Չի նշված'}</p>
                   </div>
                 </div>
                 
                 <div className="flex items-center space-x-3">
                   <MapPin className="h-5 w-5 text-gray-400" />
                   <div>
-                    <p className="text-sm text-gray-200">Հասցե</p>
-                    <p className="font-medium text-white">{userProfile.address || 'Չի նշված'}</p>
+                    <p className="text-sm text-gray-500">Հասցե</p>
+                    <p className="font-medium text-gray-900">{userProfile.address || 'Չի նշված'}</p>
                   </div>
                 </div>
               </div>
@@ -363,7 +364,7 @@ export default function ProfilePage() {
                 
                 <button
                   onClick={() => signOut({ callbackUrl: '/' })}
-                  className="w-full text-gray-200 text-sm py-2 rounded-lg font-normal hover:text-white hover:bg-white/10 transition-all duration-200 flex items-center justify-center space-x-1 border border-white/20 hover:border-white/40 mb-2"
+                  className="w-full text-gray-600 text-sm py-2 rounded-lg font-normal hover:text-gray-900 hover:bg-gray-50 transition-all duration-200 flex items-center justify-center space-x-1 border border-gray-200 hover:border-gray-300 mb-2"
                 >
                   <LogOut className="h-3 w-3" />
                   <span>Ելք հաշվից</span>
@@ -371,7 +372,7 @@ export default function ProfilePage() {
                 
                 <button
                   onClick={() => setIsDeleteModalOpen(true)}
-                  className="w-full text-gray-300 text-sm py-2 rounded-lg font-normal hover:text-red-400 hover:bg-red-500/10 transition-all duration-200 flex items-center justify-center space-x-1 border border-white/20 hover:border-red-400/50"
+                  className="w-full text-gray-400 text-sm py-2 rounded-lg font-normal hover:text-red-500 hover:bg-red-50 transition-all duration-200 flex items-center justify-center space-x-1 border border-gray-200 hover:border-red-300"
                 >
                   <Trash2 className="h-3 w-3" />
                   <span>Ջնջել հաշիվը</span>
@@ -382,11 +383,11 @@ export default function ProfilePage() {
 
           {/* Orders History */}
           <div className="lg:col-span-2">
-            <div className="bg-white/10 backdrop-blur-lg rounded-2xl shadow-lg p-4 md:p-6 border border-white/20">
-              <h2 className="text-lg md:text-xl font-semibold text-white mb-4 md:mb-6">Պատվերների պատմություն</h2>
+            <div className="bg-white rounded-2xl shadow-lg p-4 md:p-6 border border-gray-200">
+              <h2 className="text-lg md:text-xl font-semibold text-gray-900 mb-4 md:mb-6">Պատվերների պատմություն</h2>
               
               {orders.length === 0 ? (
-                <div className="text-center py-12 text-gray-300">
+                <div className="text-center py-12 text-gray-500">
                   <Package className="h-12 w-12 mx-auto mb-4 text-gray-400" />
                   <p>Դուք դեռ պատվերներ չունեք</p>
                   <Link 
@@ -402,11 +403,11 @@ export default function ProfilePage() {
                   {orders.map((order) => {
                     const statusInfo = getStatusInfo(order.status)
                     return (
-                      <div key={order.id} className="border border-white/20 rounded-xl p-3 md:p-4 bg-white/5">
+                      <div key={order.id} className="border border-gray-200 rounded-xl p-3 md:p-4 bg-gray-50">
                         <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-3 md:mb-4">
                           <div className="mb-2 md:mb-0">
-                            <h3 className="font-semibold text-white text-sm md:text-base">Պատվեր #{order.id.slice(-8)}</h3>
-                            <p className="text-xs md:text-sm text-gray-300">
+                            <h3 className="font-semibold text-gray-900 text-sm md:text-base">Պատվեր #{order.id.slice(-8)}</h3>
+                            <p className="text-xs md:text-sm text-gray-500">
                               {new Date(order.createdAt).toLocaleDateString('ru-RU', {
                                 year: 'numeric',
                                 month: 'short',
@@ -417,7 +418,7 @@ export default function ProfilePage() {
                             </p>
                           </div>
                           <div className="flex items-center justify-between md:flex-col md:items-end">
-                            <p className="text-base md:text-lg font-bold text-white">{order.total} ֏</p>
+                            <p className="text-base md:text-lg font-bold text-gray-900">{formatPrice(order.total)} ֏</p>
                             <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${statusInfo.bg} ${statusInfo.color}`}>
                               {getStatusIcon(order.status)}
                               <span className="ml-1">{statusInfo.text}</span>
@@ -442,10 +443,10 @@ export default function ProfilePage() {
                                 )}
                               </div>
                               <div className="flex-1 min-w-0">
-                                <p className="font-medium text-white text-sm md:text-base truncate">{item.product.name}</p>
-                                <p className="text-xs md:text-sm text-gray-300">{item.quantity} հատ × {item.price} ֏</p>
+                                <p className="font-medium text-gray-900 text-sm md:text-base truncate">{item.product.name}</p>
+                                <p className="text-xs md:text-sm text-gray-500">{item.quantity} հատ × {formatPrice(item.price)} ֏</p>
                               </div>
-                              <p className="font-semibold text-white text-sm md:text-base flex-shrink-0">{item.quantity * item.price} ֏</p>
+                              <p className="font-semibold text-gray-900 text-sm md:text-base flex-shrink-0">{formatPrice(item.quantity * item.price)} ֏</p>
                             </div>
                           ))}
                         </div>

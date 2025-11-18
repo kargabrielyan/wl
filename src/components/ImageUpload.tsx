@@ -131,8 +131,8 @@ export default function ImageUpload({
         className={`
           relative border-2 border-dashed rounded-lg p-6 text-center transition-colors
           ${isDragging 
-            ? 'border-orange-500 bg-orange-50' 
-            : 'border-gray-300 hover:border-orange-400'
+            ? 'border-[#f3d98c] bg-[#f3d98c]/10' 
+            : 'border-gray-300 hover:border-[#f3d98c]/50'
           }
           ${isUploading ? 'opacity-50 pointer-events-none' : ''}
         `}

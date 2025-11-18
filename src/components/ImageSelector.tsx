@@ -199,8 +199,8 @@ export default function ImageSelector({ value, onChange, className = '' }: Image
             onClick={() => setActiveTab(activeTab === 'gallery' ? null : 'gallery')}
             className={`w-32 h-10 ${
               activeTab === 'gallery' 
-                ? 'bg-orange-500 hover:bg-orange-600 text-white border-orange-500' 
-                : 'border-orange-300 text-orange-600 hover:bg-orange-50 hover:border-orange-400'
+                ? 'bg-[#f3d98c] hover:bg-[#f3d98c] text-gray-900 border-[#f3d98c]' 
+                : 'border-[#f3d98c]/30 text-[#f3d98c] hover:bg-[#f3d98c]/10 hover:border-[#f3d98c]/50'
             }`}
           >
             Галерея
@@ -227,7 +227,7 @@ export default function ImageSelector({ value, onChange, className = '' }: Image
           {/* Галерея изображений */}
           {loadingGallery ? (
             <div className="flex items-center justify-center py-8">
-              <Loader2 className="h-8 w-8 animate-spin text-orange-500" />
+              <Loader2 className="h-8 w-8 animate-spin text-[#f3d98c]" />
               <span className="ml-2 text-gray-600">Загрузка галереи...</span>
             </div>
           ) : (
@@ -239,7 +239,7 @@ export default function ImageSelector({ value, onChange, className = '' }: Image
                     type="button"
                     className={`relative aspect-square rounded-lg overflow-hidden border-2 transition-all hover:scale-105 ${
                       value === image.path
-                        ? 'border-orange-500 ring-2 ring-orange-200'
+                        ? 'border-[#f3d98c] ring-2 ring-[#f3d98c]/20'
                         : 'border-gray-200 hover:border-gray-300'
                     }`}
                     onClick={() => selectImage(image.path)}
@@ -252,8 +252,8 @@ export default function ImageSelector({ value, onChange, className = '' }: Image
                       className="object-cover"
                     />
                     {value === image.path && (
-                      <div className="absolute inset-0 bg-orange-500 bg-opacity-20 flex items-center justify-center">
-                        <Check className="h-8 w-8 text-orange-600" />
+                      <div className="absolute inset-0 bg-[#f3d98c] bg-opacity-20 flex items-center justify-center">
+                        <Check className="h-8 w-8 text-[#f3d98c]" />
                       </div>
                     )}
                   </button>
@@ -277,7 +277,7 @@ export default function ImageSelector({ value, onChange, className = '' }: Image
           <div
             className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
               dragOver
-                ? 'border-orange-500 bg-orange-50'
+                ? 'border-[#f3d98c] bg-[#f3d98c]/10'
                 : 'border-gray-300 hover:border-gray-400'
             }`}
             onDragOver={handleDragOver}

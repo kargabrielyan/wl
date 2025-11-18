@@ -8,9 +8,11 @@ import { ArrowLeft, ShoppingCart, Plus, Minus, Star, Clock, MapPin, Phone, Zap }
 import { Product } from '@/types'
 import Footer from '@/components/Footer'
 import ProductCard from '@/components/ProductCard'
+import ProductCarousel from '@/components/ProductCarousel'
 import { useCart } from '@/hooks/useCart'
 import { prisma } from '@/lib/prisma'
 import { parseIngredients, hasIngredients } from '@/utils/ingredients'
+import { formatPrice } from '@/utils/priceUtils'
 
 // Server Component - данные загружаются на сервере
 export default async function OptimizedProductPage({
@@ -304,15 +306,15 @@ export default async function OptimizedProductPage({
                   {product.salePrice ? (
                     <div className="flex flex-col">
                       <div className="flex items-center gap-3">
-                        <span className="text-4xl font-bold text-red-600">{product.salePrice} ֏</span>
+                        <span className="text-4xl font-bold text-red-600">{formatPrice(product.salePrice)} ֏</span>
                         <span className="bg-red-500 text-white text-sm px-3 py-1 rounded-full font-bold">
                           🔥 СКИДКА
                         </span>
                       </div>
-                      <span className="text-lg text-gray-400 line-through">{product.price} ֏</span>
+                      <span className="text-lg text-gray-400 line-through">{formatPrice(product.price)} ֏</span>
                     </div>
                   ) : (
-                    <span className="text-4xl font-bold text-orange-500">{product.price} ֏</span>
+                    <span className="text-4xl font-bold text-[#f3d98c]">{formatPrice(product.price)} ֏</span>
                   )}
                   <span className="text-lg text-gray-500">за порцию</span>
                 </div>
@@ -375,33 +377,9 @@ export default async function OptimizedProductPage({
             </div>
           </div>
 
-          {/* Similar Products */}
+          {/* Similar Products Carousel */}
           {similarProducts.length > 0 && (
-            <section className="mb-16">
-              <div className="flex items-center space-x-4 mb-8">
-                <h2 className="text-3xl font-bold text-gray-900">
-                  Похожие товары
-                </h2>
-                <div className="w-1 h-8 rounded-full" style={{ backgroundColor: '#ffdd84' }}></div>
-                <Link 
-                  href="/products" 
-                  className="group text-orange-500 hover:text-orange-600 text-lg font-bold flex items-center space-x-2 transition-colors duration-300 ml-2"
-                >
-                  <span>Բոլորը</span>
-                  <ArrowLeft className="h-5 w-5 rotate-180 group-hover:translate-x-1 transition-transform duration-300" style={{ strokeWidth: 3 }} />
-                </Link>
-              </div>
-              
-              <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-                {similarProducts.map((similarProduct) => (
-                  <ProductCard
-                    key={similarProduct.id}
-                    product={similarProduct}
-                    variant="compact"
-                  />
-                ))}
-              </div>
-            </section>
+            <SimilarProductsCarousel products={similarProducts} />
           )}
         </div>
 
@@ -415,6 +393,27 @@ export default async function OptimizedProductPage({
     console.error('Error loading product page:', error)
     notFound()
   }
+}
+
+// Client Component для карусели похожих товаров
+function SimilarProductsCarousel({ products }: { products: Product[] }) {
+  'use client'
+  const { addItem } = useCart()
+  const [addedToCart, setAddedToCart] = useState<Set<string>>(new Set())
+
+  const handleAddToCart = (product: Product) => {
+    addItem(product, 1)
+    setAddedToCart(prev => new Set(prev).add(product.id))
+  }
+
+  return (
+    <ProductCarousel
+      products={products}
+      title="Նմանատիպ ապրանքներ"
+      onAddToCart={handleAddToCart}
+      addedToCart={addedToCart}
+    />
+  )
 }
 
 // Client Component для интерактивности

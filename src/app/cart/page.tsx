@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { ArrowLeft, ShoppingCart, Minus, Trash2, ShoppingBag } from 'lucide-react'
 import { useCart } from '@/hooks/useCart'
 import Footer from '@/components/Footer'
+import { formatPrice } from '@/utils/priceUtils'
 
 export default function CartPage() {
   const { items, updateQuantity, removeItem, getTotalPrice, clearCart } = useCart()
@@ -165,7 +166,7 @@ export default function CartPage() {
                         {item.product.categoryId || 'Առանց կատեգորիայի'}
                       </p>
                       <div className="text-lg font-bold mb-3" style={{ color: '#f3d98c' }}>
-                        {item.product.price} ֏
+                        {formatPrice(item.product.price)} ֏
                       </div>
                       
                       {/* Quantity Controls - Mobile Style */}
@@ -193,7 +194,7 @@ export default function CartPage() {
                         {/* Total Price and Delete */}
                         <div className="text-right">
                           <div className="text-lg font-bold text-gray-900 mb-1">
-                            {item.product.price * item.quantity} ֏
+                            {formatPrice(item.product.price * item.quantity)} ֏
                           </div>
                           <button
                             onClick={() => removeItem(item.product.id)}
@@ -262,15 +263,15 @@ export default function CartPage() {
                           {item.product.salePrice ? (
                             <div className="flex flex-col">
                               <div className="flex items-center gap-2">
-                                <span className="text-red-600 font-bold">{item.product.salePrice} ֏</span>
+                                <span className="text-red-600 font-bold">{formatPrice(item.product.salePrice)} ֏</span>
                                 <span className="bg-red-500 text-white text-xs px-2 py-1 rounded-full font-bold">
                                   ԶԵՂՉ
                                 </span>
                               </div>
-                              <span className="text-sm text-gray-400 line-through">{item.product.price} ֏</span>
+                              <span className="text-sm text-gray-400 line-through">{formatPrice(item.product.price)} ֏</span>
                             </div>
                           ) : (
-                            <span>{item.product.price} ֏</span>
+                            <span>{formatPrice(item.product.price)} ֏</span>
                           )}
                         </div>
                       </div>
@@ -301,8 +302,8 @@ export default function CartPage() {
                         <div className="text-xl font-bold text-gray-900">
                           {(() => {
                             const price = item.product.salePrice || item.product.price
-                            return price * item.quantity
-                          })()} ֏
+                            return formatPrice(price * item.quantity)
+                          })} ֏
                         </div>
                         <button
                           onClick={() => removeItem(item.product.id)}
@@ -326,7 +327,7 @@ export default function CartPage() {
               <div className="space-y-4 mb-6">
                 <div className="flex justify-between text-gray-600">
                   <span>Արտադրանք ({items.reduce((total, item) => total + item.quantity, 0)} հատ)</span>
-                  <span>{getTotalPrice()} ֏</span>
+                  <span>{formatPrice(getTotalPrice())} ֏</span>
                 </div>
                 <div className="flex justify-between text-gray-600">
                   <span>Առաքում</span>
@@ -335,7 +336,7 @@ export default function CartPage() {
                 <div className="border-t border-gray-300 pt-4">
                   <div className="flex justify-between text-xl font-bold text-gray-900">
                     <span>Վճարման</span>
-                    <span>{getTotalPrice()} ֏</span>
+                    <span>{formatPrice(getTotalPrice())} ֏</span>
                   </div>
                 </div>
               </div>
@@ -380,7 +381,7 @@ export default function CartPage() {
               <div className="border-t border-gray-300 pt-3">
                 <div className="flex justify-between text-lg font-bold text-gray-900">
                   <span>Վճարման</span>
-                  <span>{getTotalPrice()} ֏</span>
+                  <span>{formatPrice(getTotalPrice())} ֏</span>
                 </div>
               </div>
             </div>

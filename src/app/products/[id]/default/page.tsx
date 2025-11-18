@@ -8,7 +8,9 @@ import { ArrowLeft, ShoppingCart, Plus, Minus, Star, Heart, Share2, Truck, Shiel
 import { Product } from '@/types'
 import Footer from '@/components/Footer'
 import ProductCard from '@/components/ProductCard'
+import ProductCarousel from '@/components/ProductCarousel'
 import { useCart } from '@/hooks/useCart'
+import { formatPrice } from '@/utils/priceUtils'
 
 export default function DefaultProductPage({
   params
@@ -21,6 +23,7 @@ export default function DefaultProductPage({
   const [loading, setLoading] = useState(true)
   const [quantity, setQuantity] = useState(1)
   const [addedToCart, setAddedToCart] = useState(false)
+  const [addedToCartSimilar, setAddedToCartSimilar] = useState<Set<string>>(new Set())
   const [isInWishlist, setIsInWishlist] = useState(false)
   const { addItem } = useCart()
 
@@ -43,11 +46,36 @@ export default function DefaultProductPage({
       setProduct(productData)
 
       // Загружаем похожие товары
-      const similarResponse = await fetch(`/api/products?category=${productData.category?.id}&limit=4`)
-      if (similarResponse.ok) {
-        const similarData = await similarResponse.json()
-        setSimilarProducts(similarData.filter((p: Product) => p.id !== id))
+      let similarData: Product[] = []
+      
+      try {
+        // Сначала пытаемся загрузить товары из той же категории
+        if (productData.category?.id) {
+          const similarResponse = await fetch(`/api/products?category=${productData.category.id}&limit=8`)
+          if (similarResponse.ok) {
+            const data = await similarResponse.json()
+            similarData = Array.isArray(data) ? data.filter((p: Product) => p.id !== id) : []
+          }
+        }
+        
+        // Если похожих товаров мало, загружаем дополнительные товары
+        if (similarData.length < 4) {
+          const additionalResponse = await fetch(`/api/products?limit=8`)
+          if (additionalResponse.ok) {
+            const data = await additionalResponse.json()
+            if (Array.isArray(data)) {
+              const additional = data.filter((p: Product) => 
+                p.id !== id && !similarData.some(sp => sp.id === p.id)
+              )
+              similarData = [...similarData, ...additional].slice(0, 8)
+            }
+          }
+        }
+      } catch (error) {
+        console.error('Error loading similar products:', error)
       }
+      
+      setSimilarProducts(similarData)
     } catch (error) {
       console.error('Error fetching product:', error)
       notFound()
@@ -254,14 +282,14 @@ export default function DefaultProductPage({
             <div className="flex items-center space-x-4 mb-6">
               {product.salePrice ? (
                 <div className="flex items-center gap-3">
-                  <span className="text-3xl font-bold text-red-600">{product.salePrice} ֏</span>
-                  <span className="text-xl text-gray-400 line-through">{product.price} ֏</span>
+                  <span className="text-3xl font-bold text-red-600">{formatPrice(product.salePrice)} ֏</span>
+                  <span className="text-xl text-gray-400 line-through">{formatPrice(product.price)} ֏</span>
                   <span className="bg-red-100 text-red-600 px-2 py-1 rounded text-sm font-medium">
                     -{Math.round((1 - product.salePrice / product.price) * 100)}%
                   </span>
                 </div>
               ) : (
-                <span className="text-3xl font-bold" style={{ color: '#002c45' }}>{product.price} ֏</span>
+                <span className="text-3xl font-bold" style={{ color: '#002c45' }}>{formatPrice(product.price)} ֏</span>
               )}
             </div>
 
@@ -373,35 +401,19 @@ export default function DefaultProductPage({
           </div>
         </div>
 
-        {/* Similar Products */}
-        {similarProducts.length > 0 && (
-          <section className="mb-16">
-            <div className="flex items-center justify-between mb-8">
-              <h2 className="text-2xl lg:text-3xl font-bold text-gray-900">
-                Похожие товары
-              </h2>
-              <Link 
-                href="/products" 
-                className="font-semibold flex items-center space-x-2 transition-colors"
-                style={{ color: '#002c45' } as React.CSSProperties}
-                onMouseEnter={(e) => e.currentTarget.style.color = '#003d5c'}
-                onMouseLeave={(e) => e.currentTarget.style.color = '#002c45'}
-              >
-                <span>Все товары</span>
-                <ArrowLeft className="h-4 w-4 rotate-180" />
-              </Link>
-            </div>
-            
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-              {similarProducts.map((similarProduct) => (
-                <ProductCard
-                  key={similarProduct.id}
-                  product={similarProduct}
-                  variant="compact"
-                />
-              ))}
-            </div>
-          </section>
+        {/* Similar Products Carousel */}
+        {!loading && similarProducts.length > 0 && (
+          <div className="mt-16">
+            <ProductCarousel
+              products={similarProducts}
+              title="Նմանատիպ ապրանքներ"
+              onAddToCart={(product) => {
+                addItem(product, 1)
+                setAddedToCartSimilar(prev => new Set(prev).add(product.id))
+              }}
+              addedToCart={addedToCartSimilar}
+            />
+          </div>
         )}
       </div>
 

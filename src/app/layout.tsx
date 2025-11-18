@@ -19,10 +19,10 @@ export const metadata: Metadata = {
   keywords: "մանկական, խաղալիքներ, մանկական արտադրանք, Երևան, Հայաստան",
   icons: {
     icon: [
-      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/logo.ico', sizes: 'any' },
       { url: '/images/logo.png', type: 'image/png' },
     ],
-    shortcut: '/favicon.ico',
+    shortcut: '/logo.ico',
     apple: '/images/logo.png',
   },
   manifest: '/manifest.json',
@@ -35,7 +35,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru" data-scroll-behavior="smooth" suppressHydrationWarning>
-      <body className={`${inter.variable} font-sans antialiased overflow-x-hidden`} style={{ backgroundColor: '#ffffff' }}>
+      <body className={`${inter.variable} font-sans antialiased overflow-x-hidden bg-white`} suppressHydrationWarning>
         <ServiceWorkerProvider />
         <ClientProviders>
           <Header />

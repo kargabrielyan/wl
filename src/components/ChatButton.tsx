@@ -107,7 +107,7 @@ export default function ChatButton({
         /* Адаптивность для мобильных устройств */
         @media (max-width: 768px) {
           .chat-button-container {
-            bottom: 20px !important;
+            bottom: 90px !important;
             right: 20px !important;
           }
         }
@@ -115,7 +115,7 @@ export default function ChatButton({
         /* Очень маленькие экраны */
         @media (max-width: 480px) {
           .chat-button-container {
-            bottom: 16px !important;
+            bottom: 85px !important;
             right: 16px !important;
           }
         }

@@ -1,13 +1,9 @@
 'use client'
 
-import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import { Clock, Users, Heart, Award, ChefHat, Truck, Star, CheckCircle } from 'lucide-react'
 import { AnimatedCounter } from "@/components/AnimatedCounter"
-
-const Footer = dynamic(() => import('@/components/Footer'), {
-  ssr: false
-})
+import Footer from "@/components/Footer"
 
 export default function AboutPage() {
   return (

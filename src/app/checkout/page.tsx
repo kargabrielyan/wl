@@ -7,6 +7,7 @@ import { ArrowLeft, MapPin, Clock, CreditCard, Phone, User } from 'lucide-react'
 import { useCart } from '@/hooks/useCart'
 import { useSession } from 'next-auth/react'
 import Footer from '@/components/Footer'
+import { formatPrice } from '@/utils/priceUtils'
 
 interface UserProfile {
   id: string
@@ -432,7 +433,7 @@ export default function CheckoutPage() {
                       <div className="text-xs text-gray-600">{item.quantity} шт.</div>
                     </div>
                     <div className="font-semibold text-gray-900 text-sm">
-                      {item.product.price * item.quantity} ֏
+                      {formatPrice(item.product.price * item.quantity)} ֏
                     </div>
                   </div>
                 ))}
@@ -441,7 +442,7 @@ export default function CheckoutPage() {
                   <div className="space-y-2">
                     <div className="flex justify-between text-gray-600">
                       <span>Товары</span>
-                      <span>{getTotalPrice()} ֏</span>
+                      <span>{formatPrice(getTotalPrice())} ֏</span>
                     </div>
                     <div className="flex justify-between text-gray-600">
                       <span>Доставка</span>
@@ -449,7 +450,7 @@ export default function CheckoutPage() {
                     </div>
                     <div className="flex justify-between text-lg font-bold text-gray-900 border-t border-gray-300 pt-2">
                       <span>Итого</span>
-                      <span>{getTotalPrice()} ֏</span>
+                      <span>{formatPrice(getTotalPrice())} ֏</span>
                     </div>
                   </div>
                 </div>
@@ -677,7 +678,7 @@ export default function CheckoutPage() {
                         <div className="text-sm text-gray-600">{item.quantity} шт.</div>
                       </div>
                       <div className="font-semibold text-gray-900">
-                        {item.product.price * item.quantity} ֏
+                        {formatPrice(item.product.price * item.quantity)} ֏
                       </div>
                     </div>
                   ))}
@@ -686,7 +687,7 @@ export default function CheckoutPage() {
                     <div className="space-y-2">
                       <div className="flex justify-between text-gray-600">
                         <span>Товары</span>
-                        <span>{getTotalPrice()} ֏</span>
+                        <span>{formatPrice(getTotalPrice())} ֏</span>
                       </div>
                       <div className="flex justify-between text-gray-600">
                         <span>Доставка</span>
@@ -694,7 +695,7 @@ export default function CheckoutPage() {
                       </div>
                       <div className="flex justify-between text-lg font-bold text-gray-900 border-t border-gray-300 pt-2">
                         <span>Итого</span>
-                        <span>{getTotalPrice()} ֏</span>
+                        <span>{formatPrice(getTotalPrice())} ֏</span>
                       </div>
                     </div>
                   </div>

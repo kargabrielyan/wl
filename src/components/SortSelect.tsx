@@ -20,7 +20,7 @@ export default function SortSelect({ value, onChange, options, className = '' }:
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="appearance-none bg-white border-2 border-gray-200 rounded-xl px-4 py-3 pr-10 text-gray-900 font-medium focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300 hover:border-gray-300 cursor-pointer"
+        className="appearance-none bg-white border-2 border-gray-200 rounded-xl px-4 py-3 pr-10 text-gray-900 font-medium focus:ring-2 focus:ring-[#f3d98c] focus:border-[#f3d98c] transition-all duration-300 hover:border-gray-300 cursor-pointer"
       >
         {options.map((option) => (
           <option key={option.value} value={option.value}>
