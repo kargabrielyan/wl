@@ -65,8 +65,8 @@ export default function MobileBottomNav() {
       <nav key={navKey} className="lg:hidden fixed bottom-0 left-0 right-0 w-full bg-white/95 backdrop-blur-xl border-t border-gray-200 z-40 shadow-2xl">
         <div className="flex justify-around items-center py-3">
           {status === 'loading' ? (
-            // Показываем загрузку для всех кнопок
-            Array.from({ length: 4 }).map((_, index) => (
+            // Показываем загрузку для всех кнопок (5 для авторизованных, 4 для неавторизованных)
+            Array.from({ length: session ? 5 : 4 }).map((_, index) => (
               <div key={index} className="flex flex-col items-center justify-center py-3 px-4 rounded-2xl">
                 <div className="w-6 h-6 bg-gray-200 rounded-full animate-pulse"></div>
                 <div className="w-12 h-3 bg-gray-200 rounded mt-1 animate-pulse"></div>
@@ -81,31 +81,31 @@ export default function MobileBottomNav() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex flex-col items-center justify-center py-3 px-4 rounded-2xl transition-all duration-300 relative ${
+                className={`flex flex-col items-center justify-center py-2 px-2 sm:py-3 sm:px-4 rounded-2xl transition-all duration-300 relative flex-1 min-w-0 ${
                   active
                     ? 'text-[#f3d98c] bg-[#f3d98c]/10'
                     : 'text-gray-600 hover:text-[#f3d98c] hover:bg-[#f3d98c]/10'
                 }`}
               >
                 <div className="relative">
-                  <Icon className={`h-6 w-6 transition-transform duration-300 ${active ? 'scale-110' : ''}`} />
+                  <Icon className={`h-5 w-5 sm:h-6 sm:w-6 transition-transform duration-300 ${active ? 'scale-110' : ''}`} />
                   {item.showBadge && isHydrated && (
                     item.badgeCount !== undefined ? (
                       item.badgeCount > 0 && (
-                        <span className="absolute -top-2 -right-2 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold shadow-lg" style={{ backgroundColor: '#ffdd84' }}>
+                        <span className="absolute -top-2 -right-2 text-white text-[10px] rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center font-bold shadow-lg" style={{ backgroundColor: '#ffdd84' }}>
                           {item.badgeCount}
                         </span>
                       )
                     ) : (
                       getTotalItems() > 0 && (
-                        <span className="absolute -top-2 -right-2 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold shadow-lg" style={{ backgroundColor: '#ffdd84' }}>
+                        <span className="absolute -top-2 -right-2 text-white text-[10px] rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center font-bold shadow-lg" style={{ backgroundColor: '#ffdd84' }}>
                           {getTotalItems()}
                         </span>
                       )
                     )
                   )}
                 </div>
-                <span className={`text-xs font-semibold mt-1 transition-all duration-300 ${active ? 'text-[#f3d98c]' : ''}`}>{item.label}</span>
+                <span className={`text-[10px] sm:text-xs font-semibold mt-1 transition-all duration-300 ${active ? 'text-[#f3d98c]' : ''} truncate w-full text-center`}>{item.label}</span>
                 
                 {/* Active indicator */}
                 {active && (

@@ -177,10 +177,10 @@ export default function Home() {
           <div className="flex items-center justify-between">
             {/* Left content - compact */}
             <div className="flex-1 pr-4">
-              <h1 className="text-3xl font-bold leading-tight mb-3">
+              <h1 className="font-bold mb-3" style={{ fontFamily: 'var(--font-inter)', fontSize: '60px', lineHeight: '60px' }}>
                 <span className="block text-white">Մանկական <span style={{ color: '#f3d98c' }}>Աշխարհ</span></span>
               </h1>
-              <p className="text-base text-primary-100 mb-4 font-medium">
+              <p className="text-primary-100 mb-4" style={{ fontFamily: 'var(--font-inter)', fontSize: '30px', lineHeight: '36px', fontWeight: 400 }}>
                 Որակյալ Արտադրանք Ձեր Երեխաների Համար
               </p>
               <div className="flex gap-6 text-sm">
@@ -254,10 +254,10 @@ export default function Home() {
           <div className="flex items-center justify-between">
             {/* Left content - tablet optimized */}
             <div className="flex-1 pr-8">
-              <h1 className="text-4xl font-bold leading-tight mb-4">
+              <h1 className="font-bold mb-4" style={{ fontFamily: 'var(--font-inter)', fontSize: '60px', lineHeight: '60px' }}>
                 <span className="block text-white">Մանկական <span style={{ color: '#f3d98c' }}>Աշխարհ</span></span>
               </h1>
-              <p className="text-lg text-primary-100 mb-6 font-medium">
+              <p className="text-primary-100 mb-6" style={{ fontFamily: 'var(--font-inter)', fontSize: '30px', lineHeight: '36px', fontWeight: 400 }}>
                 Որակյալ Արտադրանք Ձեր Երեխաների Համար
               </p>
               <div className="flex gap-8 text-base">
@@ -332,9 +332,9 @@ export default function Home() {
             {/* Left content */}
             <div className="space-y-6">
               {/* Main heading */}
-              <h1 className="text-4xl md:text-6xl font-bold leading-tight">
+              <h1 className="font-bold" style={{ fontFamily: 'var(--font-inter)', fontSize: '60px', lineHeight: '60px' }}>
                 <span className="block text-white">Մանկական <span style={{ color: '#f3d98c' }}>Աշխարհ</span></span>
-                <span className="block text-2xl md:text-3xl font-normal text-primary-100 mt-3">
+                <span className="block text-primary-100 mt-3" style={{ fontFamily: 'var(--font-inter)', fontSize: '30px', lineHeight: '36px', fontWeight: 400 }}>
                   Որակյալ Արտադրանք Ձեր Երեխաների Համար
                 </span>
               </h1>
@@ -494,7 +494,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section header */}
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-inter)', fontSize: '36px', lineHeight: '40px' }}>
               Ինչու՞ Են Ընտրում Մեզ
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
@@ -581,7 +581,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section header */}
           <div className="text-center mb-12 lg:mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-inter)', fontSize: '36px', lineHeight: '40px' }}>
               Մեր Առավելությունները
             </h2>
             <p className="text-lg text-gray-600 whitespace-nowrap">
@@ -697,7 +697,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section header */}
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-inter)', fontSize: '36px', lineHeight: '40px' }}>
               Ինչ Են Ասում Ծնողները
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
@@ -791,7 +791,7 @@ export default function Home() {
       {/* CTA Section - Hidden on mobile and tablet */}
       <section className="hidden lg:block py-20 text-gray-900 relative" style={{ backgroundColor: '#ffffff' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          <h2 className="font-bold mb-6" style={{ fontFamily: 'var(--font-inter)', fontSize: '36px', lineHeight: '40px' }}>
             Պատրա՞ստ Եք Ուրախացնել Երեխաներին
           </h2>
           <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">

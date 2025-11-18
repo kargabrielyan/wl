@@ -13,28 +13,6 @@ export default function AboutPage() {
       <div className="lg:hidden h-20"></div>
       <div className="hidden lg:block h-28"></div>
 
-      {/* Hero Section */}
-      <section className="relative text-white overflow-hidden flex items-center justify-center py-8" style={{ backgroundColor: '#f3d98c' }}>
-        
-        {/* Decorative Elements */}
-        <div className="absolute top-10 left-10 w-20 h-20 rounded-full opacity-20" style={{ backgroundColor: '#f3d98c' }}></div>
-        <div className="absolute top-20 right-20 w-16 h-16 rounded-full opacity-15" style={{ backgroundColor: '#f3d98c' }}></div>
-        <div className="absolute bottom-20 left-1/4 w-12 h-12 rounded-full opacity-25" style={{ backgroundColor: '#f3d98c' }}></div>
-        <div className="absolute bottom-10 right-1/3 w-8 h-8 rounded-full opacity-20" style={{ backgroundColor: '#f3d98c' }}></div>
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight text-center" style={{ color: '#002c45' }}>
-            Welcome Baby-ի մասին
-          </h1>
-          
-          <div className="max-w-4xl mx-auto text-center">
-            <p className="text-xl md:text-2xl leading-relaxed text-center" style={{ color: '#002c45' }}>
-              Նորածնային կահույք և անկողնային պարագաներ արտադրող ընկերություն
-            </p>
-          </div>
-        </div>
-      </section>
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Story Section */}
         <div className="mb-24">
