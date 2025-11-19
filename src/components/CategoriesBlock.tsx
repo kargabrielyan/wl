@@ -22,7 +22,7 @@ interface CategoriesBlockProps {
 
 export default function CategoriesBlock({ 
   title = "Կատեգորիաներ", 
-  subtitle = "Ընտրեք ձեր սիրելի կատեգորիան",
+  subtitle = "ընտրեք ձեր սիրելի կատեգորիան",
   limit = 9
 }: CategoriesBlockProps) {
   const sanitizeImageUrl = (value?: string | null): string | null => {

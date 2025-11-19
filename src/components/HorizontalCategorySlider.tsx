@@ -22,7 +22,7 @@ interface HorizontalCategorySliderProps {
 
 export default function HorizontalCategorySlider({ 
   title = "Կատեգորիաներ", 
-  subtitle = "Ընտրեք ձեր սիրելի կատեգորիան",
+  subtitle = "ընտրեք ձեր սիրելի կատեգորիան",
   limit = 9
 }: HorizontalCategorySliderProps) {
   const sanitizeImageUrl = (value?: string | null): string | null => {

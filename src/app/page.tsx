@@ -472,7 +472,7 @@ export default function Home() {
       <section className="relative py-8 lg:py-12" style={{ backgroundColor: '#ffffff' }}>
         <HorizontalCategorySlider 
           title="Կատեգորիաներ"
-          subtitle="Ընտրեք Ձեր Սիրելի Կատեգորիան"
+          subtitle="ընտրեք ձեր սիրելի կատեգորիան"
           limit={9}
         />
       </section>
@@ -481,7 +481,7 @@ export default function Home() {
       <div className="relative" style={{ backgroundColor: '#ffffff' }}>
         <ProductSection
           title="Զեղչված Արտադրանք"
-          subtitle="Շահավետ Առաջարկություններ Սիրելի Արտադրանքի Համար"
+          subtitle="շահավետ առաջարկություններ սիրելի արտադրանքի համար"
           products={saleProducts}
           onAddToCart={handleAddToCart}
           addedToCart={addedToCart}
@@ -498,7 +498,7 @@ export default function Home() {
               Ինչու՞ Են Ընտրում Մեզ
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Մենք Ստեղծել Ենք Անվտանգության, Որակի Եվ Ուրախության Իդեալական Համադրություն Ձեր Երեխաների Համար
+              մենք ստեղծել ենք անվտանգության, որակի եվ ուրախության իդեալական համադրություն ձեր երեխաների համար
             </p>
           </div>
 
@@ -585,7 +585,7 @@ export default function Home() {
               Մեր Առավելությունները
             </h2>
             <p className="text-lg text-gray-600 whitespace-nowrap">
-              Տարիների Փորձը Եվ Հազարավոր Գոհ Հաճախորդները Մեր Հպարտությունն Են
+              տարիների փորձը եվ հազարավոր գոհ հաճախորդները մեր հպարտությունն են
             </p>
           </div>
 
@@ -685,7 +685,7 @@ export default function Home() {
       {/* New Toys Section */}
       <ProductSection
         title="Նոր Խաղալիքներ"
-        subtitle="Նոր խաղալիքներ զվարճալի խաղերի համար"
+        subtitle="նոր խաղալիքներ զվարճալի խաղերի համար"
         products={newToys}
         onAddToCart={handleAddToCart}
         addedToCart={addedToCart}
@@ -701,7 +701,7 @@ export default function Home() {
               Ինչ Են Ասում Ծնողները
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              1000-ից Ավելի Գոհ Ընտանիքներ Արդեն Ընտրել Են Մեր Արտադրանքը Երեխաների Համար
+              1000-ից ավելի գոհ ընտանիքներ արդեն ընտրել են մեր արտադրանքը երեխաների համար
             </p>
           </div>
 
@@ -795,7 +795,7 @@ export default function Home() {
             Պատրա՞ստ Եք Ուրախացնել Երեխաներին
           </h2>
           <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            Պատվիրեք Հիմա Եվ Ստացեք 15% Զեղչ Առաջին Պատվերի Համար
+            պատվիրեք հիմա եվ ստացեք 15% զեղչ առաջին պատվերի համար
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
