@@ -138,7 +138,7 @@ const SearchResultItem = memo(function SearchResultItem({
           <div className="flex items-center gap-2">
             {result.salePrice ? (
               <>
-                <span className="text-xs text-red-500 font-medium">
+                <span className="text-xs text-green-600 font-medium">
                   {formatPrice(result.salePrice)} ֏
                 </span>
                 <span className="text-xs text-gray-400 line-through">

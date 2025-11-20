@@ -286,8 +286,8 @@ export default function AdminProducts() {
                         Цена: {product.salePrice ? (
                           <span>
                             <div className="flex items-center gap-2">
-                              <span className="text-red-600 font-bold">{product.salePrice} ֏</span>
-                              <span className="bg-red-500 text-white text-xs px-2 py-1 rounded-full font-bold">
+                              <span className="text-green-600 font-bold">{product.salePrice} ֏</span>
+                              <span className="bg-green-500 text-white text-xs px-2 py-1 rounded-full font-bold">
                                 СКИДКА
                               </span>
                             </div>

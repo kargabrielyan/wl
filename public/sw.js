@@ -1,5 +1,5 @@
 // Service Worker для кэширования и оптимизации производительности
-const CACHE_NAME = 'welcomebaby-v1.0.2'
+const CACHE_NAME = 'welcomebaby-v1.0.3'
 
 // Файлы для кэширования (только статические ресурсы)
 const STATIC_FILES = [
@@ -59,6 +59,16 @@ self.addEventListener('fetch', (event) => {
   
   // Обрабатываем только GET запросы
   if (request.method !== 'GET') {
+    return
+  }
+
+  // Игнорируем запросы от Chrome расширений и других неподдерживаемых схем
+  const url = new URL(request.url)
+  if (url.protocol === 'chrome-extension:' || 
+      url.protocol === 'moz-extension:' || 
+      url.protocol === 'safari-extension:' ||
+      url.protocol !== 'http:' && url.protocol !== 'https:') {
+    // Просто пропускаем эти запросы, не обрабатываем
     return
   }
 

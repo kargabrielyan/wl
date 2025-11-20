@@ -20,6 +20,16 @@ const nextConfig: NextConfig = {
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     unoptimized: false, // Включаем оптимизатор обратно после исправления конфига
+    // Разрешаем локальные изображения
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'welcomebaby.neetrino.com',
+        pathname: '/images/**',
+      },
+    ],
+    // Разрешаем локальные пути
+    domains: [],
   },
   // Экспериментальные функции для производительности
   experimental: {

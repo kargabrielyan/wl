@@ -135,7 +135,7 @@ export default function ProductsPagePaginated() {
                   <div className="flex flex-col">
                     {product.salePrice ? (
                       <>
-                        <span className="text-lg font-bold text-red-600">{product.salePrice} ֏</span>
+                        <span className="text-lg font-bold text-green-600">{product.salePrice} ֏</span>
                         <span className="text-sm text-gray-500 line-through">{product.price} ֏</span>
                       </>
                     ) : (

@@ -282,9 +282,9 @@ export default function DefaultProductPage({
             <div className="flex items-center space-x-4 mb-6">
               {product.salePrice ? (
                 <div className="flex items-center gap-3">
-                  <span className="text-3xl font-bold text-red-600">{formatPrice(product.salePrice)} ֏</span>
+                  <span className="text-3xl font-bold text-green-600">{formatPrice(product.salePrice)} ֏</span>
                   <span className="text-xl text-gray-400 line-through">{formatPrice(product.price)} ֏</span>
-                  <span className="bg-red-100 text-red-600 px-2 py-1 rounded text-sm font-medium">
+                  <span className="bg-green-100 text-green-600 px-2 py-1 rounded text-sm font-medium">
                     -{Math.round((1 - product.salePrice / product.price) * 100)}%
                   </span>
                 </div>

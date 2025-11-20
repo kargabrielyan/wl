@@ -263,8 +263,8 @@ export default function CartPage() {
                           {item.product.salePrice ? (
                             <div className="flex flex-col">
                               <div className="flex items-center gap-2">
-                                <span className="text-red-600 font-bold">{formatPrice(item.product.salePrice)} ֏</span>
-                                <span className="bg-red-500 text-white text-xs px-2 py-1 rounded-full font-bold">
+                                <span className="text-green-600 font-bold">{formatPrice(item.product.salePrice)} ֏</span>
+                                <span className="bg-green-500 text-white text-xs px-2 py-1 rounded-full font-bold">
                                   ԶԵՂՉ
                                 </span>
                               </div>

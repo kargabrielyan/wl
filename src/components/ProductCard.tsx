@@ -89,7 +89,7 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
         <div className="absolute top-2 left-2 flex flex-col gap-1 z-10 pointer-events-none">
           {/* Скидка */}
           {product.salePrice && (
-            <span className="bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">
+            <span className="bg-green-500 text-white px-2 py-1 rounded text-xs font-bold">
               ԶԵՂՉ
             </span>
           )}
@@ -168,9 +168,9 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
           <div className="flex items-center gap-2">
             {product.salePrice ? (
               <>
-                <span className="text-lg font-bold text-red-400">{formatPrice(product.salePrice)} ֏</span>
+                <span className="text-lg font-bold text-green-600">{formatPrice(product.salePrice)} ֏</span>
                 <span className="text-sm text-gray-500 line-through">{formatPrice(product.price)} ֏</span>
-                <span className="bg-red-500 text-white text-xs px-1 py-0.5 rounded font-bold">
+                <span className="bg-green-500 text-white text-xs px-1 py-0.5 rounded font-bold">
                   -{Math.round((1 - product.salePrice / product.price) * 100)}%
                 </span>
               </>

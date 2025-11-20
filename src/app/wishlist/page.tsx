@@ -244,7 +244,7 @@ function WishlistContent() {
                   <div className="flex items-center gap-2 mb-4">
                     {item.product.salePrice ? (
                       <>
-                        <span className="text-lg font-bold text-red-600">
+                        <span className="text-lg font-bold text-green-600">
                           {item.product.salePrice} ֏
                         </span>
                         <span className="text-sm text-gray-400 line-through">
