@@ -478,7 +478,7 @@ export default function Home() {
               Ինչու՞ Են Ընտրում Մեզ
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              մենք ստեղծել ենք անվտանգության, որակի եվ ուրախության իդեալական համադրություն ձեր երեխաների համար
+              Մենք ստեղծել ենք անվտանգության, որակի եվ ուրախության իդեալական համադրություն ձեր երեխաների համար
             </p>
           </div>
 
@@ -565,7 +565,7 @@ export default function Home() {
               Մեր Առավելությունները
             </h2>
             <p className="text-lg text-gray-600 whitespace-nowrap">
-              տարիների փորձը եվ հազարավոր գոհ հաճախորդները մեր հպարտությունն են
+              Տարիների փորձը եվ հազարավոր գոհ հաճախորդները մեր հպարտությունն են
             </p>
           </div>
 
@@ -679,7 +679,7 @@ export default function Home() {
             Պատրա՞ստ Եք Ուրախացնել Երեխաներին
           </h2>
           <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            պատվիրեք հիմա եվ ստացեք 15% զեղչ առաջին պատվերի համար
+            Պատվիրեք հիմա եվ ստացեք 15% զեղչ առաջին պատվերի համար
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
