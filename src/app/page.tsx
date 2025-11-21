@@ -452,7 +452,7 @@ export default function Home() {
       <section className="relative py-8 lg:py-12" style={{ backgroundColor: '#ffffff' }}>
         <HorizontalCategorySlider 
           title="Կատեգորիաներ"
-          subtitle="ընտրեք ձեր սիրելի կատեգորիան"
+          subtitle="Ընտրեք ձեր սիրելի կատեգորիան"
           limit={9}
         />
       </section>
@@ -461,7 +461,7 @@ export default function Home() {
       <div className="relative" style={{ backgroundColor: '#ffffff' }}>
         <ProductSection
           title="Զեղչված Արտադրանք"
-          subtitle="շահավետ առաջարկություններ սիրելի արտադրանքի համար"
+          subtitle="Շահավետ առաջարկություններ սիրելի արտադրանքի համար"
           products={saleProducts}
           onAddToCart={handleAddToCart}
           addedToCart={addedToCart}
@@ -665,7 +665,7 @@ export default function Home() {
       {/* New Toys Section */}
       <ProductSection
         title="Նոր Խաղալիքներ"
-        subtitle="նոր խաղալիքներ զվարճալի խաղերի համար"
+        subtitle="Նոր խաղալիքներ զվարճալի խաղերի համար"
         products={newToys}
         onAddToCart={handleAddToCart}
         addedToCart={addedToCart}

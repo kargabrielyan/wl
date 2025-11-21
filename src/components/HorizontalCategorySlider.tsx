@@ -22,15 +22,9 @@ interface HorizontalCategorySliderProps {
 
 export default function HorizontalCategorySlider({ 
   title = "Կատեգորիաներ", 
-  subtitle = "ընտրեք ձեր սիրելի կատեգորիան",
+  subtitle = "Ընտրեք ձեր սիրելի կատեգորիան",
   limit = 9
 }: HorizontalCategorySliderProps) {
-  // Функция для заглавной первой буквы первого слова
-  const capitalizeFirstLetter = (text: string): string => {
-    if (!text) return text
-    return text.charAt(0).toUpperCase() + text.slice(1)
-  }
-
   const sanitizeImageUrl = (value?: string | null): string | null => {
     if (!value) return null
     let url = String(value).trim()
@@ -207,7 +201,7 @@ export default function HorizontalCategorySlider({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-6 md:mb-8">
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3 md:mb-4">{title}</h2>
-            <p className="text-gray-600 text-sm md:text-base">{capitalizeFirstLetter(subtitle)}</p>
+            <p className="text-gray-600 text-sm md:text-base">{subtitle}</p>
           </div>
           <div className="flex gap-4 md:gap-6 overflow-hidden px-4 md:px-0">
             {[...Array(4)].map((_, i) => (
