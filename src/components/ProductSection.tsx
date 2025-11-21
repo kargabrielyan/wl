@@ -26,6 +26,12 @@ const ProductSection = memo(function ProductSection({
   viewAllLink = '/products',
   variant = 'default'
 }: ProductSectionProps) {
+  // Функция для заглавной первой буквы первого слова
+  const capitalizeFirstLetter = (text: string): string => {
+    if (!text) return text
+    return text.charAt(0).toUpperCase() + text.slice(1)
+  }
+
   if (!products || !Array.isArray(products) || products.length === 0) {
     return null
   }
@@ -40,7 +46,7 @@ const ProductSection = memo(function ProductSection({
           </h2>
           {subtitle && (
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              {subtitle}
+              {capitalizeFirstLetter(subtitle)}
             </p>
           )}
         </div>

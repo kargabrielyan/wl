@@ -25,6 +25,12 @@ export default function CategoriesBlock({
   subtitle = "ընտրեք ձեր սիրելի կատեգորիան",
   limit = 9
 }: CategoriesBlockProps) {
+  // Функция для заглавной первой буквы первого слова
+  const capitalizeFirstLetter = (text: string): string => {
+    if (!text) return text
+    return text.charAt(0).toUpperCase() + text.slice(1)
+  }
+
   const sanitizeImageUrl = (value?: string | null): string | null => {
     if (!value) return null
     let url = String(value).trim()
@@ -66,7 +72,7 @@ export default function CategoriesBlock({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">{title}</h2>
-            <p className="text-gray-600">{subtitle}</p>
+            <p className="text-gray-600">{capitalizeFirstLetter(subtitle)}</p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
             {[...Array(limit)].map((_, i) => (
@@ -92,7 +98,7 @@ export default function CategoriesBlock({
         {/* Заголовок секции */}
         <div className="text-center mb-8">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">{title}</h2>
-          <p className="text-gray-600">{subtitle}</p>
+          <p className="text-gray-600">{capitalizeFirstLetter(subtitle)}</p>
         </div>
 
         {/* Сетка категорий */}
