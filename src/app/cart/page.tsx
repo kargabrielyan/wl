@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { ArrowLeft, ShoppingCart, Minus, Trash2, ShoppingBag } from 'lucide-react'
+import { ArrowLeft, ShoppingCart, Minus, Plus, Trash2, ShoppingBag } from 'lucide-react'
 import { useCart } from '@/hooks/useCart'
 import Footer from '@/components/Footer'
 import { formatPrice } from '@/utils/priceUtils'
@@ -39,8 +39,8 @@ export default function CartPage() {
             <div className="w-32 h-32 rounded-full flex items-center justify-center mx-auto mb-8" style={{ backgroundColor: '#f3d98c' }}>
               <ShoppingBag className="h-16 w-16 text-white" />
             </div>
-            <h1 className="text-3xl font-bold text-white mb-4">Զամբյուղը դատարկ է</h1>
-            <p className="text-lg text-gray-300 mb-8">
+            <h1 className="text-3xl font-bold text-gray-900 mb-4">Զամբյուղը դատարկ է</h1>
+            <p className="text-lg text-gray-600 mb-8">
               Ավելացրեք արտադրանք մեր մենյուից, որպեսզի պատվիրեք
             </p>
             <Link 
@@ -187,7 +187,7 @@ export default function CartPage() {
                             onClick={() => handleQuantityChange(item.product.id, item.quantity + 1)}
                             className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors"
                           >
-                            <ShoppingCart className="h-4 w-4 text-gray-700" />
+                            <Plus className="h-4 w-4 text-gray-700" />
                           </button>
                         </div>
                         
@@ -293,7 +293,7 @@ export default function CartPage() {
                           onClick={() => handleQuantityChange(item.product.id, item.quantity + 1)}
                           className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors"
                         >
-                          <ShoppingCart className="h-4 w-4 text-gray-700" />
+                          <Plus className="h-4 w-4 text-gray-700" />
                         </button>
                       </div>
                       
@@ -303,7 +303,7 @@ export default function CartPage() {
                           {(() => {
                             const price = item.product.salePrice || item.product.price
                             return formatPrice(price * item.quantity)
-                          })} ֏
+                          })()} ֏
                         </div>
                         <button
                           onClick={() => removeItem(item.product.id)}
@@ -344,7 +344,7 @@ export default function CartPage() {
               <Link
                 href="/checkout"
                 className="w-full text-white py-4 rounded-xl font-semibold transition-colors text-center block text-lg"
-                style={{ backgroundColor: '#f3d98c' }}
+                style={{ backgroundColor: '#002c45' }}
               >
                 Պատվիրել
               </Link>
@@ -352,10 +352,10 @@ export default function CartPage() {
               <div className="mt-4 text-center">
                 <Link 
                   href="/products"
-                  className="text-gray-300 transition-colors text-sm"
-                  style={{ '--hover-color': '#f3d98c' } as React.CSSProperties}
-                  onMouseEnter={(e) => e.currentTarget.style.color = '#f3d98c'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = '#f3d98c'}
+                  className="text-gray-900 transition-colors text-sm"
+                  style={{ '--hover-color': '#002c45' } as React.CSSProperties}
+                  onMouseEnter={(e) => e.currentTarget.style.color = '#002c45'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = '#000000'}
                 >
                   Շարունակել գնումները
                 </Link>
@@ -389,7 +389,7 @@ export default function CartPage() {
             <Link
               href="/checkout"
               className="w-full text-white py-4 rounded-xl font-semibold transition-colors text-center block text-lg"
-              style={{ backgroundColor: '#f3d98c' }}
+              style={{ backgroundColor: '#002c45' }}
             >
               Оформить заказ
             </Link>
@@ -397,10 +397,10 @@ export default function CartPage() {
             <div className="mt-4 text-center">
               <Link 
                 href="/products"
-                className="text-gray-300 transition-colors text-sm"
-                style={{ '--hover-color': '#f3d98c' } as React.CSSProperties}
-                onMouseEnter={(e) => e.currentTarget.style.color = '#f3d98c'}
-                onMouseLeave={(e) => e.currentTarget.style.color = '#f3d98c'}
+                className="text-gray-900 transition-colors text-sm"
+                style={{ '--hover-color': '#002c45' } as React.CSSProperties}
+                onMouseEnter={(e) => e.currentTarget.style.color = '#002c45'}
+                onMouseLeave={(e) => e.currentTarget.style.color = '#000000'}
               >
                 Շարունակել գնումները
               </Link>

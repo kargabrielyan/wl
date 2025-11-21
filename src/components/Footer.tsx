@@ -51,7 +51,7 @@ export default function Footer() {
           </div>
 
           {/* Quick Links */}
-          <div>
+          <div style={{ marginLeft: '60px' }}>
             <h4 className="text-lg font-semibold mb-4 mt-6">Մենյու</h4>
             <ul className="space-y-2">
               <li>

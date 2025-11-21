@@ -291,16 +291,6 @@ export default async function OptimizedProductPage({
                 <h1 className="text-4xl font-bold text-gray-900 mb-4">{product.name}</h1>
                 <p className="text-xl text-gray-600 mb-6 leading-relaxed">{product.description}</p>
                 
-                {/* Rating */}
-                <div className="flex items-center space-x-2 mb-6">
-                  <div className="flex text-yellow-400">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="h-5 w-5 fill-current" />
-                    ))}
-                  </div>
-                  <span className="text-gray-600">(4.9) • 127 отзывов</span>
-                </div>
-
                 {/* Price */}
                 <div className="flex items-center space-x-4 mb-8">
                   {product.salePrice ? (

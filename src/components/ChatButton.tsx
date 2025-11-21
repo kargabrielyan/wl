@@ -14,6 +14,7 @@ export default function ChatButton({
 }: ChatButtonProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
+  const [isLifted, setIsLifted] = useState(false)
 
   useEffect(() => {
     // Показываем кнопку через 2 секунды после загрузки
@@ -22,6 +23,40 @@ export default function ChatButton({
     }, 2000)
 
     return () => clearTimeout(timer)
+  }, [])
+
+  useEffect(() => {
+    // Отслеживание скролла только для мобильной версии
+    const handleScroll = () => {
+      if (window.innerWidth > 768) {
+        setIsLifted(false)
+        return // Только для мобильных
+      }
+      
+      const windowHeight = window.innerHeight
+      const documentHeight = document.documentElement.scrollHeight
+      const scrollTop = window.scrollY || document.documentElement.scrollTop
+      
+      // Вычисляем, доскроллил ли пользователь до пагинации (последние 250px страницы)
+      const scrollBottom = documentHeight - (scrollTop + windowHeight)
+      const isNearBottom = scrollBottom < 250
+      
+      setIsLifted(isNearBottom)
+    }
+
+    // Обработка изменения размера окна
+    const handleResize = () => {
+      handleScroll()
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    window.addEventListener('resize', handleResize, { passive: true })
+    handleScroll() // Проверяем при загрузке
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', handleResize)
+    }
   }, [])
 
   const handleInstagramClick = () => {
@@ -40,7 +75,10 @@ export default function ChatButton({
   return (
     <>
       {/* Плавающая кнопка чата - зафиксирована в правом нижнем углу экрана */}
-      <div className="chat-button-container fixed bottom-6 right-6 z-[9999]">
+      <div 
+        className="chat-button-container fixed bottom-6 right-6 z-[9999]"
+        data-lifted={isLifted ? 'true' : 'false'}
+      >
         {/* Кнопка чата */}
         <button
           onClick={() => setIsOpen(!isOpen)}
@@ -109,6 +147,12 @@ export default function ChatButton({
           .chat-button-container {
             bottom: 90px !important;
             right: 20px !important;
+            transition: bottom 0.5s ease-in-out !important;
+          }
+          
+          /* Поднятая позиция при скролле до пагинации */
+          .chat-button-container[data-lifted="true"] {
+            bottom: 160px !important;
           }
         }
         
@@ -117,6 +161,11 @@ export default function ChatButton({
           .chat-button-container {
             bottom: 85px !important;
             right: 16px !important;
+            transition: bottom 0.5s ease-in-out !important;
+          }
+          
+          .chat-button-container[data-lifted="true"] {
+            bottom: 150px !important;
           }
         }
         

@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useEffect, use } from 'react'
-import { ArrowLeft, ShoppingCart, Plus, Minus, Star, Heart, Share2, Truck, Shield, RotateCcw } from 'lucide-react'
+import { ArrowLeft, ShoppingCart, Plus, Minus, Heart, Share2, Truck, Shield, RotateCcw } from 'lucide-react'
 import { Product } from '@/types'
 import Footer from '@/components/Footer'
 import ProductCard from '@/components/ProductCard'
@@ -264,11 +264,6 @@ export default function DefaultProductPage({
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-sm text-gray-500">{product.category?.name}</span>
-                <span className="text-gray-300">•</span>
-                <div className="flex items-center">
-                  <Star className="h-4 w-4 text-yellow-400 fill-current" />
-                  <span className="text-sm text-gray-600 ml-1">4.8 (127 կարծիք)</span>
-                </div>
               </div>
               
               <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">{product.name}</h1>

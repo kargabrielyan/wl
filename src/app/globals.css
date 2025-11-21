@@ -14,15 +14,26 @@
 /* Адаптивность для мобильных устройств */
 @media (max-width: 768px) {
   .chat-button-container {
-    bottom: 20px !important;
+    bottom: 90px !important;
     right: 20px !important;
+    transition: bottom 0.5s ease-in-out !important;
+  }
+  
+  /* Поднятая позиция при скролле до пагинации */
+  .chat-button-container[data-lifted="true"] {
+    bottom: 160px !important;
   }
 }
 
 @media (max-width: 480px) {
   .chat-button-container {
-    bottom: 16px !important;
+    bottom: 85px !important;
     right: 16px !important;
+    transition: bottom 0.5s ease-in-out !important;
+  }
+  
+  .chat-button-container[data-lifted="true"] {
+    bottom: 150px !important;
   }
 }
 

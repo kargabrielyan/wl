@@ -371,11 +371,6 @@ function ProductsPageContent() {
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-4 drop-shadow-lg">Արտադրանքի Կատալոգ</h1>
-          {paginationData.totalPages > 1 && (
-            <p className="text-xl font-semibold text-gray-900 drop-shadow-md">
-              Էջ {currentPage}-{paginationData.totalPages}
-            </p>
-          )}
         </div>
 
         {/* Search and Filter */}
@@ -462,13 +457,13 @@ function ProductsPageContent() {
           </div>
 
           {/* Sort and Results Info */}
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mt-6 pt-6 border-t border-gray-200">
-            <div className="flex items-center gap-3">
-              <span className="text-sm font-medium text-gray-700">Տեսակավորում:</span>
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4 mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-gray-200">
+            <div className="flex items-center gap-2 sm:gap-3">
+              <span className="text-xs sm:text-sm font-medium text-gray-700">Տեսակավորում:</span>
               <select
                 value={sortBy}
                 onChange={(e) => handleSortChange(e.target.value)}
-                className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-gray-900 bg-white"
+                className="px-2 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-gray-900 bg-white"
               >
                 <option value="name-asc" className="text-gray-900">Անվանումով (Ա-Զ)</option>
                 <option value="name-desc" className="text-gray-900">Անվանումով (Զ-Ա)</option>
@@ -478,7 +473,7 @@ function ProductsPageContent() {
                 <option value="oldest" className="text-gray-900">Հիները նախ</option>
               </select>
             </div>
-            <div className="text-sm text-gray-600">
+            <div className="text-xs sm:text-sm text-gray-600">
               Ցուցադրված {paginationData.totalItems} արտադրանք
             </div>
           </div>
@@ -504,16 +499,16 @@ function ProductsPageContent() {
 
         {/* Enhanced Pagination */}
         {paginationData.totalPages > 1 && (
-          <div className="flex justify-center items-center gap-3 mt-12">
+          <div className="flex justify-center items-center gap-2 sm:gap-3 mt-8 sm:mt-12">
             <button
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
-              className="px-6 py-3 bg-white text-gray-700 rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 hover:shadow-md transition-all duration-200 border border-gray-200"
+              className="px-3 py-1.5 sm:px-6 sm:py-3 text-xs sm:text-base bg-white text-gray-700 rounded-lg sm:rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 hover:shadow-md transition-all duration-200 border border-gray-200"
             >
               Նախորդ
             </button>
             
-            <div className="flex gap-2">
+            <div className="flex gap-1 sm:gap-2">
               {(() => {
                 const totalPages = paginationData.totalPages;
                 const current = currentPage;
@@ -539,7 +534,7 @@ function ProductsPageContent() {
                     <button
                       key={1}
                       onClick={() => handlePageChange(1)}
-                      className="px-4 py-3 rounded-xl font-semibold transition-all duration-200 bg-white text-gray-600 hover:bg-gray-50 hover:shadow-md border border-gray-200"
+                      className="px-2 py-1.5 sm:px-4 sm:py-3 text-xs sm:text-base rounded-lg sm:rounded-xl font-semibold transition-all duration-200 bg-white text-gray-600 hover:bg-gray-50 hover:shadow-md border border-gray-200"
                     >
                       1
                     </button>
@@ -547,7 +542,7 @@ function ProductsPageContent() {
                   
                   if (startPage > 2) {
                     pages.push(
-                      <span key="ellipsis1" className="px-2 py-3 text-gray-400">
+                      <span key="ellipsis1" className="px-1 sm:px-2 py-1.5 sm:py-3 text-xs sm:text-base text-gray-400">
                         ...
                       </span>
                     );
@@ -560,7 +555,7 @@ function ProductsPageContent() {
                     <button
                       key={i}
                       onClick={() => handlePageChange(i)}
-                      className={`px-4 py-3 rounded-xl font-semibold transition-all duration-200 ${
+                      className={`px-2 py-1.5 sm:px-4 sm:py-3 text-xs sm:text-base rounded-lg sm:rounded-xl font-semibold transition-all duration-200 ${
                         currentPage === i
                           ? 'bg-white text-gray-900 shadow-lg border-2 border-gray-300 scale-105'
                           : 'bg-white text-gray-600 hover:bg-gray-50 hover:shadow-md border border-gray-200'
@@ -575,7 +570,7 @@ function ProductsPageContent() {
                 if (endPage < totalPages) {
                   if (endPage < totalPages - 1) {
                     pages.push(
-                      <span key="ellipsis2" className="px-2 py-3 text-gray-400">
+                      <span key="ellipsis2" className="px-1 sm:px-2 py-1.5 sm:py-3 text-xs sm:text-base text-gray-400">
                         ...
                       </span>
                     );
@@ -585,7 +580,7 @@ function ProductsPageContent() {
                     <button
                       key={totalPages}
                       onClick={() => handlePageChange(totalPages)}
-                      className="px-4 py-3 rounded-xl font-semibold transition-all duration-200 bg-white text-gray-600 hover:bg-gray-50 hover:shadow-md border border-gray-200"
+                      className="px-2 py-1.5 sm:px-4 sm:py-3 text-xs sm:text-base rounded-lg sm:rounded-xl font-semibold transition-all duration-200 bg-white text-gray-600 hover:bg-gray-50 hover:shadow-md border border-gray-200"
                     >
                       {totalPages}
                     </button>
@@ -599,7 +594,7 @@ function ProductsPageContent() {
             <button
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === paginationData.totalPages}
-              className="px-6 py-3 bg-white text-gray-700 rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 hover:shadow-md transition-all duration-200 border border-gray-200"
+              className="px-3 py-1.5 sm:px-6 sm:py-3 text-xs sm:text-base bg-white text-gray-700 rounded-lg sm:rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 hover:shadow-md transition-all duration-200 border border-gray-200"
             >
               Հաջորդ
             </button>

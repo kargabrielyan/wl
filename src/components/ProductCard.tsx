@@ -4,7 +4,7 @@ import { memo } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-import { ShoppingCart, Star, Heart, Eye } from 'lucide-react'
+import { ShoppingCart, Heart, Eye } from 'lucide-react'
 import { Product } from '@/types'
 import { WishlistButton } from './WishlistButton'
 import { isValidImagePath, getFallbackImage } from '@/utils/imageUtils'
@@ -89,7 +89,7 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
         <div className="absolute top-2 left-2 flex flex-col gap-1 z-10 pointer-events-none">
           {/* Скидка */}
           {product.salePrice && (
-            <span className="bg-green-500 text-white px-2 py-1 rounded text-xs font-bold">
+            <span className="hidden md:block bg-green-500 text-white px-2 py-1 rounded text-xs font-bold">
               ԶԵՂՉ
             </span>
           )}
@@ -107,6 +107,15 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
             </span>
           )}
         </div>
+
+        {/* Ярлык скидки справа сверху для мобильной версии */}
+        {product.salePrice && (
+          <div className="absolute top-2 right-2 z-10 pointer-events-none md:hidden">
+            <span className="bg-green-500 text-white px-2 py-1 rounded text-xs font-bold">
+              -{Math.round((1 - product.salePrice / product.price) * 100)}%
+            </span>
+          </div>
+        )}
 
         {/* Quick actions (появляются при hover) */}
         <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col gap-1 z-10">
@@ -153,16 +162,6 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
           </p>
         )}
         
-        {/* Рейтинг и отзывы */}
-        <div className="flex items-center gap-1 mb-3">
-          <div className="flex items-center">
-            {[...Array(5)].map((_, i) => (
-              <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-            ))}
-          </div>
-          <span className="text-xs text-gray-500">(4.8)</span>
-        </div>
-        
         {/* Цена */}
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
@@ -170,7 +169,7 @@ const ProductCard = memo(({ product, onAddToCart, variant = 'default', addedToCa
               <>
                 <span className="text-lg font-bold text-green-600">{formatPrice(product.salePrice)} ֏</span>
                 <span className="text-sm text-gray-500 line-through">{formatPrice(product.price)} ֏</span>
-                <span className="bg-green-500 text-white text-xs px-1 py-0.5 rounded font-bold">
+                <span className="hidden md:block bg-green-500 text-white text-xs px-1 py-0.5 rounded font-bold">
                   -{Math.round((1 - product.salePrice / product.price) * 100)}%
                 </span>
               </>

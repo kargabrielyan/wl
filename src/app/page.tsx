@@ -173,30 +173,20 @@ export default function Home() {
         <TwinklingStars count={100} imageStarRatio={0.4} className="z-20" />
         
         {/* Mobile Compact Version - App Style */}
-        <div className="md:hidden relative max-w-7xl mx-auto px-4 py-6">
-          <div className="flex items-center justify-between">
-            {/* Left content - compact */}
-            <div className="flex-1 pr-4">
-              <h1 className="font-bold mb-3" style={{ fontFamily: 'var(--font-inter)', fontSize: '60px', lineHeight: '60px' }}>
+        <div className="md:hidden relative max-w-7xl mx-auto px-4 py-8">
+          <div className="flex flex-col gap-6">
+            {/* Top content - title and description */}
+            <div className="text-center">
+              <h1 className="font-bold mb-2" style={{ fontFamily: 'var(--font-inter)', fontSize: 'clamp(32px, 8vw, 48px)', lineHeight: '1.1' }}>
                 <span className="block text-white">Մանկական <span style={{ color: '#f3d98c' }}>Աշխարհ</span></span>
               </h1>
-              <p className="text-primary-100 mb-4" style={{ fontFamily: 'var(--font-inter)', fontSize: '30px', lineHeight: '36px', fontWeight: 400 }}>
+              <p className="text-primary-100 mb-4 px-2" style={{ fontFamily: 'var(--font-inter)', fontSize: 'clamp(14px, 4vw, 18px)', lineHeight: '1.4', fontWeight: 400 }}>
                 Որակյալ Արտադրանք Ձեր Երեխաների Համար
               </p>
-              <div className="flex gap-6 text-sm">
-                <div className="text-center">
-                  <div className="text-xl font-bold text-white">15+</div>
-                  <div className="text-primary-100 font-medium">Вкусов</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-xl font-bold text-white">30</div>
-                  <div className="text-primary-100 font-medium">мин доставка</div>
-                </div>
-              </div>
             </div>
             
-            {/* Right content - product showcase */}
-            <div className="relative flex-shrink-0">
+            {/* Bottom content - product showcase */}
+            <div className="relative flex justify-center">
               {bannerProduct ? (
                 <div className="relative bg-white/25 backdrop-blur-xl rounded-2xl p-3 text-center border border-white/30 shadow-2xl hover:shadow-3xl transition-all duration-300 group">
                   {/* Product Image Container */}
@@ -260,16 +250,6 @@ export default function Home() {
               <p className="text-primary-100 mb-6" style={{ fontFamily: 'var(--font-inter)', fontSize: '30px', lineHeight: '36px', fontWeight: 400 }}>
                 Որակյալ Արտադրանք Ձեր Երեխաների Համար
               </p>
-              <div className="flex gap-8 text-base">
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-white">15+</div>
-                  <div className="text-primary-100 font-medium">Вкусов</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-white">30</div>
-                  <div className="text-primary-100 font-medium">мин доставка</div>
-                </div>
-              </div>
             </div>
             
             {/* Right content - product showcase for tablet */}
@@ -629,7 +609,7 @@ export default function Home() {
                     duration={2000}
                   />
                   <div className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 leading-tight">
-                    Գործընկերներ
+                    Գործընկեր
                   </div>
                 </div>
               </div>
@@ -691,102 +671,6 @@ export default function Home() {
         addedToCart={addedToCart}
         variant="compact"
       />
-
-      {/* Testimonials Section - Hidden on mobile and tablet */}
-      <section className="hidden lg:block py-20" style={{ backgroundColor: '#ffffff' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Section header */}
-          <div className="text-center mb-16">
-            <h2 className="font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-inter)', fontSize: '36px', lineHeight: '40px' }}>
-              Ինչ Են Ասում Ծնողները
-            </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              1000-ից ավելի գոհ ընտանիքներ արդեն ընտրել են մեր արտադրանքը երեխաների համար
-            </p>
-          </div>
-
-          {/* Testimonials grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Testimonial 1 */}
-            <div className="bg-gray-50 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200">
-              <div className="flex items-center mb-4">
-                <div className="flex text-yellow-400">
-                  {[...Array(5)].map((_, i) => (
-                    <svg key={i} className="w-5 h-5 fill-current" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
-              </div>
-              <p className="text-gray-600 mb-6 italic">
-                "Հիանալի խաղալիքներ իմ որդու համար: Որակը բարձր մակարդակի վրա է, երեխան հիացած է: Արագ առաքում և անվտանգ նյութեր: Խորհուրդ եմ տալիս բոլոր ծնողներին:"
-              </p>
-              <div className="flex items-center">
-                <div className="w-12 h-12 bg-primary-500/20 rounded-full flex items-center justify-center mr-4 border border-primary-400/30">
-                  <span className="text-primary-300 font-bold text-lg">Ա</span>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-gray-900">Աննա Պետրովա</h4>
-                  <p className="text-sm text-gray-600">3 տարեկան որդու մայր</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Testimonial 2 */}
-            <div className="bg-gray-50 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200">
-              <div className="flex items-center mb-4">
-                <div className="flex text-yellow-400">
-                  {[...Array(5)].map((_, i) => (
-                    <svg key={i} className="w-5 h-5 fill-current" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
-              </div>
-              <p className="text-gray-600 mb-6 italic">
-                "Այստեղ գնում ենք արդեն մեկ տարի: Հիանալի զարգացնող խաղալիքներ, որակյալ մանկական հագուստ: Դուստրը պարզապես հիացած է նոր գրքերից:"
-              </p>
-              <div className="flex items-center">
-                <div className="w-12 h-12 bg-pink-500/20 rounded-full flex items-center justify-center mr-4 border border-pink-400/30">
-                  <span className="text-pink-300 font-bold text-lg">Մ</span>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-gray-900">Մարիա Սմիրնովա</h4>
-                  <p className="text-sm text-gray-600">5 տարեկան դստեր մայր</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Testimonial 3 */}
-            <div className="bg-gray-50 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200">
-              <div className="flex items-center mb-4">
-                <div className="flex text-yellow-400">
-                  {[...Array(5)].map((_, i) => (
-                    <svg key={i} className="w-5 h-5 fill-current" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
-              </div>
-              <p className="text-gray-600 mb-6 italic">
-                "Պատվիրել ենք սպորտային արտադրանք որդու համար - ֆուտբոլի գնդակ և ձև: Որակը հիանալի է, արագ առաքել են: Որդին շատ գոհ է:"
-              </p>
-              <div className="flex items-center">
-                <div className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center mr-4 border border-green-400/30">
-                  <span className="text-green-300 font-bold text-lg">Ա</span>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-gray-900">Ալեքսեյ Կոզլով</h4>
-                  <p className="text-sm text-gray-600">7 տարեկան որդու հայր</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-        {/* Bottom Divider */}
-        <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent mt-8"></div>
-      </section>
 
       {/* CTA Section - Hidden on mobile and tablet */}
       <section className="hidden lg:block py-20 text-gray-900 relative" style={{ backgroundColor: '#ffffff' }}>
