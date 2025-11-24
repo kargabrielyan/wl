@@ -190,15 +190,33 @@ async function replaceCategories() {
       console.warn('   Продолжаю удаление...')
     }
     
-    // Шаг 3: Удалить все товары (чтобы избежать проблем с внешними ключами)
-    console.log('🗑️  Удаляю все товары...')
-    const deleteProductsResult = await prisma.product.deleteMany({})
-    console.log(`✅ Удалено ${deleteProductsResult.count} товаров`)
+    // Шаг 3: Удалить все в правильном порядке (чтобы избежать проблем с внешними ключами)
+    console.log('🗑️  Удаляю все данные в правильном порядке...')
     
-    // Шаг 4: Удалить все существующие категории
-    console.log('🗑️  Удаляю все существующие категории...')
+    // Сначала удаляем OrderItem (связаны с Product)
+    console.log('   → Удаляю OrderItem...')
+    const deleteOrderItemsResult = await prisma.orderItem.deleteMany({})
+    console.log(`   ✓ Удалено ${deleteOrderItemsResult.count} элементов заказов`)
+    
+    // Затем удаляем Order (связаны с User)
+    console.log('   → Удаляю Order...')
+    const deleteOrdersResult = await prisma.order.deleteMany({})
+    console.log(`   ✓ Удалено ${deleteOrdersResult.count} заказов`)
+    
+    // Затем удаляем Wishlist (связаны с Product)
+    console.log('   → Удаляю Wishlist...')
+    const deleteWishlistResult = await prisma.wishlist.deleteMany({})
+    console.log(`   ✓ Удалено ${deleteWishlistResult.count} элементов wishlist`)
+    
+    // Затем удаляем товары
+    console.log('   → Удаляю Product...')
+    const deleteProductsResult = await prisma.product.deleteMany({})
+    console.log(`   ✓ Удалено ${deleteProductsResult.count} товаров`)
+    
+    // Наконец удаляем категории
+    console.log('   → Удаляю Category...')
     const deleteResult = await prisma.category.deleteMany({})
-    console.log(`✅ Удалено ${deleteResult.count} категорий`)
+    console.log(`   ✓ Удалено ${deleteResult.count} категорий`)
     
     // Шаг 5: Создать новые категории
     console.log('➕ Создаю новые категории...')
