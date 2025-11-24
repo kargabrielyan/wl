@@ -36,21 +36,23 @@ function CategoryButton({
   return (
     <button
       onClick={onSelect}
-      className={`px-3 py-3 rounded-2xl font-semibold transition-all duration-300 hover:scale-105 flex flex-col items-center justify-center gap-2 ${
+      className={`px-4 py-3 rounded-2xl font-semibold transition-all duration-300 hover:scale-105 flex flex-col items-center justify-center gap-2 ${
         isSelected
           ? 'bg-primary-500 text-white shadow-lg'
           : 'bg-gray-100 text-gray-700 hover:bg-primary-100 hover:text-primary-600'
       }`}
       style={{
-        minWidth: '100px',
-        maxWidth: '140px',
-        width: 'auto'
+        minWidth: '120px',
+        maxWidth: '160px',
+        width: 'auto',
+        height: 'auto',
+        overflow: 'visible'
       }}
       title={category.name}
     >
       {iconPath && !imageError ? (
         <>
-          <div className={`relative w-10 h-10 flex-shrink-0 ${isSelected ? 'brightness-0 invert' : ''}`}>
+          <div className={`relative w-10 h-10 flex-shrink-0 -mt-1 ${isSelected ? 'brightness-0 invert' : ''}`}>
             <Image
               src={iconPath}
               alt={category.name}
@@ -62,11 +64,14 @@ function CategoryButton({
             />
           </div>
           <span 
-            className={`text-sm font-medium text-center leading-snug whitespace-normal break-words w-full px-1 ${isSelected ? 'text-white' : 'text-gray-700'}`}
+            className={`text-base font-medium text-center leading-relaxed whitespace-normal break-words w-full px-1 ${isSelected ? 'text-white' : 'text-gray-700'}`}
             style={{
               wordBreak: 'break-word',
               overflowWrap: 'break-word',
-              hyphens: 'auto'
+              hyphens: 'auto',
+              display: 'block',
+              overflow: 'visible',
+              textOverflow: 'clip'
             }}
           >
             {category.name}
@@ -74,11 +79,14 @@ function CategoryButton({
         </>
       ) : (
         <span 
-          className="text-sm font-medium text-center whitespace-normal break-words w-full px-1"
+          className="text-base font-medium text-center whitespace-normal break-words w-full px-1"
           style={{
             wordBreak: 'break-word',
             overflowWrap: 'break-word',
-            hyphens: 'auto'
+            hyphens: 'auto',
+            display: 'block',
+            overflow: 'visible',
+            textOverflow: 'clip'
           }}
         >
           {category.name}
