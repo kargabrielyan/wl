@@ -1,0 +1,194 @@
+/**
+ * Скрипт для замены всех категорий
+ * Удаляет все существующие категории и создает новые 15 категорий с правильными изображениями
+ * 
+ * Запуск: npx tsx scripts/replace-categories.ts
+ */
+
+import { PrismaClient } from '@prisma/client'
+
+const prisma = new PrismaClient()
+
+// Маппинг категорий на изображения (используем JPG файлы с армянскими названиями)
+const categories = [
+  {
+    name: 'Օրորոցներ',
+    image: '/images/Օրորոցներ.JPG',
+    sortOrder: 1,
+    showInMainPage: true,
+    description: 'Բարձրորակ օրորոցներ ձեր փոքրիկի համար'
+  },
+  {
+    name: 'Պահարաններ',
+    image: '/images/Պահարաններ.JPG',
+    sortOrder: 2,
+    showInMainPage: true,
+    description: 'Պահարաններ մանկական սենյակի համար'
+  },
+  {
+    name: 'Օրթոպեդ ներքնակներ',
+    image: '/images/Օրթոպեդ ներքնակներ.JPG',
+    sortOrder: 3,
+    showInMainPage: true,
+    description: 'Օրթոպեդիկ ներքնակներ առողջ քնի համար'
+  },
+  {
+    name: 'Անկողնային պարագաներ',
+    image: '/images/Անկողնային պարագաներ.JPG',
+    sortOrder: 4,
+    showInMainPage: true,
+    description: 'Անկողնային պարագաներ և աքսեսուարներ'
+  },
+  {
+    name: 'Հավաքածուներ',
+    image: '/images/Հավաքածուներ.JPG',
+    sortOrder: 5,
+    showInMainPage: true,
+    description: 'Հավաքածուներ նորածինների համար'
+  },
+  {
+    name: 'Երաժշտական խաղալիքներ',
+    image: '/images/Երաժշտական խաղալիքներ.JPG',
+    sortOrder: 6,
+    showInMainPage: true,
+    description: 'Երաժշտական խաղալիքներ զարգացման համար'
+  },
+  {
+    name: 'Մանկասայլակի հավաքածուներ',
+    image: '/images/Մանկասայլակի հավաքածուներ.JPG',
+    sortOrder: 7,
+    showInMainPage: true,
+    description: 'Մանկասայլակի հավաքածուներ և աքսեսուարներ'
+  },
+  {
+    name: 'Սենյակի դեկորներ',
+    image: '/images/Սենյակի դեկորներ.JPG',
+    sortOrder: 8,
+    showInMainPage: true,
+    description: 'Դեկորատիվ իրեր մանկական սենյակի համար'
+  },
+  {
+    name: 'Գործած զամբյուղներ',
+    image: '/images/Գործած զամբյուղներ.JPG',
+    sortOrder: 9,
+    showInMainPage: true,
+    description: 'Գործած զամբյուղներ և պահեստային իրեր'
+  },
+  {
+    name: 'Լոգանքի պարագաներ',
+    image: '/images/Լոգանքի պարագաներ.JPG',
+    sortOrder: 10,
+    showInMainPage: true,
+    description: 'Լոգանքի պարագաներ և աքսեսուարներ'
+  },
+  {
+    name: 'Գործած ադիալներ',
+    image: '/images/Գործած ադիալներ.JPG',
+    sortOrder: 11,
+    showInMainPage: true,
+    description: 'Գործած ադիալներ և պարագաներ'
+  },
+  {
+    name: 'Կերակրման բարձեր',
+    image: '/images/Կերակրման բարձեր.JPG',
+    sortOrder: 12,
+    showInMainPage: true,
+    description: 'Կերակրման բարձեր և աքսեսուարներ'
+  },
+  {
+    name: 'Քողեր',
+    image: '/images/Քողեր.JPG',
+    sortOrder: 13,
+    showInMainPage: true,
+    description: 'Քողեր և վարագույրներ'
+  },
+  {
+    name: 'Հյուսեր',
+    image: '/images/Հյուսեր.JPG',
+    sortOrder: 14,
+    showInMainPage: true,
+    description: 'Հյուսեր և գործվածքներ'
+  },
+  {
+    name: 'Դուրս գրման հավաքածուներ',
+    image: '/images/Դուրս գրման հավաքածուներ.JPG',
+    sortOrder: 15,
+    showInMainPage: true,
+    description: 'Հավաքածուներ դուրս գրման համար'
+  }
+]
+
+async function replaceCategories() {
+  try {
+    console.log('🔄 Начинаю замену категорий...')
+    
+    // Шаг 1: Получить все существующие категории
+    const existingCategories = await prisma.category.findMany({
+      include: {
+        _count: {
+          select: {
+            products: true
+          }
+        }
+      }
+    })
+    
+    console.log(`📊 Найдено ${existingCategories.length} существующих категорий`)
+    
+    // Шаг 2: Проверить, есть ли товары в категориях
+    const categoriesWithProducts = existingCategories.filter(cat => cat._count.products > 0)
+    if (categoriesWithProducts.length > 0) {
+      console.warn(`⚠️  ВНИМАНИЕ: Найдено ${categoriesWithProducts.length} категорий с товарами:`)
+      categoriesWithProducts.forEach(cat => {
+        console.warn(`   - ${cat.name}: ${cat._count.products} товаров`)
+      })
+      console.warn('   Товары будут потеряны при удалении категорий!')
+      console.warn('   Продолжаю удаление...')
+    }
+    
+    // Шаг 3: Удалить все существующие категории (каскадное удаление удалит и товары)
+    console.log('🗑️  Удаляю все существующие категории...')
+    const deleteResult = await prisma.category.deleteMany({})
+    console.log(`✅ Удалено ${deleteResult.count} категорий`)
+    
+    // Шаг 4: Создать новые категории
+    console.log('➕ Создаю новые категории...')
+    for (const category of categories) {
+      await prisma.category.create({
+        data: {
+          name: category.name,
+          image: category.image,
+          description: category.description,
+          sortOrder: category.sortOrder,
+          showInMainPage: category.showInMainPage,
+          isActive: true
+        }
+      })
+      console.log(`   ✓ Создана категория: ${category.name}`)
+    }
+    
+    console.log(`\n✅ Успешно создано ${categories.length} категорий!`)
+    console.log('\n📋 Список созданных категорий:')
+    categories.forEach((cat, index) => {
+      console.log(`   ${index + 1}. ${cat.name} (${cat.image})`)
+    })
+    
+  } catch (error) {
+    console.error('❌ Ошибка при замене категорий:', error)
+    throw error
+  } finally {
+    await prisma.$disconnect()
+  }
+}
+
+// Запуск скрипта
+replaceCategories()
+  .then(() => {
+    console.log('\n🎉 Скрипт выполнен успешно!')
+    process.exit(0)
+  })
+  .catch((error) => {
+    console.error('\n💥 Критическая ошибка:', error)
+    process.exit(1)
+  })
+
