@@ -36,7 +36,7 @@ function CategoryButton({
   return (
     <button
       onClick={onSelect}
-      className={`px-4 py-3 rounded-2xl font-semibold transition-all duration-300 hover:scale-105 flex flex-col items-center justify-center gap-2 ${
+      className={`px-4 py-3 rounded-2xl font-semibold transition-all duration-300 hover:scale-105 flex flex-col items-center justify-start gap-3 ${
         isSelected
           ? 'bg-primary-500 text-white shadow-lg'
           : 'bg-gray-100 text-gray-700 hover:bg-primary-100 hover:text-primary-600'
@@ -52,7 +52,7 @@ function CategoryButton({
     >
       {iconPath && !imageError ? (
         <>
-          <div className={`relative w-10 h-10 flex-shrink-0 -mt-1 ${isSelected ? 'brightness-0 invert' : ''}`}>
+          <div className={`relative w-10 h-10 flex-shrink-0 ${isSelected ? 'brightness-0 invert' : ''}`}>
             <Image
               src={iconPath}
               alt={category.name}
@@ -64,14 +64,15 @@ function CategoryButton({
             />
           </div>
           <span 
-            className={`text-base font-medium text-center leading-relaxed whitespace-normal break-words w-full px-1 ${isSelected ? 'text-white' : 'text-gray-700'}`}
+            className={`text-base font-medium text-center leading-relaxed whitespace-normal break-words w-full px-1 mt-0 ${isSelected ? 'text-white' : 'text-gray-700'}`}
             style={{
               wordBreak: 'break-word',
               overflowWrap: 'break-word',
               hyphens: 'auto',
               display: 'block',
               overflow: 'visible',
-              textOverflow: 'clip'
+              textOverflow: 'clip',
+              marginTop: '0'
             }}
           >
             {category.name}
