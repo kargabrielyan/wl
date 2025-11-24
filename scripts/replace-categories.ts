@@ -6,6 +6,11 @@
  */
 
 import { PrismaClient } from '@prisma/client'
+import { config } from 'dotenv'
+import { resolve } from 'path'
+
+// Загружаем переменные окружения из .env файла
+config({ path: resolve(process.cwd(), '.env') })
 
 const prisma = new PrismaClient()
 
