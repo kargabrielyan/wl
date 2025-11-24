@@ -42,8 +42,8 @@ function CategoryButton({
           : 'bg-gray-100 text-gray-700 hover:bg-primary-100 hover:text-primary-600'
       }`}
       style={{
-        minWidth: '120px',
-        maxWidth: '160px',
+        minWidth: '130px',
+        maxWidth: '170px',
         width: 'auto',
         height: 'auto',
         overflow: 'visible'
