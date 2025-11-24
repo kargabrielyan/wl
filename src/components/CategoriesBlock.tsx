@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { getCategoryImage } from '@/utils/categoryImages'
 
 interface Category {
   id: string
@@ -25,20 +26,6 @@ export default function CategoriesBlock({
   subtitle = "Ընտրեք ձեր սիրելի կատեգորիան",
   limit = 9
 }: CategoriesBlockProps) {
-  const sanitizeImageUrl = (value?: string | null): string | null => {
-    if (!value) return null
-    let url = String(value).trim()
-    if (!url) return null
-    // Игнорировать blob:/data:
-    if (/^(blob:|data:)/i.test(url)) return null
-    // Заменить обратные слеши на прямые
-    url = url.replace(/\\/g, '/')
-    // Удалить протокол и домен
-    url = url.replace(/^https?:\/\/[^/]+/, '')
-    // Обеспечить ведущий слеш
-    if (!url.startsWith('/')) url = `/${url}`
-    return url
-  }
   const [categories, setCategories] = useState<Category[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -92,7 +79,7 @@ export default function CategoriesBlock({
         {/* Заголовок секции */}
         <div className="text-center mb-8">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">{title}</h2>
-          <p className="text-gray-600">{capitalizeFirstLetter(subtitle)}</p>
+          <p className="text-gray-600">{subtitle}</p>
         </div>
 
         {/* Сетка категорий */}
@@ -105,27 +92,30 @@ export default function CategoriesBlock({
             >
               {/* Изображение категории (квадрат) */}
               <div className="relative w-full aspect-square mb-3 rounded-lg overflow-hidden">
-                {sanitizeImageUrl(category.image) ? (
-                  <Image
-                    key={sanitizeImageUrl(category.image)!}
-                    src={sanitizeImageUrl(category.image)!}
-                    alt={category.name}
-                    fill
-                    unoptimized
-                    sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 18vw"
-                    className="object-cover group-hover:scale-110 transition-transform duration-300"
-                    onError={(e) => {
-                      e.currentTarget.style.display = 'none'
-                      const nextElement = e.currentTarget.nextElementSibling as HTMLElement
-                      if (nextElement) {
-                        nextElement.style.display = 'flex'
-                      }
-                    }}
-                  />
-                ) : null}
+                {(() => {
+                  const imageUrl = getCategoryImage(category)
+                  return imageUrl ? (
+                    <Image
+                      key={imageUrl}
+                      src={imageUrl}
+                      alt={category.name}
+                      fill
+                      unoptimized
+                      sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 18vw"
+                      className="object-cover group-hover:scale-110 transition-transform duration-300"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none'
+                        const nextElement = e.currentTarget.nextElementSibling as HTMLElement
+                        if (nextElement) {
+                          nextElement.style.display = 'flex'
+                        }
+                      }}
+                    />
+                  ) : null
+                })()}
                 <div 
                   className="w-full h-full flex items-center justify-center text-4xl bg-gray-200"
-                  style={{ display: category.image ? 'none' : 'flex' }}
+                  style={{ display: getCategoryImage(category) ? 'none' : 'flex' }}
                 >
                   🎯
                 </div>

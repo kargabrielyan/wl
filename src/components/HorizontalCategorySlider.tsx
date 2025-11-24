@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { getCategoryImage } from '@/utils/categoryImages'
 
 interface Category {
   id: string
@@ -25,17 +26,6 @@ export default function HorizontalCategorySlider({
   subtitle = "Ընտրեք ձեր սիրելի կատեգորիան",
   limit = 9
 }: HorizontalCategorySliderProps) {
-  const sanitizeImageUrl = (value?: string | null): string | null => {
-    if (!value) return null
-    let url = String(value).trim()
-    if (!url) return null
-    // ignore blob:/data: urls from browser
-    if (/^(blob:|data:)/i.test(url)) return null
-    url = url.replace(/\\/g, '/')
-    url = url.replace(/^https?:\/\/[^/]+/, '')
-    if (!url.startsWith('/')) url = `/${url}`
-    return url
-  }
   const [categories, setCategories] = useState<Category[]>([])
   const [loading, setLoading] = useState(true)
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -286,27 +276,30 @@ export default function HorizontalCategorySlider({
                 >
                   {/* Изображение категории (квадрат) */}
                   <div className="relative w-full aspect-square mb-3 md:mb-4 rounded-xl overflow-hidden">
-                    {sanitizeImageUrl(category.image) ? (
-                      <Image
-                        key={sanitizeImageUrl(category.image)!}
-                        src={sanitizeImageUrl(category.image)!}
-                        alt={category.name}
-                        fill
-                        unoptimized
-                        sizes="(max-width: 768px) 150px, (max-width: 1024px) 200px, 250px"
-                        className="object-cover group-hover:scale-110 transition-transform duration-300"
-                        onError={(e) => {
-                          e.currentTarget.style.display = 'none'
-                          const nextElement = e.currentTarget.nextElementSibling as HTMLElement
-                          if (nextElement) {
-                            nextElement.style.display = 'flex'
-                          }
-                        }}
-                      />
-                    ) : null}
+                    {(() => {
+                      const imageUrl = getCategoryImage(category)
+                      return imageUrl ? (
+                        <Image
+                          key={imageUrl}
+                          src={imageUrl}
+                          alt={category.name}
+                          fill
+                          unoptimized
+                          sizes="(max-width: 768px) 150px, (max-width: 1024px) 200px, 250px"
+                          className="object-cover group-hover:scale-110 transition-transform duration-300"
+                          onError={(e) => {
+                            e.currentTarget.style.display = 'none'
+                            const nextElement = e.currentTarget.nextElementSibling as HTMLElement
+                            if (nextElement) {
+                              nextElement.style.display = 'flex'
+                            }
+                          }}
+                        />
+                      ) : null
+                    })()}
                     <div 
                       className="w-full h-full flex items-center justify-center text-4xl md:text-5xl bg-gray-100"
-                      style={{ display: category.image ? 'none' : 'flex' }}
+                      style={{ display: getCategoryImage(category) ? 'none' : 'flex' }}
                     >
                       🎯
                     </div>

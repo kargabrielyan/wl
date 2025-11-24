@@ -9,25 +9,14 @@ import { useInstantSearch } from '@/hooks/useInstantSearch'
 import { SearchDropdown } from '@/components/SearchDropdown'
 import { Product, Category } from '@/types'
 import ProductCard from '@/components/ProductCard'
+import { getCategoryDefaultImage } from '@/utils/categoryImages'
 
 import Footer from '@/components/Footer'
 
 // Функция для получения пути к иконке категории
 const getCategoryIcon = (categoryName: string): string | null => {
-  const iconMap: Record<string, string> = {
-    'Օրորոցներ': '/images/ororocner.png',
-    'Քողեր': '/images/qoxer.png',
-    'Կահույք': '/images/kahuyq.png',
-    'Հյուսեր': '/images/hyuser.png',
-    'Ներքնակներ': '/images/nerqnakner.png',
-    'Անկողնային Պարագաներ': '/images/ankoxnayin paraganer.png',
-    'Երաժշտական Խաղալիքներ': '/images/erajshtakan xaxaliqner.png',
-    'Մանկական Սենյակի Դեկորներ': '/images/erexayi senkayki dekor.png',
-    'Հավաքածուներ': '/images/havaqacuner.png',
-    'Քույրիկների նկար': '/images/quyrikneri-nkar.webp',
-  }
-  
-  return iconMap[categoryName] || null
+  // Используем утилиту для получения дефолтного изображения
+  return getCategoryDefaultImage(categoryName)
 }
 
 // Компонент кнопки категории с иконкой
