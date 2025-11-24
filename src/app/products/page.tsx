@@ -36,11 +36,16 @@ function CategoryButton({
   return (
     <button
       onClick={onSelect}
-      className={`px-4 py-3 rounded-2xl font-semibold transition-all duration-300 hover:scale-105 flex flex-col items-center justify-center min-w-[80px] max-w-[120px] gap-2 ${
+      className={`px-3 py-3 rounded-2xl font-semibold transition-all duration-300 hover:scale-105 flex flex-col items-center justify-center gap-2 ${
         isSelected
           ? 'bg-primary-500 text-white shadow-lg'
           : 'bg-gray-100 text-gray-700 hover:bg-primary-100 hover:text-primary-600'
       }`}
+      style={{
+        minWidth: '100px',
+        maxWidth: '140px',
+        width: 'auto'
+      }}
       title={category.name}
     >
       {iconPath && !imageError ? (
@@ -56,12 +61,28 @@ function CategoryButton({
               onError={() => setImageError(true)}
             />
           </div>
-          <span className={`text-sm text-center leading-tight whitespace-normal break-words w-full ${isSelected ? 'text-white' : 'text-gray-700'}`}>
+          <span 
+            className={`text-sm font-medium text-center leading-snug whitespace-normal break-words w-full px-1 ${isSelected ? 'text-white' : 'text-gray-700'}`}
+            style={{
+              wordBreak: 'break-word',
+              overflowWrap: 'break-word',
+              hyphens: 'auto'
+            }}
+          >
             {category.name}
           </span>
         </>
       ) : (
-        <span className="text-sm text-center whitespace-normal break-words w-full">{category.name}</span>
+        <span 
+          className="text-sm font-medium text-center whitespace-normal break-words w-full px-1"
+          style={{
+            wordBreak: 'break-word',
+            overflowWrap: 'break-word',
+            hyphens: 'auto'
+          }}
+        >
+          {category.name}
+        </span>
       )}
     </button>
   )
