@@ -26,22 +26,32 @@ function loadEnv() {
         }
       }
     }
+    
+    // Проверяем что DATABASE_URL загружен
+    if (!process.env.DATABASE_URL) {
+      console.error('❌ DATABASE_URL не найден в .env файле!')
+      console.log('📁 Путь к .env:', envPath)
+      console.log('📄 Первые строки .env:', envFile.split('\n').slice(0, 5).join('\n'))
+    } else {
+      console.log('✅ DATABASE_URL загружен из .env')
+    }
   } catch (error) {
-    console.warn('⚠️  Не удалось загрузить .env файл:', error)
+    console.error('❌ Ошибка при загрузке .env файла:', error)
+    throw error
   }
 }
 
 // Загружаем переменные окружения
 loadEnv()
 
+// Проверяем наличие DATABASE_URL перед созданием Prisma Client
+if (!process.env.DATABASE_URL) {
+  console.error('❌ DATABASE_URL не установлен!')
+  process.exit(1)
+}
+
 // Создаем Prisma Client после загрузки переменных окружения
-const prisma = new PrismaClient({
-  datasources: {
-    db: {
-      url: process.env.DATABASE_URL
-    }
-  }
-})
+const prisma = new PrismaClient()
 
 // Маппинг категорий на изображения (используем JPG файлы с армянскими названиями)
 const categories = [
