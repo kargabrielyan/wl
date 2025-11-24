@@ -34,7 +34,14 @@ function loadEnv() {
 // Загружаем переменные окружения
 loadEnv()
 
-const prisma = new PrismaClient()
+// Создаем Prisma Client после загрузки переменных окружения
+const prisma = new PrismaClient({
+  datasources: {
+    db: {
+      url: process.env.DATABASE_URL
+    }
+  }
+})
 
 // Маппинг категорий на изображения (используем JPG файлы с армянскими названиями)
 const categories = [
