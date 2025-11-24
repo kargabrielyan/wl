@@ -36,7 +36,7 @@ function CategoryButton({
   return (
     <button
       onClick={onSelect}
-      className={`px-4 py-3 rounded-2xl font-semibold transition-all duration-300 hover:scale-105 flex flex-col items-center justify-center min-w-[60px] gap-2 ${
+      className={`px-4 py-3 rounded-2xl font-semibold transition-all duration-300 hover:scale-105 flex flex-col items-center justify-center min-w-[80px] max-w-[120px] gap-2 ${
         isSelected
           ? 'bg-primary-500 text-white shadow-lg'
           : 'bg-gray-100 text-gray-700 hover:bg-primary-100 hover:text-primary-600'
@@ -45,7 +45,7 @@ function CategoryButton({
     >
       {iconPath && !imageError ? (
         <>
-          <div className={`relative w-10 h-10 ${isSelected ? 'brightness-0 invert' : ''}`}>
+          <div className={`relative w-10 h-10 flex-shrink-0 ${isSelected ? 'brightness-0 invert' : ''}`}>
             <Image
               src={iconPath}
               alt={category.name}
@@ -56,12 +56,12 @@ function CategoryButton({
               onError={() => setImageError(true)}
             />
           </div>
-          <span className={`text-xs text-center leading-tight ${isSelected ? 'text-white' : 'text-gray-700'}`}>
+          <span className={`text-sm text-center leading-tight whitespace-normal break-words w-full ${isSelected ? 'text-white' : 'text-gray-700'}`}>
             {category.name}
           </span>
         </>
       ) : (
-        <span className="text-sm text-center">{category.name}</span>
+        <span className="text-sm text-center whitespace-normal break-words w-full">{category.name}</span>
       )}
     </button>
   )
