@@ -1,5 +1,5 @@
 // Service Worker для кэширования и оптимизации производительности
-const CACHE_NAME = 'welcomebaby-v1.0.3'
+const CACHE_NAME = 'welcomebaby-v1.0.4'
 
 // Файлы для кэширования (только статические ресурсы)
 const STATIC_FILES = [
@@ -72,18 +72,29 @@ self.addEventListener('fetch', (event) => {
     return
   }
 
-  // НЕ кэшируем API запросы аутентификации и динамические данные
+  // НЕ кэшируем API запросы, статические файлы Next.js и динамические данные
   if (request.url.includes('/api/auth/') || 
       request.url.includes('/api/user/') ||
       request.url.includes('/api/admin/') ||
       request.url.includes('/api/orders') ||
       request.url.includes('/api/products') && request.url.includes('?') ||
+      request.url.includes('_next/static/') ||
       request.url.includes('_next/static/chunks/') ||
       request.url.includes('_next/static/css/') ||
+      request.url.includes('_next/static/media/') ||
       request.url.includes('_next/static/chunks/app/') ||
       request.url.includes('_next/static/chunks/pages/')) {
-    // Для API запросов и динамических чанков - всегда идем в сеть, не кэшируем
-    event.respondWith(fetch(request))
+    // Для API запросов и всех статических файлов Next.js - всегда идем в сеть, не кэшируем
+    event.respondWith(
+      fetch(request).catch((error) => {
+        console.warn('Service Worker: Network fetch failed for', request.url, error)
+        // Возвращаем ошибку, чтобы браузер мог обработать её
+        return new Response('Network error', { 
+          status: 503, 
+          statusText: 'Service Unavailable' 
+        })
+      })
+    )
     return
   }
 
@@ -100,11 +111,13 @@ self.addEventListener('fetch', (event) => {
         // Загружаем из сети с обработкой ошибок
         const networkResponse = await fetch(request)
         
-        // Кэшируем только успешные ответы и только статические ресурсы
+        // Кэшируем только успешные ответы и только статические ресурсы (НЕ файлы Next.js)
         if (networkResponse.status === 200 && 
             !request.url.includes('/api/') &&
+            !request.url.includes('_next/static/') &&
             !request.url.includes('_next/static/chunks/') &&
-            !request.url.includes('_next/static/css/')) {
+            !request.url.includes('_next/static/css/') &&
+            !request.url.includes('_next/static/media/')) {
           const responseClone = networkResponse.clone()
           const cache = await caches.open(CACHE_NAME)
           await cache.put(request, responseClone)
@@ -114,10 +127,13 @@ self.addEventListener('fetch', (event) => {
       } catch (error) {
         console.warn('Service Worker: Fetch failed for', request.url, error)
         
-        // Для статических файлов Next.js - не пытаемся кэшировать
+        // Для статических файлов Next.js - не пытаемся кэшировать, просто пробрасываем ошибку
         if (request.url.includes('_next/static/')) {
           // Возвращаем ошибку сети, чтобы браузер мог обработать её
-          throw error
+          return new Response('Network error', { 
+            status: 503, 
+            statusText: 'Service Unavailable' 
+          })
         }
         
         // Для других файлов - пробуем вернуть из кэша
