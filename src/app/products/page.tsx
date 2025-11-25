@@ -358,27 +358,8 @@ function ProductsPageContent() {
           />
         </div>
 
-        {/* Кнопка "Все" для фильтрации */}
+        {/* Sort and Results Info */}
         <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
-          <div className="flex items-center gap-4">
-            <span className="text-sm font-medium text-gray-700">Ֆիլտր:</span>
-            <button
-              onClick={() => {
-                setSelectedCategory('Բոլորը')
-                setSelectedCategoryId(null)
-                router.push('/products')
-              }}
-              className={`px-6 py-3 rounded-2xl font-semibold transition-all duration-300 hover:scale-105 flex items-center justify-center ${
-                selectedCategory === 'Բոլորը'
-                  ? 'bg-primary-500 text-white shadow-lg'
-                  : 'bg-gray-100 text-gray-700 hover:bg-primary-100 hover:text-primary-600'
-              }`}
-            >
-              Բոլորը
-            </button>
-          </div>
-
-          {/* Sort and Results Info */}
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4 mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-gray-200">
             <div className="flex items-center gap-2 sm:gap-3">
               <span className="text-xs sm:text-sm font-medium text-gray-700">Տեսակավորում:</span>
