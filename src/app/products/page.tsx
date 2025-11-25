@@ -350,7 +350,7 @@ function ProductsPageContent() {
         </div>
 
         {/* Categories Block - без заголовка и подзаголовка */}
-        <div className="mb-8">
+        <div className="mb-6">
           <HorizontalCategorySlider 
             showTitle={false}
             showSubtitle={false}
@@ -360,7 +360,7 @@ function ProductsPageContent() {
 
         {/* Sort and Results Info */}
         <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4 mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-gray-200">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4">
             <div className="flex items-center gap-2 sm:gap-3">
               <span className="text-xs sm:text-sm font-medium text-gray-700">Տեսակավորում:</span>
               <select

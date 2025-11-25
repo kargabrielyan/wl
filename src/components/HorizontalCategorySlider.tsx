@@ -197,7 +197,7 @@ export default function HorizontalCategorySlider({
 
   if (loading) {
     return (
-      <section className="py-12" style={{ backgroundColor: '#ffffff' }}>
+      <section className={`${showTitle ? 'py-12' : 'pt-6 pb-4'}`} style={{ backgroundColor: '#ffffff' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {(showTitle || showSubtitle) && (
             <div className="text-center mb-6 md:mb-8">
@@ -228,7 +228,7 @@ export default function HorizontalCategorySlider({
   }
 
   return (
-    <section className="py-12" style={{ backgroundColor: '#ffffff' }}>
+    <section className={`${showTitle ? 'py-12' : 'pt-6 pb-4'}`} style={{ backgroundColor: '#ffffff' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Заголовок секции */}
         {(showTitle || showSubtitle) && (
