@@ -88,8 +88,9 @@ export default function HorizontalCategorySlider({
 
   const fetchCategories = async () => {
     try {
+      // Если showAllCategories=true, не используем limit, чтобы показать все категории
       const url = showAllCategories 
-        ? `/api/categories${limit ? `?limit=${limit}` : ''}`
+        ? `/api/categories`
         : `/api/categories?showInMainPage=true${limit ? `&limit=${limit}` : ''}`
       const response = await fetch(url)
       if (response.ok) {
