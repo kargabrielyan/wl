@@ -453,7 +453,7 @@ export default function Home() {
         <HorizontalCategorySlider 
           title="Կատեգորիաներ"
           subtitle="Ընտրեք ձեր սիրելի կատեգորիան"
-          limit={9}
+          showAllCategories={true}
         />
       </section>
 

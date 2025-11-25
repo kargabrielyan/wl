@@ -19,12 +19,18 @@ interface HorizontalCategorySliderProps {
   title?: string
   subtitle?: string
   limit?: number
+  showTitle?: boolean
+  showSubtitle?: boolean
+  showAllCategories?: boolean
 }
 
 export default function HorizontalCategorySlider({ 
   title = "Կատեգորիաներ", 
   subtitle = "Ընտրեք ձեր սիրելի կատեգորիան",
-  limit = 9
+  limit = 9,
+  showTitle = true,
+  showSubtitle = true,
+  showAllCategories = false
 }: HorizontalCategorySliderProps) {
   const [categories, setCategories] = useState<Category[]>([])
   const [loading, setLoading] = useState(true)
@@ -66,7 +72,8 @@ export default function HorizontalCategorySlider({
 
   useEffect(() => {
     fetchCategories()
-  }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showAllCategories, limit])
 
   // Обновление индекса при изменении размера окна
   useEffect(() => {
@@ -81,7 +88,10 @@ export default function HorizontalCategorySlider({
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch(`/api/categories?showInMainPage=true&limit=${limit}`)
+      const url = showAllCategories 
+        ? `/api/categories${limit ? `?limit=${limit}` : ''}`
+        : `/api/categories?showInMainPage=true${limit ? `&limit=${limit}` : ''}`
+      const response = await fetch(url)
       if (response.ok) {
         const data = await response.json()
         setCategories(data)
@@ -189,10 +199,16 @@ export default function HorizontalCategorySlider({
     return (
       <section className="py-12" style={{ backgroundColor: '#ffffff' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-6 md:mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3 md:mb-4">{title}</h2>
-            <p className="text-gray-600 text-sm md:text-base">{subtitle}</p>
-          </div>
+          {(showTitle || showSubtitle) && (
+            <div className="text-center mb-6 md:mb-8">
+              {showTitle && (
+                <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3 md:mb-4">{title}</h2>
+              )}
+              {showSubtitle && (
+                <p className="text-gray-600 text-sm md:text-base">{subtitle}</p>
+              )}
+            </div>
+          )}
           <div className="flex gap-4 md:gap-6 overflow-hidden px-4 md:px-0">
             {[...Array(4)].map((_, i) => (
               <div key={i} className="flex-shrink-0 w-48 md:w-64 bg-gray-100 rounded-2xl p-4 md:p-6 animate-pulse">
@@ -344,18 +360,20 @@ export default function HorizontalCategorySlider({
           </div>
         </div>
 
-        {/* Кнопка "Показать все" */}
-        <div className="text-center mt-6 md:mt-8">
-          <Link
-            href="/products"
-            className="inline-flex items-center px-6 md:px-8 py-3 md:py-4 bg-gray-900 text-white font-semibold rounded-2xl hover:bg-gray-800 transition-all duration-300 hover:scale-105 border border-gray-900 hover:border-gray-800 text-sm md:text-base shadow-lg hover:shadow-xl"
-          >
-            Դիտել բոլոր կատեգորիաները
-            <svg className="ml-2 w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </Link>
-        </div>
+        {/* Кнопка "Показать все" - показываем только если есть заголовок */}
+        {showTitle && (
+          <div className="text-center mt-6 md:mt-8">
+            <Link
+              href="/products"
+              className="inline-flex items-center px-6 md:px-8 py-3 md:py-4 bg-gray-900 text-white font-semibold rounded-2xl hover:bg-gray-800 transition-all duration-300 hover:scale-105 border border-gray-900 hover:border-gray-800 text-sm md:text-base shadow-lg hover:shadow-xl"
+            >
+              Դիտել բոլոր կատեգորիաները
+              <svg className="ml-2 w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </div>
+        )}
       </div>
 
       <style jsx>{`

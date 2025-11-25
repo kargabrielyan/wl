@@ -3,99 +3,14 @@
 import { useState, useEffect, useMemo, useCallback, useRef, Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { Search } from 'lucide-react'
-import Image from 'next/image'
 import { useCart } from '@/hooks/useCart'
 import { useInstantSearch } from '@/hooks/useInstantSearch'
 import { SearchDropdown } from '@/components/SearchDropdown'
 import { Product, Category } from '@/types'
 import ProductCard from '@/components/ProductCard'
-import { getCategoryDefaultImage } from '@/utils/categoryImages'
+import HorizontalCategorySlider from '@/components/HorizontalCategorySlider'
 
 import Footer from '@/components/Footer'
-
-// Функция для получения пути к иконке категории
-const getCategoryIcon = (categoryName: string): string | null => {
-  // Используем утилиту для получения дефолтного изображения
-  return getCategoryDefaultImage(categoryName)
-}
-
-// Компонент кнопки категории с иконкой
-function CategoryButton({
-  category,
-  iconPath,
-  isSelected,
-  onSelect
-}: {
-  category: Category
-  iconPath: string | null
-  isSelected: boolean
-  onSelect: () => void
-}) {
-  const [imageError, setImageError] = useState(false)
-
-  return (
-    <button
-      onClick={onSelect}
-      className={`px-4 py-3 rounded-2xl font-semibold transition-all duration-300 hover:scale-105 flex flex-col items-center justify-start gap-3 ${
-        isSelected
-          ? 'bg-primary-500 text-white shadow-lg'
-          : 'bg-gray-100 text-gray-700 hover:bg-primary-100 hover:text-primary-600'
-      }`}
-      style={{
-        minWidth: '130px',
-        maxWidth: '170px',
-        width: 'auto',
-        height: 'auto',
-        overflow: 'visible'
-      }}
-      title={category.name}
-    >
-      {iconPath && !imageError ? (
-        <>
-          <div className={`relative w-10 h-10 flex-shrink-0 ${isSelected ? 'brightness-0 invert' : ''}`}>
-            <Image
-              src={iconPath}
-              alt={category.name}
-              width={40}
-              height={40}
-              className="object-contain transition-all duration-300"
-              unoptimized
-              onError={() => setImageError(true)}
-            />
-          </div>
-          <span 
-            className={`text-base font-medium text-center leading-relaxed whitespace-normal break-words w-full px-1 mt-0 ${isSelected ? 'text-white' : 'text-gray-700'}`}
-            style={{
-              wordBreak: 'break-word',
-              overflowWrap: 'break-word',
-              hyphens: 'auto',
-              display: 'block',
-              overflow: 'visible',
-              textOverflow: 'clip',
-              marginTop: '0'
-            }}
-          >
-            {category.name}
-          </span>
-        </>
-      ) : (
-        <span 
-          className="text-base font-medium text-center whitespace-normal break-words w-full px-1"
-          style={{
-            wordBreak: 'break-word',
-            overflowWrap: 'break-word',
-            hyphens: 'auto',
-            display: 'block',
-            overflow: 'visible',
-            textOverflow: 'clip'
-          }}
-        >
-          {category.name}
-        </span>
-      )}
-    </button>
-  )
-}
 
 function ProductsPageContent() {
   const searchParams = useSearchParams()
@@ -431,48 +346,36 @@ function ProductsPageContent() {
             </div>
           </div>
 
-          {/* Category Filter */}
-          <div>
-            <div className="flex flex-wrap gap-4">
-              {/* Кнопка "Все" */}
-              <button
-                onClick={() => {
-                  setSelectedCategory('Բոլորը')
-                  setSelectedCategoryId(null)
-                }}
-                className={`px-6 py-3 rounded-2xl font-semibold transition-all duration-300 hover:scale-105 flex items-center justify-center ${
-                  selectedCategory === 'Բոլորը'
-                    ? 'bg-primary-500 text-white shadow-lg'
-                    : 'bg-gray-100 text-gray-700 hover:bg-primary-100 hover:text-primary-600'
-                }`}
-              >
-                Բոլորը
-              </button>
-              
-              {/* Динамические категории */}
-              {loading ? (
-                <div className="flex items-center gap-2 text-gray-500">
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary-500"></div>
-                  <span>Բեռնվում են կատեգորիաները...</span>
-                </div>
-              ) : (
-                Array.isArray(categories) && categories.map((category) => {
-                  const iconPath = getCategoryIcon(category.name)
-                  return (
-                    <CategoryButton
-                      key={category.id}
-                      category={category}
-                      iconPath={iconPath}
-                      isSelected={selectedCategory === category.name}
-                      onSelect={() => {
-                        setSelectedCategory(category.name)
-                        setSelectedCategoryId(category.id)
-                      }}
-                    />
-                  )
-                })
-              )}
-            </div>
+          {/* Category Filter - будет заменен на HorizontalCategorySlider ниже */}
+        </div>
+
+        {/* Categories Block - без заголовка и подзаголовка */}
+        <div className="mb-8">
+          <HorizontalCategorySlider 
+            showTitle={false}
+            showSubtitle={false}
+            showAllCategories={true}
+          />
+        </div>
+
+        {/* Кнопка "Все" для фильтрации */}
+        <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
+          <div className="flex items-center gap-4">
+            <span className="text-sm font-medium text-gray-700">Ֆիլտր:</span>
+            <button
+              onClick={() => {
+                setSelectedCategory('Բոլորը')
+                setSelectedCategoryId(null)
+                router.push('/products')
+              }}
+              className={`px-6 py-3 rounded-2xl font-semibold transition-all duration-300 hover:scale-105 flex items-center justify-center ${
+                selectedCategory === 'Բոլորը'
+                  ? 'bg-primary-500 text-white shadow-lg'
+                  : 'bg-gray-100 text-gray-700 hover:bg-primary-100 hover:text-primary-600'
+              }`}
+            >
+              Բոլորը
+            </button>
           </div>
 
           {/* Sort and Results Info */}
