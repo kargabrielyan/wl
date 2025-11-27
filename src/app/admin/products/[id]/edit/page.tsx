@@ -10,6 +10,7 @@ import { ArrowLeft, Save, X, Trash2 } from 'lucide-react'
 import Link from 'next/link'
 import { Product, Category } from '@/types'
 import ImageSelector from '@/components/ImageSelector'
+import MultiImageSelector from '@/components/MultiImageSelector'
 
 const statuses = [
   { value: 'HIT', label: 'Хит продаж' },
@@ -38,6 +39,7 @@ export default function EditProductPage({ params }: EditProductPageProps) {
     salePrice: '',
     categoryId: '',
     image: '',
+    images: [] as string[],  // Дополнительные изображения
     ingredients: '',
     isAvailable: true,
     status: ''
@@ -92,6 +94,16 @@ export default function EditProductPage({ params }: EditProductPageProps) {
         setProduct(productData)
         
         // Заполняем форму данными товара
+        // Парсим images из JSON строки
+        let imagesArray: string[] = []
+        if (productData.images) {
+          try {
+            imagesArray = JSON.parse(productData.images)
+          } catch {
+            imagesArray = []
+          }
+        }
+        
         setFormData({
           name: productData.name || '',
           description: productData.description || '',
@@ -99,6 +111,7 @@ export default function EditProductPage({ params }: EditProductPageProps) {
           salePrice: productData.salePrice?.toString() || '',
           categoryId: productData.categoryId || productData.category?.id || '',
           image: productData.image || '',
+          images: imagesArray,
           ingredients: productData.ingredients || '',
           isAvailable: productData.isAvailable ?? true,
           status: productData.status === 'REGULAR' ? '' : (productData.status || '')
@@ -131,7 +144,7 @@ export default function EditProductPage({ params }: EditProductPageProps) {
     return null
   }
 
-  const handleInputChange = (field: string, value: string | boolean) => {
+  const handleInputChange = (field: string, value: string | boolean | string[]) => {
     setFormData(prev => ({
       ...prev,
       [field]: value
@@ -149,7 +162,8 @@ export default function EditProductPage({ params }: EditProductPageProps) {
         ...formData,
         price: parseFloat(formData.price),
         salePrice: formData.salePrice ? parseFloat(formData.salePrice) : null,
-        ingredients: formData.ingredients || ''
+        ingredients: formData.ingredients || '',
+        images: JSON.stringify(formData.images)  // Сохраняем как JSON строку
       }
 
       const response = await fetch(`/api/admin/products/${productId}`, {
@@ -370,14 +384,23 @@ export default function EditProductPage({ params }: EditProductPageProps) {
                   </select>
                 </div>
 
-                {/* Изображение */}
+                {/* Главное изображение */}
                 <div className="md:col-span-2">
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Изображение товара
+                    Главное изображение товара
                   </label>
                   <ImageSelector
                     value={formData.image}
                     onChange={(imagePath) => handleInputChange('image', imagePath)}
+                  />
+                </div>
+
+                {/* Дополнительные изображения */}
+                <div className="md:col-span-2">
+                  <MultiImageSelector
+                    value={formData.images}
+                    onChange={(images) => handleInputChange('images', images)}
+                    maxImages={10}
                   />
                 </div>
 

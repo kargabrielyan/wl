@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import { MessageCircle, Instagram, Facebook, X } from 'lucide-react'
 
 interface ChatButtonProps {
@@ -15,6 +16,10 @@ export default function ChatButton({
   const [isOpen, setIsOpen] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
   const [isLifted, setIsLifted] = useState(false)
+  const pathname = usePathname()
+
+  // Проверяем находимся ли мы на странице каталога
+  const isProductsPage = pathname === '/products' || pathname.startsWith('/products')
 
   useEffect(() => {
     // Показываем кнопку через 2 секунды после загрузки
@@ -26,8 +31,14 @@ export default function ChatButton({
   }, [])
 
   useEffect(() => {
-    // Отслеживание скролла только для мобильной версии
+    // Отслеживание скролла только для мобильной версии И только на странице каталога
     const handleScroll = () => {
+      // Поднимаем кнопку только на странице /products
+      if (!isProductsPage) {
+        setIsLifted(false)
+        return
+      }
+
       if (window.innerWidth > 768) {
         setIsLifted(false)
         return // Только для мобильных
@@ -57,7 +68,7 @@ export default function ChatButton({
       window.removeEventListener('scroll', handleScroll)
       window.removeEventListener('resize', handleResize)
     }
-  }, [])
+  }, [isProductsPage])
 
   const handleInstagramClick = () => {
     window.open(instagramUrl, '_blank', 'noopener,noreferrer')

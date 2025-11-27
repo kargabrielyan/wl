@@ -45,7 +45,8 @@ model Product {
   description String
   price       Float
   salePrice   Float?        // Цена со скидкой (опционально)
-  image       String
+  image       String        // Главное изображение
+  images      String?       // JSON массив дополнительных изображений
   categoryId  String
   ingredients String
   isAvailable Boolean       @default(true)

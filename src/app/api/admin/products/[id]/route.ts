@@ -95,9 +95,9 @@ export async function PUT(
 
     // Получаем данные из запроса
     const body = await request.json()
-    const { name, description, price, salePrice, categoryId, image, ingredients, isAvailable, status } = body
+    const { name, description, price, salePrice, categoryId, image, images, ingredients, isAvailable, status } = body
     
-    console.log('Update product data:', { id, name, description, price, salePrice, categoryId, image, ingredients, isAvailable, status })
+    console.log('Update product data:', { id, name, description, price, salePrice, categoryId, image, images, ingredients, isAvailable, status })
 
     // Проверяем существование товара
     const existingProduct = await prisma.product.findUnique({
@@ -171,6 +171,7 @@ export async function PUT(
         ...(salePrice !== undefined && { salePrice: salePrice === null || salePrice === '' ? null : salePrice }),
         ...(categoryId && { categoryId }),
         ...(image !== undefined && { image: image || 'no-image' }), // Специальное значение для отсутствия изображения
+        ...(images !== undefined && { images }), // Дополнительные изображения (JSON строка)
         ...(ingredients && { ingredients }),
         ...(isAvailable !== undefined && { isAvailable }),
         ...(status !== undefined && { status: status || 'REGULAR' }) // Если статус пустой, то REGULAR
