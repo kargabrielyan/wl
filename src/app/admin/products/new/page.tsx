@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { ArrowLeft, Save, X } from 'lucide-react'
 import Link from 'next/link'
 import ImageSelector from '@/components/ImageSelector'
+import MultiImageSelector from '@/components/MultiImageSelector'
 import { Category } from '@/types'
 
 const statuses = [
@@ -30,6 +31,7 @@ export default function NewProductPage() {
     salePrice: '',
     categoryId: '',
     image: '',
+    images: [] as string[],  // Дополнительные изображения
     ingredients: '',
     isAvailable: true,
     status: ''
@@ -74,7 +76,7 @@ export default function NewProductPage() {
     return null
   }
 
-  const handleInputChange = (field: string, value: string | boolean) => {
+  const handleInputChange = (field: string, value: string | boolean | string[]) => {
     setFormData(prev => ({
       ...prev,
       [field]: value
@@ -92,7 +94,8 @@ export default function NewProductPage() {
         ...formData,
         price: parseFloat(formData.price),
         salePrice: formData.salePrice ? parseFloat(formData.salePrice) : null,
-        ingredients: formData.ingredients ? formData.ingredients.split(',').map(i => i.trim()) : []
+        ingredients: formData.ingredients || '',
+        images: JSON.stringify(formData.images)  // Сохраняем как JSON строку
       }
 
       const response = await fetch('/api/admin/products', {
@@ -260,14 +263,23 @@ export default function NewProductPage() {
                   </select>
                 </div>
 
-                {/* Изображение */}
+                {/* Главное изображение */}
                 <div className="md:col-span-2">
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Изображение товара
+                    Главное изображение товара
                   </label>
                   <ImageSelector
                     value={formData.image}
                     onChange={(imagePath) => handleInputChange('image', imagePath)}
+                  />
+                </div>
+
+                {/* Дополнительные изображения */}
+                <div className="md:col-span-2">
+                  <MultiImageSelector
+                    value={formData.images}
+                    onChange={(images) => handleInputChange('images', images)}
+                    maxImages={10}
                   />
                 </div>
 
