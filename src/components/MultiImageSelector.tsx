@@ -290,7 +290,7 @@ export default function MultiImageSelector({
         )}
         
         <p className="text-xs text-gray-500 mt-2">
-          Перетаскивайте для изменения порядка. Первое изображение будет главным на карточке.
+          💡 Кликайте на изображения в галерее чтобы выбрать несколько. Перетаскивайте для изменения порядка. Первое изображение будет главным на карточке.
         </p>
       </div>
 
@@ -327,9 +327,16 @@ export default function MultiImageSelector({
       {/* Содержимое вкладок */}
       {activeTab === 'gallery' && (
         <div className="border rounded-lg p-4 bg-gray-50">
-          <h4 className="text-sm font-medium text-gray-700 mb-3">
-            Выберите изображения из галереи
-          </h4>
+          <div className="flex items-center justify-between mb-3">
+            <h4 className="text-sm font-medium text-gray-700">
+              Выберите изображения из галереи (можно выбрать несколько)
+            </h4>
+            {value.length > 0 && (
+              <span className="text-xs text-gray-500">
+                Выбрано: {value.length}/{maxImages}
+              </span>
+            )}
+          </div>
           
           {loadingGallery ? (
             <div className="flex items-center justify-center py-8">
@@ -339,37 +346,64 @@ export default function MultiImageSelector({
           ) : (
             <>
               <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 max-h-64 overflow-y-auto">
-                {images.map((image) => (
-                  <button
-                    key={image.path}
-                    type="button"
-                    className={`relative aspect-square rounded-lg overflow-hidden border-2 transition-all hover:scale-105 ${
-                      value.includes(image.path)
-                        ? 'border-[#f3d98c] ring-2 ring-[#f3d98c]/20'
-                        : 'border-gray-200 hover:border-gray-300'
-                    }`}
-                    onClick={() => toggleImage(image.path)}
-                  >
-                    <Image
-                      src={image.path}
-                      alt={image.name}
-                      fill
-                      sizes="(max-width: 640px) 33vw, (max-width: 768px) 25vw, 16vw"
-                      className="object-cover"
-                    />
-                    {value.includes(image.path) && (
-                      <div className="absolute inset-0 bg-[#f3d98c] bg-opacity-30 flex items-center justify-center">
-                        <Check className="h-6 w-6 text-white drop-shadow-lg" />
-                      </div>
-                    )}
-                  </button>
-                ))}
+                {images.map((image) => {
+                  const isSelected = value.includes(image.path)
+                  return (
+                    <button
+                      key={image.path}
+                      type="button"
+                      className={`relative aspect-square rounded-lg overflow-hidden border-2 transition-all hover:scale-105 ${
+                        isSelected
+                          ? 'border-[#f3d98c] ring-2 ring-[#f3d98c]/50 shadow-lg'
+                          : 'border-gray-200 hover:border-gray-400'
+                      }`}
+                      onClick={() => toggleImage(image.path)}
+                      title={isSelected ? 'Нажмите чтобы убрать' : 'Нажмите чтобы выбрать'}
+                    >
+                      <Image
+                        src={image.path}
+                        alt={image.name}
+                        fill
+                        sizes="(max-width: 640px) 33vw, (max-width: 768px) 25vw, 16vw"
+                        className="object-cover"
+                      />
+                      {/* Индикатор выбора */}
+                      {isSelected && (
+                        <>
+                          <div className="absolute inset-0 bg-[#f3d98c] bg-opacity-40 flex items-center justify-center">
+                            <div className="bg-[#f3d98c] rounded-full p-1.5 shadow-lg">
+                              <Check className="h-5 w-5 text-gray-900" />
+                            </div>
+                          </div>
+                          {/* Номер выбранного изображения */}
+                          <div className="absolute top-1 left-1 bg-[#f3d98c] text-gray-900 text-xs font-bold px-1.5 py-0.5 rounded shadow">
+                            {value.indexOf(image.path) + 1}
+                          </div>
+                        </>
+                      )}
+                      {/* Индикатор что можно выбрать */}
+                      {!isSelected && value.length < maxImages && (
+                        <div className="absolute inset-0 bg-black/0 hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 hover:opacity-100">
+                          <div className="bg-white/90 rounded-full p-1.5">
+                            <Plus className="h-4 w-4 text-gray-700" />
+                          </div>
+                        </div>
+                      )}
+                    </button>
+                  )
+                })}
               </div>
 
               {images.length === 0 && !loadingGallery && (
                 <div className="text-center py-8 text-gray-500">
                   <ImageIcon className="h-12 w-12 mx-auto mb-2 opacity-50" />
                   <p>Изображения не найдены</p>
+                </div>
+              )}
+              
+              {value.length >= maxImages && (
+                <div className="mt-3 p-2 bg-yellow-50 border border-yellow-200 rounded text-xs text-yellow-800 text-center">
+                  Достигнут лимит в {maxImages} изображений. Удалите одно чтобы добавить новое.
                 </div>
               )}
             </>
