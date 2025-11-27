@@ -220,7 +220,7 @@ export default function AdminProducts() {
           </div>
         </div>
 
-        {/* Products List */}
+        {/* Products Table */}
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
           <div className="p-6 border-b border-gray-300">
             <div className="flex items-center justify-between">
@@ -255,88 +255,151 @@ export default function AdminProducts() {
             </div>
           </div>
           
-          <div className="divide-y divide-gray-200">
-            {filteredProducts.map((product) => (
-              <div key={product.id} className="p-6">
-                <div className="flex items-center space-x-4">
-                  {/* Product Image */}
-                  <div className="w-20 h-20 bg-orange-50 rounded-xl flex items-center justify-center overflow-hidden flex-shrink-0">
-                    {product.image && product.image !== 'no-image' ? (
-                      <img 
-                        src={product.image} 
-                        alt={product.name}
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <Package className="h-8 w-8 text-orange-500" />
-                    )}
-                  </div>
-                  
-                  {/* Product Info */}
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                      {product.name}
-                    </h3>
-                    <p className="text-sm text-gray-600 mb-2 line-clamp-2">
-                      {product.description}
-                    </p>
-                    <div className="flex items-center space-x-4 text-sm text-gray-500">
-                      <span>Категория: {product.categoryId || 'Без категории'}</span>
-                      <span>
-                        Цена: {product.salePrice ? (
-                          <span>
-                            <div className="flex items-center gap-2">
-                              <span className="text-green-600 font-bold">{product.salePrice} ֏</span>
-                              <span className="bg-green-500 text-white text-xs px-2 py-1 rounded-full font-bold">
-                                СКИДКА
-                              </span>
+          {/* Таблица товаров */}
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead className="bg-gray-50 border-b border-gray-200">
+                <tr>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                    Изображение
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                    Название
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                    Категория
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                    Цена
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                    Статус
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                    Наличие
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                    Остаток
+                  </th>
+                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                    Действия
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {filteredProducts.map((product) => {
+                  const statusBadge = getStatusBadge(product.status)
+                  return (
+                    <tr key={product.id} className="hover:bg-gray-50 transition-colors">
+                      {/* Изображение */}
+                      <td className="px-4 py-3 whitespace-nowrap">
+                        <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
+                          {product.image && product.image !== 'no-image' ? (
+                            <img 
+                              src={product.image} 
+                              alt={product.name}
+                              className="w-full h-full object-cover"
+                            />
+                          ) : (
+                            <Package className="h-6 w-6 text-gray-400" />
+                          )}
+                        </div>
+                      </td>
+                      
+                      {/* Название */}
+                      <td className="px-4 py-3">
+                        <div className="max-w-xs">
+                          <div className="text-sm font-semibold text-gray-900 truncate">
+                            {product.name}
+                          </div>
+                          <div className="text-xs text-gray-500 line-clamp-2 mt-1">
+                            {product.description}
+                          </div>
+                        </div>
+                      </td>
+                      
+                      {/* Категория */}
+                      <td className="px-4 py-3 whitespace-nowrap">
+                        <span className="text-sm text-gray-900">
+                          {product.category?.name || product.categoryId || 'Без категории'}
+                        </span>
+                      </td>
+                      
+                      {/* Цена */}
+                      <td className="px-4 py-3 whitespace-nowrap">
+                        <div className="text-sm">
+                          {product.salePrice ? (
+                            <div className="flex flex-col gap-1">
+                              <div className="flex items-center gap-2">
+                                <span className="text-green-600 font-bold">{product.salePrice} ֏</span>
+                                <span className="bg-green-500 text-white text-xs px-1.5 py-0.5 rounded font-semibold">
+                                  СКИДКА
+                                </span>
+                              </div>
+                              <span className="text-gray-400 line-through text-xs">{product.price} ֏</span>
                             </div>
-                            <span className="text-gray-400 line-through text-sm">{product.price} ֏</span>
-                          </span>
-                        ) : (
-                          <span>{product.price} ֏</span>
-                        )}
-                      </span>
-                      <span className={`px-2 py-1 rounded-full text-xs ${
-                        product.isAvailable 
-                          ? 'bg-green-100 text-green-800' 
-                          : 'bg-red-100 text-red-800'
-                      }`}>
-                        {product.isAvailable ? 'Доступен' : 'Недоступен'}
-                      </span>
-                      {/* Статус товара */}
-                      {(() => {
-                        const statusBadge = getStatusBadge(product.status)
-                        return statusBadge ? (
-                          <span className={`px-3 py-1 rounded-full text-xs font-semibold border ${statusBadge.className}`}>
+                          ) : (
+                            <span className="text-gray-900 font-semibold">{product.price} ֏</span>
+                          )}
+                        </div>
+                      </td>
+                      
+                      {/* Статус */}
+                      <td className="px-4 py-3 whitespace-nowrap">
+                        {statusBadge ? (
+                          <span className={`px-2 py-1 rounded-full text-xs font-semibold border ${statusBadge.className}`}>
                             {statusBadge.text}
                           </span>
-                        ) : null
-                      })()}
-                    </div>
-                  </div>
-                  
-                  {/* Actions */}
-                  <div className="flex items-center space-x-2">
-                    <Link
-                      href={`/admin/products/${product.id}/edit`}
-                      className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-                      title="Редактировать"
-                    >
-                      <Edit className="h-5 w-5" />
-                    </Link>
-                    
-                    <button
-                      onClick={() => handleDelete(product.id)}
-                      className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                      title="Удалить"
-                    >
-                      <Trash2 className="h-5 w-5" />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
+                        ) : (
+                          <span className="text-xs text-gray-400">Обычный</span>
+                        )}
+                      </td>
+                      
+                      {/* Наличие */}
+                      <td className="px-4 py-3 whitespace-nowrap">
+                        <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                          product.isAvailable 
+                            ? 'bg-green-100 text-green-800' 
+                            : 'bg-red-100 text-red-800'
+                        }`}>
+                          {product.isAvailable ? 'Доступен' : 'Недоступен'}
+                        </span>
+                      </td>
+                      
+                      {/* Остаток */}
+                      <td className="px-4 py-3 whitespace-nowrap">
+                        <span className={`text-sm font-semibold ${
+                          (product.stock || 0) > 0 ? 'text-gray-900' : 'text-red-600'
+                        }`}>
+                          {product.stock || 0} шт.
+                        </span>
+                      </td>
+                      
+                      {/* Действия */}
+                      <td className="px-4 py-3 whitespace-nowrap text-center">
+                        <div className="flex items-center justify-center space-x-2">
+                          <Link
+                            href={`/admin/products/${product.id}/edit`}
+                            className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                            title="Редактировать"
+                          >
+                            <Edit className="h-4 w-4" />
+                          </Link>
+                          
+                          <button
+                            onClick={() => handleDelete(product.id)}
+                            className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                            title="Удалить"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
           </div>
           
           {filteredProducts.length === 0 && (
