@@ -11,7 +11,7 @@
     "db:reset": "prisma migrate reset --force && npm run db:seed",
     "db:migrate": "prisma migrate dev",
     "db:generate": "prisma generate",
-    "db:studio": "prisma studio",
+    "db:studio": "prisma studio --hostname 0.0.0.0 --port 5555",
     "db:push": "prisma db push",
     "db:fix-images": "tsx scripts/fix-product-images.ts",
     "db:delete-products": "tsx scripts/delete-all-products.ts",
